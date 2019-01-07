@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot;
+package org.usfirst.frc.team5026.robot.util;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -37,6 +37,6 @@ public class OI {
 	// button.whileHeld(new ExampleCommand());
 
 	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
+	// until it is finished as determined by its isFinished method.
 	// button.whenReleased(new ExampleCommand());
 }
