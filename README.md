@@ -5,4 +5,4 @@ When adding a new command, put the command in the `commands` folder underneath i
 When adding a new subsystem, create a folder for the subsystem underneath the `subsystems` folder, and create a `commands` folder within it.
 
 When in doubt, just follow the structure that already exists using
-<b>COMMON SENSE</b>
+<b>COMMON SENSE</b>.
