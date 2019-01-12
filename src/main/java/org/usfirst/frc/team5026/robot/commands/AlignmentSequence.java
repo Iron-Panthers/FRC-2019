@@ -9,11 +9,11 @@ package org.usfirst.frc.team5026.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class LinePath extends CommandGroup {
+public class AlignmentSequence extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public LinePath() {
+  public AlignmentSequence() {
     addSequential(new DriveToLine());
     addSequential(new FollowLine());
     // Add Commands here:
