@@ -12,5 +12,8 @@ public class Constants {
 
         // DRIVEBASE CONSTANTS
     }
+
+    public static final double ODS_TAPE_VALUE = 0; //TODO
+    public static final double BIGWALL = 10000; //TODO
     
 }

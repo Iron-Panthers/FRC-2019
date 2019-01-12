@@ -7,11 +7,22 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.commands.LinePath;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	Joystick stick = new Joystick(0);
+	JoystickButton button1;
+	public OI(){
+		button1 = new JoystickButton(stick, 1);
+		button1.whenPressed(new LinePath());
+	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
