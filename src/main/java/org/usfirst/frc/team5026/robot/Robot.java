@@ -55,8 +55,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
+		
 
 	}
 
@@ -127,6 +126,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		System.out.println("hi");
+		System.out.println(hardware.frontLightSensorLeft.getVoltage());
+		System.out.println(hardware.frontLightSensorRight.getVoltage());
 		Scheduler.getInstance().run();
 	}
 
