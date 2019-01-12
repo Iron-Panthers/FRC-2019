@@ -1,5 +1,3 @@
-// THIS IS A PLACEHOLDER, DELTE IT ONCE THIS FOLDER HAS OTHER STUFF IN IT
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -9,10 +7,17 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Placeholder extends Command {
-  public Placeholder() {
+public class DriveToLine extends Command {
+  boolean sensorTriggered = false;
+
+  public DriveToLine() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,12 +30,20 @@ public class Placeholder extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.ODS_TAPE_VALUE) {
+      sensorTriggered = true;
+    } else if (Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_VALUE) {
+      sensorTriggered = true;
+    } else {
+      Robot.hardware.leftM.set(ControlMode.PercentOutput, .5);
+      Robot.hardware.rightM.set(ControlMode.PercentOutput, .5);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return sensorTriggered;
   }
 
   // Called once after isFinished returns true

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.commands;
+package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 

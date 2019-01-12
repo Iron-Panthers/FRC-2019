@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
-import org.usfirst.frc.team5026.robot.commands.LinePath;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.AlignmentSequence;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -21,7 +21,7 @@ public class OI {
 	JoystickButton button1;
 	public OI(){
 		button1 = new JoystickButton(stick, 1);
-		button1.whenPressed(new LinePath());
+		button1.whenPressed(new AlignmentSequence());
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
