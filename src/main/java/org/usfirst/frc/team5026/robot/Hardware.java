@@ -23,8 +23,9 @@ public class Hardware {
     public Hardware() {
         leftM = new TalonSRX(1);
         rightM = new TalonSRX(9);
+        rightM.setInverted(true);
 
-        frontLightSensorLeft = new AnalogInput(0);
-        frontLightSensorRight = new AnalogInput(1);
+        frontLightSensorLeft = new AnalogInput(1);
+        frontLightSensorRight = new AnalogInput(0);
     }
 }

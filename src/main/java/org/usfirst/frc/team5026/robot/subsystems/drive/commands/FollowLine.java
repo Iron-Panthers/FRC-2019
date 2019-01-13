@@ -28,8 +28,8 @@ public class FollowLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftMPower = 1 - Robot.hardware.frontLightSensorLeft.getVoltage()/5 + Robot.hardware.frontLightSensorRight.getVoltage()/5;
-    double rightMPower = 1 + Robot.hardware.frontLightSensorLeft.getVoltage()/5 - Robot.hardware.frontLightSensorRight.getVoltage()/5;
+    double leftMPower = .15 + 2 * (-Robot.hardware.frontLightSensorLeft.getVoltage()/5 + Robot.hardware.frontLightSensorRight.getVoltage()/5);
+    double rightMPower = .15 + 2 * (Robot.hardware.frontLightSensorLeft.getVoltage()/5 - Robot.hardware.frontLightSensorRight.getVoltage()/5);
     
     Robot.hardware.leftM.set(ControlMode.PercentOutput, leftMPower);
     Robot.hardware.rightM.set(ControlMode.PercentOutput, rightMPower);

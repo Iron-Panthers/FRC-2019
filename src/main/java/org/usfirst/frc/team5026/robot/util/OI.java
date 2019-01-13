@@ -21,7 +21,7 @@ public class OI {
 	JoystickButton button1;
 	public OI(){
 		button1 = new JoystickButton(stick, 1);
-		button1.whenPressed(new AlignmentSequence());
+		button1.whileHeld(new AlignmentSequence());
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a

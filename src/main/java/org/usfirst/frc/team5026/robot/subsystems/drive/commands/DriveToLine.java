@@ -35,8 +35,8 @@ public class DriveToLine extends Command {
     } else if (Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_VALUE) {
       sensorTriggered = true;
     } else {
-      Robot.hardware.leftM.set(ControlMode.PercentOutput, .5);
-      Robot.hardware.rightM.set(ControlMode.PercentOutput, .5);
+      Robot.hardware.leftM.set(ControlMode.PercentOutput, .15);
+      Robot.hardware.rightM.set(ControlMode.PercentOutput, .15);
     }
   }
 
