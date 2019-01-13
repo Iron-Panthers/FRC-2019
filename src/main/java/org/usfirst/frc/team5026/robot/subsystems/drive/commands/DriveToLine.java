@@ -15,7 +15,6 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveToLine extends Command {
-  boolean sensorTriggered = false;
 
   public DriveToLine() {
     // Use requires() here to declare subsystem dependencies
@@ -30,20 +29,17 @@ public class DriveToLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.ODS_TAPE_VALUE) {
-      sensorTriggered = true;
-    } else if (Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_VALUE) {
-      sensorTriggered = true;
-    } else {
-      Robot.hardware.leftM.set(ControlMode.PercentOutput, .15);
-      Robot.hardware.rightM.set(ControlMode.PercentOutput, .15);
-    }
+    Robot.hardware.leftM.set(ControlMode.PercentOutput, Constants.DRIVE_TO_LINE_SPD);
+    Robot.hardware.rightM.set(ControlMode.PercentOutput, Constants.DRIVE_TO_LINE_SPD);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return sensorTriggered;
+    return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN && 
+    Robot.hardware.backLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN ||
+    Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN && 
+    Robot.hardware.backLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN ;
   }
 
   // Called once after isFinished returns true

@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 public class Hardware {
     public AnalogInput frontLightSensorLeft;
     public AnalogInput frontLightSensorRight;
+    public AnalogInput backLightSensorLeft;
+    public AnalogInput backLightSensorRight;
     public TalonSRX leftM;
     public TalonSRX rightM;
 
@@ -27,5 +29,7 @@ public class Hardware {
 
         frontLightSensorLeft = new AnalogInput(1);
         frontLightSensorRight = new AnalogInput(0);
+        backLightSensorLeft = new AnalogInput(2);
+        backLightSensorRight = new AnalogInput(3);
     }
 }

@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
 	public static Drive m_drive = new Drive();
 	public static OI m_oi;
 	public static Hardware hardware;
+	public static Drive drive;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		hardware = new Hardware();
+		drive = new Drive();
 		m_oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
@@ -55,8 +57,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
-		
-
 	}
 
 	/**

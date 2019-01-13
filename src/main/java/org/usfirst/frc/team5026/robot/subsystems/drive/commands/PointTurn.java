@@ -10,12 +10,17 @@ package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import org.usfirst.frc.team5026.robot.Robot;
+
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class FollowLine extends Command {
-  public FollowLine() {
+public class PointTurn extends Command {
+  double leftFrontVoltage;
+  double rightFrontVoltage;
+  double leftBackVoltage;
+  double rightBackVoltage;
+  public PointTurn() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -28,25 +33,26 @@ public class FollowLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftMPower = Constants.LINEFOLLOW_BASE_POWER + Constants.LINEFOLLOW_REACTION_POWER * (-Robot.hardware.frontLightSensorLeft.getVoltage()/5 + Robot.hardware.frontLightSensorRight.getVoltage()/5);
-    double rightMPower = Constants.LINEFOLLOW_BASE_POWER + Constants.LINEFOLLOW_REACTION_POWER * (Robot.hardware.frontLightSensorLeft.getVoltage()/5 - Robot.hardware.frontLightSensorRight.getVoltage()/5);
-    
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, leftMPower);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, rightMPower);
+    leftFrontVoltage = Robot.hardware.frontLightSensorLeft.getVoltage();
+    rightFrontVoltage = Robot.hardware.frontLightSensorRight.getVoltage();
+    leftBackVoltage = Robot.hardware.backLightSensorLeft.getVoltage();
+    rightBackVoltage = Robot.hardware.backLightSensorRight.getVoltage();
 
+    Robot.hardware.leftM.set(ControlMode.PercentOutput, -(leftFrontVoltage + rightBackVoltage) + 
+    (rightFrontVoltage + leftBackVoltage));
+    Robot.hardware.rightM.set(ControlMode.PercentOutput, (leftFrontVoltage + rightBackVoltage) - 
+    (rightFrontVoltage + leftBackVoltage));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.hardware.rightM.getOutputCurrent() > Constants.BIGWALL;
+    return (leftFrontVoltage + rightBackVoltage) - (rightFrontVoltage + leftBackVoltage) < Constants.ACCEPTABLE_STRAIGHTNESS;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, 0);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, 0);
   }
 
   // Called when another command which requires one or more of the same
