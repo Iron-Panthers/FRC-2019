@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AlignmentSequence extends CommandGroup {
   /**
-   * Add your docs here.
+   * Aligns the robot to a line on the ground. Requires that the robot is pointing toward the line already
    */
   public AlignmentSequence() {
     addSequential(new DriveToLine());
