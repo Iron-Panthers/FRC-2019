@@ -16,52 +16,53 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class PointTurn extends Command {
-  double leftFrontVoltage;
-  double rightFrontVoltage;
-  double leftBackVoltage;
-  double rightBackVoltage;
-  public PointTurn() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.drive);
-  }
+	double leftFrontVoltage;
+	double rightFrontVoltage;
+	double leftBackVoltage;
+	double rightBackVoltage;
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+	public PointTurn() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.drive);
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    leftFrontVoltage = Robot.hardware.frontLightSensorLeft.getVoltage();
-    rightFrontVoltage = Robot.hardware.frontLightSensorRight.getVoltage();
-    leftBackVoltage = Robot.hardware.backLightSensorLeft.getVoltage();
-    rightBackVoltage = Robot.hardware.backLightSensorRight.getVoltage();
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+	}
 
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, -(leftFrontVoltage + rightBackVoltage) + 
-    (rightFrontVoltage + leftBackVoltage));
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, (leftFrontVoltage + rightBackVoltage) - 
-    (rightFrontVoltage + leftBackVoltage));
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		leftFrontVoltage = Robot.hardware.frontLightSensorLeft.getVoltage();
+		rightFrontVoltage = Robot.hardware.frontLightSensorRight.getVoltage();
+		leftBackVoltage = Robot.hardware.backLightSensorLeft.getVoltage();
+		rightBackVoltage = Robot.hardware.backLightSensorRight.getVoltage();
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return (leftFrontVoltage + rightBackVoltage) - (rightFrontVoltage + leftBackVoltage) < Constants.ACCEPTABLE_STRAIGHTNESS;
-  }
+		double leftPower = -(leftFrontVoltage + rightBackVoltage) + (rightFrontVoltage + leftBackVoltage);
+		double rightPower = (leftFrontVoltage + rightBackVoltage) - (rightFrontVoltage + leftBackVoltage);
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
+		Robot.drive.move(leftPower, rightPower);
+	}
 
-  }
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
+	protected boolean isFinished() {
+		return (leftFrontVoltage + rightBackVoltage)
+				- (rightFrontVoltage + leftBackVoltage) < Constants.LineFollow.ACCEPTABLE_STRAIGHTNESS;
+	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, 0);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, 0);
-  }
+	// Called once after isFinished returns true
+	@Override
+	protected void end() {
+		Robot.drive.stop();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+		Robot.drive.stop();
+	}
 }

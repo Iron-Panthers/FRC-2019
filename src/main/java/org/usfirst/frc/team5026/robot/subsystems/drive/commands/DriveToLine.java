@@ -16,41 +16,37 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveToLine extends Command {
 
-  public DriveToLine() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.drive);
-  }
+	public DriveToLine() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.drive);
+	}
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, Constants.DRIVE_TO_LINE_SPD);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, Constants.DRIVE_TO_LINE_SPD);
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		Robot.drive.move(Constants.LineFollow.DRIVE_TO_LINE_SPD);
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN && 
-    Robot.hardware.backLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN ||
-    Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN && 
-    Robot.hardware.backLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN ;
-  }
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
+	protected boolean isFinished() {
+		return Robot.drive.isLine();
+	}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+	// Called once after isFinished returns true
+	@Override
+	protected void end() {
+	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+	}
 }
