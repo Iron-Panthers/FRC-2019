@@ -7,18 +7,43 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
+import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
+import org.usfirst.frc.team5026.robot.util.MotorGroup;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Add your docs here.
+ * The drive subsystem. This contains MotorGroups for the left and right
+ * drivebase motors.
  */
 public class Drive extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+	private MotorGroup left = Robot.hardware.leftDriveMotors;
+	private MotorGroup right = Robot.hardware.rightDriveMotors;
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+	/**
+	 * My powers have doubled since we last met. Set the power of MotorGroups in the
+	 * drivebase.
+	 * 
+	 * @param leftPower  the power to set for the left motor group.
+	 * @param rightPower the power to set for the right motor group.
+	 */
+	public void set(double leftPower, double rightPower) {
+		left.set(leftPower);
+		right.set(rightPower);
+	}
+
+	/**
+	 * Things the subsystem should do at init of new phases.
+	 */
+	public void reset() {
+		left.stop();
+		right.stop();
+	}
+
+	@Override
+	public void initDefaultCommand() {
+		// Pick one of the drive mode commands.
+		setDefaultCommand(new ArcadeDrive());
+	}
 }

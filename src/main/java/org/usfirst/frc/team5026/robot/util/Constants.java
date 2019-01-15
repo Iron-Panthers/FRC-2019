@@ -7,10 +7,25 @@ package org.usfirst.frc.team5026.robot.util;
  */
 public class Constants {
 
+    // TODO adjust drivebase constants
     public class Drivebase {
-        // DRIVEBASE PORTS
+        /** DRIVEBASE PORTS */
+        public static final int DRIVE_R1_PORT = 1;
+        public static final int DRIVE_R2_PORT = 1;
+        public static final int DRIVE_L1_PORT = 9;
+        public static final int DRIVE_L2_PORT = 3;
 
-        // DRIVEBASE CONSTANTS
+        /** DRIVEBASE CONSTANTS */
+        public static final double DRIVEBASE_WIDTH = 30; // inches
     }
-    
+
+    // TODO tune input constants
+    public class Input {
+        /** DEVICE PORTS */
+        public static final int JOYSTICK_1_PORT = 0;
+
+        /** OTHER INPUT CONSTANTS */
+        public static final double JOYSTICK_DEADBAND = 0.1;
+        public static final double MAX_DESIRED_TURN_RADIUS = 40;
+    }
 }
