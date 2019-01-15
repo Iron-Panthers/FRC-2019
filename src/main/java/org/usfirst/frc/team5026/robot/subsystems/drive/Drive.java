@@ -23,60 +23,56 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drive extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	//Drive Motors
+	// Drive Motors
 	public TalonSRX leftMotor;
 	public TalonSRX rightMotor;
 
-	//LineFollow Sensors
-
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new DriveWithJoystick());
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-
-	public Drive(){
+	public Drive() {
 		leftMotor = Robot.hardware.leftM;
 		rightMotor = Robot.hardware.rightM;
 	}
 
 	/**
 	 * Moves by using one power to set both sides to
+	 * 
 	 * @param power Percent Output
 	 */
-	public void move(double power){
+	public void move(double power) {
 		leftMotor.set(ControlMode.PercentOutput, power);
 		rightMotor.set(ControlMode.PercentOutput, power);
 	}
+
 	/**
 	 * Moves by setting left power and right power seperately
-	 * @param leftPower Percent Output
+	 * 
+	 * @param leftPower  Percent Output
 	 * @param rightPower Percent Output
 	 */
-	public void move(double leftPower, double rightPower){
+	public void move(double leftPower, double rightPower) {
 		leftMotor.set(ControlMode.PercentOutput, leftPower);
 		rightMotor.set(ControlMode.PercentOutput, rightPower);
 	}
 
-	public void stop(){
+	public void stop() {
 		move(0);
 	}
 
-	//LineFollow methods
-	public boolean isLine(){
+	// LineFollow methods
+	public boolean isLine() {
 		return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
 				&& Robot.hardware.backLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
 				|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
 						&& Robot.hardware.backLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
 	}
 
-	public boolean hasHitWall(){
-		return (rightMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL) || (leftMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL);
+	public boolean hasHitWall() {
+		return (rightMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL)
+				|| (leftMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL);
 	}
 
 	@Override
 	public void initDefaultCommand() {
+		setDefaultCommand(new DriveWithJoystick());
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
