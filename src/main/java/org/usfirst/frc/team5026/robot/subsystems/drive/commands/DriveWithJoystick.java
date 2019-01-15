@@ -10,13 +10,11 @@ package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveToLine extends Command {
-
-  public DriveToLine() {
+public class DriveWithJoystick extends Command {
+  public DriveWithJoystick() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.drive);
@@ -30,33 +28,24 @@ public class DriveToLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, Constants.DRIVE_TO_LINE_SPD);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, Constants.DRIVE_TO_LINE_SPD);
+    Robot.hardware.leftM.set(ControlMode.PercentOutput, -(Robot.m_oi.joystick.getY() - Robot.m_oi.joystick.getX()));
+    Robot.hardware.rightM.set(ControlMode.PercentOutput, -(Robot.m_oi.joystick.getY() + Robot.m_oi.joystick.getX()));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN && 
-    // Robot.hardware.backLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN ||
-    // Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN && 
-    // Robot.hardware.backLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN ;
-    return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.ODS_TAPE_SEEN ||
-    Robot.hardware.frontLightSensorRight.getVoltage() > Constants.ODS_TAPE_SEEN;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, 0);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, 0);
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, 0);
   }
 }

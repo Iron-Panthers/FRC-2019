@@ -15,7 +15,7 @@ public class AlignmentSequence extends CommandGroup {
    */
   public AlignmentSequence() {
     addSequential(new DriveToLine());
-    addSequential(new PointTurn());
+    // addSequential(new PointTurn());
     addSequential(new FollowLine());
     // Add Commands here:
     // e.g. addSequential(new Command1());

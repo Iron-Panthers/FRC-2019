@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveWithJoystick;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -19,6 +21,7 @@ public class Drive extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new DriveWithJoystick());
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }

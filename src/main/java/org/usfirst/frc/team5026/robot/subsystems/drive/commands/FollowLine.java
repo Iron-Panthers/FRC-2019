@@ -18,6 +18,7 @@ public class FollowLine extends Command {
   public FollowLine() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.drive);
   }
 
   // Called just before this Command runs the first time
@@ -53,5 +54,7 @@ public class FollowLine extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.hardware.leftM.set(ControlMode.PercentOutput, 0);
+    Robot.hardware.rightM.set(ControlMode.PercentOutput, 0);
   }
 }
