@@ -19,8 +19,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	Joystick stick = new Joystick(0);
 	JoystickButton button1;
+	public Joystick joystick;
 
 	public OI(){
+		joystick = new Joystick(0);
 		button1 = new JoystickButton(stick, 1);
 		AlignmentSequence alignmentSequence = new AlignmentSequence();
 		button1.toggleWhenPressed(alignmentSequence);

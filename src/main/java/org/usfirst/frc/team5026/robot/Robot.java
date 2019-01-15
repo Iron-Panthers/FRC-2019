@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static Drive m_drive = new Drive();
 	public static OI m_oi;
 	public static Hardware hardware;
 	public static Drive drive;

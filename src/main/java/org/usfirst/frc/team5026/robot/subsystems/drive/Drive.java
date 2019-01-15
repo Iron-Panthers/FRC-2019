@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveWithJoystick;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -27,6 +29,12 @@ public class Drive extends Subsystem {
 
 	//LineFollow Sensors
 
+  @Override
+  public void initDefaultCommand() {
+    setDefaultCommand(new DriveWithJoystick());
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+  }
 
 	public Drive(){
 		leftMotor = Robot.hardware.leftM;
