@@ -30,10 +30,10 @@ public class FollowLine extends Command {
 	@Override
 	protected void execute() {
 		//5 is the max output voltage for the sensors
-		double leftMPower = Constants.LineFollow.LINEFOLLOW_BASE_POWER
+		double leftMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * Robot.hardware.centerLightSensor.getVoltage()
 				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (-Robot.hardware.frontLightSensorLeft.getVoltage() / 5
 						+ Robot.hardware.frontLightSensorRight.getVoltage() / 5);
-		double rightMPower = Constants.LineFollow.LINEFOLLOW_BASE_POWER
+		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * Robot.hardware.centerLightSensor.getVoltage()
 				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (Robot.hardware.frontLightSensorLeft.getVoltage() / 5
 						- Robot.hardware.frontLightSensorRight.getVoltage() / 5);
 

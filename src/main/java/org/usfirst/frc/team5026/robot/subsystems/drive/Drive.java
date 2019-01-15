@@ -60,9 +60,8 @@ public class Drive extends Subsystem {
 	// LineFollow methods
 	public boolean isLine() {
 		return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
-				&& Robot.hardware.backLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
 				|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
-						&& Robot.hardware.backLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
+						|| Robot.hardware.centerLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
 	}
 
 	public boolean hasHitWall() {

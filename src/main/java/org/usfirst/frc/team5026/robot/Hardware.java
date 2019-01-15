@@ -19,6 +19,7 @@ public class Hardware {
     public AnalogInput frontLightSensorRight;
     public AnalogInput backLightSensorLeft;
     public AnalogInput backLightSensorRight;
+    public AnalogInput centerLightSensor;
     public TalonSRX leftM;
     public TalonSRX rightM;
 
@@ -31,5 +32,6 @@ public class Hardware {
         frontLightSensorRight = new AnalogInput(0);
         backLightSensorLeft = new AnalogInput(2);
         backLightSensorRight = new AnalogInput(3);
+        centerLightSensor = new AnalogInput(4);
     }
 }
