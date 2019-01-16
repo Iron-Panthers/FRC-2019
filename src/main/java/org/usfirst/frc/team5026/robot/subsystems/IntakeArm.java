@@ -31,7 +31,7 @@ public class IntakeArm extends Subsystem {
     armMotor.setSelectedSensorPosition(0);
   }
   public double getCurrentAngle(){
-    currentAngle = Constants.IntakeArm.TICKS_TO_DEGREES* armMotor.getSelectedSensorPosition();
+    currentAngle = Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition();
     return currentAngle;
   }
   public void moveArm(double power) {
@@ -40,4 +40,6 @@ public class IntakeArm extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand())    
+    // setDefaultCommand(new MySpecialCommand())
+  }
+}
