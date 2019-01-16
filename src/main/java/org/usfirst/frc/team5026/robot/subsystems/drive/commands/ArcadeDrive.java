@@ -8,15 +8,15 @@
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArcadeDrive extends Command {
 
 	private double leftPower, rightPower;
-	private Joystick stick = Robot.oi.stick1;
+	private JoystickWrapper stick = Robot.oi.stick1;
 
 	public ArcadeDrive() {
 		requires(Robot.drive);
@@ -31,8 +31,8 @@ public class ArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		rightPower = stick.getY() - stick.getX();
-		leftPower = stick.getX() + stick.getY();
+		rightPower = stick.findRightPower();
+		leftPower = stick.findLeftPower();
 		Robot.drive.set(leftPower, rightPower);
 	}
 

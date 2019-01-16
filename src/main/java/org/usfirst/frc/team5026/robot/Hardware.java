@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -30,5 +31,8 @@ public class Hardware {
         driveLeft2 = new TalonSRX(Constants.Drivebase.DRIVE_L2_PORT);
         rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
         leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
+
+        rightDriveMotors.setNeutralMode(NeutralMode.Brake);
+        leftDriveMotors.setNeutralMode(NeutralMode.Brake);
     }
 }

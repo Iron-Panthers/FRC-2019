@@ -2,15 +2,15 @@ package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RadiusDrive extends Command {
 
 	private double turnPower, straightPower, innerPower, turnRadius;
-	private Joystick stick = Robot.oi.stick1;
+	private JoystickWrapper stick = Robot.oi.stick1;
 
 	public RadiusDrive() {
 		requires(Robot.drive);

@@ -11,7 +11,7 @@ public class Constants {
     public class Drivebase {
         /** DRIVEBASE PORTS */
         public static final int DRIVE_R1_PORT = 1;
-        public static final int DRIVE_R2_PORT = 1;
+        public static final int DRIVE_R2_PORT = 2;
         public static final int DRIVE_L1_PORT = 9;
         public static final int DRIVE_L2_PORT = 3;
 
@@ -26,6 +26,7 @@ public class Constants {
 
         /** OTHER INPUT CONSTANTS */
         public static final double JOYSTICK_DEADBAND = 0.1;
+        public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
         public static final double MAX_DESIRED_TURN_RADIUS = 40;
     }
 }
