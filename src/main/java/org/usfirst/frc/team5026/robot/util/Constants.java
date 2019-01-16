@@ -12,5 +12,10 @@ public class Constants {
 
         // DRIVEBASE CONSTANTS
     }
-    
+    public class IntakeArm{
+        public static final double TICKS_TO_DEGREES = 1;
+        public static final double ARM_LENGTH = 1;
+        public static final double CARGO_SHIP_HEIGHT = 1;
+        public static final double ROCKET_LOW_HEIGHT = 1;
+    }
 }
