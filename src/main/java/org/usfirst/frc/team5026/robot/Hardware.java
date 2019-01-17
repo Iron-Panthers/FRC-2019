@@ -9,12 +9,15 @@ package org.usfirst.frc.team5026.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import org.usfirst.frc.team5026.robot.util.Constants;
+
 /**
  * Add your docs here.
  */
 public class Hardware {
     public TalonSRX armMotor;
+
     public Hardware(){
-        armMotor = new TalonSRX(0);
+        armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
     }
 }

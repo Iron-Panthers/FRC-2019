@@ -12,11 +12,13 @@ public class Constants {
 
         // DRIVEBASE CONSTANTS
     }
-    public class IntakeArm { //TODO CALIBRATE
-        public static final double TICKS_TO_DEGREES = 1;
-        public static final double ARM_LENGTH = 1;
-        public static final double CARGO_SHIP_HEIGHT = 1;
-        public static final double ROCKET_LOW_HEIGHT = 1;
+    public class IntakeArm { //TODO Calibrate/Set Ports
+        public static final int INTAKE_ARM_MOTOR_PORT = 0;
+
+        public static final double TICKS_TO_DEGREES = 365 / 1; //Change the 1 to ticks per rotation
+        public static final double ARM_LENGTH = 1; //Not used
+        public static final double CARGO_SHIP_ANGLE = 1;
+        public static final double ROCKET_LOW_ANGLE = 1;
 
         public static final double INTAKE_ARM_P = 1;
         public static final double INTAKE_ARM_I = 0; 

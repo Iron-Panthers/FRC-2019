@@ -19,24 +19,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Add your docs here.
  */
 public class IntakeArm extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   public TalonSRX armMotor;
   public double currentHeight;
   public double currentAngle;
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
+
   public IntakeArm(){
     armMotor = Robot.hardware.armMotor;
   }
+
   public void resetEncoder(){
     armMotor.setSelectedSensorPosition(0);
   }
+
   public double getCurrentAngle(){
     currentAngle = Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition();
     return currentAngle;
   }
+
   public void moveArm(double power) {
     armMotor.set(ControlMode.PercentOutput, power);
   }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

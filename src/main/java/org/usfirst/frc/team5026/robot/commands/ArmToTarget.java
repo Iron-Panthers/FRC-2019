@@ -14,16 +14,17 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ArmToTarget extends Command {
 
-  public double target;
-  public double currentError;
-  public double errorSum;
-  public double errorChange;
+  private double target;
+  private double currentError;
+  private double errorSum;
+  private double errorChange;
   private double lastError;
   private long lastTimeOutOfThreshold;
 
   public ArmToTarget() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    this.target = 0;
     requires(Robot.intakeArm);
   }
 
