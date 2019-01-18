@@ -28,8 +28,7 @@ public class DriveWithJoystick extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.hardware.leftM.set(ControlMode.PercentOutput, -(Robot.m_oi.joystick.getY() - Robot.m_oi.joystick.getX()));
-    Robot.hardware.rightM.set(ControlMode.PercentOutput, -(Robot.m_oi.joystick.getY() + Robot.m_oi.joystick.getX()));
+    Robot.drive.move(-(Robot.m_oi.joystick.getY() - Robot.m_oi.joystick.getX()) / 3, -(Robot.m_oi.joystick.getY() + Robot.m_oi.joystick.getX()) / 3);
   }
 
   // Make this return true when this Command no longer needs to run execute()

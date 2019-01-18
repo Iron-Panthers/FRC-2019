@@ -38,8 +38,8 @@ public class Drive extends Subsystem {
 	 * @param power Percent Output
 	 */
 	public void move(double power) {
-		leftMotor.set(ControlMode.PercentOutput, power/2);
-		rightMotor.set(ControlMode.PercentOutput, power/2);
+		leftMotor.set(ControlMode.PercentOutput, power);
+		rightMotor.set(ControlMode.PercentOutput, power);
 	}
 
 	/**
