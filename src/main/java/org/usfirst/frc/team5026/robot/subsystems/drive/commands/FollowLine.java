@@ -36,7 +36,9 @@ public class FollowLine extends Command {
 		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * Robot.hardware.centerLightSensor.getVoltage()
 				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (Robot.hardware.frontLightSensorLeft.getVoltage() / 5
 						- Robot.hardware.frontLightSensorRight.getVoltage() / 5);
-
+		System.out.println("Left Power: " + leftMPower);
+		System.out.println("Right Power: " + rightMPower);
+		System.out.println("Output Current: " + Robot.hardware.rightM.getOutputCurrent());
 		Robot.drive.move(leftMPower, rightMPower);
 
 	}
