@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
+		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
+		//System.out.println(hardware.frontLightSensorRight.getVoltage());
 		Scheduler.getInstance().run();
 	}
 
@@ -136,9 +136,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("hi");
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
+		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
+		//System.out.println(hardware.frontLightSensorRight.getVoltage());
 		Scheduler.getInstance().run();
 	}
 
