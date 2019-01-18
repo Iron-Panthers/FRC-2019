@@ -10,9 +10,6 @@ package org.usfirst.frc.team5026.robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.util.OI;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -44,10 +41,6 @@ public class Robot extends TimedRobot {
 		hardware = new Hardware();
 		drive = new Drive();
 		m_oi = new OI();
-		CameraServer camera = CameraServer.getInstance();
-		UsbCamera cam1 = camera.startAutomaticCapture("cam0", 0);
-		cam1.setResolution(256, 144);
-		cam1.setFPS(15);
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -77,8 +70,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
 		Scheduler.getInstance().run();
 	}
 
@@ -137,8 +128,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		System.out.println("hi");
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
 		Scheduler.getInstance().run();
 	}
 

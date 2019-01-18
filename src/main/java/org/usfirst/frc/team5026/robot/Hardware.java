@@ -15,11 +15,6 @@ import edu.wpi.first.wpilibj.AnalogInput;
  * Add your docs here.
  */
 public class Hardware {
-    public AnalogInput frontLightSensorLeft;
-    public AnalogInput frontLightSensorRight;
-    public AnalogInput backLightSensorLeft;
-    public AnalogInput backLightSensorRight;
-    public AnalogInput centerLightSensor;
     public TalonSRX leftM;
     public TalonSRX rightM;
 
@@ -27,11 +22,5 @@ public class Hardware {
         leftM = new TalonSRX(1);
         rightM = new TalonSRX(9);
         rightM.setInverted(true);
-
-        frontLightSensorLeft = new AnalogInput(1);
-        frontLightSensorRight = new AnalogInput(0);
-        backLightSensorLeft = new AnalogInput(2);
-        backLightSensorRight = new AnalogInput(3);
-        centerLightSensor = new AnalogInput(4);
     }
 }

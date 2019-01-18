@@ -57,18 +57,6 @@ public class Drive extends Subsystem {
 		move(0);
 	}
 
-	// LineFollow methods
-	public boolean isLine() {
-		return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
-				|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
-						|| Robot.hardware.centerLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
-	}
-
-	public boolean hasHitWall() {
-		return (rightMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL)
-				|| (leftMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL);
-	}
-
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoystick());
