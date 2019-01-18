@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorGroup {
     private String motorGroupName;
     private TalonSRX masterMotor;
-    private TalonSRX[] motors;
+    private IMotorController[] motors;
 
     /**
      * MotorGroup is a flexible-size grouping of TalonSRX
@@ -19,8 +20,8 @@ public class MotorGroup {
      * @param motors         the motors to include in the MotorGroup. First motor is
      *                       assumed to be the "leader motor"
      */
-    public MotorGroup(String motorGroupName, TalonSRX... motors) {
-        this.masterMotor = motors[0];
+    public MotorGroup(String motorGroupName, TalonSRX masterMotor, IMotorController... motors) {
+        this.masterMotor = masterMotor;
         this.motors = motors;
         this.motorGroupName = motorGroupName;
         followMaster();
@@ -30,7 +31,7 @@ public class MotorGroup {
      * Sets all the non-master motors to follow the masterMotor
      */
     void followMaster() {
-        for (TalonSRX motor : this.motors) {
+        for (IMotorController motor : this.motors) {
             motor.follow(this.masterMotor);
         }
     }
@@ -58,7 +59,7 @@ public class MotorGroup {
      */
     public void set(double power) {
         masterMotor.set(ControlMode.PercentOutput, power);
-        for (TalonSRX motor : this.motors) {
+        for (IMotorController motor : this.motors) {
             SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(), motor.getMotorOutputPercent());
         }
     }
@@ -77,7 +78,7 @@ public class MotorGroup {
      */
     public void setTarget(double target) {
         masterMotor.set(ControlMode.MotionMagic, target);
-        for (TalonSRX motor : this.motors) {
+        for (IMotorController motor : this.motors) {
             SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(), motor.getMotorOutputPercent());
         }
     }
@@ -88,7 +89,7 @@ public class MotorGroup {
      * @param neutralMode desired neutral mode (brake/coast)
      */
     public void setNeutralMode(NeutralMode neutralMode) {
-        for (TalonSRX motor : this.motors) {
+        for (IMotorController motor : this.motors) {
             motor.setNeutralMode(neutralMode);
         }
 	}
@@ -97,7 +98,7 @@ public class MotorGroup {
 	 * @param isInverted boolean isInverted (true/false)
 	 */
 	public void setInverted(boolean isInverted) {
-		for (TalonSRX motor : this.motors) {
+		for (IMotorController motor : this.motors) {
 			motor.setInverted(isInverted);
 		}
 	}
