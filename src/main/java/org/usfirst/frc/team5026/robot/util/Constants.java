@@ -23,11 +23,11 @@ public class Constants {
 		//linefollow cmd is called but before it gets to the line
 		public static final double LINEFOLLOW_BASE_POWER = .15; //the base power that the robot drives forward
 		//during LineFollow, regardless of the line's position
-		public static final double LINEFOLLOW_REACTION_POWER = 5; // the weight that the robot gives to
+		public static final double LINEFOLLOW_REACTION_POWER = 3; // the weight that the robot gives to
 		//driving right or left based on the  outer sensor's values
         public static final double ACCEPTABLE_STRAIGHTNESS = .25; //not currently in use
         
-        public static final double LINEFOLLOW_INNER_POWER = 5; // the weight that the robot gives to
+        public static final double LINEFOLLOW_INNER_POWER = 3; // the weight that the robot gives to
 		//driving straight based on the center sensor's value
 	}
 }
