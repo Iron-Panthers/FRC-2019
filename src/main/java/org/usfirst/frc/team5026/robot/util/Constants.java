@@ -16,7 +16,9 @@ public class Constants {
         public static final int DRIVE_L2_PORT = 3;
 
         /** DRIVEBASE CONSTANTS */
-        public static final double DRIVEBASE_WIDTH = 30; // inches
+		public static final double DRIVEBASE_WIDTH = 30; // inches
+		public static final boolean IS_LEFT_INVERTED = false;
+		public static final boolean IS_RIGHT_INVERTED = true;
     }
 
     // TODO tune input constants

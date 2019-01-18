@@ -91,7 +91,16 @@ public class MotorGroup {
         for (TalonSRX motor : this.motors) {
             motor.setNeutralMode(neutralMode);
         }
-    }
+	}
+	/**
+	 * Sets all TalonSRX in a MotorGroup to inverted or not.
+	 * @param isInverted boolean isInverted (true/false)
+	 */
+	public void setInverted(boolean isInverted) {
+		for (TalonSRX motor : this.motors) {
+			motor.setInverted(isInverted);
+		}
+	}
 
     /**
      * This can be put in the respective subsystem for the MotorGroup. Then, the

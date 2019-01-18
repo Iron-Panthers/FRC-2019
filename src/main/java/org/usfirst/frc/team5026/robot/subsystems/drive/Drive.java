@@ -9,6 +9,7 @@ package org.usfirst.frc.team5026.robot.subsystems.drive;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +22,10 @@ public class Drive extends Subsystem {
 	private MotorGroup left = Robot.hardware.leftDriveMotors;
 	private MotorGroup right = Robot.hardware.rightDriveMotors;
 
+	public Drive (){
+		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
+		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
+	}
 	/**
 	 * My powers have doubled since we last met. Set the power of MotorGroups in the
 	 * drivebase.
