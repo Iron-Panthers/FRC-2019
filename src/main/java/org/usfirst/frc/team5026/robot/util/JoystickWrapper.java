@@ -33,12 +33,18 @@ public class JoystickWrapper extends Joystick {
     }
 
     public double findLeftPower() {
-        findMagnitude();
+		findMagnitude();
+		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
+			return -(y - x);
+		}
         return y + x;
     }
 
     public double findRightPower() {
-        findMagnitude();
+		findMagnitude();
+		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
+			return -(y + x);
+		}
         return y - x;
     }
 }
