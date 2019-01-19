@@ -3,6 +3,7 @@ package org.usfirst.frc.team5026.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.sun.org.apache.bcel.internal.classfile.Constant;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
@@ -45,11 +46,11 @@ public class Hardware {
 		rightDriveMotors.setNeutralMode(NeutralMode.Brake);
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
 
-		frontLightSensorLeft = new AnalogInput(1);
-        frontLightSensorRight = new AnalogInput(0);
-        backLightSensorLeft = new AnalogInput(2);
-        backLightSensorRight = new AnalogInput(3);
-        centerLightSensor = new AnalogInput(4);
+		frontLightSensorLeft = new AnalogInput(Constants.LineFollow.FRONT_LEFT_SENSOR_PORT);
+        frontLightSensorRight = new AnalogInput(Constants.LineFollow.FRONT_RIGHT_SENSOR_PORT);
+        backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
+        backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
+        centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
 	}
 }
         
