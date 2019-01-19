@@ -30,8 +30,8 @@ public class Hardware {
 
         frontLightSensorLeft = new AnalogInput(1);
         frontLightSensorRight = new AnalogInput(0);
-        backLightSensorLeft = new AnalogInput(2);
-        backLightSensorRight = new AnalogInput(3);
-        centerLightSensor = new AnalogInput(4);
+        // backLightSensorLeft = new AnalogInput(2);
+        // backLightSensorRight = new AnalogInput(3);
+        centerLightSensor = new AnalogInput(3);
     }
 }
