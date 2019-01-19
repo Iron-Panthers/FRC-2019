@@ -7,29 +7,30 @@ package org.usfirst.frc.team5026.robot.util;
  */
 public class Constants {
 
-    // TODO adjust drivebase constants
-    public class Drivebase {
-        /** DRIVEBASE PORTS */
-        public static final int DRIVE_R1_PORT = 2;
-        public static final int DRIVE_R2_PORT = 2; // SPX
-        public static final int DRIVE_L1_PORT = 1;
-        public static final int DRIVE_L2_PORT = 1; // SPX
+	// TODO adjust drivebase constants
+	public class Drivebase {
+		/** DRIVEBASE PORTS */
+		public static final int DRIVE_R1_PORT = 2;
+		public static final int DRIVE_R2_PORT = 2; // SPX
+		public static final int DRIVE_L1_PORT = 1;
+		public static final int DRIVE_L2_PORT = 1; // SPX
 
-        /** DRIVEBASE CONSTANTS */
+		/** DRIVEBASE CONSTANTS */
 		public static final double DRIVEBASE_WIDTH = 30; // inches
 		public static final boolean IS_LEFT_INVERTED = true;
 		public static final boolean IS_RIGHT_INVERTED = false;
-		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is the front
+		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
+																	// the front
 	}
 
-    // TODO tune input constants
-    public class Input {
-        /** DEVICE PORTS */
-        public static final int JOYSTICK_1_PORT = 0;
+	// TODO tune input constants
+	public class Input {
+		/** DEVICE PORTS */
+		public static final int JOYSTICK_1_PORT = 0;
 
-        /** OTHER INPUT CONSTANTS */
-        public static final double JOYSTICK_DEADBAND = 0.1;
-        public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
-        public static final double MAX_DESIRED_TURN_RADIUS = 40;
-    }
+		/** OTHER INPUT CONSTANTS */
+		public static final double JOYSTICK_DEADBAND = 0.1;
+		public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
+		public static final double MAX_DESIRED_TURN_RADIUS = 40;
+	}
 }

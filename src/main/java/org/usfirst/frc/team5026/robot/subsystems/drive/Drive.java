@@ -22,10 +22,11 @@ public class Drive extends Subsystem {
 	private MotorGroup left = Robot.hardware.leftDriveMotors;
 	private MotorGroup right = Robot.hardware.rightDriveMotors;
 
-	public Drive (){
+	public Drive() {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 	}
+
 	/**
 	 * My powers have doubled since we last met. Set the power of MotorGroups in the
 	 * drivebase.
