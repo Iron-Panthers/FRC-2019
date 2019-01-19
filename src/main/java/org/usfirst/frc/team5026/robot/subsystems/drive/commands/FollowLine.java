@@ -36,8 +36,8 @@ public class FollowLine extends Command {
 		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * Robot.hardware.centerLightSensor.getVoltage()/5
 				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (Robot.hardware.frontLightSensorLeft.getVoltage() / 5
 						- Robot.hardware.frontLightSensorRight.getVoltage() / 5);
-
-		Robot.drive.move(leftMPower, rightMPower);
+		System.out.println("Output Current: " + Robot.hardware.rightDriveMotors.getOutputCurrent());
+		Robot.drive.set(leftMPower, rightMPower);
 
 	}
 
@@ -50,13 +50,13 @@ public class FollowLine extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.stop();
+		Robot.drive.reset();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drive.stop();
+		Robot.drive.reset();
 	}
 }

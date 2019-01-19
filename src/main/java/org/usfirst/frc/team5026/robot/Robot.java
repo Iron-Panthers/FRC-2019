@@ -10,6 +10,9 @@ package org.usfirst.frc.team5026.robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.util.OI;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -24,9 +27,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static OI m_oi;
-	public static Hardware hardware;
+	public static OI oi;
 	public static Drive drive;
+	public static Hardware hardware;
+
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -38,8 +42,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		hardware = new Hardware();
+		/** Create subsystems */
 		drive = new Drive();
-		m_oi = new OI();
+		/** Instance of OI must be created after all subsystems */
+		oi = new OI();
+
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -118,7 +125,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		System.out.println("hi");
+		// System.out.println("hi");
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -133,9 +140,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("hi");
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
+		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
+		//System.out.println(hardware.frontLightSensorRight.getVoltage());
 		Scheduler.getInstance().run();
 	}
 

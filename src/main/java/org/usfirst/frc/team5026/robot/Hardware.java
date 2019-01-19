@@ -1,37 +1,56 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
- * Add your docs here.
+ * This class is meant to store raw hardware instances. Examples: Motor
+ * controllers, sensors, etc. Meant to contain hardware declarations that would
+ * otherwise be in Robot class.
  */
 public class Hardware {
-    public AnalogInput frontLightSensorLeft;
-    public AnalogInput frontLightSensorRight;
-    public AnalogInput backLightSensorLeft;
+	/** Drivebase motor controllers */
+	public TalonSRX driveRight1;
+	public VictorSPX driveRight2;
+	public TalonSRX driveLeft1;
+	public VictorSPX driveLeft2;
+
+	/** Drivebase MotorGroups */
+	public MotorGroup rightDriveMotors;
+	public MotorGroup leftDriveMotors;
+
+	/** Motors/sensors for other subsystems will go down here */
+
+	// Line Follow
+	public AnalogInput centerLightSensor;
     public AnalogInput backLightSensorRight;
-    public AnalogInput centerLightSensor;
-    public TalonSRX leftM;
-    public TalonSRX rightM;
+    public AnalogInput backLightSensorLeft;
+    public AnalogInput frontLightSensorRight;
+	public AnalogInput frontLightSensorLeft;
+	
+	public Hardware() {
+		driveRight1 = new TalonSRX(Constants.Drivebase.DRIVE_R1_PORT);
+		driveRight2 = new VictorSPX(Constants.Drivebase.DRIVE_R2_PORT);
+		driveLeft1 = new TalonSRX(Constants.Drivebase.DRIVE_L1_PORT);
+		driveLeft2 = new VictorSPX(Constants.Drivebase.DRIVE_L2_PORT);
+		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
+		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
-    public Hardware() {
-        leftM = new TalonSRX(1);
-        rightM = new TalonSRX(9);
-        rightM.setInverted(true);
+		rightDriveMotors.setNeutralMode(NeutralMode.Brake);
+		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
 
-        frontLightSensorLeft = new AnalogInput(1);
-        frontLightSensorRight = new AnalogInput(0);
-        // backLightSensorLeft = new AnalogInput(2);
-        // backLightSensorRight = new AnalogInput(3);
-        centerLightSensor = new AnalogInput(3);
-    }
+		frontLightSensorLeft = new AnalogInput(Constants.LineFollow.FRONT_LEFT_SENSOR_PORT);
+        frontLightSensorRight = new AnalogInput(Constants.LineFollow.FRONT_RIGHT_SENSOR_PORT);
+        backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
+        backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
+        centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
+	}
 }
+        
+    
