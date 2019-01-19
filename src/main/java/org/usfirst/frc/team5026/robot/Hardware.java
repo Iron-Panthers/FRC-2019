@@ -3,7 +3,6 @@ package org.usfirst.frc.team5026.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.sun.org.apache.bcel.internal.classfile.Constant;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
