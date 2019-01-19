@@ -7,72 +7,71 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
-
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveWithJoystick;
+import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Add your docs here.
+ * The drive subsystem. This contains MotorGroups for the left and right
+ * drivebase motors.
  */
 public class Drive extends Subsystem {
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-	// Drive Motors
-	public TalonSRX leftMotor;
-	public TalonSRX rightMotor;
+	private MotorGroup left = Robot.hardware.leftDriveMotors;
+	private MotorGroup right = Robot.hardware.rightDriveMotors;
 
 	public Drive() {
-		leftMotor = Robot.hardware.leftM;
-		rightMotor = Robot.hardware.rightM;
+		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
+		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 	}
 
 	/**
-	 * Moves by using one power to set both sides to
+	 * My powers have doubled since we last met. Set the power of MotorGroups in the
+	 * drivebase.
 	 * 
-	 * @param power Percent Output
+	 * @param leftPower  the power to set for the left motor group.
+	 * @param rightPower the power to set for the right motor group.
 	 */
-	public void move(double power) {
-		leftMotor.set(ControlMode.PercentOutput, power);
-		rightMotor.set(ControlMode.PercentOutput, power);
+	public void set(double leftPower, double rightPower) {
+		left.set(leftPower);
+		right.set(rightPower);
 	}
 
 	/**
-	 * Moves by setting left power and right power seperately
+	 * Sets both sides to the same power
 	 * 
-	 * @param leftPower  Percent Output
-	 * @param rightPower Percent Output
+	 * @param power Power to set both sides to
 	 */
-	public void move(double leftPower, double rightPower) {
-		leftMotor.set(ControlMode.PercentOutput, leftPower);
-		rightMotor.set(ControlMode.PercentOutput, rightPower);
+	public void set(double power) {
+		left.set(power);
+		right.set(power);
 	}
 
-	public void stop() {
-		move(0);
-	}
-
-	// LineFollow methods
-	public boolean isLine() {
-		return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
-				|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
-						|| Robot.hardware.centerLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
-	}
-
-	public boolean hasHitWall() {
-		return (rightMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL)
-				|| (leftMotor.getOutputCurrent() > Constants.LineFollow.BIGWALL);
+	/**
+	 * Things the subsystem should do at init of new phases.
+	 */
+	public void reset() {
+		left.stop();
+		right.stop();
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveWithJoystick());
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+		// Pick one of the drive mode commands.
+		setDefaultCommand(new ArcadeDrive());
+	}
+
+	// Line Follow Methods
+	public boolean isLine() {
+		return Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
+				|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
+				|| Robot.hardware.centerLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
+	}
+
+	public boolean hasHitWall() {
+		return (right.getOutputCurrent() > Constants.LineFollow.BIGWALL)
+				|| (left.getOutputCurrent() > Constants.LineFollow.BIGWALL);
 	}
 }

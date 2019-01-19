@@ -30,7 +30,7 @@ public class DriveToLine extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.move(Constants.LineFollow.DRIVE_TO_LINE_SPD);
+		Robot.drive.set(Constants.LineFollow.DRIVE_TO_LINE_SPD);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -42,13 +42,13 @@ public class DriveToLine extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.stop();
+		Robot.drive.reset();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drive.stop();
+		Robot.drive.reset();
 	}
 }

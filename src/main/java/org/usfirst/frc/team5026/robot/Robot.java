@@ -27,9 +27,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static OI m_oi;
-	public static Hardware hardware;
+	public static OI oi;
 	public static Drive drive;
+	public static Hardware hardware;
 
 
 	Command m_autonomousCommand;
@@ -42,12 +42,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		hardware = new Hardware();
+		/** Create subsystems */
 		drive = new Drive();
-		m_oi = new OI();
-		CameraServer camera = CameraServer.getInstance();
-		UsbCamera cam1 = camera.startAutomaticCapture("cam0", 0);
-		cam1.setResolution(256, 144);
-		cam1.setFPS(15);
+		/** Instance of OI must be created after all subsystems */
+		oi = new OI();
+
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
