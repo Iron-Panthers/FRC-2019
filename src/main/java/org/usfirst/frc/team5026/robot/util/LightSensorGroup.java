@@ -1,0 +1,75 @@
+package org.usfirst.frc.team5026.robot.util;
+
+import java.util.Arrays;
+
+import edu.wpi.first.wpilibj.AnalogInput;
+
+/**
+ * Represents a group of light sensors in the front (or back) of the robot. (you might have to change some numbahs)
+ * The sensors are centered in the central center of the robot.
+ */
+public class LightSensorGroup {
+    private AnalogInput[] sensors;
+
+    private AnalogInput[] leftSensors;
+    private AnalogInput centerSensor;
+    private AnalogInput[] rightSensors;
+
+    private double sideWeight = 1;
+    private double centerWeight = 1;
+
+    private double maxValue;
+
+    /**
+     * @param sensors all the light sensors left to right
+     */
+    public LightSensorGroup(double maxValue, AnalogInput...sensors) {
+        this.maxValue = maxValue;
+        this.sensors = sensors;
+
+        leftSensors = Arrays.copyOfRange(sensors, 0, sensors.length / 2);
+        rightSensors = Arrays.copyOfRange(sensors, sensors.length - sensors.length / 2, sensors.length);
+        if(sensors.length % 2 != 0) {
+            centerSensor = sensors[sensors.length / 2];
+        } else {
+            centerSensor = null;
+        }
+    }
+
+    public void setWeights(double side, double center) {
+        sideWeight = side;
+        centerWeight = center;
+    }
+
+    /**
+     * Gets the desired power for the left side of the robot.
+     * Not necessarily in a range of 0-1 yet. (TODO)
+     */
+    public double getLeftPower() {
+        double centerVal = 0;
+        if(centerSensor != null) {
+            centerVal = centerSensor.getVoltage() / maxValue;
+        }
+        return sideWeight * (getAverageSensorReadings(rightSensors) - getAverageSensorReadings(leftSensors)) + centerWeight * centerVal;
+    }
+
+    /**
+     * Gets the desired power for the left side of the robot.
+     * Not necessarily in a range of 0-1 yet. (TODO)
+     */
+    public double getRightPower() {
+        double centerVal = 0;
+        if(centerSensor != null) {
+            centerVal = centerSensor.getVoltage() / maxValue;
+        }
+        return sideWeight * (getAverageSensorReadings(leftSensors) - getAverageSensorReadings(rightSensors)) + centerWeight * centerVal;
+    }
+
+    private double getAverageSensorReadings(AnalogInput[] sensors) {
+        double avg = 0;
+        for(AnalogInput s : sensors) {
+            avg += s.getVoltage();
+        }
+        return avg / sensors.length;
+    }
+}
