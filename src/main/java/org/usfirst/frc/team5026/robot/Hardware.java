@@ -3,6 +3,7 @@ package org.usfirst.frc.team5026.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
@@ -19,6 +20,8 @@ public class Hardware {
 	public TalonSRX driveLeft1;
 	public VictorSPX driveLeft2;
 
+	public TalonSRX testMotor5; // TODO Remove
+	public PigeonIMU gyro;
 	/** Drivebase MotorGroups */
 	public MotorGroup rightDriveMotors;
 	public MotorGroup leftDriveMotors;
@@ -33,7 +36,12 @@ public class Hardware {
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
+		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D, Constants.Drivebase.F);
+		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D, Constants.Drivebase.F);
+
 		rightDriveMotors.setNeutralMode(NeutralMode.Brake);
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
+		testMotor5 = new TalonSRX(5);
+		gyro = new PigeonIMU(testMotor5);
 	}
 }

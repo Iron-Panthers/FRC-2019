@@ -100,9 +100,14 @@ public class MotorGroup {
 	 * @param isInverted boolean isInverted (true/false)
 	 */
 	public void setInverted(boolean isInverted) {
+		masterMotor.setInverted(isInverted);
 		for (IMotorController motor : this.motors) {
 			motor.setInverted(isInverted);
 		}
+	}
+
+	public TalonSRX getMasterMotor() {
+		return masterMotor;
 	}
 
 	/**

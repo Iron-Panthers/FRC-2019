@@ -40,11 +40,29 @@ public class Drive extends Subsystem {
 	}
 
 	/**
+	 * Sets the power of both sides of the robot to the same side
+	 * 
+	 * @param power The power to set for the left and right motor group
+	 */
+	public void set(double power) {
+		left.set(power);
+		right.set(power);
+	}
+
+	/**
 	 * Things the subsystem should do at init of new phases.
 	 */
 	public void reset() {
 		left.stop();
 		right.stop();
+	}
+
+	public int getLeftEncoderTicks() {
+		return left.getMasterMotor().getSelectedSensorPosition();
+	}
+
+	public int getRightEncoderTicks() {
+		return right.getMasterMotor().getSelectedSensorPosition();
 	}
 
 	@Override

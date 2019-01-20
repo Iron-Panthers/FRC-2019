@@ -19,8 +19,13 @@ public class Constants {
 		public static final double DRIVEBASE_WIDTH = 30; // inches
 		public static final boolean IS_LEFT_INVERTED = true;
 		public static final boolean IS_RIGHT_INVERTED = false;
-		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
-																	// the front
+		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is the front
+		
+		// Motion Profiling PID (For Velocity)
+		public static final double F = 0; // TODO Find max velocity
+		public static final double P = 0; // TODO Tune
+		public static final double I = 0;
+		public static final double D = 0;
 	}
 
 	// TODO tune input constants
