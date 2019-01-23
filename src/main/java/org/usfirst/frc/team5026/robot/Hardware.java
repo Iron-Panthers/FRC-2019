@@ -39,6 +39,9 @@ public class Hardware {
 		driveRight2 = new VictorSPX(Constants.Drivebase.DRIVE_R2_PORT);
 		driveLeft1 = new TalonSRX(Constants.Drivebase.DRIVE_L1_PORT);
 		driveLeft2 = new VictorSPX(Constants.Drivebase.DRIVE_L2_PORT);
+		driveRight1.setInverted(true); //for linefollow testing only
+		driveLeft1.setInverted(false);//for linefollow testing only
+
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
@@ -47,8 +50,8 @@ public class Hardware {
 
 		frontLightSensorLeft = new AnalogInput(Constants.LineFollow.FRONT_LEFT_SENSOR_PORT);
         frontLightSensorRight = new AnalogInput(Constants.LineFollow.FRONT_RIGHT_SENSOR_PORT);
-        backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
-        backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
+        // backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
+        // backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
         centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
 	}
 }

@@ -16,7 +16,7 @@ public class JoystickWrapper extends Joystick {
 	 * Calculate x, y, magnitude.
 	 */
 	public void findMagnitude() {
-		x = getX();
+		x = -getX(); //inverted for LINEFOLLOW TESTING ONLY
 		y = getY();
 		magnitude = Math.abs(Math.sqrt(x * x + y * y));
 

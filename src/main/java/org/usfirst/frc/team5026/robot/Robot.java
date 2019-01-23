@@ -47,6 +47,11 @@ public class Robot extends TimedRobot {
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 
+		CameraServer camera = CameraServer.getInstance();
+		UsbCamera cam1 = camera.startAutomaticCapture("cam0", 0);
+		cam1.setResolution(256, 144);
+		cam1.setFPS(15);
+
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -63,10 +68,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
-		System.out.println(Robot.hardware.centerLightSensor.getVoltage());
-		
+			
 	}
 
 	/**
@@ -80,9 +82,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		System.out.println(hardware.frontLightSensorLeft.getVoltage());
-		System.out.println(hardware.frontLightSensorRight.getVoltage());
-		System.out.println(Robot.hardware.centerLightSensor.getVoltage());
 		Scheduler.getInstance().run();
 	}
 
@@ -142,6 +141,10 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
+		System.out.println("left: " + hardware.frontLightSensorLeft.getVoltage());
+		System.out.println("right: " + hardware.frontLightSensorRight.getVoltage());
+		System.out.println("center: " + Robot.hardware.centerLightSensor.getVoltage());
+		
 		Scheduler.getInstance().run();
 	}
 

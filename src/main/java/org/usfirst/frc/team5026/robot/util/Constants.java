@@ -27,9 +27,9 @@ public class Constants {
 		// LINEFOLLOW Ports
 		public static final int FRONT_LEFT_SENSOR_PORT = 1;
 		public static final int FRONT_RIGHT_SENSOR_PORT = 0;
-		public static final int BACK_LEFT_SENSOR_PORT = 2;
-		public static final int BACK_RIGHT_SENSOR_PORT = 3;
-		public static final int CENTER_SENSOR_PORT = 4;
+		// public static final int BACK_LEFT_SENSOR_PORT = 2;
+		// public static final int BACK_RIGHT_SENSOR_PORT = 3;
+		public static final int CENTER_SENSOR_PORT = 2;
 
 		// LINEFOLLOW CONSTANTS
 		public static final double ODS_TAPE_SEEN = .1; // TODO the light value after which the line has "been seen"
