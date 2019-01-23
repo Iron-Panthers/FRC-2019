@@ -8,8 +8,11 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.OI;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -42,6 +45,11 @@ public class Robot extends TimedRobot {
 		drive = new Drive();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
+
+		CameraServer camera = CameraServer.getInstance();
+		UsbCamera cam0 = camera.startAutomaticCapture("cam0", Constants.Camera.CAMERA_PORT_1);
+		cam0.setResolution(Constants.Camera.CAMERA_WIDTH, Constants.Camera.CAMERA_HEIGHT);
+		cam0.setFPS(Constants.Camera.FRAME_RATE);
 
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());

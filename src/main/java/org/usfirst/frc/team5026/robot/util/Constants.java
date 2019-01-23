@@ -38,4 +38,15 @@ public class Constants {
 		public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
 		public static final double MAX_DESIRED_TURN_RADIUS = 40;
 	}
+	
+	public class Camera {
+		// Camera Ports
+		public static final int CAMERA_PORT_1 = 0;
+		public static final int CAMERA_PORT_2 = 0;
+
+		// Camera Constants
+		public static final int CAMERA_HEIGHT = 144;
+		public static final int CAMERA_WIDTH = 256;
+		public static final int FRAME_RATE = 15;
+	}
 }
