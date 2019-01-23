@@ -21,15 +21,8 @@ public class ArmToTarget extends Command {
   private double lastError;
   private long lastTimeOutOfThreshold;
 
-  public ArmToTarget() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    this.target = 0;
-    requires(Robot.intakeArm);
-  }
-
-  public ArmToTarget(double target) {
-    this.target = target;
+  public ArmToTarget(double targetHeight) {
+    this.target = Math.asin(targetHeight)/Constants.IntakeArm.TICKS_TO_DEGREES;
     requires(Robot.intakeArm);
   }
 

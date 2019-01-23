@@ -35,11 +35,10 @@ public class OI {
 		cargoShipHeight = new JoystickButton(joystick, 6);
 		rocketLowHeight = new JoystickButton(joystick, 7);
 
-		ArmToTarget armToCargoShipHeight = new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_ANGLE);
-		ArmToTarget armToRocketLowHeight = new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_ANGLE);
 
-		cargoShipHeight.toggleWhenPressed(armToCargoShipHeight);
-		rocketLowHeight.toggleWhenPressed(armToRocketLowHeight);
+
+		cargoShipHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
+		rocketLowHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT));
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,
