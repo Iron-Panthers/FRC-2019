@@ -7,6 +7,11 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.commands.ArmToTarget;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -19,6 +24,22 @@ public class OI {
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
+	public Joystick joystick;
+	JoystickButton cargoShipHeight;
+	JoystickButton rocketLowHeight;
+	
+	public OI() {
+		joystick = new Joystick(0);
+
+		//TODO Ports
+		cargoShipHeight = new JoystickButton(joystick, 6);
+		rocketLowHeight = new JoystickButton(joystick, 7);
+
+
+
+		cargoShipHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
+		rocketLowHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT));
+	}
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to

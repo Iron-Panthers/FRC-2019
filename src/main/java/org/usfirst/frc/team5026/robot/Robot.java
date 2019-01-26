@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -26,6 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
+  public static Hardware hardware; 
+  public static IntakeArm intakeArm; 
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -38,6 +41,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drive = new Drive();
 		oi = new OI();
+    intakeArm = new IntakeArm();
+    hardware = new Hardware();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
