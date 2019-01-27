@@ -17,7 +17,7 @@ public class Constants {
 
 		/** DRIVEBASE CONSTANTS */
 		public static final double DRIVEBASE_WIDTH = 30; // inches
-		public static final boolean IS_LEFT_INVERTED = true;
+		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = false;
 		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is the front
 		

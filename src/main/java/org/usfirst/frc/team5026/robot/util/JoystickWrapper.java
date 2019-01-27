@@ -12,6 +12,22 @@ public class JoystickWrapper extends Joystick {
 		magnitude = 0;
 	}
 
+	double[] constantCurveDrive(double throttle, double wheel, boolean quickTurn) {
+		double angularPower;
+		System.out.println("Wheel power: "+wheel);
+		if (quickTurn) {
+			angularPower = wheel;
+		} else {
+			angularPower = throttle * wheel;
+		}
+		double left = throttle + angularPower;
+		double right = throttle - angularPower;
+		left /= Math.abs(left) > 1 ? Math.abs(left) : 1;
+		right /= Math.abs(right) > 1 ? Math.abs(right) : 1;
+		double[] result = { left, right };
+		return result;
+	}
+
 	/**
 	 * Calculate x, y, magnitude.
 	 */
@@ -29,22 +45,25 @@ public class JoystickWrapper extends Joystick {
 
 		x *= scaledMagnitude;
 		y *= scaledMagnitude;
+		y = getZ();// TEMPORARY FOR THRUSTMASTER
 		magnitude *= scaledMagnitude;
 	}
 
 	public double findLeftPower() {
 		findMagnitude();
-		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
-			return -(y - x);
-		}
-		return y + x;
+		/*
+		 * if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) { return -(y - x); } return y
+		 * + x;
+		 */
+		return constantCurveDrive(y, x, false)[0];
 	}
 
 	public double findRightPower() {
 		findMagnitude();
-		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
-			return -(y + x);
-		}
-		return y - x;
+		/*
+		 * if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) { return -(y + x); } return y
+		 * - x;
+		 */
+		return constantCurveDrive(y, x, false)[1];
 	}
 }
