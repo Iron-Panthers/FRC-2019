@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5026.robot.util;
+package org.usfirst.frc.teammaxValue026.robot.util;
 
 import java.util.Arrays;
 
@@ -15,8 +15,8 @@ public class LightSensorGroup {
     private AnalogInput centerSensor;
     private AnalogInput[] rightSensors;
 
-    private double sideWeight = 1;
-    private double centerWeight = 1;
+    private double sideWeight = Constants.LineFollow.LINEFOLLOW_REACTION_POWER;
+    private double centerWeight = Constants.LineFollow.LINEFOLLOW_INNER_POWER;
 
     private double maxValue;
 
@@ -50,7 +50,7 @@ public class LightSensorGroup {
         if(centerSensor != null) {
             centerVal = centerSensor.getVoltage() / maxValue;
         }
-        return sideWeight * (getAverageSensorReadings(rightSensors) - getAverageSensorReadings(leftSensors)) + centerWeight * centerVal;
+        return (sideWeight / maxValue) * (getAverageSensorReadings(rightSensors) - getAverageSensorReadings(leftSensors)) + centerWeight * (centerVal / maxValue);
     }
 
     /**
@@ -62,14 +62,14 @@ public class LightSensorGroup {
         if(centerSensor != null) {
             centerVal = centerSensor.getVoltage() / maxValue;
         }
-        return sideWeight * (getAverageSensorReadings(leftSensors) - getAverageSensorReadings(rightSensors)) + centerWeight * centerVal;
+        return (sideWeight / maxValue) * (getAverageSensorReadings(leftSensors) - getAverageSensorReadings(rightSensors)) + centerWeight * (centerVal / maxValue);
     }
 
     private double getAverageSensorReadings(AnalogInput[] sensors) {
-        double avg = 0;
+        double total = 0;
         for(AnalogInput s : sensors) {
-            avg += s.getVoltage();
+            total += s.getVoltage();
         }
-        return avg / sensors.length;
+        return total / sensors.length;
     }
 }

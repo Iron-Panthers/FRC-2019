@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.util.LightSensorGroup;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -33,6 +34,7 @@ public class Hardware {
     public AnalogInput backLightSensorLeft;
     public AnalogInput frontLightSensorRight;
 	public AnalogInput frontLightSensorLeft;
+	public LightSensorGroup lightSensors;
 	
 	public Hardware() {
 		driveRight1 = new TalonSRX(Constants.Drivebase.DRIVE_R1_PORT);
@@ -52,7 +54,8 @@ public class Hardware {
         frontLightSensorRight = new AnalogInput(Constants.LineFollow.FRONT_RIGHT_SENSOR_PORT);
         // backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
         // backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
-        centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
+		centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
+		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLightSensor, frontLightSensorRight);
 	}
 }
         

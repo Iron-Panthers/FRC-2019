@@ -8,8 +8,7 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.AlignmentSequence;
-
-import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
