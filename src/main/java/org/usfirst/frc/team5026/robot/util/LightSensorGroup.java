@@ -1,4 +1,4 @@
-package org.usfirst.frc.teammaxValue026.robot.util;
+package org.usfirst.frc.team5026.robot.util;
 
 import java.util.Arrays;
 
