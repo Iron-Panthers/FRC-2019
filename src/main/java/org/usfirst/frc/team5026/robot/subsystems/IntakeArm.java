@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeArm extends Subsystem {
   public TalonSRX armMotor;
+  public TalonSRX armIntakeMotor;
   public double currentHeight;
   public double currentAngle;
   // Put methods for controlling this subsystem
@@ -27,6 +28,7 @@ public class IntakeArm extends Subsystem {
 
   public IntakeArm(){
     armMotor = Robot.hardware.armMotor;
+    armIntakeMotor = Robot.hardware.armIntakeMotor;
   }
 
   public void resetEncoder(){
@@ -42,6 +44,17 @@ public class IntakeArm extends Subsystem {
     armMotor.set(ControlMode.PercentOutput, power);
   }
 
+  public void setIntakePower(double power){
+    armIntakeMotor.set(ControlMode.PercentOutput, power);
+  }
+
+  public void brakeIntake(){
+    armIntakeMotor.set(ControlMode.PercentOutput, Constants.IntakeArm.INTAKE_BRAKE_POWER);
+  }
+
+  public double getCurrent(){
+    return armIntakeMotor.getOutputCurrent();
+  }
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

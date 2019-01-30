@@ -12,23 +12,11 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ArmToTarget extends Command {
-
-  private double target;
-  private double currentError;
-  private double errorSum;
-  private double errorChange;
-  private double lastError;
-  private long lastTimeOutOfThreshold;
-
-  public ArmToTarget(double targetHeight) {
-    if(targetHeight < 0){
-      this.target = 180 - (Math.asin(targetHeight)/Constants.IntakeArm.TICKS_TO_DEGREES);
-    }
-   else{
-      this.target = Math.asin(targetHeight)/Constants.IntakeArm.TICKS_TO_DEGREES;
-    }
+public class IntakeCargo extends Command {
+  public IntakeCargo() {
     requires(Robot.intakeArm);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -39,32 +27,19 @@ public class ArmToTarget extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    currentError = target - Robot.intakeArm.getCurrentAngle();
-    errorChange = currentError - lastError;
-    errorSum += currentError;
-    lastError = currentError;
-
-    double power = (Constants.IntakeArm.INTAKE_ARM_P * currentError)
-                    + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
-                    + (Constants.IntakeArm.INTAKE_ARM_D * errorChange);
-    
-    Robot.intakeArm.moveArm(power);
+    Robot.intakeArm.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    long currentTime = System.currentTimeMillis();
-    if(Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
-      lastTimeOutOfThreshold = currentTime;
-      return false;
-    }
-    return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
+    return Robot.intakeArm.getCurrent() >= Constants.IntakeArm.INTAKE_OUTPUT_CURRENT_LIMIT;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.intakeArm.setIntakePower(0);
   }
 
   // Called when another command which requires one or more of the same

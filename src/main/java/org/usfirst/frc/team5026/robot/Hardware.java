@@ -16,8 +16,10 @@ import org.usfirst.frc.team5026.robot.util.Constants;
  */
 public class Hardware {
     public TalonSRX armMotor;
+    public TalonSRX armIntakeMotor;
 
     public Hardware(){
         armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
+        armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
     }
 }
