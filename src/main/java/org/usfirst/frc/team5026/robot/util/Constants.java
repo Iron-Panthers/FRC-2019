@@ -59,4 +59,12 @@ public class Constants {
 		public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
 		public static final double MAX_DESIRED_TURN_RADIUS = 40;
 	}
+
+	public class DriveStraight{
+		public static final double TICKS_TO_INCHES = 1;//TODO number of inches per tick
+		public static final double ENCODER_ERROR_TOLERANCE = 1;
+		public static final int GYRO_PORT = 0;
+		public static final double GYRO_ERROR_TOLERANCE = 1;
+		public static final double ROTATE_POWER = 1;
+	}
 }

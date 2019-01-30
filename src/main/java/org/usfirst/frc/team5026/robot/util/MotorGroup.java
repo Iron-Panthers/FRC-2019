@@ -63,7 +63,9 @@ public class MotorGroup {
 			SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(), motor.getMotorOutputPercent());
 		}
 	}
-
+	public void setMotionMagic(double ticks){
+		masterMotor.set(ControlMode.MotionMagic, ticks);
+	}
 	/**
 	 * Sets the power of the master motor to be 0
 	 */

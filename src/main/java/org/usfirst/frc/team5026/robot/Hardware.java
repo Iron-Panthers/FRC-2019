@@ -3,6 +3,7 @@ package org.usfirst.frc.team5026.robot;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.LightSensorGroup;
@@ -30,11 +31,14 @@ public class Hardware {
 
 	// Line Follow
 	public AnalogInput centerLightSensor;
-    public AnalogInput backLightSensorRight;
-    public AnalogInput backLightSensorLeft;
-    public AnalogInput frontLightSensorRight;
+	public AnalogInput backLightSensorRight;
+	public AnalogInput backLightSensorLeft;
+	public AnalogInput frontLightSensorRight;
 	public AnalogInput frontLightSensorLeft;
 	public LightSensorGroup lightSensors;
+
+	// Drive Straight Auto
+	public PigeonIMU gyro;
 	
 	public Hardware() {
 		driveRight1 = new TalonSRX(Constants.Drivebase.DRIVE_R1_PORT);
@@ -56,6 +60,8 @@ public class Hardware {
         // backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
 		centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
 		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLightSensor, frontLightSensorRight);
+
+		gyro = new PigeonIMU(Constants.DriveStraight.GYRO_PORT);
 	}
 }
         

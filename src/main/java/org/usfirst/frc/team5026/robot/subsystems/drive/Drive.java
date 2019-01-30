@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -48,7 +50,6 @@ public class Drive extends Subsystem {
 		left.set(power);
 		right.set(power);
 	}
-
 	/**
 	 * Things the subsystem should do at init of new phases.
 	 */
@@ -57,6 +58,15 @@ public class Drive extends Subsystem {
 		right.stop();
 	}
 
+	public void rotateRight(double power){
+		left.set(power);
+		right.set(-power);
+	}
+
+	public void rotateLeft(double power){
+		left.set(-power);
+		right.set(power);
+	}
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.
