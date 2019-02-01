@@ -129,6 +129,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		hardware.gyro.setFusedHeading(0);
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -141,9 +142,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		System.out.println("left: " + hardware.frontLightSensorLeft.getVoltage());
-		System.out.println("right: " + hardware.frontLightSensorRight.getVoltage());
-		System.out.println("center: " + Robot.hardware.centerLightSensor.getVoltage());
+		System.out.println("Angle: " + hardware.gyro.getFusedHeading());
 		
 		Scheduler.getInstance().run();
 	}

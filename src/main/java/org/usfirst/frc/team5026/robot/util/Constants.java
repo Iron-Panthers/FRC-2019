@@ -66,5 +66,6 @@ public class Constants {
 		public static final int GYRO_PORT = 0;
 		public static final double GYRO_ERROR_TOLERANCE = 1;
 		public static final double ROTATE_POWER = 1;
+		public static final double WHEEL_CIRCUMFERENCE = 1;
 	}
 }

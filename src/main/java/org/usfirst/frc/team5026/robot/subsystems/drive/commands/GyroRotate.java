@@ -13,10 +13,12 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class GyroRotate extends Command {
-  private double targetDegrees;
+  private double deltaDegrees;
+  private double initialDegrees;
   private double currentDegrees;
   public GyroRotate(double degrees) {
-    targetDegrees = degrees;
+    deltaDegrees = degrees;
+    initialDegrees = Robot.hardware.gyro.getFusedHeading();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.drive);
@@ -33,10 +35,10 @@ public class GyroRotate extends Command {
     double[] ypr = new double[3];
     Robot.hardware.gyro.getYawPitchRoll(ypr);
     currentDegrees = ypr[0];
-    if(targetDegrees > currentDegrees){
+    if(deltaDegrees > 0){
       Robot.drive.rotateLeft(Constants.DriveStraight.ROTATE_POWER);
     }
-    else if(targetDegrees < currentDegrees){
+    else if(deltaDegrees < 0){
       Robot.drive.rotateRight(Constants.DriveStraight.ROTATE_POWER);
     }
   }
@@ -44,7 +46,7 @@ public class GyroRotate extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(currentDegrees - targetDegrees) < Constants.DriveStraight.GYRO_ERROR_TOLERANCE;
+    return Math.abs(currentDegrees - (initialDegrees + deltaDegrees)) < Constants.DriveStraight.GYRO_ERROR_TOLERANCE;
   }
 
   // Called once after isFinished returns true
