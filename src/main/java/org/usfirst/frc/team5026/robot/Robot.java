@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.cscore.UsbCamera;
@@ -68,7 +69,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
-			
 	}
 
 	/**
@@ -141,9 +141,11 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		System.out.println("left: " + hardware.frontLightSensorLeft.getVoltage());
+		System.out.println("left: " + hardware.driveRight1.getSelectedSensorPosition());
+		System.out.println("adjusted left: " + hardware.driveRight1.getSelectedSensorPosition() * Constants.LineFollow.SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION );
+
 		System.out.println("right: " + hardware.frontLightSensorRight.getVoltage());
-		System.out.println("center: " + Robot.hardware.centerLightSensor.getVoltage());
+		System.out.println("center: " + hardware.centerLightSensor.getVoltage());
 		
 		Scheduler.getInstance().run();
 	}

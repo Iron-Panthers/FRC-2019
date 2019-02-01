@@ -17,8 +17,8 @@ public class Constants {
 
 		// DRIVEBASE CONSTANTS
 		public static final double DRIVEBASE_WIDTH = 30; // inches
-		public static final boolean IS_LEFT_INVERTED = true;
-		public static final boolean IS_RIGHT_INVERTED = false;
+		public static final boolean IS_LEFT_INVERTED = false;
+		public static final boolean IS_RIGHT_INVERTED = true;
 		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
 																	// the front
 	}
@@ -32,7 +32,8 @@ public class Constants {
 		public static final int CENTER_SENSOR_PORT = 2;
 
 		// LINEFOLLOW CONSTANTS
-		public static final double ODS_TAPE_SEEN = .1; // TODO the light value after which the line has "been seen"
+		public static final double SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION = -.225 / 37.0;// the ratio between the values returned by
+		public static final double ODS_TAPE_SEEN = .2; // TODO the light value after which the line has "been seen"
 		// by the center of the robot the value needs to be calibrated based on tape,
 		// flooring, and ambient light
 		public static final double BIGWALL = 19; // TODO the current value over which the robot will
@@ -41,11 +42,11 @@ public class Constants {
 		//linefollow cmd is called but before it gets to the line
 		public static final double LINEFOLLOW_BASE_POWER = .15; //the base power that the robot drives forward
 		//during LineFollow, regardless of the line's position
-		public static final double LINEFOLLOW_REACTION_POWER = 7.5; // the weight that the robot gives to
+		public static final double LINEFOLLOW_REACTION_POWER = 1.5; // the weight that the robot gives to
 		//driving right or left based on the  outer sensor's values
         public static final double ACCEPTABLE_STRAIGHTNESS = .25; //not currently in use
         
-        public static final double LINEFOLLOW_INNER_POWER = 5; // the weight that the robot gives to
+        public static final double LINEFOLLOW_INNER_POWER = 1; // the weight that the robot gives to
 		//driving straight based on the center sensor's value
 	}
 

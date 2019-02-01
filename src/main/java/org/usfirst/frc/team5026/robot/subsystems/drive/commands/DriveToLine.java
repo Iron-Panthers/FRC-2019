@@ -31,6 +31,7 @@ public class DriveToLine extends Command {
 	@Override
 	protected void execute() {
 		Robot.drive.set(Constants.LineFollow.DRIVE_TO_LINE_SPD);
+		System.out.println("Driving To Line");
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

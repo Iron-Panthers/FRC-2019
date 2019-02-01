@@ -8,18 +8,21 @@
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class FollowLine extends Command {
 	public FollowLine() {
 		requires(Robot.drive);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  	}
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+	}
 
 	// Called just before this Command runs the first time
 	@Override
@@ -29,16 +32,20 @@ public class FollowLine extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//5 is the max output voltage for the sensors
-		double leftMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * Robot.hardware.centerLightSensor.getVoltage()/5
-				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (-Robot.hardware.frontLightSensorLeft.getVoltage() / 5
-						+ Robot.hardware.frontLightSensorRight.getVoltage() / 5);
-		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * Robot.hardware.centerLightSensor.getVoltage()/5
-				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (Robot.hardware.frontLightSensorLeft.getVoltage() / 5
-						- Robot.hardware.frontLightSensorRight.getVoltage() / 5);
-		System.out.println("Output Current: " + Robot.hardware.rightDriveMotors.getOutputCurrent());
+		// 5 is the max output voltage for the sensors
+		double leftSensorValue = Robot.hardware.driveRight1.getSelectedSensorPosition() * Constants.LineFollow.SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION;
+		double rightSensorValue = Robot.hardware.frontLightSensorRight.getVoltage();
+		double centerSensorValue = Robot.hardware.centerLightSensor.getVoltage();
+
+		double leftMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * centerSensorValue
+				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (leftSensorValue + -rightSensorValue);
+		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * centerSensorValue
+				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (-leftSensorValue + rightSensorValue);
 		Robot.drive.set(leftMPower, rightMPower);
 
+		System.out.println("Output Current: " + Robot.hardware.rightDriveMotors.getOutputCurrent());
+
+		;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
