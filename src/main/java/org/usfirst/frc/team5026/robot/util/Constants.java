@@ -36,7 +36,7 @@ public class Constants {
 		public static final double ODS_TAPE_SEEN = .2; // TODO the light value after which the line has "been seen"
 		// by the center of the robot the value needs to be calibrated based on tape,
 		// flooring, and ambient light
-		public static final double BIGWALL = 19; // TODO the current value over which the robot will
+		public static final double WALL_OUTPUT_CURRENT = 19; // TODO the current value over which the robot will
 		// stop driving because it has run into a wall
 		public static final double DRIVE_TO_LINE_SPD = .3; // the speed that the robot drives at when the
 		//linefollow cmd is called but before it gets to the line

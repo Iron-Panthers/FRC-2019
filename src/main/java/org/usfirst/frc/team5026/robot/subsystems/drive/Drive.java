@@ -72,7 +72,7 @@ public class Drive extends Subsystem {
 	}
 
 	public boolean hasHitWall() {
-		return (right.getOutputCurrent() > Constants.LineFollow.BIGWALL)
-				|| (left.getOutputCurrent() > Constants.LineFollow.BIGWALL);
+		return (right.getOutputCurrent() > Constants.LineFollow.WALL_OUTPUT_CURRENT)
+				|| (left.getOutputCurrent() > Constants.LineFollow.WALL_OUTPUT_CURRENT);
 	}
 }
