@@ -61,11 +61,13 @@ public class Constants {
 	}
 
 	public class DriveStraight{
-		public static final double TICKS_TO_INCHES = 1;//TODO number of inches per tick
 		public static final double ENCODER_ERROR_TOLERANCE = 1;
 		public static final int GYRO_PORT = 0;
 		public static final double GYRO_ERROR_TOLERANCE = 1;
-		public static final double ROTATE_POWER = 1;
-		public static final double WHEEL_CIRCUMFERENCE = 1;
+		public static final double ROTATE_POWER = 0.5;
+        public static final double WHEEL_DIAMETER = 5.9;
+        public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
+        public static final double REV_TO_TICKS = 5500;
+        public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
 	}
 }

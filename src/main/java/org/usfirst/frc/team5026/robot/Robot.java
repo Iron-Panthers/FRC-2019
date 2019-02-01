@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.util.OI;
 
@@ -30,7 +32,11 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
 	public static Hardware hardware;
+	private double initialDegree;
 
+	private long prevTime = 0;
+	private double totalDPS = 0;
+	private int degreeCount = 0;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -129,10 +135,13 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		hardware.gyro.setFusedHeading(0);
+		initialDegree = hardware.gyro.getFusedHeading();
+		prevTime = System.currentTimeMillis();
+
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
 	}
 
 	/**
@@ -142,8 +151,23 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		System.out.println("Angle: " + hardware.gyro.getFusedHeading());
-		
+		hardware.rightDriveMotors.set(0.5);
+		hardware.leftDriveMotors.set(-0.5);
+
+		double dD = hardware.gyro.getFusedHeading() - initialDegree;
+		initialDegree = hardware.gyro.getFusedHeading();
+		double dT = System.currentTimeMillis() - prevTime;
+		prevTime = System.currentTimeMillis();
+
+		if (dT > 0 && oi.stick1.getRawButton(3)) {
+			double dps = dD / dT;
+			totalDPS += dps;
+			degreeCount++;
+		}
+
+		if (degreeCount > 0) {
+			System.out.println(totalDPS / ((double) degreeCount));
+		}
 		Scheduler.getInstance().run();
 	}
 

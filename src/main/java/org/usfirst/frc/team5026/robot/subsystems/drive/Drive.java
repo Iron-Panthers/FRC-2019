@@ -70,7 +70,7 @@ public class Drive extends Subsystem {
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.
-		setDefaultCommand(new ArcadeDrive());
+		//setDefaultCommand(new ArcadeDrive());temporary comment
 	}
 
 	// Line Follow Methods

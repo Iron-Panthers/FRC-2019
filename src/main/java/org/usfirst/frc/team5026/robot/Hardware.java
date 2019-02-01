@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -47,6 +48,9 @@ public class Hardware {
 		driveLeft2 = new VictorSPX(Constants.Drivebase.DRIVE_L2_PORT);
 		driveRight1.setInverted(true); //for linefollow testing only
 		driveLeft1.setInverted(false);//for linefollow testing only
+		driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
 
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
@@ -61,7 +65,7 @@ public class Hardware {
 		centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
 		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLightSensor, frontLightSensorRight);
 
-		gyro = new PigeonIMU(Constants.DriveStraight.GYRO_PORT);
+		gyro = new PigeonIMU(new TalonSRX(5));
 	}
 }
         
