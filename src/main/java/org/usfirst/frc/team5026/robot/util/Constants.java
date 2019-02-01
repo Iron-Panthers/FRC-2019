@@ -14,7 +14,7 @@ public class Constants {
     }
     public class IntakeArm { //TODO Calibrate/Set Ports
         public static final int INTAKE_ARM_MOTOR_PORT = 0;
-        public static final int INTAKE_MOTOR_PORT = 0;
+        public static final int INTAKE_MOTOR_PORT = 1;
 
 
         public static final double TICKS_TO_DEGREES = 360 / 1; //Change the 1 to ticks per rotation
@@ -30,7 +30,7 @@ public class Constants {
         public static final double ERROR_TOLERANCE = 1;
         public static final long ERROR_TOLERANCE_TIME = 500;
 
-        public static final double INTAKE_POWER = 1;
+        public static final double INTAKE_POWER = 0.5;
         public static final double INTAKE_OUTPUT_CURRENT_LIMIT = 1;
         public static final double INTAKE_BRAKE_POWER = 1;
     }

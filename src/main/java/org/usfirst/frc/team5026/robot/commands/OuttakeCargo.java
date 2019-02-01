@@ -12,8 +12,8 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeCargo extends Command {
-  public IntakeCargo() {
+public class OuttakeCargo extends Command {
+  public OuttakeCargo() {
     requires(Robot.intakeArm);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -27,7 +27,7 @@ public class IntakeCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intakeArm.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
+    Robot.intakeArm.setIntakePower(-Constants.IntakeArm.INTAKE_POWER);
   }
 
   // Make this return true when this Command no longer needs to run execute()
