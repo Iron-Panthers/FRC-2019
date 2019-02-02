@@ -27,7 +27,7 @@ public class OuttakeCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intakeArm.setIntakePower(-Constants.IntakeArm.INTAKE_POWER);
+    Robot.intakeArm.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +40,7 @@ public class OuttakeCargo extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intakeArm.setIntakePower(0);
+    Robot.intakeArm.brakeIntake();;
   }
 
   // Called when another command which requires one or more of the same

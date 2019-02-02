@@ -9,6 +9,7 @@ package org.usfirst.frc.team5026.robot.util;
 
 import org.usfirst.frc.team5026.robot.commands.ArmToTarget;
 import org.usfirst.frc.team5026.robot.commands.IntakeCargo;
+import org.usfirst.frc.team5026.robot.commands.ManualArmMovement;
 import org.usfirst.frc.team5026.robot.commands.OuttakeCargo;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -33,6 +34,7 @@ public class OI {
 	JoystickButton oppRocketLowHeight;
 	JoystickButton intake;
 	JoystickButton outtake;
+	JoystickButton manualArm;
 	
 	public OI() {
 		joystick = new Joystick(0);
@@ -42,8 +44,10 @@ public class OI {
 		oppCargoShipHeight = new JoystickButton(joystick, 7);
 		rocketLowHeight = new JoystickButton(joystick, 8);
 		oppRocketLowHeight = new JoystickButton(joystick, 9);
-		intake = new JoystickButton(joystick, 1);
-		outtake = new JoystickButton(joystick, 2);
+		intake = new JoystickButton(joystick, 5);
+		outtake = new JoystickButton(joystick, 4);
+		manualArm = new JoystickButton(joystick, 1);
+
 
 		cargoShipHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
 		oppCargoShipHeight.toggleWhenPressed(new ArmToTarget(-Constants.IntakeArm.CARGO_SHIP_HEIGHT));
@@ -51,6 +55,7 @@ public class OI {
 		oppRocketLowHeight.toggleWhenPressed(new ArmToTarget(-Constants.IntakeArm.ROCKET_LOW_HEIGHT));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo());
+		manualArm.whileHeld(new ManualArmMovement());
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

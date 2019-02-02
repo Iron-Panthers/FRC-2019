@@ -40,7 +40,7 @@ public class IntakeCargo extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intakeArm.setIntakePower(0);
+    Robot.intakeArm.brakeIntake();;
   }
 
   // Called when another command which requires one or more of the same

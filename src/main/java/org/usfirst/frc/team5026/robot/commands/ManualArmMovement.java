@@ -12,24 +12,16 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ArmToTarget extends Command {
+public class ManualArmMovement extends Command {
 
-  private double target;
-  private double currentError;
-  private double errorSum;
-  private double errorChange;
-  private double lastError;
-  private long lastTimeOutOfThreshold;
   private double armTorque;
   private double basePower;
+  private double power;
 
-  public ArmToTarget(double targetHeight) {
-    if(targetHeight < 0) {
-      this.target = 180 - (Math.asin(targetHeight/Constants.IntakeArm.ARM_LENGTH));
-    } else {
-      this.target = Math.asin(targetHeight/Constants.IntakeArm.ARM_LENGTH);
-    }
+  public ManualArmMovement() {
     requires(Robot.intakeArm);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -40,33 +32,26 @@ public class ArmToTarget extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    currentError = target - Robot.intakeArm.getCurrentAngle();
-    errorChange = currentError - lastError;
-    errorSum += currentError;
-    lastError = currentError;
+
     armTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
-                + (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
-                * Constants.IntakeArm.GRAVITY_ACCELERATION * Math.asin(Robot.intakeArm.getCurrentAngle());
-
+              + (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
+              * Constants.IntakeArm.GRAVITY_ACCELERATION * Math.asin(Robot.intakeArm.getCurrentAngle());
     basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
+    power = basePower + Robot.oi.joystick.getY();
 
-    double power = (Constants.IntakeArm.INTAKE_ARM_P * currentError)
-                    + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
-                    + (Constants.IntakeArm.INTAKE_ARM_D * errorChange)
-                    + basePower;
-    
+    if(Robot.intakeArm.getCurrentAngle() < 2 && power < 0) {
+      power = 0;
+    } else if (Robot.intakeArm.getCurrentAngle() > 180 && power > 0) {
+      power = basePower;
+    }
+
     Robot.intakeArm.moveArm(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    long currentTime = System.currentTimeMillis();
-    if(Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
-      lastTimeOutOfThreshold = currentTime;
-      return false;
-    }
-    return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
+    return false;
   }
 
   // Called once after isFinished returns true
