@@ -16,6 +16,11 @@ public class GyroRotate extends Command {
   private double deltaDegrees;
   private double initialDegrees;
   private double currentDegrees;
+  private double currentError;
+  private double errorChange;
+  private double errorSum;
+  private double lastError;
+  private int counter;
   public GyroRotate(double degrees) {
     deltaDegrees = degrees;
     initialDegrees = Robot.hardware.gyro.getFusedHeading();
@@ -27,26 +32,35 @@ public class GyroRotate extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    errorSum = 0;
+    lastError = 0;
+    currentDegrees = initialDegrees;
+    counter = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double[] ypr = new double[3];
-    Robot.hardware.gyro.getYawPitchRoll(ypr);
-    currentDegrees = ypr[0];
-    if(deltaDegrees > 0){
-      Robot.drive.rotateLeft(Constants.DriveStraight.ROTATE_POWER);
-    }
-    else if(deltaDegrees < 0){
-      Robot.drive.rotateRight(Constants.DriveStraight.ROTATE_POWER);
-    }
+    currentDegrees = Robot.hardware.gyro.getFusedHeading();
+    currentError = (currentDegrees - initialDegrees) - deltaDegrees;
+    System.out.println(currentError);
+    errorChange = currentError - lastError;
+    errorSum += currentError;
+    lastError = currentError;
+    double power = Constants.DriveStraight.ROTATE_P * currentError + Constants.DriveStraight.ROTATE_I * errorSum + Constants.DriveStraight.ROTATE_D * errorChange;
+    Robot.drive.rotate(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(currentDegrees - (initialDegrees + deltaDegrees)) < Constants.DriveStraight.GYRO_ERROR_TOLERANCE;
+    if(Math.abs(currentDegrees - (initialDegrees + deltaDegrees)) < Constants.DriveStraight.GYRO_ERROR_TOLERANCE){
+      counter++;
+    }
+    else{
+      counter = 0;
+    }
+    return counter >= 100;
   }
 
   // Called once after isFinished returns true

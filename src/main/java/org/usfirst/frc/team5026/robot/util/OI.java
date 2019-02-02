@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.AlignmentSequence;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.GyroRotate;
 import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -21,6 +22,8 @@ public class OI {
 
 	public OI() {
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
+		button1 = new JoystickButton(stick1, 1);
+		button1.whenPressed(new GyroRotate(-90));
 		//AlignmentSequence alignmentSequence = new AlignmentSequence();
 		//button1 = new JoystickButton(stick1, 1);
 		//button1.toggleWhenPressed(alignmentSequence);

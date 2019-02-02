@@ -67,6 +67,11 @@ public class Drive extends Subsystem {
 		left.set(-power);
 		right.set(power);
 	}
+
+	public void rotate(double power){//positive power makes turn right while negative power makes turn left
+		left.set(-power);
+		right.set(power);
+	}
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.

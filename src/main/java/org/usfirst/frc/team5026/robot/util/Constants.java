@@ -65,9 +65,13 @@ public class Constants {
 		public static final int GYRO_PORT = 0;
 		public static final double GYRO_ERROR_TOLERANCE = 1;
 		public static final double ROTATE_POWER = 0.5;
+		public static final double ROTATE_P = 1;
+		public static final double ROTATE_I = 0;
+		public static final double ROTATE_D = 0;
         public static final double WHEEL_DIAMETER = 5.9;
         public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
         public static final double REV_TO_TICKS = 5500;
-        public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
+		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
+		public static final double MAX_ANGULAR_VELOCITY = 0.20668863475263174 * 2;//Degrees per millisecond
 	}
 }

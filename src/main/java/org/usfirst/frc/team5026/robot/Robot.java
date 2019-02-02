@@ -135,9 +135,6 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		initialDegree = hardware.gyro.getFusedHeading();
-		prevTime = System.currentTimeMillis();
-
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -151,23 +148,6 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		hardware.rightDriveMotors.set(0.5);
-		hardware.leftDriveMotors.set(-0.5);
-
-		double dD = hardware.gyro.getFusedHeading() - initialDegree;
-		initialDegree = hardware.gyro.getFusedHeading();
-		double dT = System.currentTimeMillis() - prevTime;
-		prevTime = System.currentTimeMillis();
-
-		if (dT > 0 && oi.stick1.getRawButton(3)) {
-			double dps = dD / dT;
-			totalDPS += dps;
-			degreeCount++;
-		}
-
-		if (degreeCount > 0) {
-			System.out.println(totalDPS / ((double) degreeCount));
-		}
 		Scheduler.getInstance().run();
 	}
 
