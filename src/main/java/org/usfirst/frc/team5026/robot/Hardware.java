@@ -33,6 +33,8 @@ public class Hardware {
 		driveRight2 = new VictorSPX(Constants.Drivebase.DRIVE_R2_PORT);
 		driveLeft1 = new TalonSRX(Constants.Drivebase.DRIVE_L1_PORT);
 		driveLeft2 = new VictorSPX(Constants.Drivebase.DRIVE_L2_PORT);
+		driveRight1.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
+		driveLeft1.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
