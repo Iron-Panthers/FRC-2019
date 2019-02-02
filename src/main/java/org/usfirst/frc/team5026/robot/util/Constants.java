@@ -20,7 +20,8 @@ public class Constants {
 		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = true;
 		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is the front
-		
+		public static final double TURN_SENSITIVITY = 1;
+
 		// Motion Profiling PID (For Velocity)
 		public static final double F = 0; // TODO Find max velocity
 		public static final double P = 0; // TODO Tune

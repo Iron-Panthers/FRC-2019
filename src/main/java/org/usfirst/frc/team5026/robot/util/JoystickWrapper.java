@@ -20,6 +20,7 @@ public class JoystickWrapper extends Joystick {
 		} else {
 			angularPower = throttle * wheel;
 		}
+		angularPower = constrain(angularPower * Constants.Drivebase.TURN_SENSITIVITY, -1, 1);
 		double left = throttle + angularPower;
 		double right = throttle - angularPower;
 		left /= Math.abs(left) > 1 ? Math.abs(left) : 1;
@@ -65,5 +66,9 @@ public class JoystickWrapper extends Joystick {
 		 * - x;
 		 */
 		return constantCurveDrive(y, x, false)[1];
+	}
+
+	private double constrain(double value, double min, double max){
+		return value < min ? min : value > max ? max : value;
 	}
 }
