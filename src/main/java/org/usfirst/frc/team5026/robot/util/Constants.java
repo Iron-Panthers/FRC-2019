@@ -36,6 +36,8 @@ public class Constants {
 
 		/** OTHER INPUT CONSTANTS */
 		public static final double JOYSTICK_DEADBAND = 0.1;
+		public static final double VERTICAL_BOWTIE_DEADZONE_SLOPE = 10;
+		public static final double HORIZONTAL_BOWTIE_DEADZONE_SLOPE = 10;
 		public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
 		public static final double MAX_DESIRED_TURN_RADIUS = 40;
 	}
