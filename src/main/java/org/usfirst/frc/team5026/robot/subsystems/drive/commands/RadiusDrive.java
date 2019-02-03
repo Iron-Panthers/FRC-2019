@@ -26,7 +26,8 @@ public class RadiusDrive extends Command {
 		if (Math.abs(turnPower) < Constants.Input.JOYSTICK_DEADBAND) {
 			Robot.drive.set(straightPower, straightPower);
 		}
-		turnRadius = Constants.Input.MAX_DESIRED_TURN_RADIUS * (1 - Math.abs(turnPower));
+		//turnRadius = Constants.Input.MAX_DESIRED_TURN_RADIUS * (1 - Math.abs(turnPower));
+		turnRadius = - Math.log(Math.abs(turnPower));
 		innerPower = straightPower * (turnRadius - Constants.Drivebase.DRIVEBASE_WIDTH / 2)
 				/ (turnRadius + Constants.Drivebase.DRIVEBASE_WIDTH / 2);
 		if (turnPower > 0) {
