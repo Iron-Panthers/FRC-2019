@@ -95,10 +95,9 @@ public class JoystickWrapper extends Joystick {
 			scaledMagnitude = 0;
 		}
 
-		x *= scaledMagnitude / magnitude;
-		y *= scaledMagnitude / magnitude;
+		x *= (scaledMagnitude / magnitude);
+		y *= (scaledMagnitude / magnitude);
 		//y = getZ();// TEMPORARY FOR THRUSTMASTER
-		magnitude = scaledMagnitude;
 	}
 
 	public double findLeftPower() {
