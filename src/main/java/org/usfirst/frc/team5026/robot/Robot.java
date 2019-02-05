@@ -27,8 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
-  public static Hardware hardware; 
-  public static IntakeArm intakeArm; 
+	public static Hardware hardware; 
+	public static IntakeArm intakeArm; 
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -39,10 +39,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		hardware = new Hardware();
+		intakeArm = new IntakeArm();
 		drive = new Drive();
 		oi = new OI();
-    	intakeArm = new IntakeArm();
-    	hardware = new Hardware();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
