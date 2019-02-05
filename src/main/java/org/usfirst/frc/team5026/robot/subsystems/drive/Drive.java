@@ -21,10 +21,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drive extends Subsystem {
 	private MotorGroup left = Robot.hardware.leftDriveMotors;
 	private MotorGroup right = Robot.hardware.rightDriveMotors;
+	public boolean isReversed;
+
 
 	public Drive() {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
+		isReversed = false;
 	}
 
 	/**

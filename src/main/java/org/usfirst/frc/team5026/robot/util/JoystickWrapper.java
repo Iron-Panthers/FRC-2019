@@ -97,28 +97,34 @@ public class JoystickWrapper extends Joystick {
 
 		x *= (scaledMagnitude / magnitude);
 		y *= (scaledMagnitude / magnitude);
-		//y = getZ();// TEMPORARY FOR THRUSTMASTER
+		// y = getZ();// TEMPORARY FOR T H R U S T M A S T E R
 	}
 
 	public double findLeftPower() {
 		findMagnitude();
 		/*
-		 * if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) { return -(y - x); } return y
-		 * + x;
+		 * if (Robot.drive.isReversed) { return -(y - x); } return y + x;
 		 */
-		return radialDrive(y, x)[0];
+		// return radialDrive(y, x)[0];
+		System.out.println("Reversed: "+Robot.drive.isReversed);
+		double direction = Robot.drive.isReversed ? -1 : 1;
+		return y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
 	}
 
 	public double findRightPower() {
 		findMagnitude();
 		/*
-		 * if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) { return -(y + x); } return y
-		 * - x;
+		 * if (Robot.drive.isReversed) { return -(y + x); } return y - x;
 		 */
-		return radialDrive(y, x)[1];
+
+		System.out.println();
+		// return radialDrive(y, x)[1];
+		
+		double direction = Robot.drive.isReversed ? -1 : 1;
+		return y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
 	}
 
-	private double constrain(double value, double min, double max){
+	private double constrain(double value, double min, double max) {
 		return value < min ? min : value > max ? max : value;
 	}
 }
