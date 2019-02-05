@@ -46,8 +46,8 @@ public class Hardware {
 		driveRight2 = new VictorSPX(Constants.Drivebase.DRIVE_R2_PORT);
 		driveLeft1 = new TalonSRX(Constants.Drivebase.DRIVE_L1_PORT);
 		driveLeft2 = new VictorSPX(Constants.Drivebase.DRIVE_L2_PORT);
-		driveRight1.setInverted(true); //for linefollow testing only
-		driveLeft1.setInverted(false);//for linefollow testing only
+		driveRight1.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED); //for linefollow testing only
+		driveLeft1.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);//for linefollow testing only
 		driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 

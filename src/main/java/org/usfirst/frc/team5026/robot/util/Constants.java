@@ -17,8 +17,8 @@ public class Constants {
 
 		// DRIVEBASE CONSTANTS
 		public static final double DRIVEBASE_WIDTH = 30; // inches
-		public static final boolean IS_LEFT_INVERTED = true;
-		public static final boolean IS_RIGHT_INVERTED = false;
+		public static final boolean IS_LEFT_INVERTED = false;
+		public static final boolean IS_RIGHT_INVERTED = true;
 		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
 																	// the front
 	}
@@ -65,9 +65,10 @@ public class Constants {
 		public static final int GYRO_PORT = 0;
 		public static final double GYRO_ERROR_TOLERANCE = 1;
 		public static final double ROTATE_POWER = 0.5;
-		public static final double ROTATE_P = 1;
+		public static final double ROTATE_P = 0.1;
 		public static final double ROTATE_I = 0;
-		public static final double ROTATE_D = 0;
+		public static final double ROTATE_D = 0.3;
+		public static final double ROTATE_F = 0.2;
         public static final double WHEEL_DIAMETER = 5.9;
         public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
         public static final double REV_TO_TICKS = 5500;
