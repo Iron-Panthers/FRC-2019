@@ -38,8 +38,8 @@ public class Drive extends Subsystem {
 	 * @param rightPower the power to set for the right motor group.
 	 */
 	public void set(double leftPower, double rightPower) {
-		left.set(leftPower);
-		right.set(rightPower);
+		left.set(leftPower/Constants.Drivebase.BABY_PROOF_SCALE);
+		right.set(rightPower/Constants.Drivebase.BABY_PROOF_SCALE);
 	}
 
 	/**
@@ -48,8 +48,8 @@ public class Drive extends Subsystem {
 	 * @param power The power to set for the left and right motor group
 	 */
 	public void set(double power) {
-		left.set(power);
-		right.set(power);
+		left.set(power/Constants.Drivebase.BABY_PROOF_SCALE);
+		right.set(power/Constants.Drivebase.BABY_PROOF_SCALE);
 	}
 
 	/**
