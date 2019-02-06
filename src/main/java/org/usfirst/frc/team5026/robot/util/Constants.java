@@ -17,17 +17,12 @@ public class Constants {
 
 		// DRIVEBASE CONSTANTS
 		public static final double DRIVEBASE_WIDTH = 30; // inches
-<<<<<<< HEAD
 		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = true;
-		public static final boolean IS_DRIVEBASE_BACKWARDS = false; // Needed so the robot actually thinks the front is
-		public static final boolean IS_LEFT_INVERTED = true;
-		public static final boolean IS_RIGHT_INVERTED = false;
-		public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
-																	// the front
-	}
-
-	public class LineFollow {
+        public static final boolean IS_DRIVEBASE_BACKWARDS = false; // Needed so the robot actually thinks the front is	}
+    }
+    
+        public class LineFollow {
 		// LINEFOLLOW Ports
 		public static final int FRONT_LEFT_SENSOR_PORT = 1;
 		public static final int FRONT_RIGHT_SENSOR_PORT = 0;
