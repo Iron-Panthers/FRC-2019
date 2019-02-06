@@ -31,14 +31,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
-	public static OI oi;
-	public static Hardware hardware; 
-	public static IntakeArm intakeArm; 
 	public static Hardware hardware;
 	private int prevTick;
-	private long prevTPMs = 0;
+	private long prevTPS = 0;
 	private long prevTime = 0;
-	private double totalTPMs = 0;
+	private double totalTPS = 0;
 	private int tickCount = 0;
 
 	Command m_autonomousCommand;
@@ -140,7 +137,7 @@ public class Robot extends TimedRobot {
 		// this line or comment it out.
 		prevTime = System.currentTimeMillis();
 		prevTick = hardware.driveRight1.getSelectedSensorPosition();
-		prevTPMs = 0;
+		prevTPS = 0;
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -154,18 +151,16 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		Robot.drive.set(1);
+		Robot.drive.set(0.5);
 		int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
 		long currentTime = System.currentTimeMillis();
-		long currentTPMs = (currentTick - prevTick)/(currentTime - prevTime);
-		long dTPMs = currentTPMs - prevTPMs;
-		long accel = dTPMs/(currentTime-prevTime)*1000;
-		prevTick = currentTick;
-		prevTime = currentTime;
+		long currentTPS = (currentTick - prevTick)/(currentTime - prevTime);
+		long dTPS = currentTPS - prevTPS;
+		long accel = dTPS/(currentTime - prevTime);
 		if(Math.abs(accel) < 1){
 			tickCount++;
-			totalTPMs += currentTPMs;
-			System.out.println(totalTPMs/tickCount);
+			totalTPS += currentTPS;
+			System.out.println(totalTPS/tickCount);
 		}
 		prevTime = System.currentTimeMillis();
 		Scheduler.getInstance().run();
