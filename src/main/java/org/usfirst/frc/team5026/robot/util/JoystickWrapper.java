@@ -89,7 +89,7 @@ public class JoystickWrapper extends Joystick {
 		magnitude = Math.sqrt(x * x + y * y);
 
 		double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-				/ (1/Math.cos(Math.atan(Math.abs(y/x))) - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
+				/ (magnitude/Math.abs(x) - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
 
 		if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
 			scaledMagnitude = 0;
