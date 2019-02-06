@@ -35,8 +35,8 @@ public class JoystickWrapper extends Joystick {
 	 * calculates right and left powers based on the input y value and a radius
 	 * calculated based on the input x value
 	 * 
-	 * @param tx
-	 * @param ty
+	 * @param tx x of joystick
+	 * @param ty y of joystick (throttle)
 	 * @return double[] powers
 	 */
 	double[] radialDrive(double ty, double tx) {
@@ -47,7 +47,7 @@ public class JoystickWrapper extends Joystick {
 
 		// turnRadius = Constants.Input.MAX_DESIRED_TURN_RADIUS * (1 -
 		// Math.abs(turnPower));
-		double turnRadius = (-Constants.Drivebase.RADIAL_TURN_SENSITIVITY * Math.log(Math.abs(turnPower / 2))) - 6;
+		double turnRadius = (-Constants.Drivebase.RADIAL_TURN_SENSITIVITY * Math.log((turnPower*turnPower) / 2)) - 6;
 		double innerPower = straightPower * (turnRadius - Constants.Drivebase.DRIVEBASE_WIDTH / 2)
 				/ (turnRadius + Constants.Drivebase.DRIVEBASE_WIDTH / 2);
 		if (turnPower > 0) {
@@ -75,21 +75,21 @@ public class JoystickWrapper extends Joystick {
 		y = getY();
 
 		if (Math.abs(y) > Math.abs(x) * Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE) {
-			x = 0;
+			x = 0.001;
 		} else {
 			x = (x - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
 					/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
 		}
 		if (Math.abs(x) > Math.abs(y) * Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE) {
-			y = 0;
+			y = 0.001;
 		} else {
 			y = (y - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
 					/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
 		}
-		magnitude = Math.abs(Math.sqrt(x * x + y * y));
+		magnitude = Math.sqrt(x * x + y * y);
 
 		double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-				/ (1 - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
+				/ (1/Math.cos(Math.atan(Math.abs(y/x))) - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
 
 		if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
 			scaledMagnitude = 0;
