@@ -32,11 +32,19 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Drive drive;
 	public static Hardware hardware;
+<<<<<<< HEAD
 	private int prevTick;
 	private long prevTPS = 0;
 	private long prevTime = 0;
 	private double totalTPS = 0;
 	private int tickCount = 0;
+=======
+	private double initialDegree;
+
+	private long prevTime = 0;
+	private double totalDPS = 0;
+	private int degreeCount = 0;
+>>>>>>> parent of 8b951f1... Tuned rotation PID and testing maximum velocity
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -135,9 +143,10 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+<<<<<<< HEAD
 		prevTime = System.currentTimeMillis();
 		prevTick = hardware.driveRight1.getSelectedSensorPosition();
-		prevTPS = 0;
+		prevTPMs = 0;
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -151,7 +160,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		Robot.drive.set(0.5);
+		Robot.drive.set(1);
 		int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
 		long currentTime = System.currentTimeMillis();
 		long currentTPS = (currentTick - prevTick)/(currentTime - prevTime);
@@ -163,6 +172,8 @@ public class Robot extends TimedRobot {
 			System.out.println(totalTPS/tickCount);
 		}
 		prevTime = System.currentTimeMillis();
+=======
+>>>>>>> parent of 8b951f1... Tuned rotation PID and testing maximum velocity
 		Scheduler.getInstance().run();
 	}
 

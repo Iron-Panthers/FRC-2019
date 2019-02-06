@@ -47,7 +47,7 @@ public class GyroRotate extends Command {
     errorChange = currentError - lastError;
     errorSum += currentError;
     lastError = currentError;
-    double power = Constants.DriveStraight.ROTATE_F + (Constants.DriveStraight.ROTATE_P * currentError) + (Constants.DriveStraight.ROTATE_I * errorSum) + (Constants.DriveStraight.ROTATE_D * errorChange);
+    double power = Constants.DriveStraight.ROTATE_P * currentError + Constants.DriveStraight.ROTATE_I * errorSum + Constants.DriveStraight.ROTATE_D * errorChange;
     Robot.drive.rotate(power);
   }
 
@@ -60,7 +60,7 @@ public class GyroRotate extends Command {
     else{
       counter = 0;
     }
-    return counter >= 50;
+    return counter >= 100;
   }
 
   // Called once after isFinished returns true
