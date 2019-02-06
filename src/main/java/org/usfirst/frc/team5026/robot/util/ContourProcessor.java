@@ -27,6 +27,7 @@ public class ContourProcessor {
         double distance = Constants.VP.TAPE_SIDE_HEIGHT / (2 * Math.tan(avgSideHeight/Constants.VP.VERTICAL_ANGLE_TO_DEFAULT_HEIGHT));
         double expectedWidth = Constants.VP.HORIZONTAL_ANGLE_TO_DEFAULT_WIDTH * Math.atan(Constants.VP.TAPE_WIDTH_BETWEEN_UPPER_POINTS * (2/distance) );
         double angle = Math.acos(widthBetweenHighPoints/expectedWidth);
+        angle = (rightSideHeight > leftSideHeight) ? angle : -angle;
         double[] returnList = {distance, angle};
         return returnList;
     }
