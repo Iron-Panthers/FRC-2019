@@ -49,10 +49,10 @@ public class OI {
 		manualArm = new JoystickButton(joystick, 1);
 
 
-		cargoShipHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
-		oppCargoShipHeight.toggleWhenPressed(new ArmToTarget(-Constants.IntakeArm.CARGO_SHIP_HEIGHT));
-		rocketLowHeight.toggleWhenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT));
-		oppRocketLowHeight.toggleWhenPressed(new ArmToTarget(-Constants.IntakeArm.ROCKET_LOW_HEIGHT));
+		cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
+		oppCargoShipHeight.whenPressed(new ArmToTarget(-Constants.IntakeArm.CARGO_SHIP_HEIGHT));
+		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT));
+		oppRocketLowHeight.whenPressed(new ArmToTarget(-Constants.IntakeArm.ROCKET_LOW_HEIGHT));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo());
 		manualArm.whileHeld(new ManualArmMovement());
