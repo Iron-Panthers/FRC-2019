@@ -33,7 +33,7 @@ public class IntakeCargo extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intakeArm.getCurrent() >= Constants.IntakeArm.INTAKE_OUTPUT_CURRENT_LIMIT;
+    return false; //TODO Add banner statement here
   }
 
   // Called once after isFinished returns true

@@ -23,6 +23,7 @@ public class IntakeArm extends Subsystem {
   public TalonSRX intakeMotor;
   public double currentHeight;
   public double currentAngle;
+  public double currentTorque;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -38,6 +39,13 @@ public class IntakeArm extends Subsystem {
   public double getCurrentAngle(){
     currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition()) - 15;
     return currentAngle;
+  }
+
+  public double getCurrentTorque() {
+    currentTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
+                  + (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
+                  * Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.sin(Robot.intakeArm.getCurrentAngle()) + 90);
+    return currentTorque;
   }
 
   public void moveArm(double power) {

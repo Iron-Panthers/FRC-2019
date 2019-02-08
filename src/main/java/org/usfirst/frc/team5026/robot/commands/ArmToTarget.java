@@ -44,9 +44,7 @@ public class ArmToTarget extends Command {
     errorChange = currentError - lastError;
     errorSum += currentError;
     lastError = currentError;
-    armTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
-                + (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
-                * Constants.IntakeArm.GRAVITY_ACCELERATION * Math.sin(Robot.intakeArm.getCurrentAngle());
+    armTorque = Robot.intakeArm.getCurrentTorque();
 
     basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
 
@@ -79,5 +77,6 @@ public class ArmToTarget extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.intakeArm.moveArm(basePower);
   }
 }

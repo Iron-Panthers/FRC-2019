@@ -16,14 +16,15 @@ public class Constants {
         //INTAKE ARM PORTS
         public static final int INTAKE_ARM_MOTOR_PORT = 9;
         public static final int INTAKE_MOTOR_PORT = 6;
- 
-        public static final double TICKS_TO_DEGREES = 360 / (1024 * 4); //360 / ticks per rotation * sprocket ratio
+        
+        //INTAKE ARM SETPOINTS
+        public static final double TICKS_TO_DEGREES = 360 / (1024 * 4); //360 / (ticks per rotation * sprocket ratio)
         public static final double CARGO_DIAMETER = 13; //in
         public static final double ARM_LENGTH = 27.4; //in
         public static final double ARM_BASE_HEIGHT = 18.75; //in
         public static final double CARGO_SHIP_HEIGHT = 31.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; //in
         public static final double ROCKET_LOW_HEIGHT = 35.5 - ARM_BASE_HEIGHT; //in
-        public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; //in
+        public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; //in - estimate
 
         //INTAKE ARM PID
         public static final double INTAKE_ARM_P = 1;
@@ -43,6 +44,5 @@ public class Constants {
         //INTAKE
         public static final double INTAKE_POWER = 0.5;
         public static final double OUTTAKE_POWER = -1;
-        public static final double INTAKE_OUTPUT_CURRENT_LIMIT = 0; //Replace later
     }
 }
