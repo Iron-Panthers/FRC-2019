@@ -11,6 +11,7 @@ import org.usfirst.frc.team5026.robot.commands.ArmToTarget;
 import org.usfirst.frc.team5026.robot.commands.IntakeCargo;
 import org.usfirst.frc.team5026.robot.commands.ManualArmMovement;
 import org.usfirst.frc.team5026.robot.commands.OuttakeCargo;
+import org.usfirst.frc.team5026.robot.commands.ZeroIntakeArm;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -32,9 +33,11 @@ public class OI {
 	JoystickButton oppCargoShipHeight;
 	JoystickButton rocketLowHeight;
 	JoystickButton oppRocketLowHeight;
+	JoystickButton lowestHeight;
 	JoystickButton intake;
 	JoystickButton outtake;
 	JoystickButton manualArm;
+	JoystickButton zeroIntakeAngle;
 	
 	public OI() {
 		joystick = new Joystick(0);
@@ -44,18 +47,22 @@ public class OI {
 		oppCargoShipHeight = new JoystickButton(joystick, 7);
 		rocketLowHeight = new JoystickButton(joystick, 8);
 		oppRocketLowHeight = new JoystickButton(joystick, 9);
+		lowestHeight = new JoystickButton(joystick, 3);
 		intake = new JoystickButton(joystick, 5);
 		outtake = new JoystickButton(joystick, 4);
 		manualArm = new JoystickButton(joystick, 1);
+		zeroIntakeAngle = new JoystickButton(joystick, 2);
 
 
 		cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
-		oppCargoShipHeight.whenPressed(new ArmToTarget(-Constants.IntakeArm.CARGO_SHIP_HEIGHT));
+		oppCargoShipHeight.whenPressed(new ArmToTarget(-(Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER)));
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT));
-		oppRocketLowHeight.whenPressed(new ArmToTarget(-Constants.IntakeArm.ROCKET_LOW_HEIGHT));
+		oppRocketLowHeight.whenPressed(new ArmToTarget(-(Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER)));
+		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo());
 		manualArm.whileHeld(new ManualArmMovement());
+		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

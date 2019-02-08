@@ -36,7 +36,7 @@ public class IntakeArm extends Subsystem {
   }
 
   public double getCurrentAngle(){
-    currentAngle = Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition();
+    currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition()) - 15;
     return currentAngle;
   }
 

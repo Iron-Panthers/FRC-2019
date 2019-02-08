@@ -34,7 +34,6 @@ public class OuttakeCargo extends Command {
   @Override
   protected boolean isFinished() {
     return false;
-    //return Robot.intakeArm.getCurrent() >= Constants.IntakeArm.INTAKE_OUTPUT_CURRENT_LIMIT;
   }
 
   // Called once after isFinished returns true

@@ -38,11 +38,6 @@ public class ManualArmMovement extends Command {
               * Constants.IntakeArm.GRAVITY_ACCELERATION * Math.sin(Robot.intakeArm.getCurrentAngle());
     basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
     power = basePower + Robot.oi.joystick.getY();
-    if(Robot.intakeArm.getCurrentAngle() < 2 && power < 0) {
-      //power = 0;
-    } else if (Robot.intakeArm.getCurrentAngle() > 180 && power > 0) {
-      //power = basePower;
-    }
 
     Robot.intakeArm.moveArm(power);
   }
