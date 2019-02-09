@@ -44,7 +44,7 @@ public class IntakeArm extends Subsystem {
   public double getCurrentTorque() {
     currentTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
                   + (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
-                  * Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.sin(getCurrentAngle() + 90));
+                  * Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.cos(getCurrentAngle()));
     return currentTorque;
   }
 

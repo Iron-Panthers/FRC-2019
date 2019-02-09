@@ -14,8 +14,8 @@ public class Constants {
     }
     public class IntakeArm { //TODO Calibrate/Set Ports and Numbers
         //INTAKE ARM PORTS
-        public static final int INTAKE_ARM_MOTOR_PORT = 9;
-        public static final int INTAKE_MOTOR_PORT = 6;
+        public static final int INTAKE_ARM_MOTOR_PORT = 6;
+        public static final int INTAKE_MOTOR_PORT = 7;
         
         //INTAKE ARM SETPOINTS
         public static final double TICKS_TO_DEGREES = 360 / (1024 * 4); //360 / (ticks per rotation * sprocket ratio)

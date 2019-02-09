@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		intakeArm.moveArm(0.3);
+		intakeArm.moveArm(intakeArm.currentTorque);
 	}
 
 	/**
