@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -26,18 +27,19 @@ public class ZeroIntakeArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.hardware.armMotor.setSelectedSensorPosition(0);
+    Robot.intakeArm.moveArm(1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return Robot.hardware.armMotor.getOutputCurrent() > Constants.IntakeArm.OUTPUT_CURRENT_LIMIT;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.hardware.armMotor.setSelectedSensorPosition(0);
   }
 
   // Called when another command which requires one or more of the same

@@ -25,6 +25,7 @@ public class Constants {
         public static final double CARGO_SHIP_HEIGHT = 31.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; //in
         public static final double ROCKET_LOW_HEIGHT = 35.5 - ARM_BASE_HEIGHT; //in
         public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; //in - estimate
+        public static final double OUTPUT_CURRENT_LIMIT = 1;
 
         //INTAKE ARM PID
         public static final double INTAKE_ARM_P = 1;
