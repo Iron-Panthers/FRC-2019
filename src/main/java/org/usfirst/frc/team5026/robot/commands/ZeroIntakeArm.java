@@ -27,13 +27,14 @@ public class ZeroIntakeArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intakeArm.moveArm(1);
+    //Robot.intakeArm.moveArm(1);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.hardware.armMotor.getOutputCurrent() > Constants.IntakeArm.OUTPUT_CURRENT_LIMIT;
+    return true;
+    //return Robot.hardware.armMotor.getOutputCurrent() > Constants.IntakeArm.OUTPUT_CURRENT_LIMIT;
   }
 
   // Called once after isFinished returns true
