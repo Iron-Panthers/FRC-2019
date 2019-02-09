@@ -32,8 +32,9 @@ public class ManualArmMovement extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    armTorque = Robot.intakeArm.getCurrentTorque();
-    basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
+    //armTorque = Robot.intakeArm.getCurrentTorque();
+    //basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
+    basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
     power = basePower + Robot.oi.joystick.getY();
 
     Robot.intakeArm.moveArm(power);

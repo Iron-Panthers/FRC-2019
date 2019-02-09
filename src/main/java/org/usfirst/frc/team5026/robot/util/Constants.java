@@ -44,5 +44,6 @@ public class Constants {
         //INTAKE
         public static final double INTAKE_POWER = 0.5;
         public static final double OUTTAKE_POWER = -1;
+        public static final double STALL_TORQUE_COEFFICIENT = 1;
     }
 }
