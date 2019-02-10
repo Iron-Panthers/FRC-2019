@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -29,7 +30,7 @@ public class JoystickWrapper extends Joystick {
 	/**
 	 * Updates the x and y position of the joystick.
 	 */
-	private void update() {
+	private void updateAxes() {
 		x = getX();
 		y = getY();
 	}
@@ -102,10 +103,17 @@ public class JoystickWrapper extends Joystick {
 	}
 
 	/**
-	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones.
+	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones. This
+	 * should be done before calling {@link #findLeftPower()} or
+	 * {@link #findRightPower()}.
+	 * 
+	 * 
+	 * To avoid redundant calls, this should be periodic logic for tele-operated
+	 * driving commands. If you are writing a new tele-operated driving command,
+	 * refer to {@link ArcadeDrive#execute()} for an example.
 	 */
-	public void findMagnitude() {
-		update();
+	public void updateMagnitude() {
+		updateAxes();
 		applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
 				Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
 
@@ -128,14 +136,14 @@ public class JoystickWrapper extends Joystick {
 
 	/**
 	 * Calculates the desired left power. Results are calculated using modified
-	 * ArcadeDrive maths.
+	 * ArcadeDrive maths. Before calling this method, ensure you have recently called
+	 * {@link #updateMagnitude()}.
 	 * 
 	 * The result is calculated using the values of the TURN_SENSITIVITY constant
 	 * and the IS_DRIVEBASE_BACKWARDS constant. Refer to Constants.java in this
 	 * package.
 	 */
 	public double findLeftPower() {
-		findMagnitude();
 		/*
 		 * if (Robot.drive.isReversed) { return -(y - x); } return y + x;
 		 */
@@ -150,14 +158,14 @@ public class JoystickWrapper extends Joystick {
 
 	/**
 	 * Calculates the desired right power. Results are calculated using modified
-	 * ArcadeDrive maths.
+	 * ArcadeDrive maths. Before calling this method, ensure you have recently called
+	 * {@link #updateMagnitude()}.
 	 * 
 	 * The result is calculated using the values of the TURN_SENSITIVITY constant
 	 * and the IS_DRIVEBASE_BACKWARDS constant. Refer to Constants.java in this
 	 * package.
 	 */
 	public double findRightPower() {
-		findMagnitude();
 		/*
 		 * if (Robot.drive.isReversed) { return -(y + x); } return y - x;
 		 */
