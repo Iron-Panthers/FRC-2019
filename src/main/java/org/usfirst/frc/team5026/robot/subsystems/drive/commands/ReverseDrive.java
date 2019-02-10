@@ -1,5 +1,3 @@
-// THIS IS A PLACEHOLDER, DELTE IT ONCE THIS FOLDER HAS OTHER STUFF IN IT
-
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -9,10 +7,13 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
+import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Placeholder extends Command {
-  public Placeholder() {
+public class ReverseDrive extends Command {
+  public ReverseDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -20,11 +21,13 @@ public class Placeholder extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.drive.isReversed = true;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.drive.isReversed = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,11 +39,13 @@ public class Placeholder extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.drive.isReversed = false;
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.drive.isReversed = false;
   }
 }

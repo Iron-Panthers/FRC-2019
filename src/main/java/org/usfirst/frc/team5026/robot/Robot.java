@@ -8,9 +8,12 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -121,7 +124,6 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		intakeArm.moveArm(intakeArm.currentTorque);
 	}
 
 	/**
@@ -129,8 +131,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("Current Angle:" + intakeArm.getCurrentAngle());
-		System.out.println("Current Torque:" + intakeArm.getCurrentTorque());
 		Scheduler.getInstance().run();
 	}
 
