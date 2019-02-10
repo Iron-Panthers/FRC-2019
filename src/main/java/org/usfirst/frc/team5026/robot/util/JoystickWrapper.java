@@ -88,18 +88,19 @@ public class JoystickWrapper extends Joystick {
 		}
 		magnitude = Math.abs(Math.sqrt(x * x + y * y));
 
-		double scaledMaxMagnitude = (magnitude/Math.abs(x) < Math.sqrt(2)) ? magnitude/Math.abs(x) : magnitude/Math.abs(y);
+		double scaledMaxMagnitude = (magnitude / Math.abs(x) < Math.sqrt(2)) ? magnitude / Math.abs(x)
+				: magnitude / Math.abs(y);
 		double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
+				/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
 
 		if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
 			scaledMagnitude = 0;
 		}
 
 		x *= (scaledMagnitude / magnitude);
-		x = -1*x;
+		x = -1 * x;
 		y *= (scaledMagnitude / magnitude);
-		// y = getZ();// TEMPORARY FOR T H R U S T M A S T E R
+		// y = getZ(); // For the Thrustmaster Input device only, which has the throttle as Z
 	}
 
 	public double findLeftPower() {
@@ -108,9 +109,9 @@ public class JoystickWrapper extends Joystick {
 		 * if (Robot.drive.isReversed) { return -(y - x); } return y + x;
 		 */
 		// return radialDrive(y, x)[0];
-		System.out.println("Reversed: "+Robot.drive.isReversed);
+		System.out.println("Reversed: " + Robot.drive.isReversed);
 		double direction = Robot.drive.isReversed ? -1 : 1;
-		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
+		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * (y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
 		}
 		return y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
@@ -124,11 +125,11 @@ public class JoystickWrapper extends Joystick {
 
 		System.out.println();
 		// return radialDrive(y, x)[1];
-		
+
 		double direction = Robot.drive.isReversed ? -1 : 1;
-		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
+		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * (y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
-		} 
+		}
 		return y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
 	}
 

@@ -16,56 +16,57 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Add your docs here.
+ * The subsystem which controls the Intake Arm. Contains utility methods to
+ * control intake power, configure the encoder, and calculate the angle and
+ * torque.
  */
 public class IntakeArm extends Subsystem {
-  public TalonSRX armMotor;
-  public TalonSRX intakeMotor;
-  public double currentHeight;
-  public double currentAngle;
-  public double currentTorque;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+	public TalonSRX armMotor;
+	public TalonSRX intakeMotor;
+	public double currentHeight;
+	public double currentAngle;
+	public double currentTorque;
 
-  public IntakeArm(){
-    armMotor = Robot.hardware.armMotor;
-    intakeMotor = Robot.hardware.armIntakeMotor;
-  }
+	public IntakeArm() {
+		armMotor = Robot.hardware.armMotor;
+		intakeMotor = Robot.hardware.armIntakeMotor;
+	}
 
-  public void resetEncoder(){
-    armMotor.setSelectedSensorPosition(0);
-  }
+	public void resetEncoder() {
+		armMotor.setSelectedSensorPosition(0);
+	}
 
-  public double getCurrentAngle(){
-    currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition()) - 15;
-    return currentAngle;
-  }
+	public double getCurrentAngle() {
+		currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition()) - 15;
+		return currentAngle;
+	}
 
-  public double getCurrentTorque() {
-    currentTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
-                  + (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
-                  * Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.cos(getCurrentAngle() * (Math.PI / 180)));
-    return currentTorque;
-  }
+	public double getCurrentTorque() {
+		currentTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
+				+ (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
+				* Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.cos(getCurrentAngle() * (Math.PI / 180)));
+		return currentTorque;
+	}
 
-  public void moveArm(double power) {
-    armMotor.set(ControlMode.PercentOutput, power);
-  }
+	public void moveArm(double power) {
+		armMotor.set(ControlMode.PercentOutput, power);
+	}
 
-  public void setIntakePower(double power){
-    intakeMotor.set(ControlMode.PercentOutput, power);
-  }
+	public void setIntakePower(double power) {
+		intakeMotor.set(ControlMode.PercentOutput, power);
+	}
 
-  public void brakeIntake(){
-    intakeMotor.set(ControlMode.PercentOutput, 0);
-  }
+	public void brakeIntake() {
+		intakeMotor.set(ControlMode.PercentOutput, 0);
+	}
 
-  public double getCurrent(){
-    return intakeMotor.getOutputCurrent();
-  }
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand())
-  }
+	public double getCurrent() {
+		return intakeMotor.getOutputCurrent();
+	}
+
+	@Override
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand())
+	}
 }
