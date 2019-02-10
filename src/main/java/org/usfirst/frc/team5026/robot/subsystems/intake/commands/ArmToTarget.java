@@ -5,23 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.commands;
+package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ManualArmMovement extends Command {
+public class ArmToTarget extends Command {
 
+	private double target;
+	private double currentError;
+	private double errorSum;
+	private double errorChange;
+	private double lastError;
+	private long lastTimeOutOfThreshold;
 	private double armTorque;
 	private double basePower;
-	private double power;
 
-	public ManualArmMovement() {
+	public ArmToTarget(double targetHeight) {
+		if (targetHeight < 0) {
+			this.target = 180 - Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH);
+		} else {
+			this.target = Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH);
+		}
 		requires(Robot.intakeArm);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -32,20 +40,31 @@ public class ManualArmMovement extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		currentError = target - Robot.intakeArm.getCurrentAngle();
+		errorChange = currentError - lastError;
+		errorSum += currentError;
+		lastError = currentError;
 		armTorque = Robot.intakeArm.getCurrentTorque();
-		// basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
+
+		basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
 		// basePower =
 		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
-		// power = basePower + Robot.oi.joystick.getY();
-		power = Robot.oi.joystick.getY();
-		System.out.println(power);
+
+		double power = (Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
+				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange) + basePower;
+
 		Robot.intakeArm.moveArm(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		long currentTime = System.currentTimeMillis();
+		if (Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
+			lastTimeOutOfThreshold = currentTime;
+			return false;
+		}
+		return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
 	}
 
 	// Called once after isFinished returns true
@@ -58,6 +77,6 @@ public class ManualArmMovement extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		// Robot.intakeArm.moveArm(basePower);
+		Robot.intakeArm.moveArm(basePower);
 	}
 }

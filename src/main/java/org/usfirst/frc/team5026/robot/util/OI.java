@@ -11,11 +11,12 @@ import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ReverseDrive;
-import org.usfirst.frc.team5026.robot.commands.ArmToTarget;
-import org.usfirst.frc.team5026.robot.commands.IntakeCargo;
-import org.usfirst.frc.team5026.robot.commands.ManualArmMovement;
-import org.usfirst.frc.team5026.robot.commands.OuttakeCargo;
-import org.usfirst.frc.team5026.robot.commands.ZeroIntakeArm;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ArmToTarget;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.IntakeCargo;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ManualArmMovement;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.OuttakeCargo;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ZeroIntakeArm;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 

@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.commands;
+package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OuttakeCargo extends Command {
-	public OuttakeCargo() {
+public class IntakeCargo extends Command {
+	public IntakeCargo() {
 		requires(Robot.intakeArm);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -27,20 +27,19 @@ public class OuttakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intakeArm.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
+		Robot.intakeArm.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return false; // TODO Add banner statement here
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		Robot.intakeArm.brakeIntake();
-		;
 	}
 
 	// Called when another command which requires one or more of the same
