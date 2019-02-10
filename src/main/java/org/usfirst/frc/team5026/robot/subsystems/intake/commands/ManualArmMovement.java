@@ -37,7 +37,7 @@ public class ManualArmMovement extends Command {
 		// basePower =
 		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
 		// power = basePower + Robot.oi.joystick.getY();
-		power = Robot.oi.joystick.getY();
+		power = Robot.oi.stick2.getY();
 		System.out.println(power);
 		Robot.intakeArm.moveArm(power);
 	}

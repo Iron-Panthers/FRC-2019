@@ -26,12 +26,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	public JoystickWrapper stick1;
+	public JoystickWrapper stick2;
 	public JoystickButton button1;
 	public JoystickButton button9;
 	public JoystickButton button10;
 	public JoystickButton button6;
 
-	public Joystick joystick;
 	JoystickButton cargoShipHeight;
 	JoystickButton oppCargoShipHeight;
 	JoystickButton rocketLowHeight;
@@ -44,6 +44,7 @@ public class OI {
 
 	public OI() {
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
+		stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
 		button1 = new JoystickButton(stick1, 1);
 		button6 = new JoystickButton(stick1, 6);
 		button9 = new JoystickButton(stick1, 9);
@@ -53,18 +54,16 @@ public class OI {
 		button6.whileHeld(new FindF());
 		button1.whileHeld(new ReverseDrive());
 
-		joystick = new Joystick(1);
-
 		// TODO Non-hardcoded ports
-		cargoShipHeight = new JoystickButton(joystick, 6);
-		oppCargoShipHeight = new JoystickButton(joystick, 7);
-		rocketLowHeight = new JoystickButton(joystick, 8);
-		oppRocketLowHeight = new JoystickButton(joystick, 9);
-		lowestHeight = new JoystickButton(joystick, 3);
-		intake = new JoystickButton(joystick, 5);
-		outtake = new JoystickButton(joystick, 4);
-		manualArm = new JoystickButton(joystick, 1);
-		zeroIntakeAngle = new JoystickButton(joystick, 2);
+		manualArm = new JoystickButton(stick2, 1);
+		intake = new JoystickButton(stick2, 2);
+		outtake = new JoystickButton(stick2, 3);
+		zeroIntakeAngle = new JoystickButton(stick2, 7);
+		lowestHeight = new JoystickButton(stick2, 8);
+		oppRocketLowHeight = new JoystickButton(stick2, 9);
+		rocketLowHeight = new JoystickButton(stick2, 10);
+		oppCargoShipHeight = new JoystickButton(stick2, 11);
+		cargoShipHeight = new JoystickButton(stick2, 12);
 
 		cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
 		oppCargoShipHeight.whenPressed(new ArmToTarget(-(Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER)));

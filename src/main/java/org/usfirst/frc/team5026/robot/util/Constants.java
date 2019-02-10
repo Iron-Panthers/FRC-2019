@@ -35,6 +35,7 @@ public class Constants {
 	public class Input {
 		/** DEVICE PORTS */
 		public static final int JOYSTICK_1_PORT = 0;
+		public static final int JOYSTICK_2_PORT = 1;
 
 		/** OTHER INPUT CONSTANTS */
 		public static final double JOYSTICK_DEADBAND = 0.1;
