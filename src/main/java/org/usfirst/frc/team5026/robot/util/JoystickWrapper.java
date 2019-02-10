@@ -97,6 +97,7 @@ public class JoystickWrapper extends Joystick {
 		}
 
 		x *= (scaledMagnitude / magnitude);
+		x = -1*x;
 		y *= (scaledMagnitude / magnitude);
 		// y = getZ();// TEMPORARY FOR T H R U S T M A S T E R
 	}
@@ -109,6 +110,9 @@ public class JoystickWrapper extends Joystick {
 		// return radialDrive(y, x)[0];
 		System.out.println("Reversed: "+Robot.drive.isReversed);
 		double direction = Robot.drive.isReversed ? -1 : 1;
+		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
+			return -1 * (y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
+		}
 		return y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
 	}
 
@@ -122,6 +126,9 @@ public class JoystickWrapper extends Joystick {
 		// return radialDrive(y, x)[1];
 		
 		double direction = Robot.drive.isReversed ? -1 : 1;
+		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
+			return -1 * (y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
+		} 
 		return y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
 	}
 
