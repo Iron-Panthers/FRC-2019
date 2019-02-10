@@ -4,6 +4,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * JoystickWrapper is a wrapper which extends the WPILib Joystick, which itself
@@ -132,6 +133,10 @@ public class JoystickWrapper extends Joystick {
 		x = -1 * x;
 		y *= (scaledMagnitude / magnitude);
 		// y = getZ(); // For use with the Thrustmaster input device
+
+		SmartDashboard.putNumber("updateMag-x", x);
+		SmartDashboard.putNumber("updateMag-y", y);
+		SmartDashboard.putNumber("scaledMaxMag", scaledMaxMagnitude);
 	}
 
 	/**
