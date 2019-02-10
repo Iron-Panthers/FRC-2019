@@ -46,8 +46,8 @@ public class ArmToTarget extends Command {
     lastError = currentError;
     armTorque = Robot.intakeArm.getCurrentTorque();
 
-    basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
-    //basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
+    //basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
+    basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
 
     double power = (Constants.IntakeArm.INTAKE_ARM_P * currentError)
                     + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)

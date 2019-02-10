@@ -29,6 +29,7 @@ public class IntakeArm extends Subsystem {
 
   public IntakeArm(){
     armMotor = Robot.hardware.armMotor;
+    armMotor.setInverted(Constants.IntakeArm.ARM_MOTOR_IS_INVERTED);
     intakeMotor = Robot.hardware.armIntakeMotor;
   }
 

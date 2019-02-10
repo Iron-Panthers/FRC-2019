@@ -16,6 +16,8 @@ public class Constants {
         //INTAKE ARM PORTS
         public static final int INTAKE_ARM_MOTOR_PORT = 6;
         public static final int INTAKE_MOTOR_PORT = 7;
+
+        public static final boolean ARM_MOTOR_IS_INVERTED = true;
         
         //INTAKE ARM SETPOINTS
         public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); //360 / (ticks per rotation * sprocket ratio)
@@ -33,6 +35,7 @@ public class Constants {
         public static final double INTAKE_ARM_D = 0;
         public static final double ERROR_TOLERANCE = 1; //degrees
         public static final long ERROR_TOLERANCE_TIME = 500; //ms
+        public static final double STALL_TORQUE_COEFFICIENT = 0.5;
 
         //INTAKE ARM TORQUE
         public static final double INTAKE_MASS = 8; //lbs - estimate
@@ -40,11 +43,10 @@ public class Constants {
         public static final double INTAKE_ARM_MASS = 5; //lbs - estimate
         public static final double INTAKE_ARM_DISTANCE = 10.7 / 2; //Distance to COM of Intake Arm (in)
         public static final double GRAVITY_ACCELERATION = 386.1; //in/s^2
-        public static final double INTAKE_ARM_MOTOR_MAX_TORQUE = 6.284 * 40 * 4; //in/lbs * gear ratio * sprocket ratio
+        public static final double INTAKE_ARM_MOTOR_MAX_TORQUE = 6.284 * 100.0 * 4.0; //in/lbs * gear ratio * sprocket ratio
 
         //INTAKE
         public static final double INTAKE_POWER = 0.5;
         public static final double OUTTAKE_POWER = -1;
-        public static final double STALL_TORQUE_COEFFICIENT = 1;
     }
 }
