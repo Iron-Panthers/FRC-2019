@@ -22,14 +22,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeArm extends Subsystem {
 	public TalonSRX armMotor;
-	public TalonSRX intakeMotor;
 	public double currentHeight;
 	public double currentAngle;
 	public double currentTorque;
 
 	public IntakeArm() {
 		armMotor = Robot.hardware.armMotor;
-		intakeMotor = Robot.hardware.armIntakeMotor;
 	}
 
 	public void resetEncoder() {
@@ -55,18 +53,6 @@ public class IntakeArm extends Subsystem {
 
 	public void moveArm(double power) {
 		armMotor.set(ControlMode.PercentOutput, power);
-	}
-
-	public void setIntakePower(double power) {
-		intakeMotor.set(ControlMode.PercentOutput, power);
-	}
-
-	public void brakeIntake() {
-		intakeMotor.set(ControlMode.PercentOutput, 0);
-	}
-
-	public double getCurrent() {
-		return intakeMotor.getOutputCurrent();
 	}
 
 	@Override
