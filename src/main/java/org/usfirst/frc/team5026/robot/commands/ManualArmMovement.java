@@ -37,7 +37,8 @@ public class ManualArmMovement extends Command {
     //basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
     power = basePower + Robot.oi.joystick.getY();
 
-    Robot.intakeArm.moveArm(power);
+    System.out.println(power);
+    //Robot.intakeArm.moveArm(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -56,6 +57,6 @@ public class ManualArmMovement extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.intakeArm.moveArm(basePower);
+    //Robot.intakeArm.moveArm(basePower);
   }
 }
