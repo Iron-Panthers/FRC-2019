@@ -4,9 +4,21 @@ import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * JoystickWrapper is a wrapper which extends the WPILib Joystick, which itself
+ * extends GenericHID. Most of the additions to Joystick exist for tele-operated
+ * driving logic.
+ */
 public class JoystickWrapper extends Joystick {
 	private double x, y, magnitude;
 
+	/**
+	 * Construct an instance of a JoystickWrapper, where the joystick index is the
+	 * USB port on the driver station.
+	 * 
+	 * @param port is the USB port on the Driver Station that the joystick is
+	 *             plugged into.
+	 */
 	public JoystickWrapper(int port) {
 		super(port);
 		x = 0;
@@ -14,7 +26,25 @@ public class JoystickWrapper extends Joystick {
 		magnitude = 0;
 	}
 
-	double[] constantCurveDrive(double throttle, double wheel, boolean quickTurn) {
+	/**
+	 * Updates the x and y position of the joystick.
+	 */
+	private void update() {
+		x = getX();
+		y = getY();
+	}
+
+	/**
+	 * Calculates right and left powers based on the throttle, wheel, and quickTurn
+	 * values.
+	 * 
+	 * @param throttle
+	 * @param wheel
+	 * @param quickTurn whether or not to use quick-turn mode
+	 * 
+	 * @return double[] powers
+	 */
+	public double[] constantCurveDrive(double throttle, double wheel, boolean quickTurn) {
 		double angularPower;
 		System.out.println("Wheel power: " + wheel);
 		if (quickTurn) {
@@ -32,14 +62,14 @@ public class JoystickWrapper extends Joystick {
 	}
 
 	/**
-	 * calculates right and left powers based on the input y value and a radius
-	 * calculated based on the input x value
+	 * Calculates right and left powers based on the input y-value, and a radius
+	 * calculated based on the input x-value.
 	 * 
 	 * @param tx
 	 * @param ty
 	 * @return double[] powers
 	 */
-	double[] radialDrive(double ty, double tx) {
+	public double[] radialDrive(double ty, double tx) {
 		double turnPower = tx;
 		double straightPower = ty;
 		double rightPow = 0;
@@ -50,6 +80,7 @@ public class JoystickWrapper extends Joystick {
 		double turnRadius = (-Constants.Drivebase.RADIAL_TURN_SENSITIVITY * Math.log(Math.abs(turnPower / 2))) - 6;
 		double innerPower = straightPower * (turnRadius - Constants.Drivebase.DRIVEBASE_WIDTH / 2)
 				/ (turnRadius + Constants.Drivebase.DRIVEBASE_WIDTH / 2);
+
 		if (turnPower > 0) {
 			rightPow = innerPower;
 			leftPow = straightPower;
@@ -58,10 +89,13 @@ public class JoystickWrapper extends Joystick {
 			leftPow = innerPower;
 		}
 
-		// if (Math.abs(turnPower) < Constants.Input.JOYSTICK_DEADBAND) {
-		// rightPow = straightPower;
-		// leftPow = straightPower;
-		// }
+		/*
+		 * The segment commented out applies the "forward-driving" zone, which allows
+		 * the driver to set equal power even if they are slightly off-center.
+		 * 
+		 * if (Math.abs(turnPower) < Constants.Input.JOYSTICK_DEADBAND) { rightPow =
+		 * straightPower; leftPow = straightPower; }
+		 */
 
 		double[] result = { leftPow, rightPow };
 		return result;
@@ -69,23 +103,12 @@ public class JoystickWrapper extends Joystick {
 
 	/**
 	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones.
-	 **/
+	 */
 	public void findMagnitude() {
-		x = getX();
-		y = getY();
+		update();
+		applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
+				Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
 
-		if (Math.abs(y) > Math.abs(x) * Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE) {
-			x = 0;
-		} else {
-			x = (x - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
-					/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
-		}
-		if (Math.abs(x) > Math.abs(y) * Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE) {
-			y = 0;
-		} else {
-			y = (y - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
-					/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
-		}
 		magnitude = Math.abs(Math.sqrt(x * x + y * y));
 
 		double scaledMaxMagnitude = (magnitude / Math.abs(x) < Math.sqrt(2)) ? magnitude / Math.abs(x)
@@ -100,9 +123,17 @@ public class JoystickWrapper extends Joystick {
 		x *= (scaledMagnitude / magnitude);
 		x = -1 * x;
 		y *= (scaledMagnitude / magnitude);
-		// y = getZ(); // For the Thrustmaster Input device only, which has the throttle as Z
+		// y = getZ(); // For use with the Thrustmaster input device
 	}
 
+	/**
+	 * Calculates the desired left power. Results are calculated using modified
+	 * ArcadeDrive maths.
+	 * 
+	 * The result is calculated using the values of the TURN_SENSITIVITY constant
+	 * and the IS_DRIVEBASE_BACKWARDS constant. Refer to Constants.java in this
+	 * package.
+	 */
 	public double findLeftPower() {
 		findMagnitude();
 		/*
@@ -117,6 +148,14 @@ public class JoystickWrapper extends Joystick {
 		return y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
 	}
 
+	/**
+	 * Calculates the desired right power. Results are calculated using modified
+	 * ArcadeDrive maths.
+	 * 
+	 * The result is calculated using the values of the TURN_SENSITIVITY constant
+	 * and the IS_DRIVEBASE_BACKWARDS constant. Refer to Constants.java in this
+	 * package.
+	 */
 	public double findRightPower() {
 		findMagnitude();
 		/*
@@ -135,5 +174,27 @@ public class JoystickWrapper extends Joystick {
 
 	private double constrain(double value, double min, double max) {
 		return value < min ? min : value > max ? max : value;
+	}
+
+	/**
+	 * Applies the idea of a "bowtie deadzone", given a vertical slope and
+	 * horizontal slope for the triangles. Mutates the x and y values within the
+	 * JoystickWrapper.
+	 * 
+	 * @param verticalSlope
+	 * @param horizontalSlope
+	 */
+	private void applyBowtieDeadzone(double verticalSlope, double horizontalSlope) {
+		if (Math.abs(y) > Math.abs(x) * verticalSlope) {
+			x = 0;
+		} else {
+			x = (x - (Math.abs(y) / verticalSlope)) / (1 - (Math.abs(y) / verticalSlope));
+		}
+
+		if (Math.abs(x) > Math.abs(y) * horizontalSlope) {
+			y = 0;
+		} else {
+			y = (y - (Math.abs(x) / horizontalSlope)) / (1 - (Math.abs(x) / horizontalSlope));
+		}
 	}
 }
