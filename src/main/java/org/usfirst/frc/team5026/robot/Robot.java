@@ -8,12 +8,9 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
-import org.usfirst.frc.team5026.robot.util.Constants;
-import org.usfirst.frc.team5026.robot.subsystems.IntakeArm;
+import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,8 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
-  public static Hardware hardware; 
-  public static IntakeArm intakeArm; 
+	public static Hardware hardware;
+	public static IntakeArm intakeArm;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -43,10 +40,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		hardware = new Hardware();
-		/** Create subsystems */
+		intakeArm = new IntakeArm();
 		drive = new Drive();
-    intakeArm = new IntakeArm();
-		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
@@ -133,9 +128,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
-		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
-		System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
+		System.out.println("Current Height: " + intakeArm.getCurrentHeight());
 		Scheduler.getInstance().run();
 	}
 

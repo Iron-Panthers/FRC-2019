@@ -5,14 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
+package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class HubertTurnLeft extends Command {
-	public HubertTurnLeft() {
+public class ManualArmMovement extends Command {
+
+	//private double armTorque;
+	private double basePower;
+	private double power;
+
+	public ManualArmMovement() {
+		requires(Robot.intakeArm);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -25,7 +32,18 @@ public class HubertTurnLeft extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.set(.4, -.4);
+		//armTorque = Robot.intakeArm.getCurrentTorque();
+		// basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
+		// basePower =
+		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
+		// power = basePower + Robot.oi.joystick.getY();
+		if (Math.abs(Robot.oi.stick2.getY()) < 0.1) {
+			power = 0;
+		} else {
+			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
+		}
+		System.out.println(power);
+		Robot.intakeArm.moveArm(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -37,15 +55,13 @@ public class HubertTurnLeft extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.set(0, 0);
-
+		//Robot.intakeArm.moveArm(basePower);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drive.set(0, 0);
-
+		// Robot.intakeArm.moveArm(basePower);
 	}
 }
