@@ -8,9 +8,12 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -39,10 +42,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		hardware = new Hardware();
+		/** Create subsystems */
 		drive = new Drive();
-		oi = new OI();
     intakeArm = new IntakeArm();
-    hardware = new Hardware();
+		/** Instance of OI must be created after all subsystems */
+		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -128,6 +133,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
+		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
+		System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
 		Scheduler.getInstance().run();
 	}
 

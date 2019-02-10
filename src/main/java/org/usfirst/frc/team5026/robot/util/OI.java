@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team5026.robot.util;
-
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ReverseDrive;
 import org.usfirst.frc.team5026.robot.commands.ArmToTarget;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -24,12 +26,28 @@ public class OI {
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
+  public JoystickWrapper stick1;
+	public JoystickButton button1;
+	public JoystickButton button9;
+	public JoystickButton button10;
+	public JoystickButton button6;
+  
 	public Joystick joystick;
 	JoystickButton cargoShipHeight;
 	JoystickButton rocketLowHeight;
 	
 	public OI() {
-		joystick = new Joystick(0);
+    stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
+		button1 = new JoystickButton(stick1, 1);
+		button6 = new JoystickButton(stick1, 6);
+		button9 = new JoystickButton(stick1, 9);
+		button10 = new JoystickButton(stick1, 10);
+		button9.whileHeld(new HubertTurnLeft());
+		button10.whileHeld(new HubertTurnRight());
+		button6.whileHeld(new FindF());
+		button1.whileHeld(new ReverseDrive());
+    
+		joystick = new Joystick(1);
 
 		//TODO Ports
 		cargoShipHeight = new JoystickButton(joystick, 6);
@@ -49,15 +67,4 @@ public class OI {
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
 
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by its isFinished method.
-	// button.whenReleased(new ExampleCommand());
 }
