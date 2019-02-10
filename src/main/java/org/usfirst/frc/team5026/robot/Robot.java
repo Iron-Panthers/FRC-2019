@@ -9,6 +9,7 @@ package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.subsystems.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.cscore.UsbCamera;
@@ -27,9 +28,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static OI oi;
 	public static Drive drive;
-	public static Hardware hardware;
+	public static OI oi;
+  public static Hardware hardware; 
+  public static IntakeArm intakeArm; 
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -43,14 +45,9 @@ public class Robot extends TimedRobot {
 		hardware = new Hardware();
 		/** Create subsystems */
 		drive = new Drive();
+    intakeArm = new IntakeArm();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
-
-		CameraServer camera = CameraServer.getInstance();
-		UsbCamera cam0 = camera.startAutomaticCapture("cam0", Constants.Camera.CAMERA_PORT_1);
-		cam0.setResolution(Constants.Camera.CAMERA_WIDTH, Constants.Camera.CAMERA_HEIGHT);
-		cam0.setFPS(Constants.Camera.FRAME_RATE);
-
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
