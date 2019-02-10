@@ -27,18 +27,10 @@ public class IntakeArm extends Subsystem {
 	public double currentAngle;
 	public double currentTorque;
 
-<<<<<<< HEAD:src/main/java/org/usfirst/frc/team5026/robot/subsystems/IntakeArm.java
-  public IntakeArm(){
-    armMotor = Robot.hardware.armMotor;
-    armMotor.setInverted(Constants.IntakeArm.ARM_MOTOR_IS_INVERTED);
-    intakeMotor = Robot.hardware.armIntakeMotor;
-  }
-=======
 	public IntakeArm() {
 		armMotor = Robot.hardware.armMotor;
 		intakeMotor = Robot.hardware.armIntakeMotor;
 	}
->>>>>>> IntakeArm:src/main/java/org/usfirst/frc/team5026/robot/subsystems/intake/IntakeArm.java
 
 	public void resetEncoder() {
 		armMotor.setSelectedSensorPosition(0);
@@ -47,6 +39,11 @@ public class IntakeArm extends Subsystem {
 	public double getCurrentAngle() {
 		currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition()) - 15;
 		return currentAngle;
+	}
+
+	public double getCurrentHeight() {
+		currentHeight = (Math.sin(getCurrentAngle()) * Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
+		return currentHeight;
 	}
 
 	public double getCurrentTorque() {
