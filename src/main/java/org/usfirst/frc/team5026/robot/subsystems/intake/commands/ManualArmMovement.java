@@ -37,7 +37,11 @@ public class ManualArmMovement extends Command {
 		// basePower =
 		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
 		// power = basePower + Robot.oi.joystick.getY();
-		power = Robot.oi.stick2.getY();
+		if (Math.abs(Robot.oi.stick2.getY()) < 0.1) {
+			power = 0;
+		} else {
+			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
+		}
 		System.out.println(power);
 		Robot.intakeArm.moveArm(power);
 	}
@@ -51,7 +55,7 @@ public class ManualArmMovement extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intakeArm.moveArm(basePower);
+		//Robot.intakeArm.moveArm(basePower);
 	}
 
 	// Called when another command which requires one or more of the same
