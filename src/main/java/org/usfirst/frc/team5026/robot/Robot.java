@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Hardware hardware;
 	public static IntakeArm intakeArm;
+	public static Intake intake;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		hardware = new Hardware();
 		intakeArm = new IntakeArm();
+		intake = new Intake();
 		drive = new Drive();
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());

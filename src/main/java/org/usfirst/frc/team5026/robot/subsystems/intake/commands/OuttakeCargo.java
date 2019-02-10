@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class OuttakeCargo extends Command {
 	public OuttakeCargo() {
-		requires(Robot.intakeArm);
+		requires(Robot.intake);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -27,7 +27,7 @@ public class OuttakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intakeArm.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
+		Robot.intake.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -39,7 +39,7 @@ public class OuttakeCargo extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intakeArm.brakeIntake();
+		Robot.intake.brakeIntake();
 		;
 	}
 
@@ -47,6 +47,6 @@ public class OuttakeCargo extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intakeArm.brakeIntake();
+		Robot.intake.brakeIntake();
 	}
 }

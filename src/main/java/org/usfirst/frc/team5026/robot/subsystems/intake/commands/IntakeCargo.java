@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class IntakeCargo extends Command {
 	public IntakeCargo() {
-		requires(Robot.intakeArm);
+		requires(Robot.intake);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -27,7 +27,7 @@ public class IntakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intakeArm.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
+		Robot.intake.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -39,13 +39,13 @@ public class IntakeCargo extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intakeArm.brakeIntake();
+		Robot.intake.brakeIntake();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intakeArm.brakeIntake();
+		Robot.intake.brakeIntake();
 	}
 }
