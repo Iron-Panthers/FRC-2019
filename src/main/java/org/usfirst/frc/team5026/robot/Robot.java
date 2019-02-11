@@ -33,9 +33,14 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static Hardware hardware;
 	private int prevTick;
-	private long prevTPMs = 0;
+	private long prevTPS = 0;
 	private long prevTime = 0;
-	private double totalTPMs = 0;
+	private double totalTPS = 0;
+	private double totalTA = 0;
+	private double prevAngle;
+	private double prevDPS = 0;
+	private double totalDPS = 0;
+	private double totalDA = 0;
 	private int tickCount = 0;
 
 
@@ -138,7 +143,8 @@ public class Robot extends TimedRobot {
 		// this line or comment it out.
 		prevTime = System.currentTimeMillis();
 		prevTick = hardware.driveRight1.getSelectedSensorPosition();
-		prevTPMs = 0;
+		prevTPS = 0;
+		prevAngle = hardware.gyro.getFusedHeading();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -155,15 +161,25 @@ public class Robot extends TimedRobot {
 		Robot.drive.set(1);
 		int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
 		long currentTime = System.currentTimeMillis();
-		long currentTPMs = (currentTick - prevTick)/(currentTime - prevTime);
-		long dTPMs = currentTPMs - prevTPMs;
-		long accel = dTPMs/(currentTime - prevTime);
-		if(Math.abs(accel) < 1){
+		double dT = (double) (currentTime - prevTime);
+		dT /= 1000;
+
+		double currentTPS = (currentTick - prevTick)/dT;
+		double dTPs = currentTPS - prevTPS;
+		double ticksAccel = dTPs/dT;
+		if(Math.abs(ticksAccel) < 1){
 			tickCount++;
-			totalTPMs += currentTPMs;
-			System.out.println(totalTPMs/tickCount);
+			totalTPS += currentTPS;
+			System.out.println(totalTPS/tickCount);
+		} else {
+			totalDA += ticksAccel;
+			System.out.println(totalDA/tickCount);
 		}
 		prevTime = System.currentTimeMillis();
+
+		double currentAngle = hardware.gyro.getFusedHeading();
+		double currentDPS = (currentAngle - prevAngle)/dT;
+
 
 		Scheduler.getInstance().run();
 	}
