@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static Hardware hardware;
 	private int prevTick;
-	private long prevTPS = 0;
+	private double prevTPS = 0;
 	private long prevTime = 0;
 	private double totalTPS = 0;
 	private double totalTA = 0;
@@ -158,28 +158,44 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		Robot.drive.set(1);
-		int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
-		long currentTime = System.currentTimeMillis();
-		double dT = (double) (currentTime - prevTime);
-		dT /= 1000;
+		
+		if (oi.stick1.getRawButton(1)) {
+			Robot.drive.set(1);
+			// int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
+			// long currentTime = System.currentTimeMillis();
+			// double dT = (double) (currentTime - prevTime);
+			// dT /= 1000;
 
-		double currentTPS = (currentTick - prevTick)/dT;
-		double dTPs = currentTPS - prevTPS;
-		double ticksAccel = dTPs/dT;
-		if(Math.abs(ticksAccel) < 1){
-			tickCount++;
-			totalTPS += currentTPS;
-			System.out.println(totalTPS/tickCount);
-		} else {
-			totalDA += ticksAccel;
-			System.out.println(totalDA/tickCount);
+			// double currentTPS = (currentTick - prevTick)/dT;
+			// double ticksAccel = (currentTPS - prevTPS)/dT;
+			// prevTick = currentTick;
+			// prevTPS = currentTPS;
+			// if(Math.abs(ticksAccel) < 100){
+			// 	tickCount++;
+			// 	totalTPS += currentTPS;
+			// 	SmartDashboard.putNumber("ticks per second", totalTPS/tickCount);
+			// 	// System.out.println(totalTPS/tickCount);
+			// } else {
+			// 	totalTA += ticksAccel;
+			// 	SmartDashboard.putNumber("ticks per second per second", totalTA/tickCount);
+			// 	// System.out.println(totalTA/tickCount);
+			// }
+			// prevTime = System.currentTimeMillis();
+
+			// double currentAngle = hardware.gyro.getFusedHeading();
+			// double currentDPS = (currentAngle - prevAngle)/dT;
+			// prevAngle = currentAngle;
+			// double dDPS = currentDPS - prevDPS;
+			// double degreesAccel = (dDPS)/dT;
+			// prevDPS = currentDPS;
+			// if (Math.abs(degreesAccel) < 1) {
+			// 	totalDPS += currentDPS;
+			// 	System.out.println(totalDPS/tickCount);
+			// } else {
+			// 	totalDA += degreesAccel;
+			// 	System.out.println(totalDA/tickCount);
+			// }
 		}
-		prevTime = System.currentTimeMillis();
-
-		double currentAngle = hardware.gyro.getFusedHeading();
-		double currentDPS = (currentAngle - prevAngle)/dT;
-
 
 		Scheduler.getInstance().run();
 	}
