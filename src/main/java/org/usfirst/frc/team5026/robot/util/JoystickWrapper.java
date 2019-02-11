@@ -131,8 +131,6 @@ public class JoystickWrapper extends Joystick {
 		x = -normX;
 		y = normY;
 
-		System.out.println(String.valueOf(x) + ", " + String.valueOf(y));
-
 		// applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
 		// 		Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
 
