@@ -131,7 +131,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("Current Height: " + intakeArm.getCurrentHeight());
+		SmartDashboard.putNumber("Height", intakeArm.getCurrentHeight());
+		SmartDashboard.putNumber("Angle", intakeArm.getCurrentAngle());
+		SmartDashboard.putNumber("Enc Value", intakeArm.armMotor.getSelectedSensorPosition());
+		
+
+		
 		Scheduler.getInstance().run();
 	}
 

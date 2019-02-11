@@ -40,7 +40,6 @@ public class OuttakeCargo extends Command {
 	@Override
 	protected void end() {
 		Robot.intake.brakeIntake();
-		;
 	}
 
 	// Called when another command which requires one or more of the same
