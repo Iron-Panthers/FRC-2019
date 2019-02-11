@@ -62,8 +62,7 @@ public class Constants {
 		public static final int INTAKE_MOTOR_PORT = 7;
 
 		// INTAKE ARM SETPOINTS
-		public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket
-																				// ratio)
+		public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket ratio)
 		public static final double CARGO_DIAMETER = 13; // in
 		public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
@@ -90,6 +89,6 @@ public class Constants {
 		// INTAKE
 		public static final double INTAKE_POWER = 0.5;
 		public static final double OUTTAKE_POWER = -1;
-		public static final double STALL_TORQUE_COEFFICIENT = 1;
+		public static final double STALL_TORQUE_COEFFICIENT = -0.09;
 	}
 }

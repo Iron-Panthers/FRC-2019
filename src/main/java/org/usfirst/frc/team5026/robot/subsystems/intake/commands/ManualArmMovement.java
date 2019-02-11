@@ -34,16 +34,14 @@ public class ManualArmMovement extends Command {
 	protected void execute() {
 		//armTorque = Robot.intakeArm.getCurrentTorque();
 		// basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
-		// basePower =
-		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
+		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT * Math.cos(Robot.intakeArm.getCurrentAngle() * (Math.PI / 180));
 		// power = basePower + Robot.oi.joystick.getY();
 		if (Math.abs(Robot.oi.stick2.getY()) < 0.1) {
 			power = 0;
 		} else {
 			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
 		}
-		System.out.println(power);
-		Robot.intakeArm.moveArm(power);
+		Robot.intakeArm.moveArm(basePower + power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -55,13 +53,13 @@ public class ManualArmMovement extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		//Robot.intakeArm.moveArm(basePower);
+		Robot.intakeArm.moveArm(basePower);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		// Robot.intakeArm.moveArm(basePower);
+		Robot.intakeArm.moveArm(basePower);
 	}
 }
