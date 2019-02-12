@@ -20,9 +20,9 @@ public class Constants {
 		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = true;
 		public static final boolean IS_DRIVEBASE_BACKWARDS = false; // Needed so the robot actually thinks the front is
-    }
-    
-    public class LineFollow {
+	}
+
+  public class LineFollow {
 		// LINEFOLLOW Ports
 		public static final int FRONT_LEFT_SENSOR_PORT = 1;
 		public static final int FRONT_RIGHT_SENSOR_PORT = 0;
@@ -42,9 +42,9 @@ public class Constants {
 		//during LineFollow, regardless of the line's position
 		public static final double LINEFOLLOW_REACTION_POWER = 7.5; // the weight that the robot gives to
 		//driving right or left based on the  outer sensor's values
-        public static final double ACCEPTABLE_STRAIGHTNESS = .25; //not currently in use
+    public static final double ACCEPTABLE_STRAIGHTNESS = .25; //not currently in use
         
-        public static final double LINEFOLLOW_INNER_POWER = 5; // the weight that the robot gives to
+    public static final double LINEFOLLOW_INNER_POWER = 5; // the weight that the robot gives to
 		//driving straight based on the center sensor's value
 	}
 
@@ -62,8 +62,8 @@ public class Constants {
 	public class DriveStraight{
 		// Encoder conversion constants
 		public static final double WHEEL_DIAMETER = 5.9;
-        public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
-        public static final double REV_TO_TICKS = 5500;
+    public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
+    public static final double REV_TO_TICKS = 5500;
 		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
 
 		// Straight driving constants
