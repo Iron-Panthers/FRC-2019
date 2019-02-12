@@ -25,6 +25,7 @@ public class IntakeArm extends Subsystem {
 	public double currentHeight;
 	public double currentAngle;
 	public double currentTorque;
+	public double basePower;
 
 	public IntakeArm() {
 		armMotor = Robot.hardware.armMotor;
@@ -44,11 +45,9 @@ public class IntakeArm extends Subsystem {
 		return currentHeight;
 	}
 
-	public double getCurrentTorque() {
-		currentTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
-				+ (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
-				* Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.cos(getCurrentAngle() * (Math.PI / 180)));
-		return currentTorque;
+	public double getBasePower() {
+		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT * Math.cos(getCurrentAngle() * Math.PI / 180);
+		return basePower;
 	}
 
 	public void moveArm(double power) {
