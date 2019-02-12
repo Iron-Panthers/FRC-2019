@@ -25,6 +25,7 @@ public class Hardware {
 	/** Drivebase MotorGroups */
 	public MotorGroup rightDriveMotors;
 	public MotorGroup leftDriveMotors;
+	public TalonSRX armMotor;
 
 	/** Motors/sensors for other subsystems will go down here */
 
@@ -45,5 +46,7 @@ public class Hardware {
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
 		testMotor5 = new TalonSRX(5);
 		gyro = new PigeonIMU(testMotor5);
+
+		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
 	}
 }

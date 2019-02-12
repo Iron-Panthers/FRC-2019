@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
 		hardware = new Hardware();
 		/** Create subsystems */
 		drive = new Drive();
-    intakeArm = new IntakeArm();
+    	intakeArm = new IntakeArm();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
