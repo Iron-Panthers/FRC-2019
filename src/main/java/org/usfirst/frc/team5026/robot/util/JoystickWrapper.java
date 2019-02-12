@@ -101,10 +101,10 @@ public class JoystickWrapper extends Joystick {
 		magnitude = Math.abs(Math.sqrt(x * x + y * y));
 
 		double scaledMaxMagnitude = (magnitude/Math.abs(x) < Math.sqrt(2)) ? magnitude/Math.abs(x) : magnitude/Math.abs(y);
-		double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
+		double scaledMagnitude = scaledMaxMagnitude * ((magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
+		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE));
 
-		if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
+		if (scaledMagnitude < 0) {
 			scaledMagnitude = 0;
 		}
 
