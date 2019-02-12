@@ -19,10 +19,10 @@ public class Constants {
 		public static final double DRIVEBASE_WIDTH = 30; // inches
 		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = true;
-        public static final boolean IS_DRIVEBASE_BACKWARDS = false; // Needed so the robot actually thinks the front is	}
+		public static final boolean IS_DRIVEBASE_BACKWARDS = false; // Needed so the robot actually thinks the front is
     }
     
-        public class LineFollow {
+    public class LineFollow {
 		// LINEFOLLOW Ports
 		public static final int FRONT_LEFT_SENSOR_PORT = 1;
 		public static final int FRONT_RIGHT_SENSOR_PORT = 0;
@@ -60,17 +60,24 @@ public class Constants {
 	}
 
 	public class DriveStraight{
+		// Encoder conversion constants
+		public static final double WHEEL_DIAMETER = 5.9;
+        public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
+        public static final double REV_TO_TICKS = 5500;
+		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
+
+		// Straight driving constants
 		public static final double ENCODER_ERROR_TOLERANCE = 1;
+		public static final int DRIVE_CRUISE_VELOCITY = 10000; // ticks per 100 ms (replace with actual value)
+		public static final int DRIVE_ACCELERATION = 5000; // ticks per 100 ms per second (replace with actual value)
+
+		// Gyro rotation constants
 		public static final int GYRO_PORT = 0;
 		public static final double GYRO_ERROR_TOLERANCE = 1;
 		public static final double ROTATE_POWER = 0.5;
 		public static final double ROTATE_P = 1;
 		public static final double ROTATE_I = 0;
 		public static final double ROTATE_D = 0;
-        public static final double WHEEL_DIAMETER = 5.9;
-        public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
-        public static final double REV_TO_TICKS = 5500;
-		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
 		public static final double MAX_ANGULAR_VELOCITY = 0.20668863475263174 * 2;//Degrees per millisecond
 	}
 }

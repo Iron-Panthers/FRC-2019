@@ -50,6 +50,10 @@ public class Hardware {
 		driveLeft1.setInverted(false);//for linefollow testing only
 		driveRight1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		driveLeft1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		driveRight1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
+		driveLeft1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
+		driveRight1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
+		driveLeft1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
 
 
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
