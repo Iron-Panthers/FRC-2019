@@ -40,7 +40,7 @@ public class IntakeArm extends Subsystem {
 	}
 
 	public double getCurrentHeight() {
-		currentHeight = (Math.sin(getCurrentAngle()) * Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
+		currentHeight = (Math.sin(getCurrentAngle() * Math.PI / 180) * Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
 		return currentHeight;
 	}
 

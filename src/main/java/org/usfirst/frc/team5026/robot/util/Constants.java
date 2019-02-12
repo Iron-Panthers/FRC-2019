@@ -72,7 +72,7 @@ public class Constants {
 		public static final double OUTPUT_CURRENT_LIMIT = 1;
 
 		// INTAKE ARM PID
-		public static final double INTAKE_ARM_P = 1;
+		public static final double INTAKE_ARM_P = 0.01;
 		public static final double INTAKE_ARM_I = 0;
 		public static final double INTAKE_ARM_D = 0;
 		public static final double ERROR_TOLERANCE = 1; // degrees

@@ -11,6 +11,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmToTarget extends Command {
 
@@ -20,14 +21,13 @@ public class ArmToTarget extends Command {
 	private double errorChange;
 	private double lastError;
 	private long lastTimeOutOfThreshold;
-	private double armTorque;
 	private double basePower;
 
 	public ArmToTarget(double targetHeight) {
 		if (targetHeight < 0) {
-			this.target = 180 - Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH);
+			this.target = 180 - (Math.asin(-targetHeight / Constants.IntakeArm.ARM_LENGTH) * 180 / Math.PI);
 		} else {
-			this.target = Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH);
+			this.target = (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)) * 180 / Math.PI;
 		}
 		requires(Robot.intakeArm);
 	}
@@ -44,16 +44,16 @@ public class ArmToTarget extends Command {
 		errorChange = currentError - lastError;
 		errorSum += currentError;
 		lastError = currentError;
-		armTorque = Robot.intakeArm.getCurrentTorque();
 
-		basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
-		// basePower =
-		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
+		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT * Math.cos(Robot.intakeArm.getCurrentAngle() * (Math.PI / 180));
 
-		double power = (Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
-				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange) + basePower;
+		SmartDashboard.putNumber("Error", currentError);
+		SmartDashboard.putNumber("Target", target);
 
-		Robot.intakeArm.moveArm(power);
+		double power = -1 *(Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
+				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange);
+
+		Robot.intakeArm.moveArm(power + basePower);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
