@@ -24,6 +24,16 @@ public class Constants {
 		public static final double TURN_SENSITIVITY = 1;
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
 
+		//Joystick Constants
+		public static final double X_AXIS_MODIFIER = .8;//lower for more sensitive turning
+		public static final double XDEADZONE_SIZE = 0.15;
+		public static final double YDEADZONE_SIZE = 0.15;
+		public static final double CIRCLE_DEADZONE = 0.1;//middle of joystick
+		public static final double SPEED = 1.0;//teleop driving
+		//public static final double DEADZONE_SIZE = .1;
+		//public static final double QUARTER_SPEED = .4;
+		public static final double DRIVE_SLOW_SCALAR = 0.25;
+
 		// Motion Profiling PID (For Velocity)
 		public static final double F = 0; // TODO Find max velocity
 		public static final double P = 0; // TODO Tune

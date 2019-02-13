@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public JoystickWrapper stick1;
+	public GoodJoystick stick1;
 	public JoystickWrapper stick2;
 	public JoystickButton button1;
 	public JoystickButton button9;
@@ -43,7 +43,7 @@ public class OI {
 	JoystickButton zeroIntakeAngle;
 
 	public OI() {
-		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
+		stick1 = new GoodJoystick(Constants.Input.JOYSTICK_1_PORT);
 		stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
 		button1 = new JoystickButton(stick1, 1);
 		button6 = new JoystickButton(stick1, 6);
