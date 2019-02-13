@@ -33,11 +33,16 @@ public class ManualArmMovement extends Command {
 	@Override
 	protected void execute() {
 		basePower = Robot.intakeArm.getBasePower();
-		if (Math.abs(Robot.oi.stick2.getY()) < 0.1) {
+		if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.Y_DEADZONE) {
 			power = 0;
 		} else {
-			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
+			power = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE / (1 - Constants.IntakeArm.Y_DEADZONE);
 		}
+
+		if(Robot.intakeArm.getCurrentAngle() > 180) {
+			power = 0;
+		}
+
 		Robot.intakeArm.moveArm(basePower + power);
 	}
 

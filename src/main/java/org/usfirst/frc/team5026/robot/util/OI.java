@@ -17,7 +17,6 @@ import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ManualArmMoveme
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.OuttakeCargo;
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ZeroIntakeArm;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**

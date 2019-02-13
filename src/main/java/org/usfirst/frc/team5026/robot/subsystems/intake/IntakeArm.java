@@ -17,8 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The subsystem which controls the Intake Arm. Contains utility methods to
- * control intake power, configure the encoder, and calculate the angle and
- * torque.
+ * configure the encoder, calculate the angle, height, and basePower.
  */
 public class IntakeArm extends Subsystem {
 	public TalonSRX armMotor;
