@@ -31,8 +31,8 @@ public class ArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		rightPower = stick.findRightPower();
-		leftPower = stick.findLeftPower();
+		rightPower = stick.findRightPower() + stick.skim(stick.findLeftPower());
+		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
 		Robot.drive.set(leftPower, rightPower);
 	}
 
