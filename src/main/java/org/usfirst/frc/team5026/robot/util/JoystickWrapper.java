@@ -3,6 +3,7 @@ package org.usfirst.frc.team5026.robot.util;
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class JoystickWrapper extends Joystick {
 	private double x, y, magnitude;
@@ -146,5 +147,16 @@ public class JoystickWrapper extends Joystick {
 
 	private double constrain(double value, double min, double max) {
 		return value < min ? min : value > max ? max : value;
+	}
+	public double skim(double v) {
+		SmartDashboard.putNumber("slider: ", getAxis(Joystick.AxisType.kThrottle));
+		SmartDashboard.putNumber("x ", getX());
+		SmartDashboard.putNumber("y ", getY());
+
+		if (v > 1.0) {
+			return -((v - 1.0) * getAxis(Joystick.AxisType.kThrottle)); //slider
+		} else if (v < -1.0) {
+			return -((v + 1.0) * getAxis(Joystick.AxisType.kThrottle));
+		} return 0; 
 	}
 }
