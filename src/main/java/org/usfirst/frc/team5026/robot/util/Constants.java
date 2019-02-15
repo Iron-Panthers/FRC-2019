@@ -83,6 +83,14 @@ public class Constants {
 		public static final long ERROR_TOLERANCE_TIME = 100; // ms
 		public static final double STALL_TORQUE_COEFFICIENT = -0.09;
 
+		// INTAKE ARM TORQUE
+		public static final double INTAKE_MASS = 8; // lbs - estimate
+		public static final double INTAKE_DISTANCE = 10.7 + 8.25; // Distance to COM of Intake (in)
+		public static final double INTAKE_ARM_MASS = 5; // lbs - estimate
+		public static final double INTAKE_ARM_DISTANCE = 10.7 / 2; // Distance to COM of Intake Arm (in)
+		public static final double GRAVITY_ACCELERATION = 386.1; // in/s^2
+		public static final double INTAKE_ARM_MOTOR_MAX_TORQUE = 6.284 * 40 * 4; // in/lbs * gear ratio * sprocket ratio
+
 		// INTAKE
 		public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
 		public static final double OUTTAKE_POWER = -1;

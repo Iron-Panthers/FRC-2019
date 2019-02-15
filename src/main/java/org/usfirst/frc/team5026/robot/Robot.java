@@ -140,7 +140,6 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putNumber("Enc Pulse Deg", hardware.armMotor.getSensorCollection().getPulseWidthPosition() * (360/4096));
 		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
-
 		Scheduler.getInstance().run();
 	}
 
