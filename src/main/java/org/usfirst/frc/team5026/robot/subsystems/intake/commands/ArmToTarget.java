@@ -11,6 +11,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmToTarget extends Command {
 
@@ -45,8 +46,14 @@ public class ArmToTarget extends Command {
 		lastError = currentError;
 		basePower = Robot.intakeArm.getBasePower();
 
-		double power = -1 * (Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
-				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange);
+		SmartDashboard.putNumber("Target", target);
+		SmartDashboard.putNumber("Angle", Robot.intakeArm.getCurrentAngle());
+		SmartDashboard.putNumber("Error", currentError);
+
+		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
+				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
+
+		SmartDashboard.putNumber("Power", power);
 		
 		Robot.intakeArm.moveArm(power + basePower);
 	}
@@ -57,8 +64,10 @@ public class ArmToTarget extends Command {
 		long currentTime = System.currentTimeMillis();
 		if (Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
 			lastTimeOutOfThreshold = currentTime;
+			SmartDashboard.putBoolean("Finished", false);
 			return false;
 		}
+		SmartDashboard.putBoolean("Finished", true);
 		return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
 	}
 

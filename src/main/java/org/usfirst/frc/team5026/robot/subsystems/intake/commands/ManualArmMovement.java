@@ -39,10 +39,7 @@ public class ManualArmMovement extends Command {
 		} else {
 			power = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE / (1 - Constants.IntakeArm.Y_DEADZONE);
 		}
-
-		if(Robot.intakeArm.getCurrentAngle() > 180) {
-			power = 0;
-		}
+		
 		SmartDashboard.putNumber("angle: ", Robot.intakeArm.getCurrentAngle());
 		SmartDashboard.putNumber("basePower: ", basePower);
 		SmartDashboard.putNumber("power: ", power);
