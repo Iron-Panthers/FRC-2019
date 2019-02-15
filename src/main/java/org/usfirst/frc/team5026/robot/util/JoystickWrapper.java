@@ -17,7 +17,7 @@ public class JoystickWrapper extends Joystick {
 
 	double[] constantCurveDrive(double throttle, double wheel, boolean quickTurn) {
 		double angularPower;
-		System.out.println("Wheel power: " + wheel);
+		//System.out.println("Wheel power: " + wheel);
 		if (quickTurn) {
 			angularPower = wheel;
 		} else {
@@ -121,7 +121,7 @@ public class JoystickWrapper extends Joystick {
 		 * if (Robot.drive.isReversed) { return -(y - x); } return y + x;
 		 */
 		// return radialDrive(y, x)[0];
-		System.out.println("Reversed: "+Robot.drive.isReversed);
+		// System.out.println("Reversed: "+Robot.drive.isReversed);
 		double direction = Robot.drive.isReversed ? -1 : 1;
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS){
 			return -1 * (y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
@@ -135,7 +135,6 @@ public class JoystickWrapper extends Joystick {
 		 * if (Robot.drive.isReversed) { return -(y + x); } return y - x;
 		 */
 
-		System.out.println();
 		// return radialDrive(y, x)[1];
 		
 		double direction = Robot.drive.isReversed ? -1 : 1;

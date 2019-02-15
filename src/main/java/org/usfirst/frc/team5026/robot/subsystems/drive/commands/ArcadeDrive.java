@@ -33,6 +33,8 @@ public class ArcadeDrive extends Command {
 	protected void execute() {
 		rightPower = stick.findRightPower() + stick.skim(stick.findLeftPower());
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
+		SmartDashboard.putNumber("Right Power", rightPower);
+		SmartDashboard.putNumber("Left Power", leftPower);
 		Robot.drive.set(leftPower, rightPower);
 	}
 
