@@ -7,13 +7,13 @@
 
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
-import org.usfirst.frc.team5026.robot.util.Constants;
-import org.usfirst.frc.team5026.robot.subsystems.IntakeArm;
+import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
+import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,8 +30,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
-  public static Hardware hardware; 
-  public static IntakeArm intakeArm; 
+	public static Hardware hardware;
+	public static IntakeArm intakeArm;
+	public static Intake intake;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -43,13 +44,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		hardware = new Hardware();
-		/** Create subsystems */
+		intakeArm = new IntakeArm();
+		intake = new Intake();
 		drive = new Drive();
-    	intakeArm = new IntakeArm();
-		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
+
+		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -136,6 +138,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
 		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
 		//System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
+
+		SmartDashboard.putNumber("Enc Pulse Width", hardware.armMotor.getSensorCollection().getPulseWidthPosition());
+		SmartDashboard.putNumber("Enc Pos", hardware.armMotor.getSelectedSensorPosition());
+
+		SmartDashboard.putNumber("Enc Pulse Deg", hardware.armMotor.getSensorCollection().getPulseWidthPosition() * (360/4096));
+		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
+
 		Scheduler.getInstance().run();
 	}
 

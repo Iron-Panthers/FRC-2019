@@ -5,15 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
+package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class HubertTurnRight extends Command {
-	public HubertTurnRight() {
-		requires(Robot.drive);
+public class IntakeCargo extends Command {
+	public IntakeCargo() {
+		requires(Robot.intake);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -26,27 +27,25 @@ public class HubertTurnRight extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.set(-.4, .4);
+		Robot.intake.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return false; // TODO Add banner statement here
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.set(0, 0);
-
+		Robot.intake.brakeIntake();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drive.set(0, 0);
-
+		Robot.intake.brakeIntake();
 	}
 }
