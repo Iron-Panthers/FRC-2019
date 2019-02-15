@@ -135,6 +135,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
+		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
+		//System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
+
 		SmartDashboard.putNumber("Enc Pulse Width", hardware.armMotor.getSensorCollection().getPulseWidthPosition());
 		SmartDashboard.putNumber("Enc Pos", hardware.armMotor.getSelectedSensorPosition());
 

@@ -4,6 +4,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * JoystickWrapper is a wrapper which extends the WPILib Joystick, which itself
@@ -47,7 +48,7 @@ public class JoystickWrapper extends Joystick {
 	 */
 	public double[] constantCurveDrive(double throttle, double wheel, boolean quickTurn) {
 		double angularPower;
-		System.out.println("Wheel power: " + wheel);
+		//System.out.println("Wheel power: " + wheel);
 		if (quickTurn) {
 			angularPower = wheel;
 		} else {
@@ -103,56 +104,44 @@ public class JoystickWrapper extends Joystick {
 	}
 
 	/**
-	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones. This
-	 * should be done before calling {@link #findLeftPower()} or
-	 * {@link #findRightPower()}.
-	 * 
-	 * 
-	 * To avoid redundant calls, this should be periodic logic for tele-operated
-	 * driving commands. If you are writing a new tele-operated driving command,
-	 * refer to {@link ArcadeDrive#execute()} for an example.
-	 */
-	public void updateMagnitude() {
-		updateAxes();
+	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones.
+	 **/
+	public void findMagnitude() {
+		x = getX();
+		y = getY();
 
-		magnitude = Math.sqrt(x*x + y*y);
-		double normX = x / magnitude;
-		double normY = y / magnitude;
-		if (magnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
-			normX = 0;
-			normY = 0;
+		if (Math.abs(y) > Math.abs(x) * Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE) {
+			x = 0;
 		} else {
-			double scaledMagnitude = map(magnitude, 0, 1, Constants.Input.JOYSTICK_DEADZONE_CIRCLE, 1);
-			normX *= scaledMagnitude;
-			normY *= scaledMagnitude;
+			if(x>0) {
+				x = (x - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
+					/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
+			}
+			else {
+				x = (x + (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
+					/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
+			}
+		}
+		if (Math.abs(x) > Math.abs(y) * Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE) {
+			y = 0;
+		} else {
+			if(y>0) {
+				y = (y - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
+					/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
+			}
+			else {
+				y = (y + (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
+					/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
+			}
 		}
 
-		x = -normX;
-		y = normY;
+		double scaledMaxMagnitude = (magnitude/Math.abs(x) < Math.sqrt(2)) ? magnitude/Math.abs(x) : magnitude/Math.abs(y);
+		double scaledMagnitude = scaledMaxMagnitude * ((magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
+		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE));
 
-		// applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
-		// 		Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
-
-		// magnitude = Math.abs(Math.sqrt(x * x + y * y));
-
-		// double scaledMaxMagnitude = (magnitude / Math.abs(x) < Math.sqrt(2)) ? magnitude / Math.abs(x)
-		// 		: magnitude / Math.abs(y);
-		// double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-		// 		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
-
-		// if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
-		// 	scaledMagnitude = 0;
-		// }
-
-		// x *= (scaledMagnitude / magnitude);
-		// x = -1 * x;
-		// y *= (scaledMagnitude / magnitude);
-		// // y = getZ(); // For use with the Thrustmaster input device
-
-		// SmartDashboard.putNumber("updateMag-x", x);
-		// SmartDashboard.putNumber("updateMag-y", y);
-		// SmartDashboard.putNumber("scaledMaxMag", scaledMaxMagnitude);
-
+		if (scaledMagnitude < 0) {
+			scaledMagnitude = 0;
+		}
 	}
 
 	/**
@@ -202,33 +191,15 @@ public class JoystickWrapper extends Joystick {
 	private double constrain(double value, double min, double max) {
 		return value < min ? min : value > max ? max : value;
 	}
+	public double skim(double v) {
+		SmartDashboard.putNumber("slider: ", getAxis(Joystick.AxisType.kThrottle));
+		SmartDashboard.putNumber("x ", getX());
+		SmartDashboard.putNumber("y ", getY());
 
-	/**
-	 * Applies the idea of a "bowtie deadzone", given a vertical slope and
-	 * horizontal slope for the triangles. Mutates the x and y values within the
-	 * JoystickWrapper.
-	 * 
-	 * @param verticalSlope
-	 * @param horizontalSlope
-	 */
-	private void applyBowtieDeadzone(double verticalSlope, double horizontalSlope) {
-		if (Math.abs(y) > Math.abs(x) * verticalSlope) {
-			x = 0;
-		} else {
-			x = (x - (Math.abs(y) / verticalSlope)) / (1 - (Math.abs(y) / verticalSlope));
-		}
-
-		if (Math.abs(x) > Math.abs(y) * horizontalSlope) {
-			y = 0;
-		} else {
-			y = (y - (Math.abs(x) / horizontalSlope)) / (1 - (Math.abs(x) / horizontalSlope));
-		}
+		if (v > 1.0) {
+			return -((v - 1.0) * getAxis(Joystick.AxisType.kThrottle)); //slider
+		} else if (v < -1.0) {
+			return -((v + 1.0) * getAxis(Joystick.AxisType.kThrottle));
+		} return 0; 
 	}
-
-	/**
-     * Map a value x in the range [a1, b1] to a new value in the range [a2, b2]
-     */
-    public static double map(double x, double a1, double b1, double a2, double b2) {
-        return (b2 - a2) * (x - a1) / (b1 - a1) + a2;
-    }
 }

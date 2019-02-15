@@ -34,7 +34,7 @@ public class FindF extends Command {
 	protected void execute() {
 		Robot.drive.set(0.5);
 		long seconds = System.nanoTime() / 1000000000;
-		System.out.println(seconds); 
+		//System.out.println(seconds); 
 		int ticks = Robot.hardware.driveLeft1.getSelectedSensorPosition(0);
 		long deltaTime = seconds - lastTime;
 		int deltaTicks = ticks - lastTicks;
@@ -42,7 +42,7 @@ public class FindF extends Command {
 		lastTime = seconds;
 		lastTicks = ticks;
 		// double f = 0.5 / velocity;
-		System.out.println("ticks: " + ticks);
+		//System.out.println("ticks: " + ticks);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
