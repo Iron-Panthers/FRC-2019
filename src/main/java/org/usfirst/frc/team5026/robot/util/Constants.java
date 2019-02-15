@@ -56,28 +56,31 @@ public class Constants {
 		public static final int FRAME_RATE = 15;
 	}
 
-	public class IntakeArm { // TODO Calibrate/Set Ports and Numbers
+	public class IntakeArm {
 		// INTAKE ARM PORTS
 		public static final int INTAKE_ARM_MOTOR_PORT = 6;
 		public static final int INTAKE_MOTOR_PORT = 7;
 
-		// INTAKE ARM SETPOINTS
-		public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket
-																				// ratio)
+		// INTAKE JOYSTICK - TODO Tune To Driver Preference
+		public static final double Y_DEADZONE = 0.1;
+		public static final double POWER_SCALE = 0.7;
+
+		// INTAKE ARM SETPOINTS - TODO Double Check Measurements
+		public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket ratio)
 		public static final double CARGO_DIAMETER = 13; // in
 		public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
 		public static final double CARGO_SHIP_HEIGHT = 31.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
 		public static final double ROCKET_LOW_HEIGHT = 35.5 - ARM_BASE_HEIGHT; // in
 		public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; // in - estimate
-		public static final double OUTPUT_CURRENT_LIMIT = 1;
+		public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
 		// INTAKE ARM PID - TODO Tune PID
-		public static final double INTAKE_ARM_P = 0.004;
-		public static final double INTAKE_ARM_I = 0;
+		public static final double INTAKE_ARM_P = 0.1;
+		public static final double INTAKE_ARM_I = 0.003;
 		public static final double INTAKE_ARM_D = 0;
 		public static final double ERROR_TOLERANCE = 1; // degrees
-		public static final long ERROR_TOLERANCE_TIME = 500; // ms
+		public static final long ERROR_TOLERANCE_TIME = 100; // ms
 		public static final double STALL_TORQUE_COEFFICIENT = -0.09;
 
 		// INTAKE ARM TORQUE
@@ -89,8 +92,7 @@ public class Constants {
 		public static final double INTAKE_ARM_MOTOR_MAX_TORQUE = 6.284 * 40 * 4; // in/lbs * gear ratio * sprocket ratio
 
 		// INTAKE
-		public static final double INTAKE_POWER = 0.5;
+		public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
 		public static final double OUTTAKE_POWER = -1;
-		public static final double STALL_TORQUE_COEFFICIENT = 1;
 	}
 }

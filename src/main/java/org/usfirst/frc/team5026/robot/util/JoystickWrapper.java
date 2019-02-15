@@ -114,24 +114,45 @@ public class JoystickWrapper extends Joystick {
 	 */
 	public void updateMagnitude() {
 		updateAxes();
-		applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
-				Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
 
-		magnitude = Math.abs(Math.sqrt(x * x + y * y));
-
-		double scaledMaxMagnitude = (magnitude / Math.abs(x) < Math.sqrt(2)) ? magnitude / Math.abs(x)
-				: magnitude / Math.abs(y);
-		double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-				/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
-
-		if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
-			scaledMagnitude = 0;
+		magnitude = Math.sqrt(x*x + y*y);
+		double normX = x / magnitude;
+		double normY = y / magnitude;
+		if (magnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
+			normX = 0;
+			normY = 0;
+		} else {
+			double scaledMagnitude = map(magnitude, 0, 1, Constants.Input.JOYSTICK_DEADZONE_CIRCLE, 1);
+			normX *= scaledMagnitude;
+			normY *= scaledMagnitude;
 		}
 
-		x *= (scaledMagnitude / magnitude);
-		x = -1 * x;
-		y *= (scaledMagnitude / magnitude);
-		// y = getZ(); // For use with the Thrustmaster input device
+		x = -normX;
+		y = normY;
+
+		// applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
+		// 		Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
+
+		// magnitude = Math.abs(Math.sqrt(x * x + y * y));
+
+		// double scaledMaxMagnitude = (magnitude / Math.abs(x) < Math.sqrt(2)) ? magnitude / Math.abs(x)
+		// 		: magnitude / Math.abs(y);
+		// double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
+		// 		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
+
+		// if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
+		// 	scaledMagnitude = 0;
+		// }
+
+		// x *= (scaledMagnitude / magnitude);
+		// x = -1 * x;
+		// y *= (scaledMagnitude / magnitude);
+		// // y = getZ(); // For use with the Thrustmaster input device
+
+		// SmartDashboard.putNumber("updateMag-x", x);
+		// SmartDashboard.putNumber("updateMag-y", y);
+		// SmartDashboard.putNumber("scaledMaxMag", scaledMaxMagnitude);
+
 	}
 
 	/**
@@ -148,7 +169,6 @@ public class JoystickWrapper extends Joystick {
 		 * if (Robot.drive.isReversed) { return -(y - x); } return y + x;
 		 */
 		// return radialDrive(y, x)[0];
-		System.out.println("Reversed: " + Robot.drive.isReversed);
 		double direction = Robot.drive.isReversed ? -1 : 1;
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * (y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
@@ -170,7 +190,6 @@ public class JoystickWrapper extends Joystick {
 		 * if (Robot.drive.isReversed) { return -(y + x); } return y - x;
 		 */
 
-		System.out.println();
 		// return radialDrive(y, x)[1];
 
 		double direction = Robot.drive.isReversed ? -1 : 1;
@@ -205,4 +224,11 @@ public class JoystickWrapper extends Joystick {
 			y = (y - (Math.abs(x) / horizontalSlope)) / (1 - (Math.abs(x) / horizontalSlope));
 		}
 	}
+
+	/**
+     * Map a value x in the range [a1, b1] to a new value in the range [a2, b2]
+     */
+    public static double map(double x, double a1, double b1, double a2, double b2) {
+        return (b2 - a2) * (x - a1) / (b1 - a1) + a2;
+    }
 }

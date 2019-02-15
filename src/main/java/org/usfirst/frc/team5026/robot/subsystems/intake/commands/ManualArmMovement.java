@@ -11,6 +11,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualArmMovement extends Command {
 
@@ -32,17 +33,12 @@ public class ManualArmMovement extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//armTorque = Robot.intakeArm.getCurrentTorque();
-		// basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
-		// basePower =
-		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
-		// power = basePower + Robot.oi.joystick.getY();
-		if (Math.abs(Robot.oi.stick2.getY()) < 0.1) {
+		basePower = Robot.intakeArm.getBasePower();
+		if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.Y_DEADZONE) {
 			power = 0;
 		} else {
-			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
+			power = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE / (1 - Constants.IntakeArm.Y_DEADZONE);
 		}
-
 		if(Robot.intakeArm.getCurrentAngle() > 180) {
 			power = 0;
 		}
@@ -64,13 +60,13 @@ public class ManualArmMovement extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		//Robot.intakeArm.moveArm(basePower);
+		Robot.intakeArm.moveArm(basePower);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		// Robot.intakeArm.moveArm(basePower);
+		Robot.intakeArm.moveArm(basePower);
 	}
 }

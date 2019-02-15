@@ -34,7 +34,9 @@ public class ArcadeDrive extends Command {
 		stick.updateMagnitude();
 		rightPower = stick.findRightPower();
 		leftPower = stick.findLeftPower();
-		Robot.drive.set(leftPower, rightPower);
+		SmartDashboard.putNumber("Left power", leftPower);
+		SmartDashboard.putNumber("Right power", rightPower);
+		// Robot.drive.set(leftPower, rightPower);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
