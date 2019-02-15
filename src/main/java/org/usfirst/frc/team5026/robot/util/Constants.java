@@ -76,8 +76,8 @@ public class Constants {
 		public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
 		// INTAKE ARM PID - TODO Tune PID
-		public static final double INTAKE_ARM_P = 0.008;
-		public static final double INTAKE_ARM_I = 0.0002;
+		public static final double INTAKE_ARM_P = 0.1;
+		public static final double INTAKE_ARM_I = 0.003;
 		public static final double INTAKE_ARM_D = 0;
 		public static final double ERROR_TOLERANCE = 1; // degrees
 		public static final long ERROR_TOLERANCE_TIME = 100; // ms

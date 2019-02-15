@@ -53,6 +53,10 @@ public class ArmToTarget extends Command {
 		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
 				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
 
+		if (Math.abs(power) > 0.5) {
+			power = 0.5 * (power/Math.abs(power));
+		}
+
 		SmartDashboard.putNumber("Power", power);
 		
 		Robot.intakeArm.moveArm(power + basePower);
