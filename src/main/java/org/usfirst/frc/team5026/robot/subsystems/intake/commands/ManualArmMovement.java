@@ -42,8 +42,17 @@ public class ManualArmMovement extends Command {
 		} else {
 			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
 		}
-		System.out.println(power);
-		Robot.intakeArm.moveArm(power);
+
+		if(Robot.intakeArm.getCurrentAngle() > 180) {
+			power = 0;
+		}
+		SmartDashboard.putNumber("angle: ", Robot.intakeArm.getCurrentAngle());
+		SmartDashboard.putNumber("basePower: ", basePower);
+		SmartDashboard.putNumber("power: ", power);
+		SmartDashboard.putNumber("Joystick y: ", Robot.oi.stick2.getY());
+		SmartDashboard.putNumber("Motor Output: ", Robot.hardware.armMotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("encoder: ", Robot.hardware.armMotor.getSensorCollection().getPulseWidthPosition());
+		Robot.intakeArm.moveArm(basePower + power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

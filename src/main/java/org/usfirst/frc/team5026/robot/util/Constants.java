@@ -72,12 +72,13 @@ public class Constants {
 		public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; // in - estimate
 		public static final double OUTPUT_CURRENT_LIMIT = 1;
 
-		// INTAKE ARM PID
-		public static final double INTAKE_ARM_P = 1;
+		// INTAKE ARM PID - TODO Tune PID
+		public static final double INTAKE_ARM_P = 0.004;
 		public static final double INTAKE_ARM_I = 0;
 		public static final double INTAKE_ARM_D = 0;
 		public static final double ERROR_TOLERANCE = 1; // degrees
 		public static final long ERROR_TOLERANCE_TIME = 500; // ms
+		public static final double STALL_TORQUE_COEFFICIENT = -0.09;
 
 		// INTAKE ARM TORQUE
 		public static final double INTAKE_MASS = 8; // lbs - estimate

@@ -46,14 +46,10 @@ public class ArmToTarget extends Command {
 		lastError = currentError;
 		armTorque = Robot.intakeArm.getCurrentTorque();
 
-		basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
-		// basePower =
-		// Constants.IntakeArm.STALL_TORQUE_COEFFICIENT*Math.cos(Robot.intakeArm.getCurrentAngle());
-
-		double power = (Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
-				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange) + basePower;
-
-		Robot.intakeArm.moveArm(power);
+		double power = -1 * (Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
+				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange);
+		
+		Robot.intakeArm.moveArm(power + basePower);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
