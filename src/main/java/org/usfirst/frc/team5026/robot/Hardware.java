@@ -18,15 +18,23 @@ import edu.wpi.first.wpilibj.AnalogInput;
  * otherwise be in Robot class.
  */
 public class Hardware {
-	/** Drivebase motor controllers */
+	/* Drivebase motor controllers */
 	public TalonSRX driveRight1;
 	public VictorSPX driveRight2;
 	public TalonSRX driveLeft1;
 	public VictorSPX driveLeft2;
 
-	/** Drivebase MotorGroups */
+	public TalonSRX gyroTestMotor;
+	public PigeonIMU gyro;
+
+	/* Drivebase MotorGroups */
 	public MotorGroup rightDriveMotors;
 	public MotorGroup leftDriveMotors;
+	public TalonSRX armMotor;
+
+	/* IntakeArm motor controllers */
+	public TalonSRX armMotor;
+	public TalonSRX armIntakeMotor;
 
 	/** Motors/sensors for other subsystems will go down here */
 
@@ -42,6 +50,7 @@ public class Hardware {
 	public PigeonIMU gyro;
 	
 	public Hardware() {
+		/* Drivebase motor controller creation */
 		driveRight1 = new TalonSRX(Constants.Drivebase.DRIVE_R1_PORT);
 		driveRight2 = new VictorSPX(Constants.Drivebase.DRIVE_R2_PORT);
 		driveLeft1 = new TalonSRX(Constants.Drivebase.DRIVE_L1_PORT);
@@ -59,6 +68,11 @@ public class Hardware {
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
+		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D,
+				Constants.Drivebase.F);
+		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D,
+				Constants.Drivebase.F);
+
 		rightDriveMotors.setNeutralMode(NeutralMode.Brake);
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
 
@@ -68,9 +82,12 @@ public class Hardware {
         // backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
 		centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
 		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLightSensor, frontLightSensorRight);
-
-		gyro = new PigeonIMU(new TalonSRX(5));
+		/* Gyro */
+		gyroTestMotor = new TalonSRX(5);
+		gyro = new PigeonIMU(gyroTestMotor);
+		/* IntakeArm motor controller creation */
+		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
+		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
+		armMotor.setNeutralMode(NeutralMode.Brake);
 	}
 }
-        
-    

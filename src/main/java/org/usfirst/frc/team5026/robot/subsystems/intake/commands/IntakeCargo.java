@@ -5,54 +5,47 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
+package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ArcadeDrive extends Command {
-
-	private double leftPower, rightPower;
-	private JoystickWrapper stick = Robot.oi.stick1;
-
-	public ArcadeDrive() {
-		requires(Robot.drive);
+public class IntakeCargo extends Command {
+	public IntakeCargo() {
+		requires(Robot.intake);
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		SmartDashboard.putString("Drive mode", "Arcade drive");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		stick.update();
-		rightPower = stick.findRightPower() + stick.skim(stick.findLeftPower());
-		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
-		SmartDashboard.putNumber("Right Power", rightPower);
-		SmartDashboard.putNumber("Left Power", leftPower);
-		Robot.drive.set(leftPower, rightPower);
+		Robot.intake.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return false; // TODO Add banner statement here
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		Robot.intake.brakeIntake();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.intake.brakeIntake();
 	}
 }

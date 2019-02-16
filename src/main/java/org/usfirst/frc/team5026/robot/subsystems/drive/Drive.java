@@ -15,6 +15,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The drive subsystem. This contains MotorGroups for the left and right
@@ -23,10 +24,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drive extends Subsystem {
 	private MotorGroup left = Robot.hardware.leftDriveMotors;
 	private MotorGroup right = Robot.hardware.rightDriveMotors;
+	public boolean isReversed;
+
 
 	public Drive() {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
+		isReversed = false;
 	}
 
 	/**
@@ -39,6 +43,9 @@ public class Drive extends Subsystem {
 	public void set(double leftPower, double rightPower) {
 		left.set(leftPower);
 		right.set(rightPower);
+		SmartDashboard.putNumber("left: ", leftPower);
+		SmartDashboard.putNumber("right: ", rightPower);
+
 	}
 
 	/**
@@ -72,6 +79,14 @@ public class Drive extends Subsystem {
 		left.set(-power);
 		right.set(power);
 	}
+	public int getLeftEncoderTicks() {
+		return left.getMasterMotor().getSelectedSensorPosition();
+	}
+
+	public int getRightEncoderTicks() {
+		return right.getMasterMotor().getSelectedSensorPosition();
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.
