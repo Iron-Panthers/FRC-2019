@@ -26,7 +26,6 @@ public class Hardware {
 	/* Drivebase MotorGroups */
 	public MotorGroup rightDriveMotors;
 	public MotorGroup leftDriveMotors;
-	public TalonSRX armMotor;
 
 	/* IntakeArm motor controllers */
 	public TalonSRX armMotor;
