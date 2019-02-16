@@ -4,14 +4,20 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * JoystickWrapper is a wrapper which extends the WPILib Joystick, which itself
- * extends GenericHID. Most of the additions to Joystick exist for tele-operated
- * driving logic.
+ * A wrapper which extends WPILib Joystick (which in turn extends GenericHID).
+ * It consists of methods that calculate desired drive output based on
+ * tele-operated controller input.
+ * <p>
+ * If you want to get the actual axes of a JoystickWrapper, use the inherited
+ * methods getX() and getY() as usual.
  */
 public class JoystickWrapper extends Joystick {
-	private double x, y, magnitude;
+	private double x; // this does not reflect the physical joystick X-axis
+	private double y; // this does not reflect the physical joystick Y-axis
+	private double magnitude; // the magnitude of the vector created by the x and y axes
 
 	/**
 	 * Construct an instance of a JoystickWrapper, where the joystick index is the
@@ -27,6 +33,21 @@ public class JoystickWrapper extends Joystick {
 		magnitude = 0;
 	}
 
+	/**
+	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones. This
+	 * should be done before calling {@link #findLeftPower()} or
+	 * {@link #findRightPower()}.
+	 * <p>
+	 * To avoid redundant calls, calling this method should be periodic logic for
+	 * tele-operated driving commands.
+	 */
+	public void update() {
+		// Update X and Y to match the X and Y axes of the device
+		x = getX();
+		y = getY();
+
+		// Our joystick has unusual behavior so we must do this
+		x = -1 * x;
 	/**
 	 * Updates the x and y position of the joystick.
 	 */
@@ -98,109 +119,120 @@ public class JoystickWrapper extends Joystick {
 		 * straightPower; leftPow = straightPower; }
 		 */
 
-		double[] result = { leftPow, rightPow };
-		return result;
-	}
+		// Apply the bowtie-zone. Here is a simple visualization:
+		// https://www.desmos.com/calculator/wymgm5aune
+		applyBowtieZone();
+		// Calculate the magnitude of the vector created by the X, Y axes
+		magnitude = Math.abs(Math.sqrt(x * x + y * y));
 
-	/**
-	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones. This
-	 * should be done before calling {@link #findLeftPower()} or
-	 * {@link #findRightPower()}.
-	 * 
-	 * 
-	 * To avoid redundant calls, this should be periodic logic for tele-operated
-	 * driving commands. If you are writing a new tele-operated driving command,
-	 * refer to {@link ArcadeDrive#execute()} for an example.
-	 */
-	public void updateMagnitude() {
-		updateAxes();
-
-		magnitude = Math.sqrt(x*x + y*y);
-		double normX = x / magnitude;
-		double normY = y / magnitude;
-		if (magnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
-			normX = 0;
-			normY = 0;
+		// Calculate the maximum possible magnitude of the joystick at its current angle
+		double maxScaledMagnitude;
+		// Determine which edge to "reach to" to get the maximum magnitude
+		if (magnitude / Math.abs(x) < Math.sqrt(2)) {
+			maxScaledMagnitude = magnitude / Math.abs(x);
 		} else {
-			double scaledMagnitude = map(magnitude, 0, 1, Constants.Input.JOYSTICK_DEADZONE_CIRCLE, 1);
-			normX *= scaledMagnitude;
-			normY *= scaledMagnitude;
+			maxScaledMagnitude = magnitude / Math.abs(y);
 		}
 
-		x = -normX;
-		y = normY;
+		// Calculate the current magnitude of the joystick, based on the largest
+		// possible magnitude
+		double scaledMagnitude;
+		if (magnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
+			//
+			scaledMagnitude = 0;
+		} else {
+			scaledMagnitude = maxScaledMagnitude * ((magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
+					/ (maxScaledMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE));
+		}
 
-		// applyBowtieDeadzone(Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE,
-		// 		Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE);
-
-		// magnitude = Math.abs(Math.sqrt(x * x + y * y));
-
-		// double scaledMaxMagnitude = (magnitude / Math.abs(x) < Math.sqrt(2)) ? magnitude / Math.abs(x)
-		// 		: magnitude / Math.abs(y);
-		// double scaledMagnitude = (magnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE)
-		// 		/ (scaledMaxMagnitude - Constants.Input.JOYSTICK_DEADZONE_CIRCLE);
-
-		// if (scaledMagnitude < Constants.Input.JOYSTICK_DEADZONE_CIRCLE) {
-		// 	scaledMagnitude = 0;
-		// }
-
-		// x *= (scaledMagnitude / magnitude);
-		// x = -1 * x;
-		// y *= (scaledMagnitude / magnitude);
-		// // y = getZ(); // For use with the Thrustmaster input device
-
-		// SmartDashboard.putNumber("updateMag-x", x);
-		// SmartDashboard.putNumber("updateMag-y", y);
-		// SmartDashboard.putNumber("scaledMaxMag", scaledMaxMagnitude);
-
+		// Apply the scalar to the x and and y values
+		x *= (scaledMagnitude / magnitude);
+		y *= (scaledMagnitude / magnitude);
 	}
 
 	/**
-	 * Calculates the desired left power. Results are calculated using modified
-	 * ArcadeDrive maths. Before calling this method, ensure you have recently called
-	 * {@link #updateMagnitude()}.
-	 * 
-	 * The result is calculated using the values of the TURN_SENSITIVITY constant
-	 * and the IS_DRIVEBASE_BACKWARDS constant. Refer to Constants.java in this
-	 * package.
+	 * Calculates the left power. Before using this method, ensure you have
+	 * recently used {@link #update()}.
 	 */
 	public double findLeftPower() {
-		/*
-		 * if (Robot.drive.isReversed) { return -(y - x); } return y + x;
-		 */
-		// return radialDrive(y, x)[0];
 		double direction = Robot.drive.isReversed ? -1 : 1;
+		// A slight modification of the traditional arcade drive calculation
+		// Makes X-axis nonlinear, adds sensitivity constant
+		double value = (y * direction) + Math.copySign(x * x, x) * Constants.Drivebase.TURN_SENSITIVITY;
+
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
-			return -1 * (y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
+			return -1 * value;
 		}
-		return y * direction + x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
+		return value;
 	}
 
 	/**
-	 * Calculates the desired right power. Results are calculated using modified
-	 * ArcadeDrive maths. Before calling this method, ensure you have recently called
-	 * {@link #updateMagnitude()}.
-	 * 
-	 * The result is calculated using the values of the TURN_SENSITIVITY constant
-	 * and the IS_DRIVEBASE_BACKWARDS constant. Refer to Constants.java in this
-	 * package.
+	 * Calculates the right power. Before using this method, ensure you have
+	 * recently used {@link #updateMagnitude()}.
 	 */
 	public double findRightPower() {
-		/*
-		 * if (Robot.drive.isReversed) { return -(y + x); } return y - x;
-		 */
-
-		// return radialDrive(y, x)[1];
-
 		double direction = Robot.drive.isReversed ? -1 : 1;
+		// A slight modification of the traditional arcade drive calculation
+		// Makes X-axis nonlinear, adds sensitivity constant
+		double value = (y * direction) - Math.copySign(x * x, x) * Constants.Drivebase.TURN_SENSITIVITY;
+
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
-			return -1 * (y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY);
+			return -1 * value;
 		}
-		return y * direction - x * Math.abs(x) * Constants.Drivebase.TURN_SENSITIVITY;
+		return value;
 	}
 
-	private double constrain(double value, double min, double max) {
-		return value < min ? min : value > max ? max : value;
+	/**
+	 * Maths which is intended to improve the turning of the robot slightly,
+	 * outlined here:
+	 * https://www.chiefdelphi.com/t/programming-an-arcade-drive/123985/9
+	 */
+	public double skim(double v) {
+		// Calculate the turn gain based on the Joystick slider (that thing on the
+		// bottom)
+		double turnGain = getThrottle();
+
+		// SmartDashboard logging
+		SmartDashboard.putNumber("Slider value (turn gain): ", turnGain);
+		SmartDashboard.putNumber("x ", getX());
+		SmartDashboard.putNumber("y ", getY());
+
+		if (v > 1.0) {
+			return -((v - 1.0) * turnGain); // slider
+		} else if (v < -1.0) {
+			return -((v + 1.0) * turnGain);
+		}
+		return 0;
+	}
+
+	/**
+	 * The bowtie zone is not a deadzone, it is a zone which assumes the driver to
+	 * want to be driving straight, and adjusts the values so that the outputs match
+	 * with this expectation.
+	 */
+	private void applyBowtieZone() {
+		if (Math.abs(y) > Math.abs(x) * Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE) {
+			x = 0;
+		} else {
+			if (x > 0) {
+				x = (x - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
+						/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
+			} else {
+				x = (x + (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
+						/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
+			}
+		}
+		if (Math.abs(x) > Math.abs(y) * Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE) {
+			y = 0;
+		} else {
+			if (y > 0) {
+				y = (y - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
+						/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
+			} else {
+				y = (y + (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
+						/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
+			}
+		}
 	}
 
 	/**
