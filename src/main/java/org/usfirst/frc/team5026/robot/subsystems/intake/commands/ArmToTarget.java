@@ -58,7 +58,6 @@ public class ArmToTarget extends Command {
 		}
 
 		SmartDashboard.putNumber("Power", power);
-		
 		Robot.intakeArm.moveArm(power + basePower);
 	}
 
