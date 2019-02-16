@@ -62,8 +62,8 @@ public class Constants {
 	public class DriveStraight{
 		// Encoder conversion constants
 		public static final double WHEEL_DIAMETER = 5.9;
-    public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
-    public static final double REV_TO_TICKS = 5500;
+    	public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
+    	public static final double REV_TO_TICKS = 5500;
 		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
 
 		// Straight driving constants
@@ -79,5 +79,8 @@ public class Constants {
 		public static final double ROTATE_I = 0;
 		public static final double ROTATE_D = 0;
 		public static final double MAX_ANGULAR_VELOCITY = 0.20668863475263174 * 2;//Degrees per millisecond
+		
+		//VP Processing
+		public static final double MINIMUM_DISTANCE = 0;
 	}
 }

@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
+import org.usfirst.frc.team5026.robot.util.PathSeeker;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AlignmentSequence extends CommandGroup {
@@ -14,6 +16,7 @@ public class AlignmentSequence extends CommandGroup {
    * Aligns the robot to a line on the ground. Requires that the robot is pointing toward the line already
    */
   public AlignmentSequence() {
+    PathSeeker.seekPath(1, 1, 1);//Insert VP numbers
     addSequential(new DriveToLine());
     // addSequential(new PointTurn());
     addSequential(new FollowLine());
