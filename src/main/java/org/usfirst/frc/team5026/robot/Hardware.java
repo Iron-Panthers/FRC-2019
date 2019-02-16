@@ -30,7 +30,6 @@ public class Hardware {
 	/* Drivebase MotorGroups */
 	public MotorGroup rightDriveMotors;
 	public MotorGroup leftDriveMotors;
-	public TalonSRX armMotor;
 
 	/* IntakeArm motor controllers */
 	public TalonSRX armMotor;
@@ -46,9 +45,6 @@ public class Hardware {
 	public AnalogInput frontLightSensorLeft;
 	public LightSensorGroup lightSensors;
 
-	// Drive Straight Auto
-	public PigeonIMU gyro;
-	
 	public Hardware() {
 		/* Drivebase motor controller creation */
 		driveRight1 = new TalonSRX(Constants.Drivebase.DRIVE_R1_PORT);

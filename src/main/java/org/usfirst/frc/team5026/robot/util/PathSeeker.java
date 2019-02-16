@@ -10,7 +10,7 @@ package org.usfirst.frc.team5026.robot.util;
 /**
  * Add your docs here.
  */
-public static class PathSeeker {
+public class PathSeeker {
     private static double initialAngleToTurn;
     private static double distance;
     private static double angleToTurn;
