@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The drive subsystem. This contains MotorGroups for the left and right
@@ -40,6 +41,9 @@ public class Drive extends Subsystem {
 	public void set(double leftPower, double rightPower) {
 		left.set(leftPower);
 		right.set(rightPower);
+		SmartDashboard.putNumber("left: ", leftPower);
+		SmartDashboard.putNumber("right: ", rightPower);
+
 	}
 
 	/**
