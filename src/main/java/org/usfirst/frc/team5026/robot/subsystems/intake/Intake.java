@@ -5,46 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems;
+package org.usfirst.frc.team5026.robot.subsystems.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
-public class IntakeArm extends Subsystem {
-  public TalonSRX armMotor;
-  public double currentHeight;
-  public double currentAngle;
+public class Intake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
-  public IntakeArm(){
-    armMotor = Robot.hardware.armMotor;
+  public TalonSRX intakeMotor;
+  public Intake(){
+    intakeMotor = Robot.hardware.armIntakeMotor;
   }
 
-  public void resetEncoder(){
-    armMotor.setSelectedSensorPosition(0);
-  }
+  public void setIntakePower(double power) {
+		intakeMotor.set(ControlMode.PercentOutput, power);
+	}
 
-  public double getCurrentAngle(){
-    currentAngle = Constants.IntakeArm.TICKS_TO_DEGREES * armMotor.getSelectedSensorPosition();
-    return currentAngle;
-  }
+	public void brakeIntake() {
+		intakeMotor.set(ControlMode.PercentOutput, 0);
+	}
 
-  public void moveArm(double power) {
-    armMotor.set(ControlMode.PercentOutput, power);
-  }
+	public double getCurrent() {
+		return intakeMotor.getOutputCurrent();
+	}
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand())
+    // setDefaultCommand(new MySpecialCommand());
   }
 }
