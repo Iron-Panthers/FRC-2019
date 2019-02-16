@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team5026.robot;
 
+import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static Hardware hardware;
 	public static IntakeArm intakeArm;
 	public static Intake intake;
+	public static Climb climb;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -47,6 +49,7 @@ public class Robot extends TimedRobot {
 		intakeArm = new IntakeArm();
 		intake = new Intake();
 		drive = new Drive();
+		climb = new Climb();
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());

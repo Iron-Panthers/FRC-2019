@@ -66,7 +66,8 @@ public class Constants {
 		public static final double POWER_SCALE = 0.7;
 
 		// INTAKE ARM SETPOINTS - TODO Double Check Measurements
-		public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket ratio)
+		public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket
+																				// ratio)
 		public static final double CARGO_DIAMETER = 13; // in
 		public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
@@ -94,5 +95,46 @@ public class Constants {
 		// INTAKE
 		public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
 		public static final double OUTTAKE_POWER = -1;
+	}
+
+	public class Climb {
+		// Climb Motor Ports
+		public static final int LEFT_MOTOR_1_PORT = 1;
+		public static final int LEFT_MOTOR_2_PORT = 2;
+		public static final int LEFT_MOTOR_3_PORT = 3;
+		public static final int RIGHT_MOTOR_1_PORT = 4;
+		public static final int RIGHT_MOTOR_2_PORT = 5;
+		public static final int RIGHT_MOTOR_3_PORT = 6;
+
+		public static final int TRAINING_WHEEL_MOTOR_PORT = 4; // To be changed
+
+		// Climb Solenoid Ports
+		public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
+		public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 1;
+
+		public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 2;
+		public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
+
+		// Climb Constants
+		public static final double CLIMB_UP_SPEED = 0.3;
+		public static final double CLIMB_DOWN_SPEED = -0.3;
+		public static final double TRAINING_WHEEL_FORWARD_SPEED = 0.3;
+		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
+		public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
+																// training wheels. THIS IS IN ROTATIONS, NOT ENCODER
+																// TICKS. TODO: Test value
+		public static final double CLIMB_SECOND_TARGET = 6.0; // The target of rotations needed where the ramps fall to
+																// the ground. THIS IS IN ROTATIONS, NOT ENCODER TICKS.
+																// TODO: Test Value
+		public static final double CLIMB_THIRD_TARGET = 12.0; // The target of roataions needed to get onto the 3rd
+																// level platform. THIS IS IN ROTATIONS, NOT ENCODER
+																// TICKS. TODO: Test Value
+		public static final double CLIMB_FINAL_TARGET = 4.0; // The target of rotations needed to get the super
+																// structure off the ground when the robot is on the
+																// third level platform. THIS IS IN ROTATIONS, NOT
+																// ENCODER TICKS. TODO: Test Value
+		public static final double TRAINING_WHEEL_DRIVE_TIME = 3.0; // The number of seconds that the robot training
+																	// wheels drive forward to move onto the platform.
+																	// TODO: Test Value
 	}
 }

@@ -4,9 +4,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
+import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * This class is meant to store raw hardware instances. Examples: Motor
@@ -30,6 +33,22 @@ public class Hardware {
 	/* IntakeArm motor controllers */
 	public TalonSRX armMotor;
 	public TalonSRX armIntakeMotor;
+
+	/* Climb motor controllers and pneumatics */
+	public CANSparkMax leftMotor1;
+	public CANSparkMax leftMotor2;
+	public CANSparkMax leftMotor3;
+	public CANSparkMax rightMotor1;
+	public CANSparkMax rightMotor2;
+	public CANSparkMax rightMotor3;
+
+	public TalonSRX trainingWheelMotor;
+
+	public SparkMaxMotorGroup leftClimbMotors;
+	public SparkMaxMotorGroup rightClimbMotors;
+
+	public DoubleSolenoid superStructurePistons;
+	public DoubleSolenoid trainingWheelPiston;
 
 	/** Motors/sensors for other subsystems will go down here */
 
@@ -63,5 +82,22 @@ public class Hardware {
 		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
 		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
 		armMotor.setNeutralMode(NeutralMode.Brake);
+
+		/* Climb Subsystem creation */
+		leftMotor1 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_1_PORT, MotorType.kBrushless);
+		leftMotor2 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_2_PORT, MotorType.kBrushless);
+		leftMotor3 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_3_PORT, MotorType.kBrushless);
+		rightMotor1 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_1_PORT, MotorType.kBrushless);
+		rightMotor2 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_2_PORT, MotorType.kBrushless);
+		rightMotor3 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_3_PORT, MotorType.kBrushless);
+
+		// Motor Groups
+		leftClimbMotors = new SparkMaxMotorGroup(leftMotor1, leftMotor2, leftMotor3);
+		rightClimbMotors = new SparkMaxMotorGroup(rightMotor1, rightMotor2, rightMotor3);
+
+		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
+				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
+		trainingWheelPiston = new DoubleSolenoid(Constants.Climb.TRAINING_WHEEL_PISTON_SOLENOID_PORT_1,
+				Constants.Climb.TRAINING_WHEEL_PISTON_SOLENOID_PORT_2);
 	}
 }

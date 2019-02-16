@@ -43,6 +43,7 @@ public class OI {
 
 	public OI() {
 		// DRIVER 1
+		// TODO: BUTTONS FOR CLIMB
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
 		stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
 		button1 = new JoystickButton(stick1, 1);
@@ -54,7 +55,7 @@ public class OI {
 		button6.whileHeld(new FindF());
 		button1.whileHeld(new ReverseDrive());
 
-		// TODO Non-hardcoded ports
+		// TODO: Non-hardcoded ports
 		// DRIVER 2
 		manualArm = new JoystickButton(stick2, 1);
 		intake = new JoystickButton(stick2, 2);
