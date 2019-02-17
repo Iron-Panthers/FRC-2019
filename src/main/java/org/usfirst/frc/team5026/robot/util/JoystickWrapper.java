@@ -45,7 +45,6 @@ public class JoystickWrapper extends Joystick {
 		// Update X and Y to match the X and Y axes of the device
 		x = getX();
 		y = getY();
-		SmartDashboard.putNumber("Slider value (turn gain): ", turnGain);
 		SmartDashboard.putNumber("x ", getX());
 		SmartDashboard.putNumber("y ", getY());
 
@@ -151,19 +150,19 @@ public class JoystickWrapper extends Joystick {
 	 * @param verticalSlope
 	 * @param horizontalSlope
 	 */
-	private void applyBowtieDeadzone(double verticalSlope, double horizontalSlope) {
-		if (Math.abs(y) > Math.abs(x) * verticalSlope) {
-			x = 0;
-		} else {
-			x = (x - (Math.abs(y) / verticalSlope)) / (1 - (Math.abs(y) / verticalSlope));
-		}
+	// private void applyBowtieDeadzone(double verticalSlope, double horizontalSlope) {
+	// 	if (Math.abs(y) > Math.abs(x) * verticalSlope) {
+	// 		x = 0;
+	// 	} else {
+	// 		x = (x - (Math.abs(y) / verticalSlope)) / (1 - (Math.abs(y) / verticalSlope));
+	// 	}
 
-		if (Math.abs(x) > Math.abs(y) * horizontalSlope) {
-			y = 0;
-		} else {
-			y = (y - (Math.abs(x) / horizontalSlope)) / (1 - (Math.abs(x) / horizontalSlope));
-		}
-	}
+	// 	if (Math.abs(x) > Math.abs(y) * horizontalSlope) {
+	// 		y = 0;
+	// 	} else {
+	// 		y = (y - (Math.abs(x) / horizontalSlope)) / (1 - (Math.abs(x) / horizontalSlope));
+	// 	}
+	// }
 
 	/**
      * Map a value x in the range [a1, b1] to a new value in the range [a2, b2]
