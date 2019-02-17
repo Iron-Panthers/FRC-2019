@@ -13,8 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ReverseDrive extends Command {
 	public ReverseDrive() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+		// This Command must not require a subsystem
 	}
 
 	// Called just before this Command runs the first time
@@ -26,7 +25,6 @@ public class ReverseDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.isReversed = true;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

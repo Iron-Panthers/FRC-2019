@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class HubertTurnRight extends Command {
 	public HubertTurnRight() {
-		requires(Robot.drive);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+		// This Command must not require a subsystem
 	}
 
 	// Called just before this Command runs the first time

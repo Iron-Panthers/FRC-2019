@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,11 +19,8 @@ public class JoystickWrapper extends Joystick {
 	private double magnitude; // the magnitude of the vector created by the x and y axes
 
 	/**
-	 * Construct an instance of a JoystickWrapper, where the joystick index is the
-	 * USB port on the driver station.
-	 * 
-	 * @param port is the USB port on the Driver Station that the joystick is
-	 *             plugged into.
+	 * Creates a new JoystickWrapper. Port is the USB port of the physical device,
+	 * starting at 0.
 	 */
 	public JoystickWrapper(int port) {
 		super(port);
@@ -48,6 +44,8 @@ public class JoystickWrapper extends Joystick {
 		SmartDashboard.putNumber("x ", getX());
 		SmartDashboard.putNumber("y ", getY());
 
+		// Our joystick has unusual behavior so we must do this
+		x = -1 * x;
 		//Our joystick has unusual behavior so we must do this. NOT CURRENTLY IN USE BECAUSE WE ARE USING THRUSTMASTER
 		//x = -1 * x;
 	/**
