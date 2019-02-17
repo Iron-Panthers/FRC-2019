@@ -34,10 +34,12 @@ public class ArcadeDrive extends Command {
 		stick.update();
 		rightPower = stick.findRightPower() + stick.skim(stick.findLeftPower());
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
-		SmartDashboard.putNumber("Right Power", rightPower);
-		SmartDashboard.putNumber("Left Power", leftPower);
+		double scaledRight = scalePower(rightPower, leftPower);
+		double scaledLeft = scalePower(leftPower, rightPower);
+		SmartDashboard.putNumber("Right Power", scaledRight);
+		SmartDashboard.putNumber("Left Power", scaledLeft);
 		//Uses ScalePower method to scale the power of both sides if either is over 1
-		Robot.drive.set(scalePower(leftPower, rightPower), scalePower(rightPower, leftPower));
+		Robot.drive.set(scaledLeft, scaledRight);
 	}
 
 	/**
@@ -48,7 +50,7 @@ public class ArcadeDrive extends Command {
 	 * @return Returns the scaled output of the power parameter
 	 */
 	public double scalePower(double power, double otherPower) {
-		if (power > 1.0 || otherPower > 1.0){
+		if (Math.abs(power) > 1.0 || Math.abs(otherPower) > 1.0){
 			return power / Math.max(power, otherPower);
 		}
 		return power;
