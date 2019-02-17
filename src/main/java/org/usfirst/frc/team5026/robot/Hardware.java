@@ -20,7 +20,7 @@ public class Hardware {
 	public TalonSRX driveLeft1;
 	public VictorSPX driveLeft2;
 
-	public TalonSRX testMotor5; // TODO Rename to make functionality more clear
+	public TalonSRX gyroTestMotor;
 	public PigeonIMU gyro;
 
 	/* Drivebase MotorGroups */
@@ -56,8 +56,8 @@ public class Hardware {
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
 
 		/* Gyro */
-		testMotor5 = new TalonSRX(5);
-		gyro = new PigeonIMU(testMotor5);
+		gyroTestMotor = new TalonSRX(5);
+		gyro = new PigeonIMU(gyroTestMotor);
 
 		/* IntakeArm motor controller creation */
 		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);

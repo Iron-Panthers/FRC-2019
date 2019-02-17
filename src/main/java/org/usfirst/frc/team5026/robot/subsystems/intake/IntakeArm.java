@@ -17,14 +17,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The subsystem which controls the Intake Arm. Contains utility methods to
- * control intake power, configure the encoder, and calculate the angle and
- * torque.
+ * configure the encoder, calculate the angle, height, and basePower.
  */
 public class IntakeArm extends Subsystem {
 	public TalonSRX armMotor;
 	public double currentHeight;
 	public double currentAngle;
 	public double currentTorque;
+	public double basePower;
 
 	public IntakeArm() {
 		armMotor = Robot.hardware.armMotor;
@@ -39,16 +39,14 @@ public class IntakeArm extends Subsystem {
 		return currentAngle;
 	}
 
-	public double getCurrentHeight() {
-		currentHeight = (Math.sin(getCurrentAngle() * Math.PI / 180) * Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
+	public double getCurrentHeight() { 
+		currentHeight = (Math.sin((getCurrentAngle()) * Constants.IntakeArm.DEGRESS_TO_RADIANS) * Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
 		return currentHeight;
 	}
 
-	public double getCurrentTorque() {
-		currentTorque = ((Constants.IntakeArm.INTAKE_MASS * Constants.IntakeArm.INTAKE_DISTANCE)
-				+ (Constants.IntakeArm.INTAKE_ARM_MASS * Constants.IntakeArm.INTAKE_ARM_DISTANCE))
-				* Constants.IntakeArm.GRAVITY_ACCELERATION * (Math.cos(getCurrentAngle() * (Math.PI / 180)));
-		return currentTorque;
+	public double getBasePower() {
+		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT * Math.cos(getCurrentAngle() * Constants.IntakeArm.DEGRESS_TO_RADIANS);
+		return basePower;
 	}
 
 	public void moveArm(double power) {

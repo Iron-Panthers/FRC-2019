@@ -11,6 +11,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualArmMovement extends Command {
 
@@ -32,15 +33,21 @@ public class ManualArmMovement extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//armTorque = Robot.intakeArm.getCurrentTorque();
-		// basePower = (armTorque / Constants.IntakeArm.INTAKE_ARM_MOTOR_MAX_TORQUE);
-		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT * Math.cos(Robot.intakeArm.getCurrentAngle() * (Math.PI / 180));
-		// power = basePower + Robot.oi.joystick.getY();
-		if (Math.abs(Robot.oi.stick2.getY()) < 0.1) {
+		basePower = Robot.intakeArm.getBasePower();
+		if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.Y_DEADZONE) {
 			power = 0;
 		} else {
-			power = (Robot.oi.stick2.getY() - 0.1) * 0.7 / 0.9;
+			power = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE / (1 - Constants.IntakeArm.Y_DEADZONE);
 		}
+		if(Robot.intakeArm.getCurrentAngle() > 180) {
+			power = 0;
+		}
+		SmartDashboard.putNumber("angle: ", Robot.intakeArm.getCurrentAngle());
+		SmartDashboard.putNumber("basePower: ", basePower);
+		SmartDashboard.putNumber("power: ", power);
+		SmartDashboard.putNumber("Joystick y: ", Robot.oi.stick2.getY());
+		SmartDashboard.putNumber("Motor Output: ", Robot.hardware.armMotor.getMotorOutputPercent());
+		SmartDashboard.putNumber("encoder: ", Robot.hardware.armMotor.getSensorCollection().getPulseWidthPosition());
 		Robot.intakeArm.moveArm(basePower + power);
 	}
 

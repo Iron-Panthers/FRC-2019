@@ -17,7 +17,6 @@ import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ManualArmMoveme
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.OuttakeCargo;
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ZeroIntakeArm;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -43,6 +42,7 @@ public class OI {
 	JoystickButton zeroIntakeAngle;
 
 	public OI() {
+		// DRIVER 1
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
 		stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
 		button1 = new JoystickButton(stick1, 1);
@@ -55,6 +55,7 @@ public class OI {
 		button1.whileHeld(new ReverseDrive());
 
 		// TODO Non-hardcoded ports
+		// DRIVER 2
 		manualArm = new JoystickButton(stick2, 1);
 		intake = new JoystickButton(stick2, 2);
 		outtake = new JoystickButton(stick2, 3);
@@ -65,11 +66,11 @@ public class OI {
 		oppCargoShipHeight = new JoystickButton(stick2, 11);
 		cargoShipHeight = new JoystickButton(stick2, 12);
 
-		cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT));
-		oppCargoShipHeight.whenPressed(new ArmToTarget(-(Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER)));
-		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT));
-		oppRocketLowHeight.whenPressed(new ArmToTarget(-(Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER)));
-		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT));
+		cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT, true));
+		oppCargoShipHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
+		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
+		oppRocketLowHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
+		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo());
 		manualArm.whileHeld(new ManualArmMovement());

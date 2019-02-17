@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
@@ -45,9 +47,12 @@ public class Robot extends TimedRobot {
 		intakeArm = new IntakeArm();
 		intake = new Intake();
 		drive = new Drive();
+		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
+
+		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -133,6 +138,14 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("Height", intakeArm.getCurrentHeight());
 		SmartDashboard.putNumber("Angle", intakeArm.getCurrentAngle());
+		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
+		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
+		//System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
+		SmartDashboard.putNumber("Enc Pulse Width", hardware.armMotor.getSensorCollection().getPulseWidthPosition());
+		SmartDashboard.putNumber("Enc Pos", hardware.armMotor.getSelectedSensorPosition());
+
+		SmartDashboard.putNumber("Enc Pulse Deg", hardware.armMotor.getSensorCollection().getPulseWidthPosition() * (360/4096));
+		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
 		Scheduler.getInstance().run();
 	}
 
