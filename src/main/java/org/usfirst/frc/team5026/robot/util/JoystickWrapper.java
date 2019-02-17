@@ -45,6 +45,9 @@ public class JoystickWrapper extends Joystick {
 		// Update X and Y to match the X and Y axes of the device
 		x = getX();
 		y = getY();
+		SmartDashboard.putNumber("Slider value (turn gain): ", turnGain);
+		SmartDashboard.putNumber("x ", getX());
+		SmartDashboard.putNumber("y ", getY());
 
 		//Our joystick has unusual behavior so we must do this. NOT CURRENTLY IN USE BECAUSE WE ARE USING THRUSTMASTER
 		//x = -1 * x;
@@ -100,9 +103,7 @@ public class JoystickWrapper extends Joystick {
 		double turnGain = getThrottle();
 
 		// SmartDashboard logging
-		SmartDashboard.putNumber("Slider value (turn gain): ", turnGain);
-		SmartDashboard.putNumber("x ", getX());
-		SmartDashboard.putNumber("y ", getY());
+		
 
 		if (v > 1.0) {
 			return ((v - 1.0) * turnGain); // slider
