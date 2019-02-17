@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ReverseDrive extends Command {
 	public ReverseDrive() {
-		requires(Robot.drive);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
