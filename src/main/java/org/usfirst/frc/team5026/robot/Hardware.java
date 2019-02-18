@@ -63,5 +63,6 @@ public class Hardware {
 		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
 		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
 		armMotor.setNeutralMode(NeutralMode.Brake);
+
 	}
 }

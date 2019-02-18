@@ -34,6 +34,17 @@ public class Robot extends TimedRobot {
 	public static IntakeArm intakeArm;
 	public static Intake intake;
 
+    /* Nonzero to block the config until success, zero to skip checking */
+    final int kTimeoutMs = 0;
+	
+    /**
+	 * If the measured travel has a discontinuity, Note the extremities or
+	 * "book ends" of the travel.
+	 */
+	final boolean kDiscontinuityPresent = true;
+	final int kBookEnd_0 = 910;		/* 80 deg */
+	final int kBookEnd_1 = 1137;	/* 100 deg */
+
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -54,6 +65,15 @@ public class Robot extends TimedRobot {
 
 		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Auto mode", m_chooser);
+
+		/* Factory Default Hardware to prevent unexpected behaviour */
+		hardware.armMotor.configFactoryDefault();
+
+		/* Seed quadrature to be absolute and continuous */
+		initQuadrature();
+		
+		/* Configure Selected Sensor for Talon */
+		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,	0, kTimeoutMs);
 	}
 
 	/**
@@ -80,6 +100,29 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		if (oi.stick1.getRawButton(1)) {
+			initQuadrature();
+		}
+
+		/**
+		 * Quadrature is selected for soft-lim/closed-loop/etc. initQuadrature()
+		 * will initialize quad to become absolute by using PWD
+		 */
+		int selSenPos = hardware.armMotor.getSelectedSensorPosition(0);
+		int pulseWidthWithoutOverflows = hardware.armMotor.getSensorCollection().getPulseWidthPosition() & 0xFFF;
+
+		/**
+		 * Display how we've adjusted PWM to produce a QUAD signal that is
+		 * absolute and continuous. Show in sensor units and in rotation
+		 * degrees.
+		 */
+		System.out.print("pulseWidPos:" + pulseWidthWithoutOverflows +
+						 "   =>    " + "selSenPos:" + selSenPos);
+		System.out.print("      ");
+		System.out.print("pulseWidDeg:" + ToDeg(pulseWidthWithoutOverflows) +
+						 "   =>    " + "selSenDeg:" + ToDeg(selSenPos));
+		System.out.println();
+
 		Scheduler.getInstance().run();
 	}
 
@@ -154,5 +197,56 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+
+	/**
+	 * Seed the quadrature position to become absolute. This routine also
+	 * ensures the travel is continuous.
+	 */
+	public void initQuadrature() {
+		/* get the absolute pulse width position */
+		int pulseWidth = hardware.armMotor.getSensorCollection().getPulseWidthPosition();
+
+		/**
+		 * If there is a discontinuity in our measured range, subtract one half
+		 * rotation to remove it
+		 */
+		if (kDiscontinuityPresent) {
+
+			/* Calculate the center */
+			int newCenter;
+			newCenter = (kBookEnd_0 + kBookEnd_1) / 2;
+			newCenter &= 0xFFF;
+
+			/**
+			 * Apply the offset so the discontinuity is in the unused portion of
+			 * the sensor
+			 */
+			pulseWidth -= newCenter;
+		}
+
+		/**
+		 * Mask out the bottom 12 bits to normalize to [0,4095],
+		 * or in other words, to stay within [0,360) degrees 
+		 */
+		pulseWidth = pulseWidth & 0xFFF;
+
+		/* Update Quadrature position */
+		hardware.armMotor.getSensorCollection().setQuadraturePosition(pulseWidth, kTimeoutMs);
+	}
+
+	/**
+	 * @param units CTRE mag encoder sensor units 
+	 * @return degrees rounded to tenths.
+	 */
+	String ToDeg(int units) {
+		double deg = units * 360.0 / 4096.0;
+
+		/* truncate to 0.1 res */
+		deg *= 10;
+		deg = (int) deg;
+		deg /= 10;
+
+		return "" + deg;
 	}
 }
