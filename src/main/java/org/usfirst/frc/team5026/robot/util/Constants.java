@@ -7,13 +7,13 @@ package org.usfirst.frc.team5026.robot.util;
 */
 public class Constants {
 
-    // TODO adjust drivebase constants
-    public class Drivebase {
-        /** DRIVEBASE PORTS */
-        public static final int DRIVE_R1_PORT = 1;
-        public static final int DRIVE_R2_PORT = 1; // SPX
-        public static final int DRIVE_L1_PORT = 2;
-        public static final int DRIVE_L2_PORT = 2; // SPX
+	// TODO adjust drivebase constants
+	public class Drivebase {
+		/** DRIVEBASE PORTS */
+		public static final int DRIVE_R1_PORT = 1;
+		public static final int DRIVE_R2_PORT = 1; // SPX
+		public static final int DRIVE_L1_PORT = 2;
+		public static final int DRIVE_L2_PORT = 2; // SPX
 
         /** DRIVEBASE CONSTANTS */
         public static final double DRIVEBASE_WIDTH = 30; // inches
