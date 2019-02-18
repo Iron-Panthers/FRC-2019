@@ -63,8 +63,8 @@ public class Constants {
         // Arm Setpoints
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
-        public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 10;
-        public static final int ROCKET_LOW_HEIGHT_BUTTON = 9;
+        public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9;
+        public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
@@ -102,16 +102,16 @@ public class Constants {
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
         public static final double ARM_BASE_HEIGHT = 18.75; // in
-        public static final double CARGO_SHIP_HEIGHT = 31.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
-        public static final double ROCKET_LOW_HEIGHT = 35.5 - ARM_BASE_HEIGHT; // in
+        public static final double CARGO_SHIP_HEIGHT = 39.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
+        public static final double ROCKET_LOW_HEIGHT = 36.5 - ARM_BASE_HEIGHT; // in
         public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; // in - estimate
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
-        public static final double INTAKE_ARM_P = 0.1;
-        public static final double INTAKE_ARM_I = 0.003;
+        public static final double INTAKE_ARM_P = 0.3;
+        public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
-        public static final double ERROR_TOLERANCE = 1; // degrees
+        public static final double ERROR_TOLERANCE = 3; // degrees
         public static final long ERROR_TOLERANCE_TIME = 100; // ms
         public static final double STALL_TORQUE_COEFFICIENT = -0.09;
 
