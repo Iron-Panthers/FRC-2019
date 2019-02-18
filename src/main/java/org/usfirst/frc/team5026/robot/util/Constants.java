@@ -103,9 +103,9 @@ public class Constants {
         public static final double ARM_LENGTH = 27.4; // in
         public static final double ARM_BASE_HEIGHT = 18.75; // in
         public static final double CARGO_SHIP_HEIGHT = 39.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
-        public static final double ROCKET_LOW_HEIGHT = 36.5 - ARM_BASE_HEIGHT; // in
+        public static final double ROCKET_LOW_HEIGHT = 35 - ARM_BASE_HEIGHT; // in
 		public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; // in - estimate
-		public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 7; //in
+		public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 7.5; //in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
@@ -126,12 +126,12 @@ public class Constants {
 
         // INTAKE
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
-        public static final double OUTTAKE_POWER = -1;
+        public static final double OUTTAKE_POWER = -0.7;
     }
 
     public class Climb {
         // Climb Motor Ports
-        public static final int LEFT_MOTOR_1_PORT = 8;
+        public static final int LEFT_MOTOR_1_PORT = 2;
         public static final int LEFT_MOTOR_2_PORT = 9;
         public static final int LEFT_MOTOR_3_PORT = 10;
         public static final int RIGHT_MOTOR_1_PORT = 11;
