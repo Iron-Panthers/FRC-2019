@@ -20,11 +20,13 @@ public class SparkMaxMotorGroup {
 	public SparkMaxMotorGroup(CANSparkMax masterMotor, CANSparkMax... motors) {
 		this.masterMotor = masterMotor;
 		this.motors = motors;
+		this.masterMotor.restoreFactoryDefaults();
 		followMaster();
 	}
 
 	private void followMaster() {
 		for (CANSparkMax motor : this.motors) {
+			motor.restoreFactoryDefaults();
 			motor.follow(this.masterMotor);
 		}
 	}
