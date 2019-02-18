@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
+import java.util.ArrayList;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 
@@ -34,12 +36,12 @@ public class ArcadeDrive extends Command {
 		stick.update();
 		rightPower = stick.findRightPower() + stick.skim(stick.findLeftPower());
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
-		double scaledRight = scalePower(rightPower, leftPower);
-		double scaledLeft = scalePower(leftPower, rightPower);
-		SmartDashboard.putNumber("Right Power", scaledRight);
-		SmartDashboard.putNumber("Left Power", scaledLeft);
+		double[] powers = {leftPower, rightPower};
+		powers = scalePower(powers);
+		SmartDashboard.putNumber("Right Power", powers[1]);
+		SmartDashboard.putNumber("Left Power", powers[0]);
 		//Uses ScalePower method to scale the power of both sides if either is over 1
-		Robot.drive.set(scaledLeft, scaledRight);
+		Robot.drive.set(powers[0], powers[1]);
 	}
 
 	/**
@@ -51,9 +53,43 @@ public class ArcadeDrive extends Command {
 	 */
 	public double scalePower(double power, double otherPower) {
 		if (Math.abs(power) > 1.0 || Math.abs(otherPower) > 1.0){
-			return power / Math.max(power, otherPower);
+			if (Math.abs(power) > Math.abs(otherPower)){ //Needs to check abs value to find the greater one
+				return power / Math.abs(power);
+			}
+			return power / Math.abs(otherPower);
 		}
 		return power;
+	}
+
+	/**
+	 * Scales an array of powers
+	 * @param powers An array of powers, left power, then right power
+	 * @return An array of scaled powers
+	 */
+	public double[] scalePower(double[] powers){
+		// Checks if the array needs to be scaled
+		boolean isOverOne = false;
+		for (double element: powers){
+			if (Math.abs(element) > 1){
+				isOverOne = true;
+			}
+		}
+		if (!isOverOne){
+			return powers;
+		}
+		double currentMax = powers[0];
+		// Finds the highest value
+		for (int i = 0; i < powers.length; i++){
+			if (Math.abs(powers[i]) > currentMax){
+				currentMax = Math.abs(powers[i]);
+			}
+		}
+		// Scales all values
+		for (int i = 0; i < powers.length; i++){
+			powers[i] /= currentMax;
+		}
+
+		return powers;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

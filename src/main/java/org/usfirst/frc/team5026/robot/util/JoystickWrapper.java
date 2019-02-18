@@ -44,8 +44,8 @@ public class JoystickWrapper extends Joystick {
 		SmartDashboard.putNumber("x ", getX());
 		SmartDashboard.putNumber("y ", getY());
 
-		// Our joystick has unusual behavior so we must do this
-		x = -1 * x;
+		// // Our joystick has unusual behavior so we must do this
+		// // x = -1 * x;
 		//Our joystick has unusual behavior so we must do this. NOT CURRENTLY IN USE BECAUSE WE ARE USING THRUSTMASTER
 		//x = -1 * x;
 	/**
