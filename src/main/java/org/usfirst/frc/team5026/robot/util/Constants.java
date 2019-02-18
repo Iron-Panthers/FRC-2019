@@ -29,6 +29,8 @@ public class Constants {
 		public static final double P = 0; // TODO Tune
 		public static final double I = 0;
 		public static final double D = 0;
+
+		public static final double SCALING_POWER = 2.75;
 	}
 
 	// TODO tune input constants

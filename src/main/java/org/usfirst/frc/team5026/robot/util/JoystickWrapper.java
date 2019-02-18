@@ -65,7 +65,7 @@ public class JoystickWrapper extends Joystick {
 		double direction = Robot.drive.isReversed ? -1 : 1;
 		// A slight modification of the traditional arcade drive calculation
 		// Makes X-axis nonlinear, adds sensitivity constant
-		double value = (y * direction) + Math.copySign(Math.pow(Math.abs(x),2.75), x) * Constants.Drivebase.TURN_SENSITIVITY;
+		double value = (y * direction) + Math.copySign(Math.pow(Math.abs(x), Constants.Drivebase.SCALING_POWER), x) * Constants.Drivebase.TURN_SENSITIVITY;
 
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * value;
@@ -81,7 +81,7 @@ public class JoystickWrapper extends Joystick {
 		double direction = Robot.drive.isReversed ? -1 : 1;
 		// A slight modification of the traditional arcade drive calculation
 		// Makes X-axis nonlinear, adds sensitivity constant
-		double value = (y * direction) - Math.copySign(Math.pow(Math.abs(x),2.75), x) * Constants.Drivebase.TURN_SENSITIVITY;
+		double value = (y * direction) - Math.copySign(Math.pow(Math.abs(x), Constants.Drivebase.SCALING_POWER), x) * Constants.Drivebase.TURN_SENSITIVITY;
 
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * value;
