@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
@@ -94,6 +95,11 @@ public class Hardware {
 		// Motor Groups
 		leftClimbMotors = new SparkMaxMotorGroup(leftMotor1, leftMotor2, leftMotor3);
 		rightClimbMotors = new SparkMaxMotorGroup(rightMotor1, rightMotor2, rightMotor3);
+
+		leftClimbMotors.setIdleMode(IdleMode.kBrake);
+		rightClimbMotors.setIdleMode(IdleMode.kBrake);
+		leftClimbMotors.setInverted(Constants.Climb.IS_LEFT_INVERTED);
+		rightClimbMotors.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);

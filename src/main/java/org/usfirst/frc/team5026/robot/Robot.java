@@ -147,6 +147,9 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putNumber("Enc Pulse Deg", hardware.armMotor.getSensorCollection().getPulseWidthPosition() * (360/4096));
 		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
+
+		SmartDashboard.putNumber("Climb left side output", hardware.leftClimbMotors.getAppliedOutput());
+		SmartDashboard.putNumber("Climb right side output", hardware.rightClimbMotors.getAppliedOutput());
 		Scheduler.getInstance().run();
 	}
 

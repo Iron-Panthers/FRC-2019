@@ -75,4 +75,8 @@ public class SparkMaxMotorGroup {
 		return masterMotor;
 	}
 
+	public double getAppliedOutput() {
+		return masterMotor.getAppliedOutput(); // TODO: Check if this outputs power
+	}
+
 }

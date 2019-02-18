@@ -12,37 +12,37 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbUp extends Command {
-  public ClimbUp() {
-	  requires(Robot.climb);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
+	public ClimbUp() {
+		requires(Robot.climb);
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+	}
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-	  Robot.climb.climbUp();
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		Robot.climb.climbUp();
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+	// Called once after isFinished returns true
+	@Override
+	protected void end() {
+	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+	}
 }
