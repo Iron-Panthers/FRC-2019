@@ -24,12 +24,14 @@ public class Constants {
         public static final double TURN_SENSITIVITY = 1;
         public static final double RADIAL_TURN_SENSITIVITY = 20;
 
-        // Motion Profiling PID (For Velocity)
-        public static final double F = 0; // TODO Find max velocity
-        public static final double P = 0; // TODO Tune
-        public static final double I = 0;
-        public static final double D = 0;
-    }
+		// Motion Profiling PID (For Velocity)
+		public static final double F = 0; // TODO Find max velocity
+		public static final double P = 0; // TODO Tune
+		public static final double I = 0;
+		public static final double D = 0;
+
+		public static final double SCALING_POWER = 2.75;
+	}
 
     // TODO tune input constants
     public class Input {
