@@ -23,8 +23,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Climb extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	public SparkMaxMotorGroup leftClimbMotors;
-	public SparkMaxMotorGroup rightClimbMotors;
+	public SparkMaxMotorGroup climbMotors;
 
 	public TalonSRX trainingWheelMotor;
 
@@ -32,8 +31,7 @@ public class Climb extends Subsystem {
 	public DoubleSolenoid trainingWheelPiston;
 
 	public Climb() {
-		this.leftClimbMotors = Robot.hardware.leftClimbMotors;
-		this.rightClimbMotors = Robot.hardware.rightClimbMotors;
+		this.climbMotors = Robot.hardware.climbMotors;
 
 		this.trainingWheelMotor = Robot.hardware.trainingWheelMotor;
 
@@ -47,8 +45,7 @@ public class Climb extends Subsystem {
 	 * 
 	 */
 	public void climbUp() {
-		leftClimbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
-		rightClimbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
+		climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
 	}
 
 	public void trainingWheelsForward() {
@@ -68,13 +65,11 @@ public class Climb extends Subsystem {
 	 * structure, and LOWERS the robot.
 	 */
 	public void climbDown() {
-		leftClimbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
-		rightClimbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
+		climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
 	}
 
 	public void stopClimb() {
-		leftClimbMotors.set(0);
-		rightClimbMotors.set(0);
+		climbMotors.set(0);
 	}
 
 	/**
@@ -84,8 +79,7 @@ public class Climb extends Subsystem {
 	 * @return A double, which is the number of rotations
 	 */
 	public double getEncoderPosition() {
-		return Math.min(leftClimbMotors.getMasterMotor().getEncoder().getPosition(),
-				rightClimbMotors.getMasterMotor().getEncoder().getPosition());
+		return climbMotors.getMasterMotor().getEncoder().getPosition();
 	}
 
 	public void extendSuperStructurePistons() { // TODO: Test if forward extends

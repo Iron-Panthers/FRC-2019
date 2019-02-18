@@ -45,8 +45,7 @@ public class Hardware {
 
 	public TalonSRX trainingWheelMotor;
 
-	public SparkMaxMotorGroup leftClimbMotors;
-	public SparkMaxMotorGroup rightClimbMotors;
+	public SparkMaxMotorGroup climbMotors;
 
 	public DoubleSolenoid superStructurePistons;
 	public DoubleSolenoid trainingWheelPiston;
@@ -88,18 +87,20 @@ public class Hardware {
 		leftMotor1 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_1_PORT, MotorType.kBrushless);
 		leftMotor2 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_2_PORT, MotorType.kBrushless);
 		leftMotor3 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_3_PORT, MotorType.kBrushless);
+		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
+		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
+		leftMotor3.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		rightMotor1 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_1_PORT, MotorType.kBrushless);
 		rightMotor2 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_2_PORT, MotorType.kBrushless);
 		rightMotor3 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_3_PORT, MotorType.kBrushless);
+		rightMotor1.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
+		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
+		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
-		// Motor Groups
-		leftClimbMotors = new SparkMaxMotorGroup(leftMotor1, leftMotor2, leftMotor3);
-		rightClimbMotors = new SparkMaxMotorGroup(rightMotor1, rightMotor2, rightMotor3);
-
-		leftClimbMotors.setIdleMode(IdleMode.kBrake);
-		rightClimbMotors.setIdleMode(IdleMode.kBrake);
-		leftClimbMotors.setInverted(Constants.Climb.IS_LEFT_INVERTED);
-		rightClimbMotors.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
+		// Motor Group
+		// All are on the same motor group to reduce required limit switches
+		climbMotors = new SparkMaxMotorGroup(leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3);
+		climbMotors.setIdleMode(IdleMode.kBrake);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);

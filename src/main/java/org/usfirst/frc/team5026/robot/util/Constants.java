@@ -131,16 +131,16 @@ public class Constants {
 
     public class Climb {
         // Climb Motor Ports
-        public static final int LEFT_MOTOR_1_PORT = 1;
-        public static final int LEFT_MOTOR_2_PORT = 2;
-        public static final int LEFT_MOTOR_3_PORT = 3;
-        public static final int RIGHT_MOTOR_1_PORT = 4;
-        public static final int RIGHT_MOTOR_2_PORT = 5;
-		public static final int RIGHT_MOTOR_3_PORT = 6;
+        public static final int LEFT_MOTOR_1_PORT = 8;
+        public static final int LEFT_MOTOR_2_PORT = 9;
+        public static final int LEFT_MOTOR_3_PORT = 10;
+        public static final int RIGHT_MOTOR_1_PORT = 11;
+        public static final int RIGHT_MOTOR_2_PORT = 12;
+		public static final int RIGHT_MOTOR_3_PORT = 13;
 		
 		// Climb Side Inversions
 		public static final boolean IS_LEFT_INVERTED = false;
-		public static final boolean IS_RIGHT_INVERTED = false;
+		public static final boolean IS_RIGHT_INVERTED = true;
 
         public static final int TRAINING_WHEEL_MOTOR_PORT = 4; // To be changed
 
@@ -152,8 +152,8 @@ public class Constants {
         public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
-        public static final double CLIMB_UP_SPEED = 0.3;
-        public static final double CLIMB_DOWN_SPEED = -0.3;
+        public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety
+        public static final double CLIMB_DOWN_SPEED = -0.25; // See above
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 0.3;
         public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
