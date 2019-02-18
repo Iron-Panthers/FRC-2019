@@ -139,6 +139,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		// hardware.climbMotors.set(oi.stick2.getY());
+		// climb.climbUp();
 		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
 		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
 		//System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");

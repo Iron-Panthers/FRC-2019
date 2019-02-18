@@ -100,7 +100,6 @@ public class Hardware {
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
 		climbMotors = new SparkMaxMotorGroup(leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3);
-		climbMotors.setIdleMode(IdleMode.kBrake);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);

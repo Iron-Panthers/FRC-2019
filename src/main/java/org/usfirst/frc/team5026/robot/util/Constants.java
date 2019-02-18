@@ -90,7 +90,7 @@ public class Constants {
     public class IntakeArm {
         // INTAKE ARM PORTS
         public static final int INTAKE_ARM_MOTOR_PORT = 6;
-        public static final int INTAKE_MOTOR_PORT = 7;
+        public static final int INTAKE_MOTOR_PORT = 4;
 
         // INTAKE JOYSTICK - TODO Tune To Driver Preference
         public static final double Y_DEADZONE = 0.1;
@@ -145,11 +145,11 @@ public class Constants {
         public static final int TRAINING_WHEEL_MOTOR_PORT = 4; // To be changed
 
         // Climb Solenoid Ports
-        public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
-        public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 1;
+        public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 2;
+        public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 3;
 
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 2;
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
+        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 6;
+        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 7;
 
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety
