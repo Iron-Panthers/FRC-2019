@@ -26,8 +26,8 @@ public class SparkMaxMotorGroup {
 
 	private void followMaster() {
 		for (CANSparkMax motor : this.motors) {
-			motor.follow(this.masterMotor);
 			motor.restoreFactoryDefaults();
+			motor.follow(this.masterMotor);
 		}
 	}
 
