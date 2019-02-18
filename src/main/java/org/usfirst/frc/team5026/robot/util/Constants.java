@@ -131,7 +131,7 @@ public class Constants {
 
     public class Climb {
         // Climb Motor Ports
-        public static final int LEFT_MOTOR_1_PORT = 2;
+        public static final int LEFT_MOTOR_1_PORT = 8;
         public static final int LEFT_MOTOR_2_PORT = 9;
         public static final int LEFT_MOTOR_3_PORT = 10;
         public static final int RIGHT_MOTOR_1_PORT = 11;
