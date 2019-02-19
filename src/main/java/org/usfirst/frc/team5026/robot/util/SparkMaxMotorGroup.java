@@ -27,7 +27,7 @@ public class SparkMaxMotorGroup {
 		for (CANSparkMax element: motors){
 			setup(element);
 		}
-		followMaster();
+		// followMaster();
 	}
 
 	public void setup(CANSparkMax m_motor) {
@@ -65,12 +65,13 @@ public class SparkMaxMotorGroup {
 			SmartDashboard.putString("Ramp Rate", "Error");
 		}
 	}
-
-	private void followMaster() {
-		for (CANSparkMax motor : this.motors) {
-			// motor.follow(this.masterMotor);
-		}
-	}
+	
+	// // Broken, do not use follow
+	// private void followMaster() {
+	// 	for (CANSparkMax motor : this.motors) {
+	// 		// motor.follow(this.masterMotor);
+	// 	}
+	// }
 
 	/**
 	 * Sets the PercentOutput power of the master motor
@@ -79,11 +80,11 @@ public class SparkMaxMotorGroup {
 	 */
 	public void set(double power) {
 		masterMotor.set(power);
-		// for (CANSparkMax motor : this.motors) {
-		// 	motor.set(power);
+		for (CANSparkMax motor : this.motors) {
+			motor.set(power);
 		// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
 		// motor.getMotorOutputPercent());
-		// }
+		}
 	}
 
 	/**
