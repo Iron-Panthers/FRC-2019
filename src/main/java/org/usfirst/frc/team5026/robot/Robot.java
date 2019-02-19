@@ -83,6 +83,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putBoolean("Bottom Limit Switch", climb.bottomLimitSwitch.get());
+		SmartDashboard.putBoolean("Top Limit Switch", climb.topLimitSwitch.get());
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -152,8 +155,6 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putNumber("Climb output", hardware.climbMotors.getAppliedOutput());
 
-		SmartDashboard.putBoolean("Bottom Limit Switch", climb.bottomLimitSwitch.get());
-		SmartDashboard.putBoolean("Top Limit Switch", climb.topLimitSwitch.get());
 		Scheduler.getInstance().run();
 	}
 

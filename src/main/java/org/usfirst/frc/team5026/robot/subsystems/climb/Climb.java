@@ -15,6 +15,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -31,7 +32,7 @@ public class Climb extends Subsystem {
 	public DoubleSolenoid superStructurePistons;
 	public DoubleSolenoid trainingWheelPiston;
 
-	public CANDigitalInput topLimitSwitch, bottomLimitSwitch;
+	public DigitalInput topLimitSwitch, bottomLimitSwitch;
 
 	public Climb() {
 		this.climbMotors = Robot.hardware.climbMotors;
@@ -51,7 +52,7 @@ public class Climb extends Subsystem {
 	 * 
 	 */
 	public void climbUp() {
-		if (!this.topLimitSwitch.get()) {
+		if (this.topLimitSwitch.get()) {
 			this.stopClimb();
 		} else {
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
@@ -75,7 +76,7 @@ public class Climb extends Subsystem {
 	 * structure, and LOWERS the robot.
 	 */
 	public void climbDown() {
-		if (!this.bottomLimitSwitch.get()) {
+		if (this.bottomLimitSwitch.get()) {
 			this.stopClimb();
 		} else {
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);

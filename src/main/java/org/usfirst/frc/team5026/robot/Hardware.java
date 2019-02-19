@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
@@ -46,8 +47,7 @@ public class Hardware {
 	public CANSparkMax rightMotor2;
 	public CANSparkMax rightMotor3;
 
-	public CANDigitalInput forwardLimit;
-	public CANDigitalInput reverseLimit;
+	public DigitalInput forwardLimit, reverseLimit;
 
 	public TalonSRX trainingWheelMotor;
 
@@ -108,8 +108,8 @@ public class Hardware {
 		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
-		forwardLimit = rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-   		reverseLimit = rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		forwardLimit = new DigitalInput(0); //rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+   		reverseLimit = new DigitalInput(1); //rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
