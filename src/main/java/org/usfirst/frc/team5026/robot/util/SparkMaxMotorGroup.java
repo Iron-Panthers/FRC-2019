@@ -81,14 +81,11 @@ public class SparkMaxMotorGroup {
 	 * @param power (should be between -1.0 and 1.0)
 	 */
 	public void set(double power) {
-		if (masterMotor.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get()
-				|| masterMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get()) {
-			masterMotor.set(power);
-			for (CANSparkMax motor : this.motors) {
-				motor.set(power);
-				// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
-				// motor.getMotorOutputPercent());
-			}
+		masterMotor.set(power);
+		for (CANSparkMax motor : this.motors) {
+			motor.set(power);
+			// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
+			// motor.getMotorOutputPercent());
 		}
 	}
 

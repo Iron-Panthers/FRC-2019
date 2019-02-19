@@ -18,6 +18,7 @@ import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -53,8 +54,10 @@ public class Climb extends Subsystem {
 	 */
 	public void climbUp() {
 		if (this.topLimitSwitch.get()) {
+			SmartDashboard.putString("climbing", "none, limit stopped");
 			this.stopClimb();
 		} else {
+			SmartDashboard.putString("climbing", "up");
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
 		}
 	}
@@ -77,8 +80,10 @@ public class Climb extends Subsystem {
 	 */
 	public void climbDown() {
 		if (this.bottomLimitSwitch.get()) {
+			SmartDashboard.putString("climbing", "none, limit stopped");
 			this.stopClimb();
 		} else {
+			SmartDashboard.putString("climbing", "down");		
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
 		}
 	}
