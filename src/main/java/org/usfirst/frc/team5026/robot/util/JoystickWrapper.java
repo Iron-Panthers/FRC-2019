@@ -97,10 +97,14 @@ public class JoystickWrapper extends Joystick {
 	public double skim(double v) {
 		// Calculate the turn gain based on the Joystick slider (that thing on the
 		// bottom)
-		double turnGain = getThrottle();
+		double turnGain = 1.0; // Skim setting 1 was chosen as best
+		// if (this.getAxisCount() == 4) { // WE DONT USE THIS NOW CAUSE HUBERT LIKED 1
+		// 	turnGain = getThrottle();
+		// } else if (this.getAxisCount() == 5) {
+		// 	turnGain = this.getZ();
+		// }
 
 		// SmartDashboard logging
-		
 
 		if (v > 1.0) {
 			return ((v - 1.0) * turnGain); // slider
