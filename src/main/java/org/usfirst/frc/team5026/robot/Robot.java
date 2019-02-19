@@ -151,6 +151,9 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
 
 		SmartDashboard.putNumber("Climb output", hardware.climbMotors.getAppliedOutput());
+
+		SmartDashboard.putBoolean("Bottom Limit Switch", climb.bottomLimitSwitch.get());
+		SmartDashboard.putBoolean("Top Limit Switch", climb.topLimitSwitch.get());
 		Scheduler.getInstance().run();
 	}
 

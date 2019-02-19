@@ -7,8 +7,10 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANError;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +26,7 @@ public class SparkMaxMotorGroup {
 		this.masterMotor = masterMotor;
 		this.motors = motors;
 		setup(masterMotor);
-		for (CANSparkMax element: motors){
+		for (CANSparkMax element : motors) {
 			setup(element);
 		}
 		// followMaster();
@@ -65,12 +67,12 @@ public class SparkMaxMotorGroup {
 			SmartDashboard.putString("Ramp Rate", "Error");
 		}
 	}
-	
+
 	// // Broken, do not use follow
 	// private void followMaster() {
-	// 	for (CANSparkMax motor : this.motors) {
-	// 		// motor.follow(this.masterMotor);
-	// 	}
+	// for (CANSparkMax motor : this.motors) {
+	// // motor.follow(this.masterMotor);
+	// }
 	// }
 
 	/**
@@ -79,11 +81,14 @@ public class SparkMaxMotorGroup {
 	 * @param power (should be between -1.0 and 1.0)
 	 */
 	public void set(double power) {
-		masterMotor.set(power);
-		for (CANSparkMax motor : this.motors) {
-			motor.set(power);
-		// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
-		// motor.getMotorOutputPercent());
+		if (masterMotor.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get()
+				|| masterMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get()) {
+			masterMotor.set(power);
+			for (CANSparkMax motor : this.motors) {
+				motor.set(power);
+				// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
+				// motor.getMotorOutputPercent());
+			}
 		}
 	}
 

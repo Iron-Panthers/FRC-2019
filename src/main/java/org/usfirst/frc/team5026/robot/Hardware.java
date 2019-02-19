@@ -4,12 +4,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.revrobotics.CANDigitalInput;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
@@ -42,6 +45,9 @@ public class Hardware {
 	public CANSparkMax rightMotor1;
 	public CANSparkMax rightMotor2;
 	public CANSparkMax rightMotor3;
+
+	public CANDigitalInput forwardLimit;
+	public CANDigitalInput reverseLimit;
 
 	public TalonSRX trainingWheelMotor;
 
@@ -94,13 +100,16 @@ public class Hardware {
 		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
-		climbMotors = new SparkMaxMotorGroup(leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3);
+		climbMotors = new SparkMaxMotorGroup(rightMotor3, leftMotor2, leftMotor3, rightMotor1, rightMotor2, leftMotor1);
 		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor3.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		rightMotor1.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
+
+		forwardLimit = rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+   		reverseLimit = rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);

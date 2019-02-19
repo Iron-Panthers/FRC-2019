@@ -9,6 +9,7 @@ package org.usfirst.frc.team5026.robot.subsystems.climb;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANDigitalInput;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -30,6 +31,8 @@ public class Climb extends Subsystem {
 	public DoubleSolenoid superStructurePistons;
 	public DoubleSolenoid trainingWheelPiston;
 
+	public CANDigitalInput topLimitSwitch, bottomLimitSwitch;
+
 	public Climb() {
 		this.climbMotors = Robot.hardware.climbMotors;
 
@@ -37,6 +40,9 @@ public class Climb extends Subsystem {
 
 		this.superStructurePistons = Robot.hardware.superStructurePistons;
 		this.trainingWheelPiston = Robot.hardware.trainingWheelPiston;
+
+		this.topLimitSwitch = Robot.hardware.forwardLimit;
+		this.bottomLimitSwitch = Robot.hardware.reverseLimit;
 	}
 
 	/**
@@ -45,7 +51,11 @@ public class Climb extends Subsystem {
 	 * 
 	 */
 	public void climbUp() {
-		climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
+		if (!this.topLimitSwitch.get()) {
+			this.stopClimb();
+		} else {
+			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
+		}
 	}
 
 	public void trainingWheelsForward() {
@@ -65,7 +75,11 @@ public class Climb extends Subsystem {
 	 * structure, and LOWERS the robot.
 	 */
 	public void climbDown() {
-		climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
+		if (!this.bottomLimitSwitch.get()) {
+			this.stopClimb();
+		} else {
+			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
+		}
 	}
 
 	public void stopClimb() {
