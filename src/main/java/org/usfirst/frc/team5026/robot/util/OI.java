@@ -13,6 +13,8 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.DeployTrainingWh
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ExtendSuperStructurePistons;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStructurePistons;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsBackward;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
@@ -69,8 +71,8 @@ public class OI {
                 Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
         retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
 
-        turnLeft.whileHeld(new HubertTurnLeft());
-        turnRight.whileHeld(new HubertTurnRight());
+        turnLeft.whileHeld(new TrainingWheelsDriveForward());
+        turnRight.whileHeld(new TrainingWheelsBackward());
         // findF.whileHeld(new FindF());
         reverseDrive.whileHeld(new ReverseDrive());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
