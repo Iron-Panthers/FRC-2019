@@ -42,6 +42,12 @@ public class ArcadeDrive extends Command {
 		SmartDashboard.putNumber("Left Power", powers[0]);
 		//Uses ScalePower method to scale the power of both sides if either is over 1
 		Robot.drive.set(powers[0], powers[1]);
+
+		// if (stick.getAxisCount() == 4) {
+		// 	SmartDashboard.putString("Joystick Type", "Normal Joystick");
+		// } else if (stick.getAxisCount() == 5) {
+		// 	SmartDashboard.putString("Joystick Type", "Thrustmaster");
+		// }
 	}
 
 	/**
