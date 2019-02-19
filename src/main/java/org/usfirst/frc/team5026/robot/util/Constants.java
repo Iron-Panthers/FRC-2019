@@ -142,7 +142,7 @@ public class Constants {
 		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = true;
 
-        public static final int TRAINING_WHEEL_MOTOR_PORT = 4; // To be changed
+        public static final int TRAINING_WHEEL_MOTOR_PORT = 3; // To be changed
 
         // Climb Solenoid Ports
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 2;
