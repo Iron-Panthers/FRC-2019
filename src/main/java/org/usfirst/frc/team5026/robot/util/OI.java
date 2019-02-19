@@ -7,6 +7,12 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbDown;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbUp;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.DeployTrainingWheels;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ExtendSuperStructurePistons;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStructurePistons;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
@@ -20,9 +26,9 @@ import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ZeroIntakeArm;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
-* This class is the glue that binds the controls on the physical operator
-* interface to the commands and command groups that allow control of the robot.
-*/
+ * This class is the glue that binds the controls on the physical operator
+ * interface to the commands and command groups that allow control of the robot.
+ */
 public class OI {
     public JoystickWrapper stick1;
     public JoystickWrapper stick2;
@@ -59,13 +65,20 @@ public class OI {
         climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
         deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEEL_BUTTON);
         climbDown = new JoystickButton(stick1, Constants.Input.CLIMB_DOWN_BUTTON);
-        retractSuperStrucutrePistons = new JoystickButton(stick1, Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
+        retractSuperStrucutrePistons = new JoystickButton(stick1,
+                Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
         retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
 
         turnLeft.whileHeld(new HubertTurnLeft());
         turnRight.whileHeld(new HubertTurnRight());
         // findF.whileHeld(new FindF());
         reverseDrive.whileHeld(new ReverseDrive());
+        extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
+        climbUp.whileHeld(new ClimbUp());
+        deployTrainingWheels.whenPressed(new DeployTrainingWheels());
+        climbDown.whileHeld(new ClimbDown());
+        retractSuperStrucutrePistons.whenPressed(new RetractSuperStructurePistons());
+        retractTrainingWheels.whenPressed(new RetractTrainingWheels());
 
         // DRIVER 2
         manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);

@@ -7,8 +7,11 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import com.revrobotics.CANError;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -20,14 +23,52 @@ public class SparkMaxMotorGroup {
 	public SparkMaxMotorGroup(CANSparkMax masterMotor, CANSparkMax... motors) {
 		this.masterMotor = masterMotor;
 		this.motors = motors;
-		this.masterMotor.restoreFactoryDefaults();
+		setup(masterMotor);
+		for (CANSparkMax element: motors){
+			setup(element);
+		}
 		followMaster();
+	}
+
+	public void setup(CANSparkMax m_motor) {
+		/**
+		 * The restoreFactoryDefaults method can be used to reset the configuration
+		 * parameters in the SPARK MAX to their factory default state. If no argument is
+		 * passed, these parameters will not persist between power cycles
+		 */
+		m_motor.restoreFactoryDefaults();
+
+		/**
+		 * Parameters can be set by calling the appropriate Set method on the
+		 * CANSparkMax object whose properties you want to change
+		 * 
+		 * Set methods will return one of three CANError values which will let you know
+		 * if the parameter was successfully set: CANError.kOk CANError.kError
+		 * CANError.kTimeout
+		 */
+		if (m_motor.setIdleMode(IdleMode.kBrake) != CANError.kOK) {
+			SmartDashboard.putString("Idle Mode", "Error");
+		}
+
+		/**
+		 * Similarly, parameters will have a Get method which allows you to retrieve
+		 * their values from the controller
+		 */
+		if (m_motor.getIdleMode() == IdleMode.kCoast) {
+			SmartDashboard.putString("Idle Mode", "Coast");
+		} else {
+			SmartDashboard.putString("Idle Mode", "Brake");
+		}
+
+		// Set ramp rate to 0
+		if (m_motor.setOpenLoopRampRate(0) != CANError.kOK) {
+			SmartDashboard.putString("Ramp Rate", "Error");
+		}
 	}
 
 	private void followMaster() {
 		for (CANSparkMax motor : this.motors) {
-			motor.restoreFactoryDefaults();
-			motor.follow(this.masterMotor);
+			// motor.follow(this.masterMotor);
 		}
 	}
 
@@ -39,6 +80,7 @@ public class SparkMaxMotorGroup {
 	public void set(double power) {
 		masterMotor.set(power);
 		// for (CANSparkMax motor : this.motors) {
+		// 	motor.set(power);
 		// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
 		// motor.getMotorOutputPercent());
 		// }
@@ -50,6 +92,7 @@ public class SparkMaxMotorGroup {
 	public void stop() {
 		set(0);
 	}
+
 	/**
 	 * Sets all CANSparkMax in a MotorGroup to a specified neutral mode.
 	 * 
