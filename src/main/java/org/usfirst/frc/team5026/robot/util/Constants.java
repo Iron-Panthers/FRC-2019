@@ -25,7 +25,6 @@ public class Constants {
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
 
 		// Motion Profiling PID (For Velocity)
-		public static final double F = 0; // TODO Find max velocity
 		public static final double P = 0; // TODO Tune
 		public static final double I = 0;
 		public static final double D = 0;
@@ -86,5 +85,29 @@ public class Constants {
 		// INTAKE
 		public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
 		public static final double OUTTAKE_POWER = -1;
+	}
+
+	public class DriveStraight {
+		public static final double WHEEL_DIAMETER = 5.9;
+    	public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
+    	public static final double REV_TO_TICKS = 5500;
+		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
+
+		// Straight driving constants
+		public static final double ENCODER_ERROR_TOLERANCE = 1;
+		public static final int DRIVE_CRUISE_VELOCITY = 520000; // ticks per 100 ms (replace with actual value)
+		public static final int DRIVE_ACCELERATION = 1000000; // ticks per 100 ms per second (replace with actual value)
+
+		// Gyro rotation constants
+		public static final int GYRO_PORT = 0;
+		public static final double GYRO_ERROR_TOLERANCE = 1;
+		public static final double ROTATE_POWER = 0.5;
+		public static final double ROTATE_P = 1;
+		public static final double ROTATE_I = 0;
+		public static final double ROTATE_D = 0;
+		public static final double MAX_ANGULAR_VELOCITY = 0.20668863475263174 * 2;//Degrees per millisecond
+		
+		//VP Processing
+		public static final double MINIMUM_DISTANCE = 0;
 	}
 }

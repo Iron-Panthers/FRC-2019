@@ -12,37 +12,87 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FindF extends Command {
-	TalonSRX masterMotor;
-	int lastTicks = 0;
-	long lastTime = 0;
+
+	private int prevTick;
+	private double prevTPS = 0;
+	private long prevTime = 0;
+	private double totalTPS = 0;
+	private double totalTA = 0;
+	private double prevAngle;
+	private double prevDPS = 0;
+	private double totalDPS = 0;
+	private double totalDA = 0;
+	private int tickCount = 0;
+
 	public FindF() {
 		requires(Robot.drive);
-		masterMotor = Robot.hardware.leftDriveMotors.getMasterMotor();
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		prevTick = 0;
+		prevTPS = 0;
+		prevTime = 0;
+		totalTPS = 0;
+		totalTA = 0;
+		prevAngle = 0;
+		prevDPS = 0;
+		totalDPS = 0;
+		totalDA = 0;
+		tickCount = 0;
+
+		prevTime = System.currentTimeMillis();
+		prevTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
+		prevTPS = 0;
+		prevAngle = Robot.hardware.gyro.getFusedHeading();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 		Robot.drive.set(0.5);
-		long seconds = System.nanoTime() / 1000000000;
-		//System.out.println(seconds); 
-		int ticks = Robot.hardware.driveLeft1.getSelectedSensorPosition(0);
-		long deltaTime = seconds - lastTime;
-		int deltaTicks = ticks - lastTicks;
-		// long velocity = deltaTicks / deltaTime;
-		lastTime = seconds;
-		lastTicks = ticks;
-		// double f = 0.5 / velocity;
-		//System.out.println("ticks: " + ticks);
+		int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
+		SmartDashboard.putNumber("current tick", currentTick);
+		long currentTime = System.currentTimeMillis();
+		double dT = (double) (currentTime - prevTime);
+		dT /= 1000;
+
+		double currentTPS = (currentTick - prevTick)/dT;
+		double ticksAccel = (currentTPS - prevTPS)/dT;
+		prevTick = currentTick;
+		prevTPS = currentTPS;
+		SmartDashboard.putNumber("dt", dT);
+		tickCount++;
+		//if(Math.abs(ticksAccel) < 1000){
+			totalTPS += currentTPS;
+			SmartDashboard.putNumber("total tps", totalTPS);
+			SmartDashboard.putNumber("ticks per second avg", totalTPS/tickCount);
+			// System.out.println(totalTPS/tickCount);
+		//} else {
+			totalTA += ticksAccel;
+			SmartDashboard.putNumber("ticks per second per second", ticksAccel);
+			SmartDashboard.putNumber("ticks per second per second avg", totalTA/tickCount);
+			// System.out.println(totalTA/tickCount);
+		//}
+		prevTime = System.currentTimeMillis();
+
+		// double currentAngle = Robot.hardware.gyro.getFusedHeading();
+		// double currentDPS = (currentAngle - prevAngle)/dT;
+		// prevAngle = currentAngle;
+		// double dDPS = currentDPS - prevDPS;
+		// double degreesAccel = (dDPS)/dT;
+		// prevDPS = currentDPS;
+		// if (Math.abs(degreesAccel) < 1) {
+		// 	totalDPS += currentDPS;
+		// 	System.out.println(totalDPS/tickCount);
+		// } else {
+		// 	totalDA += degreesAccel;
+		// 	System.out.println(totalDA/tickCount);
+		// }
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

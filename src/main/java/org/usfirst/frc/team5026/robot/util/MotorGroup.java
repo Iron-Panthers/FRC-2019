@@ -43,13 +43,15 @@ public class MotorGroup {
 	 * @param kP the proportional term
 	 * @param kI the integral term
 	 * @param kD the derivative term
-	 * @param kF the feed forward term
 	 */
-	public void configPID(double kP, double kI, double kD, double kF) {
+	public void configPID(double kP, double kI, double kD) {
 		masterMotor.config_kP(0, kP);
 		masterMotor.config_kI(0, kI);
 		masterMotor.config_kD(0, kD);
-		masterMotor.config_kF(0, kF);
+	}
+
+	public void setMotionMagic(double ticks) {
+		masterMotor.set(ControlMode.MotionMagic, ticks);
 	}
 
 	/**

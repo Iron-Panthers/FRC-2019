@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveStraight;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
@@ -52,7 +53,7 @@ public class OI {
 		button9.whileHeld(new HubertTurnLeft());
 		button10.whileHeld(new HubertTurnRight());
 		button6.whileHeld(new FindF());
-		button1.whileHeld(new ReverseDrive());
+//		button1.whileHeld(new ReverseDrive());
 
 		// TODO Non-hardcoded ports
 		// DRIVER 2
@@ -75,5 +76,7 @@ public class OI {
 		outtake.toggleWhenPressed(new OuttakeCargo());
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
+	
+		button1.whenPressed(new DriveStraight(70));
 	}
 }

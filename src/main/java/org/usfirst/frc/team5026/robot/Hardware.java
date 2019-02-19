@@ -47,11 +47,6 @@ public class Hardware {
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
-		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D,
-				Constants.Drivebase.F);
-		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D,
-				Constants.Drivebase.F);
-
 		rightDriveMotors.setNeutralMode(NeutralMode.Brake);
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
 
@@ -63,5 +58,13 @@ public class Hardware {
 		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
 		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
 		armMotor.setNeutralMode(NeutralMode.Brake);
+
+		driveRight1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
+		driveLeft1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
+		driveRight1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
+		driveLeft1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
+
+		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
+		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
 	}
 }
