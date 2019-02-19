@@ -20,6 +20,7 @@ import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ZeroIntakeArm;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.AlignmentSequence;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveStraight;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.GyroRotate;
 import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -69,17 +70,7 @@ public class OI {
 		oppCargoShipHeight = new JoystickButton(stick2, 11);
 		cargoShipHeight = new JoystickButton(stick2, 12);
 
-		cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT, true));
-		oppCargoShipHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
-		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-		oppRocketLowHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
-		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
-		intake.toggleWhenPressed(new IntakeCargo());
-		outtake.toggleWhenPressed(new OuttakeCargo());
-		manualArm.whileHeld(new ManualArmMovement());
-		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
-		button1 = new JoystickButton(stick1, 1);
-		button1.whenPressed(new GyroRotate(-90));
+		manualArm.whenPressed(new DriveStraight(68));
 		//AlignmentSequence alignmentSequence = new AlignmentSequence();
 		//button1 = new JoystickButton(stick1, 1);
 		//button1.toggleWhenPressed(alignmentSequence);

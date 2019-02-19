@@ -45,11 +45,10 @@ public class MotorGroup {
 	 * @param kD the derivative term
 	 * @param kF the feed forward term
 	 */
-	public void configPID(double kP, double kI, double kD, double kF) {
+	public void configPID(double kP, double kI, double kD) {
 		masterMotor.config_kP(0, kP);
 		masterMotor.config_kI(0, kI);
 		masterMotor.config_kD(0, kD);
-		masterMotor.config_kF(0, kF);
 	}
 
 	/**

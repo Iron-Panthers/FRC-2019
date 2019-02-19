@@ -149,10 +149,6 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		prevTime = System.currentTimeMillis();
-		prevTick = hardware.driveRight1.getSelectedSensorPosition();
-		prevTPS = 0;
-		prevAngle = hardware.gyro.getFusedHeading();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -174,44 +170,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		
-		if (oi.stick1.getRawButton(1)) {
-			Robot.drive.set(1);
-			// int currentTick = Robot.hardware.driveRight1.getSelectedSensorPosition();
-			// long currentTime = System.currentTimeMillis();
-			// double dT = (double) (currentTime - prevTime);
-			// dT /= 1000;
-
-			// double currentTPS = (currentTick - prevTick)/dT;
-			// double ticksAccel = (currentTPS - prevTPS)/dT;
-			// prevTick = currentTick;
-			// prevTPS = currentTPS;
-			// if(Math.abs(ticksAccel) < 100){
-			// 	tickCount++;
-			// 	totalTPS += currentTPS;
-			// 	SmartDashboard.putNumber("ticks per second", totalTPS/tickCount);
-			// 	// System.out.println(totalTPS/tickCount);
-			// } else {
-			// 	totalTA += ticksAccel;
-			// 	SmartDashboard.putNumber("ticks per second per second", totalTA/tickCount);
-			// 	// System.out.println(totalTA/tickCount);
-			// }
-			// prevTime = System.currentTimeMillis();
-
-			// double currentAngle = hardware.gyro.getFusedHeading();
-			// double currentDPS = (currentAngle - prevAngle)/dT;
-			// prevAngle = currentAngle;
-			// double dDPS = currentDPS - prevDPS;
-			// double degreesAccel = (dDPS)/dT;
-			// prevDPS = currentDPS;
-			// if (Math.abs(degreesAccel) < 1) {
-			// 	totalDPS += currentDPS;
-			// 	System.out.println(totalDPS/tickCount);
-			// } else {
-			// 	totalDA += degreesAccel;
-			// 	System.out.println(totalDA/tickCount);
-			// }
-		}
 
 		Scheduler.getInstance().run();
 	}

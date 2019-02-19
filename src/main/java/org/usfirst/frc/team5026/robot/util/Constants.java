@@ -80,8 +80,8 @@ public class Constants {
 
 		// Straight driving constants
 		public static final double ENCODER_ERROR_TOLERANCE = 1;
-		public static final int DRIVE_CRUISE_VELOCITY = 10000; // ticks per 100 ms (replace with actual value)
-		public static final int DRIVE_ACCELERATION = 5000; // ticks per 100 ms per second (replace with actual value)
+		public static final int DRIVE_CRUISE_VELOCITY = 520000; // ticks per 100 ms (replace with actual value)
+		public static final int DRIVE_ACCELERATION = 1000000; // ticks per 100 ms per second (replace with actual value)
 
 		// Gyro rotation constants
 		public static final int GYRO_PORT = 0;

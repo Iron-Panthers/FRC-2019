@@ -60,14 +60,11 @@ public class Hardware {
 		driveRight1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
 		driveLeft1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
 
-
 		rightDriveMotors = new MotorGroup("Drive (right) motor group", driveRight1, driveRight2);
 		leftDriveMotors = new MotorGroup("Drive (left) motor group", driveLeft1, driveLeft2);
 
-		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D,
-				Constants.Drivebase.F);
-		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D,
-				Constants.Drivebase.F);
+		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
+		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
 
 		rightDriveMotors.setNeutralMode(NeutralMode.Brake);
 		leftDriveMotors.setNeutralMode(NeutralMode.Brake);
