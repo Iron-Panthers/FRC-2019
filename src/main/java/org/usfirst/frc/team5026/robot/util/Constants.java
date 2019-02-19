@@ -13,7 +13,10 @@ public class Constants {
 		public static final int DRIVE_R1_PORT = 1;
 		public static final int DRIVE_R2_PORT = 1; // SPX
 		public static final int DRIVE_L1_PORT = 2;
-		public static final int DRIVE_L2_PORT = 2; // SPX
+        public static final int DRIVE_L2_PORT = 2; // SPX
+        
+        public static final int GEAR_SHIFT_PORT_1 = 6;
+        public static final int GEAR_SHIFT_PORT_2 = 7;
 
         /** DRIVEBASE CONSTANTS */
         public static final double DRIVEBASE_WIDTH = 30; // inches
@@ -42,6 +45,7 @@ public class Constants {
         /** Buttons */
         // Driver A
         public static final int REVERSE_DRIVE_BUTTON = 1;
+        public static final int SHIFT_GEAR_LOW_BUTTON = 2;
         public static final int TURN_LEFT_BUTTON = 9;
         public static final int TURN_RIGHT_BUTTON = 10;
         public static final int FIND_F_BUTTON = 13; // DO NOT USE
@@ -102,7 +106,7 @@ public class Constants {
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
         public static final double ARM_BASE_HEIGHT = 18.75; // in
-        public static final double CARGO_SHIP_HEIGHT = 39.5 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
+    public static final double CARGO_SHIP_HEIGHT = 39.               - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 35 - ARM_BASE_HEIGHT; // in
 		public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; // in - estimate
 		public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 7.5; //in
@@ -148,8 +152,8 @@ public class Constants {
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 2;
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 3;
 
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 6;
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 7;
+        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 4;
+        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 5;
 
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety

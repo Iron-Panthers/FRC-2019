@@ -56,6 +56,7 @@ public class Hardware {
 
 	public DoubleSolenoid superStructurePistons;
 	public DoubleSolenoid trainingWheelPiston;
+	public DoubleSolenoid gearShift;
 
 	/** Motors/sensors for other subsystems will go down here */
 
@@ -116,5 +117,7 @@ public class Hardware {
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
 		trainingWheelPiston = new DoubleSolenoid(Constants.Climb.TRAINING_WHEEL_PISTON_SOLENOID_PORT_1,
 				Constants.Climb.TRAINING_WHEEL_PISTON_SOLENOID_PORT_2);
+		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, 
+				Constants.Drivebase.GEAR_SHIFT_PORT_2);
 	}
 }

@@ -15,6 +15,7 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStru
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsBackward;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveShift;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
@@ -34,7 +35,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
     public JoystickWrapper stick1;
     public JoystickWrapper stick2;
-    public JoystickButton reverseDrive;
+	public JoystickButton reverseDrive;
+	public JoystickButton shiftGearLow;
     public JoystickButton turnLeft;
     public JoystickButton turnRight;
     // public JoystickButton findF;
@@ -59,7 +61,8 @@ public class OI {
         // DRIVER 1
         stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
         stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
-        reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
+		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
+		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
         // findF = new JoystickButton(stick1, Constants.Input.FIND_F_BUTTON);
         turnLeft = new JoystickButton(stick1, Constants.Input.TURN_LEFT_BUTTON);
         turnRight = new JoystickButton(stick1, Constants.Input.TURN_RIGHT_BUTTON);
@@ -74,7 +77,8 @@ public class OI {
         turnLeft.whileHeld(new TrainingWheelsDriveForward());
         turnRight.whileHeld(new TrainingWheelsBackward());
         // findF.whileHeld(new FindF());
-        reverseDrive.whileHeld(new ReverseDrive());
+		reverseDrive.whileHeld(new ReverseDrive());
+		shiftGearLow.whileHeld(new DriveShift());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
         climbUp.whileHeld(new ClimbUp());
         deployTrainingWheels.whenPressed(new DeployTrainingWheels());
