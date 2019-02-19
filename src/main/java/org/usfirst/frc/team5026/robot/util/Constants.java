@@ -53,10 +53,11 @@ public class Constants {
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 3;
         public static final int CLIMB_UP_BUTTON = 4;
         public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 5;
-        public static final int TRAINING_WHEELS_FORWARD_BUTTON = 12;
+		public static final int TRAINING_WHEELS_FORWARD_BUTTON = 9;
+		public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 10;
         public static final int CLIMB_DOWN_BUTTON = 11;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 2;
-        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 6;
+		public static final int RETRACT_TRAINING_WHEELS_BUTTON = 6;
 
         // Driver B
         // Manual Arm

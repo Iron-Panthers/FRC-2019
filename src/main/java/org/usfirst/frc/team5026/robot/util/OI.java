@@ -16,9 +16,6 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingW
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsBackward;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveShift;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.FindF;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnLeft;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.HubertTurnRight;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ReverseDrive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ArmToTarget;
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.IntakeCargo;
@@ -37,15 +34,17 @@ public class OI {
     public JoystickWrapper stick2;
 	public JoystickButton reverseDrive;
 	public JoystickButton shiftGearLow;
-    public JoystickButton turnLeft;
-    public JoystickButton turnRight;
+    // public JoystickButton turnLeft;
+    // public JoystickButton turnRight;
     // public JoystickButton findF;
     public JoystickButton extendSuperStructurePistons;
     public JoystickButton climbUp;
     public JoystickButton deployTrainingWheels;
     public JoystickButton climbDown;
     public JoystickButton retractSuperStrucutrePistons;
-    public JoystickButton retractTrainingWheels;
+	public JoystickButton retractTrainingWheels;
+	public JoystickButton trainingWheelsForward;
+	public JoystickButton trainingWheelsBackward;
 
     JoystickButton cargoShipHeight;
     JoystickButton oppCargoShipHeight;
@@ -64,18 +63,20 @@ public class OI {
 		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
         // findF = new JoystickButton(stick1, Constants.Input.FIND_F_BUTTON);
-        turnLeft = new JoystickButton(stick1, Constants.Input.TURN_LEFT_BUTTON);
-        turnRight = new JoystickButton(stick1, Constants.Input.TURN_RIGHT_BUTTON);
+        // turnLeft = new JoystickButton(stick1, Constants.Input.TURN_LEFT_BUTTON);
+        // turnRight = new JoystickButton(stick1, Constants.Input.TURN_RIGHT_BUTTON);
         extendSuperStructurePistons = new JoystickButton(stick1, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
         climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
         deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEEL_BUTTON);
         climbDown = new JoystickButton(stick1, Constants.Input.CLIMB_DOWN_BUTTON);
         retractSuperStrucutrePistons = new JoystickButton(stick1,
                 Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
-        retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
+		retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
+		trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
+		trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
 
-        turnLeft.whileHeld(new TrainingWheelsDriveForward());
-        turnRight.whileHeld(new TrainingWheelsBackward());
+        trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
+        trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
         // findF.whileHeld(new FindF());
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
