@@ -11,18 +11,14 @@ import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
-/**
- * Add your docs here.
- */
 public class TrainingWheelDriveForwardForTime extends TimedCommand {
 	/**
-	 * Add your docs here.
+	 * A timed command which drives the training wheels forward for a given amount
+	 * of time, at a speed specified in Constants.
 	 */
 	public TrainingWheelDriveForwardForTime(double timeout) {
 		super(timeout);
 		requires(Robot.climb);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time

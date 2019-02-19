@@ -9,7 +9,6 @@ package org.usfirst.frc.team5026.robot.subsystems.climb;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANDigitalInput;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -21,39 +20,35 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Add your docs here.
+ * The climb subsystem wraps the solenoids, motor controllers, and limit
+ * switches required for the endgame climb action, and provides some utility
+ * methods for controlling them.
  */
 public class Climb extends Subsystem {
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	public SparkMaxMotorGroup climbMotors;
-
 	public TalonSRX trainingWheelMotor;
-
-	public DoubleSolenoid superStructurePistons;
-	public DoubleSolenoid trainingWheelPiston;
-
+	public DoubleSolenoid superStructurePistons, trainingWheelPiston;
 	public DigitalInput topLimitSwitch, bottomLimitSwitch;
 
 	public Climb() {
 		this.climbMotors = Robot.hardware.climbMotors;
-
 		this.trainingWheelMotor = Robot.hardware.trainingWheelMotor;
-
 		this.superStructurePistons = Robot.hardware.superStructurePistons;
 		this.trainingWheelPiston = Robot.hardware.trainingWheelPiston;
-
 		this.topLimitSwitch = Robot.hardware.forwardLimit;
 		this.bottomLimitSwitch = Robot.hardware.reverseLimit;
 	}
 
 	/**
 	 * Moves the robot up by a constant speed, meant for using with a button. This
-	 * means that it LOWERS the super structure, LIFTS the robot.
-	 * 
+	 * lowers the superstructure, while lifting the rest of the robot.
+	 * <p>
+	 * Stops climbing when the limit switch is triggered.
 	 */
 	public void climbUp() {
+		// If the climb limit switch is triggered
 		if (this.topLimitSwitch.get()) {
+			// Stop climbing, and indicate the climb has stopped
 			SmartDashboard.putString("climbing", "none, limit stopped");
 			this.stopClimb();
 		} else {
@@ -62,38 +57,52 @@ public class Climb extends Subsystem {
 		}
 	}
 
+	/**
+	 * Sets the training wheel motor controller to a specified forward speed,
+	 * defined in the Constants class.
+	 */
 	public void trainingWheelsForward() {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED);
 	}
 
+	/**
+	 * Sets the training wheel motor controller to a specified backward speed,
+	 * defined in the Constants class.
+	 */
 	public void trainingWheelsBackward() {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED);
 	}
 
+	/**
+	 * Stops the training wheel motor controller.
+	 */
 	public void trainingWheelsStop() {
 		trainingWheelMotor.set(ControlMode.PercentOutput, 0);
 	}
 
 	/**
-	 * Moves the robot down by a constant speed. This means that it LIFTS the super
-	 * structure, and LOWERS the robot.
+	 * Moves the robot down by a constant speed. This lifts the superstructure,
+	 * while lowering the rest of the robot.
 	 */
 	public void climbDown() {
 		if (this.bottomLimitSwitch.get()) {
 			SmartDashboard.putString("climbing", "none, limit stopped");
 			this.stopClimb();
 		} else {
-			SmartDashboard.putString("climbing", "down");		
+			SmartDashboard.putString("climbing", "down");
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
 		}
 	}
 
+	/**
+	 * Stops the climb motor motor controllers.
+	 */
 	public void stopClimb() {
 		climbMotors.set(0);
 	}
 
 	/**
-	 * Gets the lower number of rotations between the left and right side of the
+	 * Get the lower number of rotations between the left and right side of the
 	 * super structure elevator. It is NOT encoder ticks.
 	 * 
 	 * @return A double, which is the number of rotations
@@ -102,18 +111,30 @@ public class Climb extends Subsystem {
 		return climbMotors.getMasterMotor().getEncoder().getPosition();
 	}
 
+	/**
+	 * Extends the superstructure pistons.
+	 */
 	public void extendSuperStructurePistons() { // TODO: Test if forward extends
 		superStructurePistons.set(DoubleSolenoid.Value.kForward);
 	}
 
+	/**
+	 * Retracts the superstructure pistons.
+	 */
 	public void retractSuperStructurePistons() {
 		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
 	}
 
+	/**
+	 * Extends the training wheel piston.
+	 */
 	public void extendTrainingWheels() { // TODO: Test if forward extends
 		trainingWheelPiston.set(DoubleSolenoid.Value.kForward);
 	}
 
+	/**
+	 * Retracts the training wheel piston.
+	 */
 	public void retractTrainingWheels() {
 		trainingWheelPiston.set(DoubleSolenoid.Value.kReverse);
 	}

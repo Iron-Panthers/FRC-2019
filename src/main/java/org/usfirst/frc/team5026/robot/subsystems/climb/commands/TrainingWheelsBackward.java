@@ -12,10 +12,12 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TrainingWheelsBackward extends Command {
+	/**
+	 * A command which drives the training wheels backward at a speed specified in
+	 * Constants.
+	 */
 	public TrainingWheelsBackward() {
 		requires(Robot.climb);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time

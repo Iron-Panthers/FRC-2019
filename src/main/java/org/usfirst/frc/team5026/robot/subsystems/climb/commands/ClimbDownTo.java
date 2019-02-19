@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbDownTo extends Command {
 	private double target;
+
+	/**
+	 * A command which climbs the robot down to a parameterized target.
+	 */
 	public ClimbDownTo(double target) {
 		requires(Robot.climb);
 		this.target = target;
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time

@@ -11,31 +11,19 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+/**
+ * Setup Climb is a sequential CommandGroup used for setting up the robot, by
+ * doing every task necessary before others get onto the ramps. It is used after
+ * aligning with the 3rd level platform.
+ */
 public class SetupClimb extends CommandGroup {
 	/**
-	 * Setup Climb is used for setting up the robot by doing every task necessary
-	 * before others get onto the ramps. It is used after aligning up next to the 3rd level platform
+	 * Creates a new SetupClimb CommandGroup.
 	 */
 	public SetupClimb() {
 		addSequential(new ExtendSuperStructurePistons());
 		addSequential(new ClimbUpTo(Constants.Climb.CLIMB_FIRST_TARGET)); // Climbs in order to deploy training wheels
 		addSequential(new DeployTrainingWheels());
 		addSequential(new ClimbUpTo(Constants.Climb.CLIMB_SECOND_TARGET)); // Climbs in order to deploy ramps passively
-		// Add Commands here:
-		// e.g. addSequential(new Command1());
-		// addSequential(new Command2());
-		// these will run in order.
-
-		// To run multiple commands at the same time,
-		// use addParallel()
-		// e.g. addParallel(new Command1());
-		// addSequential(new Command2());
-		// Command1 and Command2 will run in parallel.
-
-		// A command group will require all of the subsystems that each member
-		// would require.
-		// e.g. if Command1 requires chassis, and Command2 requires arm,
-		// a CommandGroup containing them would require both the chassis and the
-		// arm.
 	}
 }

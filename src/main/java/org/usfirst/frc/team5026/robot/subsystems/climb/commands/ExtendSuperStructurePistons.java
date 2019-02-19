@@ -12,6 +12,9 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ExtendSuperStructurePistons extends Command {
+	/**
+	 * A command which extends the superstructure pistons when called.
+	 */
 	public ExtendSuperStructurePistons() {
 		requires(Robot.climb);
 		// Use requires() here to declare subsystem dependencies

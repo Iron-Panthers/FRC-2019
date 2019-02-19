@@ -11,10 +11,13 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+/**
+ * FinishClimb is a completely sequential CommandGroup for doing everything
+ * invloved with climbing after robots have climbed onto the ramps.
+ */
 public class FinishClimb extends CommandGroup {
 	/**
-	 * Finish Climb is for doing eveything invloved with climbing after robots have
-	 * climbed onto the ramps
+	 * Creates a new FinishClimb command group.
 	 */
 	public FinishClimb() {
 		addSequential(new ClimbUpTo(Constants.Climb.CLIMB_THIRD_TARGET));
@@ -23,21 +26,5 @@ public class FinishClimb extends CommandGroup {
 																			// platform when it is contacting it, that
 																			// means that it will raise the super
 																			// structure.
-		// Add Commands here:
-		// e.g. addSequential(new Command1());
-		// addSequential(new Command2());
-		// these will run in order.
-
-		// To run multiple commands at the same time,
-		// use addParallel()
-		// e.g. addParallel(new Command1());
-		// addSequential(new Command2());
-		// Command1 and Command2 will run in parallel.
-
-		// A command group will require all of the subsystems that each member
-		// would require.
-		// e.g. if Command1 requires chassis, and Command2 requires arm,
-		// a CommandGroup containing them would require both the chassis and the
-		// arm.
 	}
 }

@@ -12,10 +12,11 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbUp extends Command {
+	/**
+	 * A command which climbs the robot up until interrupted.
+	 */
 	public ClimbUp() {
 		requires(Robot.climb);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time

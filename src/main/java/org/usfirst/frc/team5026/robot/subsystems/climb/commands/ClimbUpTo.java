@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbUpTo extends Command {
 	private double target;
+
+	/**
+	 * A command which climbs the robot up to a parameterized target.
+	 */
 	public ClimbUpTo(double target) {
 		requires(Robot.climb);
 		this.target = target;
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -29,7 +31,7 @@ public class ClimbUpTo extends Command {
 	@Override
 	protected void execute() {
 		Robot.climb.climbUp();
-		
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

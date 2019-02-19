@@ -12,10 +12,11 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbDown extends Command {
+	/**
+	 * A command which climbs the robot down until interrupted.
+	 */
 	public ClimbDown() {
 		requires(Robot.climb);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time

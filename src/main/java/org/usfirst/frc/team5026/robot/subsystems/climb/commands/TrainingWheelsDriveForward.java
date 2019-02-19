@@ -12,10 +12,12 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TrainingWheelsDriveForward extends Command {
+	/**
+	 * A command which drives the training wheels forward at a speed specified in
+	 * Constants.
+	 */
 	public TrainingWheelsDriveForward() {
 		requires(Robot.climb);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
