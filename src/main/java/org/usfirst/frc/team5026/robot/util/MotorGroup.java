@@ -5,8 +5,6 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class MotorGroup {
 	private String motorGroupName;
 	private TalonSRX masterMotor;
@@ -83,6 +81,7 @@ public class MotorGroup {
 	 * @param neutralMode desired neutral mode (brake/coast)
 	 */
 	public void setNeutralMode(NeutralMode neutralMode) {
+		masterMotor.setNeutralMode(neutralMode);
 		for (IMotorController motor : this.motors) {
 			motor.setNeutralMode(neutralMode);
 		}
