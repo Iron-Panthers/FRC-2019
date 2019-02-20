@@ -7,21 +7,24 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
-import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANError;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Add your docs here.
+ * SparkMaxMotorGroup is a flexible-size grouping of the Spark Max motor
+ * controller, which provides for some utility methods for controlling them.
  */
 public class SparkMaxMotorGroup {
 	private CANSparkMax masterMotor;
 	private CANSparkMax[] motors;
 
+	/**
+	 * Creates a new SparkMaxMotorGroup. The first parameter specified will be the
+	 * considered the "master motor" of the motor group.
+	 */
 	public SparkMaxMotorGroup(CANSparkMax masterMotor, CANSparkMax... motors) {
 		this.masterMotor = masterMotor;
 		this.motors = motors;
@@ -29,56 +32,45 @@ public class SparkMaxMotorGroup {
 		for (CANSparkMax element : motors) {
 			setup(element);
 		}
-		// followMaster();
+
+		// A consideration would be to utilize CANSparkMax.follow(leader), however this
+		// doesn't provide any clear benefits and didn't work in our previous testing
 	}
 
+	/**
+	 * Sets up a SparkMax motor controller with the team's desired configuration.
+	 */
 	public void setup(CANSparkMax m_motor) {
-		/**
-		 * The restoreFactoryDefaults method can be used to reset the configuration
-		 * parameters in the SPARK MAX to their factory default state. If no argument is
-		 * passed, these parameters will not persist between power cycles
-		 */
+		// Restore factory defaults for the motor controller.
+		// If no argument is passed, these parameters will not persist between power
+		// cycles
 		m_motor.restoreFactoryDefaults();
 
-		/**
-		 * Parameters can be set by calling the appropriate Set method on the
-		 * CANSparkMax object whose properties you want to change
-		 * 
-		 * Set methods will return one of three CANError values which will let you know
-		 * if the parameter was successfully set: CANError.kOk CANError.kError
-		 * CANError.kTimeout
-		 */
+		// Note: SparkMax set methods will return one of three CANError values:
+		// CANError.kOk, CANError.kError, or CANError.kTimeout.
+
+		// Set the idle mode to Brake. If it fails, display the error
 		if (m_motor.setIdleMode(IdleMode.kBrake) != CANError.kOK) {
 			SmartDashboard.putString("Idle Mode", "Error");
 		}
 
-		/**
-		 * Similarly, parameters will have a Get method which allows you to retrieve
-		 * their values from the controller
-		 */
+		// Check the idle mode of the motor controller, and put to SmartDashboard
 		if (m_motor.getIdleMode() == IdleMode.kCoast) {
 			SmartDashboard.putString("Idle Mode", "Coast");
 		} else {
 			SmartDashboard.putString("Idle Mode", "Brake");
 		}
 
-		// Set ramp rate to 0
+		// Set open loop ramp rate to 0. If it fails, display the error
 		if (m_motor.setOpenLoopRampRate(0) != CANError.kOK) {
 			SmartDashboard.putString("Ramp Rate", "Error");
 		}
 	}
 
-	// // Broken, do not use follow
-	// private void followMaster() {
-	// for (CANSparkMax motor : this.motors) {
-	// // motor.follow(this.masterMotor);
-	// }
-	// }
-
 	/**
-	 * Sets the PercentOutput power of the master motor
+	 * Sets all the motor controllers to have the specified power.
 	 * 
-	 * @param power (should be between -1.0 and 1.0)
+	 * @param power The power to set, between -1.0 and 1.0.
 	 */
 	public void set(double power) {
 		masterMotor.set(power);
@@ -90,7 +82,7 @@ public class SparkMaxMotorGroup {
 	}
 
 	/**
-	 * Sets the power of the master motor to be 0
+	 * Sets all the motor controllers to have power 0.
 	 */
 	public void stop() {
 		set(0);
@@ -99,7 +91,7 @@ public class SparkMaxMotorGroup {
 	/**
 	 * Sets all CANSparkMax in a MotorGroup to a specified neutral mode.
 	 * 
-	 * @param idleMode desired idle mode (brake/coast)
+	 * @param idleMode Idle mode (either Coast or Brake).
 	 */
 	public void setIdleMode(IdleMode idleMode) {
 		for (CANSparkMax motor : this.motors) {
@@ -110,7 +102,7 @@ public class SparkMaxMotorGroup {
 	/**
 	 * Sets all CANSparkMax in a MotorGroup to inverted or not.
 	 * 
-	 * @param isInverted boolean isInverted (true/false)
+	 * @param isInverted The state of inversion, with true being inverted.
 	 */
 	public void setInverted(boolean isInverted) {
 		masterMotor.setInverted(isInverted);
@@ -119,12 +111,17 @@ public class SparkMaxMotorGroup {
 		}
 	}
 
+	/**
+	 * @return the master motor of the MotorGroup.
+	 */
 	public CANSparkMax getMasterMotor() {
 		return masterMotor;
 	}
 
+	/**
+	 * @return the applied output of the master motor of the MotorGroup.
+	 */
 	public double getAppliedOutput() {
-		return masterMotor.getAppliedOutput(); // TODO: Check if this outputs power
+		return masterMotor.getAppliedOutput();
 	}
-
 }
