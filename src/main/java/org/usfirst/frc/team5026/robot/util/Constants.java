@@ -1,20 +1,20 @@
 package org.usfirst.frc.team5026.robot.util;
 
 /**
-* This class is meant to store constant (and often final) variables that should
-* be accessible throughout the project. Examples: ports, conversion rates,
-* wheel circumference, etc.
-*/
+ * This class is meant to store constant (and often final) variables that should
+ * be accessible throughout the project. Examples: ports, conversion rates,
+ * wheel circumference, etc.
+ */
 public class Constants {
 
-	// TODO adjust drivebase constants
-	public class Drivebase {
-		/** DRIVEBASE PORTS */
-		public static final int DRIVE_R1_PORT = 1;
-		public static final int DRIVE_R2_PORT = 1; // SPX
-		public static final int DRIVE_L1_PORT = 2;
+    // TODO adjust drivebase constants
+    public class Drivebase {
+        /** DRIVEBASE PORTS */
+        public static final int DRIVE_R1_PORT = 1;
+        public static final int DRIVE_R2_PORT = 1; // SPX
+        public static final int DRIVE_L1_PORT = 2;
         public static final int DRIVE_L2_PORT = 2; // SPX
-        
+
         public static final int GEAR_SHIFT_PORT_1 = 6;
         public static final int GEAR_SHIFT_PORT_2 = 7;
 
@@ -23,18 +23,18 @@ public class Constants {
         public static final boolean IS_LEFT_INVERTED = true;
         public static final boolean IS_RIGHT_INVERTED = false;
         public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
-                                                                    // the front
+                                                                   // the front
         public static final double TURN_SENSITIVITY = 1;
         public static final double RADIAL_TURN_SENSITIVITY = 20;
 
-		// Motion Profiling PID (For Velocity)
-		public static final double F = 0; // TODO Find max velocity
-		public static final double P = 0; // TODO Tune
-		public static final double I = 0;
-		public static final double D = 0;
+        // Motion Profiling PID (For Velocity)
+        public static final double F = 0; // TODO Find max velocity
+        public static final double P = 0; // TODO Tune
+        public static final double I = 0;
+        public static final double D = 0;
 
-		public static final double SCALING_POWER = 2.75;
-	}
+        public static final double SCALING_POWER = 2.75;
+    }
 
     // TODO tune input constants
     public class Input {
@@ -53,11 +53,11 @@ public class Constants {
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 3;
         public static final int CLIMB_UP_BUTTON = 4;
         public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 5;
-		public static final int TRAINING_WHEELS_FORWARD_BUTTON = 9;
-		public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 10;
+        public static final int TRAINING_WHEELS_FORWARD_BUTTON = 9;
+        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 10;
         public static final int CLIMB_DOWN_BUTTON = 11;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 2;
-		public static final int RETRACT_TRAINING_WHEELS_BUTTON = 6;
+        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 6;
 
         // Driver B
         // Manual Arm
@@ -103,14 +103,14 @@ public class Constants {
 
         // INTAKE ARM SETPOINTS - TODO Double Check Measurements
         public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket
-                                                                                // ratio)
+                                                                               // ratio)
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
         public static final double ARM_BASE_HEIGHT = 18.75; // in
-    public static final double CARGO_SHIP_HEIGHT = 39.               - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
-        public static final double ROCKET_LOW_HEIGHT = 35 - ARM_BASE_HEIGHT; // in
-		public static final double LOWEST_HEIGHT = 12 - ARM_BASE_HEIGHT; // in - estimate
-		public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 7.5; //in
+        public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
+        public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
+        public static final double LOWEST_HEIGHT = 12.0 - ARM_BASE_HEIGHT; // in - estimate
+        public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 7.5; // in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
@@ -141,11 +141,11 @@ public class Constants {
         public static final int LEFT_MOTOR_3_PORT = 10;
         public static final int RIGHT_MOTOR_1_PORT = 11;
         public static final int RIGHT_MOTOR_2_PORT = 12;
-		public static final int RIGHT_MOTOR_3_PORT = 13;
-		
-		// Climb Side Inversions
-		public static final boolean IS_LEFT_INVERTED = false;
-		public static final boolean IS_RIGHT_INVERTED = true;
+        public static final int RIGHT_MOTOR_3_PORT = 13;
+
+        // Climb Side Inversions
+        public static final boolean IS_LEFT_INVERTED = false;
+        public static final boolean IS_RIGHT_INVERTED = true;
 
         public static final int TRAINING_WHEEL_MOTOR_PORT = 3; // To be changed
 
@@ -162,21 +162,20 @@ public class Constants {
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 0.3;
         public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
-                                                                // training wheels. THIS IS IN ROTATIONS, NOT ENCODER
-                                                                // TICKS. TODO: Test value
+                                                             // training wheels. THIS IS IN ROTATIONS, NOT ENCODER
+                                                             // TICKS. TODO: Test value
         public static final double CLIMB_SECOND_TARGET = 6.0; // The target of rotations needed where the ramps fall to
-                                                                // the ground. THIS IS IN ROTATIONS, NOT ENCODER TICKS.
-                                                                // TODO: Test Value
+                                                              // the ground. THIS IS IN ROTATIONS, NOT ENCODER TICKS.
+                                                              // TODO: Test Value
         public static final double CLIMB_THIRD_TARGET = 12.0; // The target of roataions needed to get onto the 3rd
-                                                                // level platform. THIS IS IN ROTATIONS, NOT ENCODER
-                                                                // TICKS. TODO: Test Value
+                                                              // level platform. THIS IS IN ROTATIONS, NOT ENCODER
+                                                              // TICKS. TODO: Test Value
         public static final double CLIMB_FINAL_TARGET = 4.0; // The target of rotations needed to get the super
-                                                                // structure off the ground when the robot is on the
-                                                                // third level platform. THIS IS IN ROTATIONS, NOT
-                                                                // ENCODER TICKS. TODO: Test Value
+                                                             // structure off the ground when the robot is on the
+                                                             // third level platform. THIS IS IN ROTATIONS, NOT
+                                                             // ENCODER TICKS. TODO: Test Value
         public static final double TRAINING_WHEEL_DRIVE_TIME = 3.0; // The number of seconds that the robot training
                                                                     // wheels drive forward to move onto the platform.
                                                                     // TODO: Test Value
     }
 }
-

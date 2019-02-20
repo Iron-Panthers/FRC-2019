@@ -16,7 +16,6 @@ public class RetractSuperStructurePistons extends Command {
 	 * A command which retracts the superstructure pistons when called.
 	 */
 	public RetractSuperStructurePistons() {
-		requires(Robot.climb);
 	}
 
 	// Called just before this Command runs the first time
@@ -33,7 +32,7 @@ public class RetractSuperStructurePistons extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	// Called once after isFinished returns true
