@@ -27,7 +27,10 @@ public class Constants {
 		// Motion Profiling PID (For Velocity)
 		public static final double P = 0; // TODO Tune
 		public static final double I = 0;
-		public static final double D = 0;
+        public static final double D = 0;
+        
+        public static final int DRIVE_CRUISE_VELOCITY = 5200; // ticks per 100 ms
+		public static final int DRIVE_ACCELERATION = 10000; // ticks per 100 ms per second
 	}
 
 	// TODO tune input constants

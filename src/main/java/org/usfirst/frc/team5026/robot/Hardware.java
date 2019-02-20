@@ -65,6 +65,7 @@ public class Hardware {
 		driveLeft1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
 
 		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
+		// rightDriveMotors.getMasterMotor().config_kF(0, 1 / Constants.);
 		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
 	}
 }

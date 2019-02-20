@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
+import com.ctre.phoenix.ParamEnum;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
@@ -31,6 +33,7 @@ public class DriveStraight extends Command {
   protected void execute() {
     SmartDashboard.putNumber("target", targetTicks);
     SmartDashboard.putNumber("error", Robot.hardware.rightDriveMotors.getMasterMotor().getClosedLoopError());
+   
     Robot.hardware.rightDriveMotors.setMotionMagic(targetTicks);
     Robot.hardware.leftDriveMotors.setMotionMagic(targetTicks);
   }
@@ -38,7 +41,7 @@ public class DriveStraight extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    currentTicks = Robot.hardware.driveRight1.getSelectedSensorPosition();
+    //currentTicks = Robot.hardware.driveRight1.getSelectedSensorPosition();
     // return Math.abs(currentTicks - targetTicks) < Constants.DriveStraight.ENCODER_ERROR_TOLERANCE;
     return false;
   }
