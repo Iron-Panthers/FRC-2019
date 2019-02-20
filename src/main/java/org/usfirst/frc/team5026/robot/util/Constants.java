@@ -50,14 +50,14 @@ public class Constants {
         public static final int TURN_RIGHT_BUTTON = 10; // DO NOT USE
         public static final int FIND_F_BUTTON = 13; // DO NOT USE
         // Climb
-        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 11;
-        public static final int CLIMB_UP_BUTTON = 4;
-        public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 5;
-        public static final int TRAINING_WHEELS_FORWARD_BUTTON = 9;
-        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 10;
-        public static final int CLIMB_DOWN_BUTTON = 3;
-        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 12;
-        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 6;
+        public static final int CLIMB_DOWN_BUTTON = 5;
+        public static final int CLIMB_UP_BUTTON = 6;
+        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7;
+        public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
+        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
+        public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 10;
+        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11;
+        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
 
         // Driver B
         // Manual Arm
@@ -120,14 +120,6 @@ public class Constants {
         public static final double ERROR_TOLERANCE = 3; // degrees
         public static final long ERROR_TOLERANCE_TIME = 100; // ms
         public static final double STALL_TORQUE_COEFFICIENT = -0.09;
-
-        // INTAKE ARM TORQUE
-        public static final double INTAKE_MASS = 8; // lbs - estimate
-        public static final double INTAKE_DISTANCE = 10.7 + 8.25; // Distance to COM of Intake (in)
-        public static final double INTAKE_ARM_MASS = 5; // lbs - estimate
-        public static final double INTAKE_ARM_DISTANCE = 10.7 / 2; // Distance to COM of Intake Arm (in)
-        public static final double GRAVITY_ACCELERATION = 386.1; // in/s^2
-        public static final double INTAKE_ARM_MOTOR_MAX_TORQUE = 6.284 * 40 * 4; // in/lbs * gear ratio * sprocket ratio
 
         // INTAKE
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
