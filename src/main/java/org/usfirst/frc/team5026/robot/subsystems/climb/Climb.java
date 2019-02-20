@@ -130,15 +130,15 @@ public class Climb extends Subsystem {
 	/**
 	 * Extends the training wheel piston.
 	 */
-	public void extendTrainingWheels() { // TODO: Test if forward extends
-		trainingWheelPiston.set(DoubleSolenoid.Value.kForward);
+	public void extendTrainingWheels() {
+		trainingWheelPiston.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/**
 	 * Retracts the training wheel piston.
 	 */
 	public void retractTrainingWheels() {
-		trainingWheelPiston.set(DoubleSolenoid.Value.kReverse);
+		trainingWheelPiston.set(DoubleSolenoid.Value.kForward);
 	}
 
 	@Override
