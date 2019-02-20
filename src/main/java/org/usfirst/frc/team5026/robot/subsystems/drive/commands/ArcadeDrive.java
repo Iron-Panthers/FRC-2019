@@ -36,6 +36,10 @@ public class ArcadeDrive extends Command {
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
 		SmartDashboard.putNumber("Right Power", rightPower);
 		SmartDashboard.putNumber("Left Power", leftPower);
+
+		// SmartDashboard.putNumber("left enc", Robot.hardware.leftDriveMotors.getMasterMotor().getSelectedSensorPosition());
+		SmartDashboard.putNumber("right enc", Robot.hardware.rightDriveMotors.getMasterMotor().getSelectedSensorPosition());
+
 		Robot.drive.set(leftPower, rightPower);
 	}
 

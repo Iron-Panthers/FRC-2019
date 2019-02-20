@@ -94,11 +94,13 @@ public class Constants {
 		public static final double WHEEL_DIAMETER = 5.9;
     	public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
     	public static final double REV_TO_TICKS = 5500;
-		public static final double TICKS_TO_INCHES = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
+        public static final double INCHES_TO_TICKS = REV_TO_TICKS/WHEEL_CIRCUMFERENCE;
+		public static final int TIMEOUT_MS = 0;
+		public static final double PEAK_OUTPUT = 0.75;
 
 		// Straight driving constants
 		public static final double ENCODER_ERROR_TOLERANCE = 1;
-		public static final int DRIVE_CRUISE_VELOCITY = 5200; // ticks per 100 ms (replace with actual value)
+		public static final int DRIVE_CRUISE_VELOCITY = 52000; // ticks per 100 ms (replace with actual value)
 		public static final int DRIVE_ACCELERATION = 10000; // ticks per 100 ms per second (replace with actual value)
 
 		// Gyro rotation constants
@@ -111,6 +113,6 @@ public class Constants {
 		public static final double MAX_ANGULAR_VELOCITY = 0.20668863475263174 * 2;//Degrees per millisecond
 		
 		//VP Processing
-		public static final double MINIMUM_DISTANCE = 0;
+        public static final double MINIMUM_DISTANCE = 0;
 	}
 }

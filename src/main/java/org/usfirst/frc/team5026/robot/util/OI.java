@@ -52,7 +52,7 @@ public class OI {
 		button10 = new JoystickButton(stick1, 10);
 		button9.whileHeld(new HubertTurnLeft());
 		button10.whileHeld(new HubertTurnRight());
-		button6.whileHeld(new FindF());
+		// button6.whileHeld(new FindF());
 //		button1.whileHeld(new ReverseDrive());
 
 		// TODO Non-hardcoded ports
@@ -77,6 +77,6 @@ public class OI {
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 	
-		button1.whenPressed(new DriveStraight(70));
+		button1.whileHeld(new DriveStraight(70));
 	}
 }

@@ -9,6 +9,7 @@ package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import com.ctre.phoenix.ParamEnum;
 
+import org.usfirst.frc.team5026.robot.Hardware;
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
@@ -19,13 +20,16 @@ public class DriveStraight extends Command {
   private double targetTicks;
 
   public DriveStraight(double inches) {
-    targetTicks = inches / Constants.DriveStraight.TICKS_TO_INCHES;
+    targetTicks = inches * Constants.DriveStraight.INCHES_TO_TICKS;
     requires(Robot.drive);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.hardware.rightDriveMotors.zeroSensors();
+    Robot.hardware.leftDriveMotors.zeroSensors();
+    Robot.hardware.leftDriveMotors.getMasterMotor().follow(Robot.hardware.rightDriveMotors.getMasterMotor());
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -33,9 +37,11 @@ public class DriveStraight extends Command {
   protected void execute() {
     SmartDashboard.putNumber("target", targetTicks);
     SmartDashboard.putNumber("error", Robot.hardware.rightDriveMotors.getMasterMotor().getClosedLoopError());
-   
+    SmartDashboard.putNumber("current enc val", Robot.hardware.rightDriveMotors.getMasterMotor().getSelectedSensorPosition());
+    SmartDashboard.putNumber("closed loopp out", Robot.hardware.rightDriveMotors.getMasterMotor().getClosedLoopTarget());
+
     Robot.hardware.rightDriveMotors.setMotionMagic(targetTicks);
-    Robot.hardware.leftDriveMotors.setMotionMagic(targetTicks);
+    // Robot.hardware.leftDriveMotors.setMotionMagic(targetTicks);
   }
 
   // Make this return true when this Command no longer needs to run execute()

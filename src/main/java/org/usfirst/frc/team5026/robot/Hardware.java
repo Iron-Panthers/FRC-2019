@@ -60,12 +60,11 @@ public class Hardware {
 		armMotor.setNeutralMode(NeutralMode.Brake);
 
 		driveRight1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
-		driveLeft1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
 		driveRight1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
-		driveLeft1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
+		// driveLeft1.configMotionCruiseVelocity(Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
+		// driveLeft1.configMotionAcceleration(Constants.DriveStraight.DRIVE_ACCELERATION);
 
-		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
-		// rightDriveMotors.getMasterMotor().config_kF(0, 1 / Constants.);
-		leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D);
+		rightDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D, 5200);//1.0 / Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
+		// leftDriveMotors.configPID(Constants.Drivebase.P, Constants.Drivebase.I, Constants.Drivebase.D, 5200); //1.0 / Constants.DriveStraight.DRIVE_CRUISE_VELOCITY);
 	}
 }
