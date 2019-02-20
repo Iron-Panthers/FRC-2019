@@ -32,8 +32,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
     public JoystickWrapper stick1;
     public JoystickWrapper stick2;
-	public JoystickButton reverseDrive;
-	public JoystickButton shiftGearLow;
+    public JoystickButton reverseDrive;
+    public JoystickButton shiftGearLow;
     // public JoystickButton turnLeft;
     // public JoystickButton turnRight;
     // public JoystickButton findF;
@@ -42,9 +42,9 @@ public class OI {
     public JoystickButton deployTrainingWheels;
     public JoystickButton climbDown;
     public JoystickButton retractSuperStrucutrePistons;
-	public JoystickButton retractTrainingWheels;
-	public JoystickButton trainingWheelsForward;
-	public JoystickButton trainingWheelsBackward;
+    public JoystickButton retractTrainingWheels;
+    public JoystickButton trainingWheelsForward;
+    public JoystickButton trainingWheelsBackward;
 
     JoystickButton cargoShipHeight;
     JoystickButton oppCargoShipHeight;
@@ -60,8 +60,8 @@ public class OI {
         // DRIVER 1
         stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
         stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
-		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
-		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
+        reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
+        shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
         // findF = new JoystickButton(stick1, Constants.Input.FIND_F_BUTTON);
         // turnLeft = new JoystickButton(stick1, Constants.Input.TURN_LEFT_BUTTON);
         // turnRight = new JoystickButton(stick1, Constants.Input.TURN_RIGHT_BUTTON);
@@ -71,15 +71,15 @@ public class OI {
         climbDown = new JoystickButton(stick1, Constants.Input.CLIMB_DOWN_BUTTON);
         retractSuperStrucutrePistons = new JoystickButton(stick1,
                 Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
-		retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
-		trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
-		trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
+        retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
+        trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
+        trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
 
         trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
         trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
         // findF.whileHeld(new FindF());
-		reverseDrive.whileHeld(new ReverseDrive());
-		shiftGearLow.whileHeld(new DriveShift());
+        reverseDrive.whileHeld(new ReverseDrive());
+        shiftGearLow.whileHeld(new DriveShift());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
         climbUp.whileHeld(new ClimbUp());
         deployTrainingWheels.whenPressed(new DeployTrainingWheels());
@@ -98,10 +98,13 @@ public class OI {
         oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
         cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
-        cargoShipHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
-        oppCargoShipHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
+        cargoShipHeight.whenPressed(new ArmToTarget(
+                Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
+        oppCargoShipHeight.whenPressed(
+                new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
         rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-        oppRocketLowHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
+        oppRocketLowHeight.whenPressed(
+                new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
         lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
         intake.toggleWhenPressed(new IntakeCargo());
         outtake.toggleWhenPressed(new OuttakeCargo());
@@ -109,5 +112,3 @@ public class OI {
         zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
     }
 }
-
-

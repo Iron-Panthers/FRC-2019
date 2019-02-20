@@ -18,28 +18,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Add your docs here.
  */
 public class Intake extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-  public TalonSRX intakeMotor;
-  public Intake(){
-    intakeMotor = Robot.hardware.armIntakeMotor;
-  }
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+    public TalonSRX intakeMotor;
 
-  public void setIntakePower(double power) {
-		intakeMotor.set(ControlMode.PercentOutput, power);
-	}
+    public Intake() {
+        intakeMotor = Robot.hardware.armIntakeMotor;
+    }
 
-	public void brakeIntake() {
-		intakeMotor.set(ControlMode.PercentOutput, 0);
-	}
+    public void setIntakePower(double power) {
+        intakeMotor.set(ControlMode.PercentOutput, power);
+    }
 
-	public double getCurrent() {
-		return intakeMotor.getOutputCurrent();
-	}
+    public void brakeIntake() {
+        intakeMotor.set(ControlMode.PercentOutput, 0);
+    }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    public double getCurrent() {
+        return intakeMotor.getOutputCurrent();
+    }
+
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
 }

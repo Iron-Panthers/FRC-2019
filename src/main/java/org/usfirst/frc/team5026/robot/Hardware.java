@@ -4,9 +4,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.revrobotics.CANDigitalInput;
-import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -110,14 +107,13 @@ public class Hardware {
 		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
-		forwardLimit = new DigitalInput(0); //rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-   		reverseLimit = new DigitalInput(1); //rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		forwardLimit = new DigitalInput(0); // rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		reverseLimit = new DigitalInput(1); // rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
 		trainingWheelPiston = new DoubleSolenoid(Constants.Climb.TRAINING_WHEEL_PISTON_SOLENOID_PORT_1,
 				Constants.Climb.TRAINING_WHEEL_PISTON_SOLENOID_PORT_2);
-		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, 
-				Constants.Drivebase.GEAR_SHIFT_PORT_2);
+		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, Constants.Drivebase.GEAR_SHIFT_PORT_2);
 	}
 }

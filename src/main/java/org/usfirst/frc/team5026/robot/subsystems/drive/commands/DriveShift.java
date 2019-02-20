@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveShift extends Command {
 	
 	public DriveShift() {
-		//    	requires(Robot.drive); // No requires so that it runs without any problems while driving
+		// This command must not require a subsystem
 	}
 	
 	// Called just before this Command runs the first time

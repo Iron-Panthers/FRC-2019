@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
-import java.util.ArrayList;
-
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 
@@ -36,30 +34,28 @@ public class ArcadeDrive extends Command {
 		stick.update();
 		rightPower = stick.findRightPower() + stick.skim(stick.findLeftPower());
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
-		double[] powers = {leftPower, rightPower};
+		double[] powers = { leftPower, rightPower };
 		powers = scalePower(powers);
 		SmartDashboard.putNumber("Right Power", powers[1]);
 		SmartDashboard.putNumber("Left Power", powers[0]);
-		//Uses ScalePower method to scale the power of both sides if either is over 1
+		// Uses ScalePower method to scale the power of both sides if either is over 1
 		Robot.drive.set(powers[0], powers[1]);
-
-		// if (stick.getAxisCount() == 4) {
-		// 	SmartDashboard.putString("Joystick Type", "Normal Joystick");
-		// } else if (stick.getAxisCount() == 5) {
-		// 	SmartDashboard.putString("Joystick Type", "Thrustmaster");
-		// }
 	}
 
 	/**
-	 * scalePower returns a correctly scaled power result if the power is greater than 1. It uses both powers, finds the highest one, if it is greater than one it divides both by that power. It returns the scaled value for the first parameter.
+	 * scalePower returns a correctly scaled power result if the power is greater
+	 * than 1. It uses both powers, finds the highest one, if it is greater than one
+	 * it divides both by that power. It returns the scaled value for the first
+	 * parameter.
 	 * 
-	 * @param power The power you are attempting to scale
-	 * @param otherPower The power of the other motor to determine the correct value to use for scaling
+	 * @param power      The power you are attempting to scale
+	 * @param otherPower The power of the other motor to determine the correct value
+	 *                   to use for scaling
 	 * @return Returns the scaled output of the power parameter
 	 */
 	public double scalePower(double power, double otherPower) {
-		if (Math.abs(power) > 1.0 || Math.abs(otherPower) > 1.0){
-			if (Math.abs(power) > Math.abs(otherPower)){ //Needs to check abs value to find the greater one
+		if (Math.abs(power) > 1.0 || Math.abs(otherPower) > 1.0) {
+			if (Math.abs(power) > Math.abs(otherPower)) { // Needs to check abs value to find the greater one
 				return power / Math.abs(power);
 			}
 			return power / Math.abs(otherPower);
@@ -69,29 +65,30 @@ public class ArcadeDrive extends Command {
 
 	/**
 	 * Scales an array of powers
+	 * 
 	 * @param powers An array of powers, left power, then right power
 	 * @return An array of scaled powers
 	 */
-	public double[] scalePower(double[] powers){
+	public double[] scalePower(double[] powers) {
 		// Checks if the array needs to be scaled
 		boolean isOverOne = false;
-		for (double element: powers){
-			if (Math.abs(element) > 1){
+		for (double element : powers) {
+			if (Math.abs(element) > 1) {
 				isOverOne = true;
 			}
 		}
-		if (!isOverOne){
+		if (!isOverOne) {
 			return powers;
 		}
 		double currentMax = powers[0];
 		// Finds the highest value
-		for (int i = 0; i < powers.length; i++){
-			if (Math.abs(powers[i]) > currentMax){
+		for (int i = 0; i < powers.length; i++) {
+			if (Math.abs(powers[i]) > currentMax) {
 				currentMax = Math.abs(powers[i]);
 			}
 		}
 		// Scales all values
-		for (int i = 0; i < powers.length; i++){
+		for (int i = 0; i < powers.length; i++) {
 			powers[i] /= currentMax;
 		}
 
