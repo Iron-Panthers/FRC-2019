@@ -83,12 +83,12 @@ public class Drive extends Subsystem {
 	}
 
 	public void shiftLow() {
-		state = GearState.LOW;
+		state = GearState.HIGH; // Tested 2/19/2019
 		gearShift.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	public void shiftHigh() {
-		state = GearState.HIGH;
+		state = GearState.LOW; // Tested 2/19/2019 
 		gearShift.set(DoubleSolenoid.Value.kForward);
 	}
 

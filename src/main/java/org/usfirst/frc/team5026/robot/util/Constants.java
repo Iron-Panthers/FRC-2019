@@ -46,17 +46,17 @@ public class Constants {
         // Driver A
         public static final int REVERSE_DRIVE_BUTTON = 1;
         public static final int SHIFT_GEAR_LOW_BUTTON = 2;
-        public static final int TURN_LEFT_BUTTON = 9;
-        public static final int TURN_RIGHT_BUTTON = 10;
+        public static final int TURN_LEFT_BUTTON = 9; // DO NOT USE
+        public static final int TURN_RIGHT_BUTTON = 10; // DO NOT USE
         public static final int FIND_F_BUTTON = 13; // DO NOT USE
         // Climb
-        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 3;
+        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 11;
         public static final int CLIMB_UP_BUTTON = 4;
         public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 5;
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 9;
         public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 10;
-        public static final int CLIMB_DOWN_BUTTON = 11;
-        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 2;
+        public static final int CLIMB_DOWN_BUTTON = 3;
+        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 12;
         public static final int RETRACT_TRAINING_WHEELS_BUTTON = 6;
 
         // Driver B
@@ -150,11 +150,11 @@ public class Constants {
         public static final int TRAINING_WHEEL_MOTOR_PORT = 3; // To be changed
 
         // Climb Solenoid Ports
-        public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 2;
-        public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 3;
+        public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
+        public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 1;
 
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 4;
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 5;
+        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 2;
+        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety

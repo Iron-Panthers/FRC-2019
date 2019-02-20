@@ -41,7 +41,7 @@ public class OI {
     public JoystickButton climbUp;
     public JoystickButton deployTrainingWheels;
     public JoystickButton climbDown;
-    public JoystickButton retractSuperStrucutrePistons;
+    public JoystickButton retractSuperStructurePistons;
     public JoystickButton retractTrainingWheels;
     public JoystickButton trainingWheelsForward;
     public JoystickButton trainingWheelsBackward;
@@ -69,7 +69,7 @@ public class OI {
         climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
         deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEEL_BUTTON);
         climbDown = new JoystickButton(stick1, Constants.Input.CLIMB_DOWN_BUTTON);
-        retractSuperStrucutrePistons = new JoystickButton(stick1,
+        retractSuperStructurePistons = new JoystickButton(stick1,
                 Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
         retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
         trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
@@ -84,7 +84,7 @@ public class OI {
         climbUp.whileHeld(new ClimbUp());
         deployTrainingWheels.whenPressed(new DeployTrainingWheels());
         climbDown.whileHeld(new ClimbDown());
-        retractSuperStrucutrePistons.whenPressed(new RetractSuperStructurePistons());
+        retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
         retractTrainingWheels.whenPressed(new RetractTrainingWheels());
 
         // DRIVER 2
