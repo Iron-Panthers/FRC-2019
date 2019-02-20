@@ -59,9 +59,6 @@ public class MotorGroup {
 	 */
 	public void set(double power) {
 		masterMotor.set(ControlMode.PercentOutput, power);
-		for (IMotorController motor : this.motors) {
-			SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(), motor.getMotorOutputPercent());
-		}
 	}
 
 	/**
@@ -78,9 +75,6 @@ public class MotorGroup {
 	 */
 	public void setTarget(double target) {
 		masterMotor.set(ControlMode.MotionMagic, target);
-		for (IMotorController motor : this.motors) {
-			SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(), motor.getMotorOutputPercent());
-		}
 	}
 
 	/**

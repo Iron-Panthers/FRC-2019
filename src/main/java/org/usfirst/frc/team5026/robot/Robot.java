@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
 		// chooser.addOption("My Auto", new MyAutoCommand());
 
 		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
 	}
 
 	/**
@@ -83,9 +83,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putBoolean("Bottom Limit Switch", climb.bottomLimitSwitch.get());
-		SmartDashboard.putBoolean("Top Limit Switch", climb.topLimitSwitch.get());
-		
 		Scheduler.getInstance().run();
 	}
 
@@ -142,19 +139,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		// hardware.climbMotors.set(oi.stick2.getY());
-		// climb.climbUp();
-		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
-		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
-		//System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
-		SmartDashboard.putNumber("Enc Pulse Width", hardware.armMotor.getSensorCollection().getPulseWidthPosition());
-		SmartDashboard.putNumber("Enc Pos", hardware.armMotor.getSelectedSensorPosition());
-
-		SmartDashboard.putNumber("Enc Pulse Deg", hardware.armMotor.getSensorCollection().getPulseWidthPosition() * (360/4096));
-		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
-
-		SmartDashboard.putNumber("Climb output", hardware.climbMotors.getAppliedOutput());
-
 		Scheduler.getInstance().run();
 	}
 

@@ -38,8 +38,8 @@ public class JoystickWrapper extends Joystick {
 		// Update X and Y to match the X and Y axes of the device
 		x = getX();
 		y = getY();
-		SmartDashboard.putNumber("x ", getX());
-		SmartDashboard.putNumber("y ", getY());
+		SmartDashboard.putNumber("JoystickWrapper -- Raw X: ", x);
+		SmartDashboard.putNumber("JoystickWrapper -- Raw Y: ", y);
 
 		// Our joystick has unusual behavior so we must do this
 		x = -1 * x;

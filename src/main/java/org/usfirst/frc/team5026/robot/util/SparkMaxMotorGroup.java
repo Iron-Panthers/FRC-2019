@@ -21,6 +21,8 @@ public class SparkMaxMotorGroup {
 	private CANSparkMax masterMotor;
 	private CANSparkMax[] motors;
 
+	// TODO if we want to use multiple SparkMaxMotorGroup, we should implement
+	// MotorGroup names
 	/**
 	 * Creates a new SparkMaxMotorGroup. The first parameter specified will be the
 	 * considered the "master motor" of the motor group.
@@ -51,19 +53,19 @@ public class SparkMaxMotorGroup {
 
 		// Set the idle mode to Brake. If it fails, display the error
 		if (m_motor.setIdleMode(IdleMode.kBrake) != CANError.kOK) {
-			SmartDashboard.putString("Idle Mode", "Error");
+			SmartDashboard.putString("SparkMaxMotorGroup -- Idle Mode", "Failed to set");
 		}
 
 		// Check the idle mode of the motor controller, and put to SmartDashboard
 		if (m_motor.getIdleMode() == IdleMode.kCoast) {
-			SmartDashboard.putString("Idle Mode", "Coast");
+			SmartDashboard.putString("SparkMaxMotorGroup -- Idle Mode", "Coast");
 		} else {
-			SmartDashboard.putString("Idle Mode", "Brake");
+			SmartDashboard.putString("SparkMaxMotorGroup -- Idle Mode", "Brake");
 		}
 
 		// Set open loop ramp rate to 0. If it fails, display the error
 		if (m_motor.setOpenLoopRampRate(0) != CANError.kOK) {
-			SmartDashboard.putString("Ramp Rate", "Error");
+			SmartDashboard.putString("SparkMaxMotorGroup -- Ramp Rate", "Error");
 		}
 	}
 

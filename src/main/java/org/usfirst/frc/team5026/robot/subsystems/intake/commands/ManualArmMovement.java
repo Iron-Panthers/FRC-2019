@@ -40,12 +40,6 @@ public class ManualArmMovement extends Command {
 		if (Robot.intakeArm.getCurrentAngle() > 180) {
 			power = 0;
 		}
-		SmartDashboard.putNumber("angle: ", Robot.intakeArm.getCurrentAngle());
-		SmartDashboard.putNumber("basePower: ", basePower);
-		SmartDashboard.putNumber("power: ", power);
-		SmartDashboard.putNumber("Joystick y: ", Robot.oi.stick2.getY());
-		SmartDashboard.putNumber("Motor Output: ", Robot.hardware.armMotor.getMotorOutputPercent());
-		SmartDashboard.putNumber("encoder: ", Robot.hardware.armMotor.getSensorCollection().getPulseWidthPosition());
 		Robot.intakeArm.moveArm(basePower + power);
 	}
 

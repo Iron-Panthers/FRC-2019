@@ -48,10 +48,6 @@ public class ArmToTarget extends Command {
 		lastError = currentError;
 		basePower = Robot.intakeArm.getBasePower();
 
-		SmartDashboard.putNumber("Target", target);
-		SmartDashboard.putNumber("Angle", Robot.intakeArm.getCurrentAngle());
-		SmartDashboard.putNumber("Error", currentError);
-
 		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError)
 				+ (Constants.IntakeArm.INTAKE_ARM_I * errorSum) + (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
 
@@ -59,7 +55,6 @@ public class ArmToTarget extends Command {
 			power = 0.5 * (power / Math.abs(power));
 		}
 
-		SmartDashboard.putNumber("Power", power);
 		Robot.intakeArm.moveArm(power + basePower);
 	}
 
@@ -69,10 +64,10 @@ public class ArmToTarget extends Command {
 		long currentTime = System.currentTimeMillis();
 		if (Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
 			lastTimeOutOfThreshold = currentTime;
-			SmartDashboard.putBoolean("Finished", false);
+			SmartDashboard.putBoolean("ArmToTarget -- Finished", false);
 			return false;
 		}
-		SmartDashboard.putBoolean("Finished", true);
+		SmartDashboard.putBoolean("ArmToTarget -- Finished", true);
 		return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
 	}
 

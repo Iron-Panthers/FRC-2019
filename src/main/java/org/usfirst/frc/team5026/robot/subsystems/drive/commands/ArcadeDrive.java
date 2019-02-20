@@ -25,7 +25,6 @@ public class ArcadeDrive extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		SmartDashboard.putString("Drive mode", "Arcade drive");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -36,8 +35,6 @@ public class ArcadeDrive extends Command {
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
 		double[] powers = { leftPower, rightPower };
 		powers = scalePower(powers);
-		SmartDashboard.putNumber("Right Power", powers[1]);
-		SmartDashboard.putNumber("Left Power", powers[0]);
 		// Uses ScalePower method to scale the power of both sides if either is over 1
 		Robot.drive.set(powers[0], powers[1]);
 	}

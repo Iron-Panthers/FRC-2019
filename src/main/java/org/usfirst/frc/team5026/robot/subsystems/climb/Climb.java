@@ -49,10 +49,10 @@ public class Climb extends Subsystem {
 		// If the climb limit switch is triggered
 		if (this.topLimitSwitch.get()) {
 			// Stop climbing, and indicate the climb has stopped
-			SmartDashboard.putString("climbing", "none, limit stopped");
+			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
 		} else {
-			SmartDashboard.putString("climbing", "up");
+			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
 		}
 	}
@@ -86,12 +86,13 @@ public class Climb extends Subsystem {
 	 */
 	public void climbDown() {
 		if (this.bottomLimitSwitch.get()) {
-			SmartDashboard.putString("climbing", "none, limit stopped");
+			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
 		} else {
-			SmartDashboard.putString("climbing", "down");
+			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
 		}
+		SmartDashboard.putNumber("Climb -- Climb motor output", climbMotors.getAppliedOutput());
 	}
 
 	/**
@@ -99,6 +100,7 @@ public class Climb extends Subsystem {
 	 */
 	public void stopClimb() {
 		climbMotors.set(0);
+		SmartDashboard.putNumber("Climb -- Climb motor output", climbMotors.getAppliedOutput());
 	}
 
 	/**
