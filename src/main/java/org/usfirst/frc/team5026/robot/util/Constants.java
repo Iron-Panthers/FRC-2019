@@ -11,9 +11,9 @@ public class Constants {
     public class Drivebase {
         /** DRIVEBASE PORTS */
         public static final int DRIVE_R1_PORT = 1;
-        public static final int DRIVE_R2_PORT = 1; // SPX
+        public static final int DRIVE_R2_PORT = 21; // SPX
         public static final int DRIVE_L1_PORT = 2;
-        public static final int DRIVE_L2_PORT = 2; // SPX
+        public static final int DRIVE_L2_PORT = 22; // SPX
 
         public static final int GEAR_SHIFT_PORT_1 = 6;
         public static final int GEAR_SHIFT_PORT_2 = 7;
