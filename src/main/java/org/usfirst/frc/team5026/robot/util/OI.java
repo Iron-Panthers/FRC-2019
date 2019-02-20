@@ -49,7 +49,7 @@ public class OI {
     JoystickButton cargoShipHeight;
     JoystickButton oppCargoShipHeight;
     JoystickButton rocketLowHeight;
-    JoystickButton oppRocketLowHeight;
+    // JoystickButton oppRocketLowHeight;
     JoystickButton lowestHeight;
     JoystickButton intake;
     JoystickButton outtake;
@@ -93,7 +93,7 @@ public class OI {
         outtake = new JoystickButton(stick2, Constants.Input.OUTTAKE_BUTTON);
         zeroIntakeAngle = new JoystickButton(stick2, Constants.Input.ZERO_INTAKE_ARM_BUTTON);
         lowestHeight = new JoystickButton(stick2, Constants.Input.LOWEST_HEIGHT_BUTTON);
-        oppRocketLowHeight = new JoystickButton(stick2, Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
+        // oppRocketLowHeight = new JoystickButton(stick2, Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
         rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
         oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
         cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
@@ -103,8 +103,8 @@ public class OI {
         oppCargoShipHeight.whenPressed(
                 new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
         rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-        oppRocketLowHeight.whenPressed(
-                new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
+        // oppRocketLowHeight.whenPressed(
+                // new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
         lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
         intake.toggleWhenPressed(new IntakeCargo());
         outtake.toggleWhenPressed(new OuttakeCargo());

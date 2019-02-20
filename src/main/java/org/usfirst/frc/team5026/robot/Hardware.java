@@ -86,6 +86,7 @@ public class Hardware {
 		/* IntakeArm motor controller creation */
 		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
 		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
+		armIntakeMotor.setInverted(Constants.IntakeArm.IS_INTAKE_INVERTED);
 		armMotor.setNeutralMode(NeutralMode.Brake);
 
 		/* Climb Subsystem creation */

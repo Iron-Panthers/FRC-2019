@@ -68,7 +68,7 @@ public class Constants {
         // Arm Setpoints
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
-        public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9;
+        public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
@@ -97,6 +97,8 @@ public class Constants {
         public static final int INTAKE_ARM_MOTOR_PORT = 6;
         public static final int INTAKE_MOTOR_PORT = 4;
 
+        public static final boolean IS_INTAKE_INVERTED = true;
+
         // INTAKE JOYSTICK - TODO Tune To Driver Preference
         public static final double Y_DEADZONE = 0.1;
         public static final double POWER_SCALE = 0.7;
@@ -114,7 +116,7 @@ public class Constants {
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
-        public static final double INTAKE_ARM_P = 0.3;
+        public static final double INTAKE_ARM_P = 0.25;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
         public static final double ERROR_TOLERANCE = 3; // degrees
