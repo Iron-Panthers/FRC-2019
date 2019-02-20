@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickWrapper extends Joystick {
 	private double x; // this does not reflect the physical joystick X-axis
 	private double y; // this does not reflect the physical joystick Y-axis
-	private double magnitude; // the magnitude of the vector created by the x and y axes
 
 	/**
 	 * Creates a new JoystickWrapper. Port is the USB port of the physical device,
@@ -26,13 +25,11 @@ public class JoystickWrapper extends Joystick {
 		super(port);
 		x = 0;
 		y = 0;
-		magnitude = 0;
 	}
 
 	/**
-	 * Calculate x, y, magnitude and adjust for circle and bowtie deadzones. This
-	 * should be done before calling {@link #findLeftPower()} or
-	 * {@link #findRightPower()}.
+	 * Updates X and Y axes. This should be done before calling
+	 * {@link #findLeftPower()} or {@link #findRightPower()}.
 	 * <p>
 	 * To avoid redundant calls, calling this method should be periodic logic for
 	 * tele-operated driving commands.
@@ -46,26 +43,18 @@ public class JoystickWrapper extends Joystick {
 
 		// Our joystick has unusual behavior so we must do this
 		x = -1 * x;
-		//Our joystick has unusual behavior so we must do this. NOT CURRENTLY IN USE BECAUSE WE ARE USING THRUSTMASTER
-		//x = -1 * x;
-	/**
-	 * Updates the x and y position of the joystick.
-	 */
-	}
-	private void updateAxes() {
-		x = getX();
-		y = getY();
 	}
 
 	/**
-	 * Calculates the left power. Before using this method, ensure you have
-	 * recently used {@link #update()}.
+	 * Calculates the left power. Before using this method, ensure you have recently
+	 * used {@link #update()}.
 	 */
 	public double findLeftPower() {
 		double direction = Robot.drive.isReversed ? -1 : 1;
 		// A slight modification of the traditional arcade drive calculation
 		// Makes X-axis nonlinear, adds sensitivity constant
-		double value = (y * direction) + Math.copySign(Math.pow(Math.abs(x), Constants.Drivebase.SCALING_POWER), x) * Constants.Drivebase.TURN_SENSITIVITY;
+		double value = (y * direction) + Math.copySign(Math.pow(Math.abs(x), Constants.Drivebase.SCALING_POWER), x)
+				* Constants.Drivebase.TURN_SENSITIVITY;
 
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * value;
@@ -81,7 +70,8 @@ public class JoystickWrapper extends Joystick {
 		double direction = Robot.drive.isReversed ? -1 : 1;
 		// A slight modification of the traditional arcade drive calculation
 		// Makes X-axis nonlinear, adds sensitivity constant
-		double value = (y * direction) - Math.copySign(Math.pow(Math.abs(x), Constants.Drivebase.SCALING_POWER), x) * Constants.Drivebase.TURN_SENSITIVITY;
+		double value = (y * direction) - Math.copySign(Math.pow(Math.abs(x), Constants.Drivebase.SCALING_POWER), x)
+				* Constants.Drivebase.TURN_SENSITIVITY;
 
 		if (Constants.Drivebase.IS_DRIVEBASE_BACKWARDS) {
 			return -1 * value;
@@ -99,9 +89,9 @@ public class JoystickWrapper extends Joystick {
 		// bottom)
 		double turnGain = 1.0; // Skim setting 1 was chosen as best
 		// if (this.getAxisCount() == 4) { // WE DONT USE THIS NOW CAUSE HUBERT LIKED 1
-		// 	turnGain = getThrottle();
+		// turnGain = getThrottle();
 		// } else if (this.getAxisCount() == 5) {
-		// 	turnGain = this.getZ();
+		// turnGain = this.getZ();
 		// }
 
 		// SmartDashboard logging
@@ -115,61 +105,9 @@ public class JoystickWrapper extends Joystick {
 	}
 
 	/**
-	 * The bowtie zone is not a deadzone, it is a zone which assumes the driver to
-	 * want to be driving straight, and adjusts the values so that the outputs match
-	 * with this expectation.
+	 * Map a value x in the range [a1, b1] to a new value in the range [a2, b2]
 	 */
-	private void applyBowtieZone() {
-		if (Math.abs(y) > Math.abs(x) * Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE) {
-			x = 0;
-		} else {
-			if (x > 0) {
-				x = (x - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
-						/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
-			} else {
-				x = (x + (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE))
-						/ (1 - (Math.abs(y) / Constants.Input.VERTICAL_BOWTIE_DEADZONE_SLOPE));
-			}
-		}
-		if (Math.abs(x) > Math.abs(y) * Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE) {
-			y = 0;
-		} else {
-			if (y > 0) {
-				y = (y - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
-						/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
-			} else {
-				y = (y + (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE))
-						/ (1 - (Math.abs(x) / Constants.Input.HORIZONTAL_BOWTIE_DEADZONE_SLOPE));
-			}
-		}
+	public static double map(double x, double a1, double b1, double a2, double b2) {
+		return (b2 - a2) * (x - a1) / (b1 - a1) + a2;
 	}
-
-	/**
-	 * Applies the idea of a "bowtie deadzone", given a vertical slope and
-	 * horizontal slope for the triangles. Mutates the x and y values within the
-	 * JoystickWrapper.
-	 * 
-	 * @param verticalSlope
-	 * @param horizontalSlope
-	 */
-	// private void applyBowtieDeadzone(double verticalSlope, double horizontalSlope) {
-	// 	if (Math.abs(y) > Math.abs(x) * verticalSlope) {
-	// 		x = 0;
-	// 	} else {
-	// 		x = (x - (Math.abs(y) / verticalSlope)) / (1 - (Math.abs(y) / verticalSlope));
-	// 	}
-
-	// 	if (Math.abs(x) > Math.abs(y) * horizontalSlope) {
-	// 		y = 0;
-	// 	} else {
-	// 		y = (y - (Math.abs(x) / horizontalSlope)) / (1 - (Math.abs(x) / horizontalSlope));
-	// 	}
-	// }
-
-	/**
-     * Map a value x in the range [a1, b1] to a new value in the range [a2, b2]
-     */
-    public static double map(double x, double a1, double b1, double a2, double b2) {
-        return (b2 - a2) * (x - a1) / (b1 - a1) + a2;
-    }
 }
