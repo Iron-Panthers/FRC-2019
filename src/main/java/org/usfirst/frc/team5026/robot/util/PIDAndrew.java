@@ -22,6 +22,8 @@ public class PIDAndrew {
     /**
      * This class creates a trapezoidal velocity path to get from the current
      * position to a target position.
+     * 
+     * It's worth it to call the reset() method in the initialize of the command that uses this
      */
     public PIDAndrew(double P, double I, double D, double F) {
         this.P = P;
@@ -95,7 +97,7 @@ public class PIDAndrew {
     /**
      * Get the position that the path says we should be at, given the current time (if the path began at t = 0)
      */
-    private double getPathPosition(double t) {
+    public double getPathPosition(double t) {
         if (t <= this.t1) { // If we are in the first leg
             double t0 = 0; // Then initial time of this leg is just 0
             return this.p0 + this.getPathSpeed(t0) * t + this.getPathAccel(t0) * t * t / 2; // Then we use this well known formula
@@ -120,7 +122,7 @@ public class PIDAndrew {
     /**
      * Get the current speed of the path (very similar to getPathPosition)
      */
-    private double getPathSpeed(double t) {
+    public double getPathSpeed(double t) {
         if (t <= this.t1) { // This method is almost the same as getPathPosition
             return this.v0 + this.getPathAccel(0) * t;
             // Only difference is we use v = a*t + v_0
@@ -152,7 +154,7 @@ public class PIDAndrew {
     /**
      * Get the time in seconds relative to when the path began
      */
-    private double getPathTime() {
+    public double getPathTime() {
         return (System.currentTimeMillis() - this.startTime) / 1000.0;
     }
 
@@ -248,6 +250,14 @@ public class PIDAndrew {
 
     public void setMaxOutput(double maxOutput) {
         this.MAX_OUTPUT = Math.abs(maxOutput); // Negative MAX_OUTPUT will cause problems
+    }
+
+    /**
+     * Resets some values that would be odd to save between discrete periods of motion
+     */
+    public void reset() {
+        this.sumError = 0;
+        this.lastError = 0;
     }
 
 }

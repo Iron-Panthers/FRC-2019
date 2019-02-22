@@ -15,6 +15,7 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStru
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsBackward;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.AndrewDriveStraight;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveShift;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ReverseDrive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ArmToTarget;
@@ -77,8 +78,8 @@ public class OI {
 
         trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
         trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
-        // findF.whileHeld(new FindF());
-        reverseDrive.whileHeld(new ReverseDrive());
+        reverseDrive.whileHeld(new AndrewDriveStraight(60));
+        //reverseDrive.whileHeld(new ReverseDrive());
         shiftGearLow.whileHeld(new DriveShift());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
         climbUp.whileHeld(new ClimbUp());
