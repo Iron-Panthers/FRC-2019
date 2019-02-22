@@ -10,8 +10,10 @@ package org.usfirst.frc.team5026.robot.subsystems.drive;
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.util.GearState;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,6 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drive extends Subsystem {
 	private MotorGroup left = Robot.hardware.leftDriveMotors;
 	private MotorGroup right = Robot.hardware.rightDriveMotors;
+	public DoubleSolenoid gearShift = Robot.hardware.gearShift;
+	public GearState state;
 	public boolean isReversed;
 
 
@@ -41,8 +45,8 @@ public class Drive extends Subsystem {
 	public void set(double leftPower, double rightPower) {
 		left.set(leftPower);
 		right.set(rightPower);
-		SmartDashboard.putNumber("left: ", leftPower);
-		SmartDashboard.putNumber("right: ", rightPower);
+		SmartDashboard.putNumber("Drive -- Set left power: ", leftPower);
+		SmartDashboard.putNumber("Drive -- Set right power: ", rightPower);
 
 	}
 
@@ -77,4 +81,15 @@ public class Drive extends Subsystem {
 		// Pick one of the drive mode commands.
 		setDefaultCommand(new ArcadeDrive());
 	}
+
+	public void shiftLow() {
+		state = GearState.HIGH; // Tested 2/19/2019
+		gearShift.set(DoubleSolenoid.Value.kReverse);
+	}
+
+	public void shiftHigh() {
+		state = GearState.LOW; // Tested 2/19/2019 
+		gearShift.set(DoubleSolenoid.Value.kForward);
+	}
+
 }

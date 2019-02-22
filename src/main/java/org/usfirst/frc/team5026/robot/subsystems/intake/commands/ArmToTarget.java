@@ -25,9 +25,11 @@ public class ArmToTarget extends Command {
 
 	public ArmToTarget(double targetHeight, boolean isFront) {
 		if (!isFront) {
-			this.target = 180 - (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH) / Constants.IntakeArm.DEGRESS_TO_RADIANS);
+			this.target = 180 - (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
+					/ Constants.IntakeArm.DEGRESS_TO_RADIANS);
 		} else {
-			this.target = (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH) / Constants.IntakeArm.DEGRESS_TO_RADIANS);
+			this.target = (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
+					/ Constants.IntakeArm.DEGRESS_TO_RADIANS);
 		}
 		requires(Robot.intakeArm);
 	}
@@ -46,18 +48,13 @@ public class ArmToTarget extends Command {
 		lastError = currentError;
 		basePower = Robot.intakeArm.getBasePower();
 
-		SmartDashboard.putNumber("Target", target);
-		SmartDashboard.putNumber("Angle", Robot.intakeArm.getCurrentAngle());
-		SmartDashboard.putNumber("Error", currentError);
-
-		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError) + (Constants.IntakeArm.INTAKE_ARM_I * errorSum)
-				+ (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
+		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError)
+				+ (Constants.IntakeArm.INTAKE_ARM_I * errorSum) + (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
 
 		if (Math.abs(power) > 0.5) {
-			power = 0.5 * (power/Math.abs(power));
+			power = 0.5 * (power / Math.abs(power));
 		}
 
-		SmartDashboard.putNumber("Power", power);
 		Robot.intakeArm.moveArm(power + basePower);
 	}
 
@@ -67,10 +64,10 @@ public class ArmToTarget extends Command {
 		long currentTime = System.currentTimeMillis();
 		if (Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
 			lastTimeOutOfThreshold = currentTime;
-			SmartDashboard.putBoolean("Finished", false);
+			SmartDashboard.putBoolean("ArmToTarget -- Finished", false);
 			return false;
 		}
-		SmartDashboard.putBoolean("Finished", true);
+		SmartDashboard.putBoolean("ArmToTarget -- Finished", true);
 		return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
 	}
 

@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team5026.robot;
 
+import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static Hardware hardware;
 	public static IntakeArm intakeArm;
 	public static Intake intake;
+	public static Climb climb;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -47,13 +49,14 @@ public class Robot extends TimedRobot {
 		intakeArm = new IntakeArm();
 		intake = new Intake();
 		drive = new Drive();
+		climb = new Climb();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 
 		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
 	}
 
 	/**
@@ -97,6 +100,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		drive.shiftHigh();
+		climb.retractSuperStructurePistons();
+		climb.retractTrainingWheels();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -122,6 +128,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		drive.shiftHigh();
+		climb.retractSuperStructurePistons();
+		climb.retractTrainingWheels();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -136,14 +145,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Left Power", hardware.driveLeft1.getMotorOutputPercent());
-		SmartDashboard.putNumber("Right Power", hardware.driveRight1.getMotorOutputPercent());
-		//System.out.println(hardware.gyro.getAbsoluteCompassHeading() + "This is the gyro");
-		SmartDashboard.putNumber("Enc Pulse Width", hardware.armMotor.getSensorCollection().getPulseWidthPosition());
-		SmartDashboard.putNumber("Enc Pos", hardware.armMotor.getSelectedSensorPosition());
-
-		SmartDashboard.putNumber("Enc Pulse Deg", hardware.armMotor.getSensorCollection().getPulseWidthPosition() * (360/4096));
-		SmartDashboard.putNumber("Enc Pos Deg", hardware.armMotor.getSelectedSensorPosition() * (360/4096));
 		Scheduler.getInstance().run();
 	}
 

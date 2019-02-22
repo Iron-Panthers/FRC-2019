@@ -5,45 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
+package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OuttakeCargo extends Command {
-	public OuttakeCargo() {
-		requires(Robot.intake);
+public class DriveShift extends Command {
+	
+	public DriveShift() {
+		// This command must not require a subsystem
 	}
-
+	
 	// Called just before this Command runs the first time
-	@Override
 	protected void initialize() {
+		Robot.drive.shiftLow();
+		System.out.println("Shift low!");
 	}
-
+	
 	// Called repeatedly when this Command is scheduled to run
-	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
 	}
-
+	
 	// Make this return true when this Command no longer needs to run execute()
-	@Override
 	protected boolean isFinished() {
 		return false;
 	}
-
+	
 	// Called once after isFinished returns true
-	@Override
 	protected void end() {
-		Robot.intake.brakeIntake();
+		System.out.println("Shift high");
+		Robot.drive.shiftHigh();
 	}
-
+	
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
-	@Override
 	protected void interrupted() {
-		Robot.intake.brakeIntake();
+		System.out.println("Shift high!");
+		Robot.drive.shiftHigh();
 	}
 }

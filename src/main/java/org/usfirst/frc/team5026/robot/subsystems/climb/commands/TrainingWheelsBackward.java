@@ -5,16 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
+package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OuttakeCargo extends Command {
-	public OuttakeCargo() {
-		requires(Robot.intake);
+public class TrainingWheelsBackward extends Command {
+	/**
+	 * A command which drives the training wheels backward at a speed specified in
+	 * Constants.
+	 */
+	public TrainingWheelsBackward() {
+		requires(Robot.climb);
 	}
 
 	// Called just before this Command runs the first time
@@ -25,7 +28,7 @@ public class OuttakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
+		Robot.climb.trainingWheelsBackward();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -37,13 +40,13 @@ public class OuttakeCargo extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intake.brakeIntake();
+		Robot.climb.trainingWheelsStop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intake.brakeIntake();
+		Robot.climb.trainingWheelsStop();
 	}
 }

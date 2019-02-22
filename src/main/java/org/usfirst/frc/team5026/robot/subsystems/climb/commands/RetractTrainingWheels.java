@@ -5,20 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
+package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class ZeroIntakeArm extends InstantCommand {
-	public ZeroIntakeArm() {
-		requires(Robot.intakeArm);
+public class RetractTrainingWheels extends InstantCommand {
+	/**
+	 * A command which retracts the training wheels when called.
+	 */
+	public RetractTrainingWheels() {
 	}
 
 	// Called once when the command executes
 	@Override
 	protected void initialize() {
-		Robot.hardware.armMotor.setSelectedSensorPosition(0);
+		Robot.climb.retractTrainingWheels();
 	}
 }

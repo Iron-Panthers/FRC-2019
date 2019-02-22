@@ -5,16 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
+package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
-public class OuttakeCargo extends Command {
-	public OuttakeCargo() {
-		requires(Robot.intake);
+public class TrainingWheelDriveForwardForTime extends TimedCommand {
+	/**
+	 * A timed command which drives the training wheels forward for a given amount
+	 * of time, at a speed specified in Constants.
+	 */
+	public TrainingWheelDriveForwardForTime(double timeout) {
+		super(timeout);
+		requires(Robot.climb);
 	}
 
 	// Called just before this Command runs the first time
@@ -25,25 +29,19 @@ public class OuttakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
+		Robot.climb.trainingWheelsForward();
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
-
-	// Called once after isFinished returns true
+	// Called once after timeout
 	@Override
 	protected void end() {
-		Robot.intake.brakeIntake();
+		Robot.climb.trainingWheelsStop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intake.brakeIntake();
+		Robot.climb.trainingWheelsStop();
 	}
 }
