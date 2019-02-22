@@ -9,14 +9,14 @@ public class PIDAndrew {
     private long lastErrorTime, startTime;
 
     private double t1; // The time in seconds for the first leg of the trapezoid, the velocity begins
-                       // at v0
+    // at v0
     private double t2; // The time in seconds for the middle leg of the trapezoid, the velocity remains
-                       // constants on this leg
+    // constants on this leg
     private double t3; // The time in seconds for the last leg of the trapzeoid, the velocity ends at 0
     private double m1; // The slope of the first leg of the trapezoid
     private double m2; // The slope of the last leg of the trapezoid
     private double p0; // The initial position of the sensor (this is needed because of the +C in
-                       // integration)
+    // integration)
     private double v0; // The initial velocity of the sensor
 
     /**
@@ -44,8 +44,10 @@ public class PIDAndrew {
         double vMax = CRUISE_SPEED * Math.signum(d); // See above
 
         this.m1 = aMax; // The first leg of the trapezoid generally accelerates to CRUISE_SPEED...
-        if (Math.abs(this.v0) > CRUISE_SPEED) { // Except if we are already going too fast
+        boolean decel = false;
+        if ((this.v0 < -CRUISE_SPEED && vMax < 0) || (this.v0 > CRUISE_SPEED && vMax > 0)) { // Except if we are already going too fast
             this.m1 = -aMax; // Then we decelerate to the CRUISE_SPEED
+            decel = true;
         }
 
         this.m2 = -aMax; // The last leg of the trapezoid always decelerates from CRUISE_SPEED to 0
@@ -56,7 +58,7 @@ public class PIDAndrew {
         // All I'll say is that     distance traveled = t1/2 * (v0 + vM) + t2*vM + t3*vM/2
         // Each of those terms is one part of the trapezoid
 
-        if (Math.abs(this.v0) > CRUISE_SPEED && this.t2 < 0) { // If we decelerated to vMax but we didn't have enough time
+        if (decel && this.t2 < 0) { // If we decelerated to vMax but we didn't have enough time
             vMax *= -1; // Then we should invert vMax (just look at graph of trapezoid and this will make sense)
             aMax *= -1; // Therefore our aMax must also be inverted (otherwise we'd accelerate the wrong way)
             this.m1 = aMax; // Now we just recompute everything like above
@@ -69,7 +71,7 @@ public class PIDAndrew {
         if (this.t2 < 0) { // If we don't have enough time to do the path above, then we must be unable to reach CRUISE_SPEED
 
             this.t2 = 0; // Therefore we'll make a triangle instead of a trapezoid
-            vMax = Math.signum(d) * Math.sqrt(aMax * d + this.v0 * this.v0 / 2); // And set our vMax accordingly
+            vMax = Math.signum(vMax) * Math.sqrt(aMax * d + this.v0 * this.v0 / 2); // And set our vMax accordingly
             this.t1 = (vMax - this.v0) / this.m1; // Recalculate times
             this.t3 = -vMax / this.m2;
 
@@ -97,21 +99,21 @@ public class PIDAndrew {
         if (t <= this.t1) { // If we are in the first leg
             double t0 = 0; // Then initial time of this leg is just 0
             return this.p0 + this.getPathSpeed(t0) * t + this.getPathAccel(t0) * t * t / 2; // Then we use this well known formula
-                                                                                            // In physics its usually 1/2at^2 + v_0*t + x_0
+            // In physics its usually 1/2at^2 + v_0*t + x_0
         } else if (t <= this.t1 + this.t2) { // If we are in the second leg
             double t0 = this.t1; // Then initial time of this leg is the end of the last
             double dt = t - this.t1; // And our current time is relative to the end of the last leg's
             return this.getPathPosition(t0) + this.getPathSpeed(t0) * dt + this.getPathAccel(t0) * dt * dt / 2;
-                    // Get the position at the end of last leg, and add onto it using the normal formula
+            // Get the position at the end of last leg, and add onto it using the normal formula
         } else if (t <= this.t1 + this.t2 + this.t3) { // If we are in the third leg
             double t0 = this.t1 + this.t2; // Same exact deal as in the second leg
             double dt = t - this.t1 - this.t2;
             return this.getPathPosition(t0) + this.getPathSpeed(t0) * dt + this.getPathAccel(t0) * dt * dt / 2;
         } else { // If we are past the third leg
             return this.getPathPosition(this.t1 + this.t2 + this.t3);   // Just maintain the position
-                                                                        // Fun trivia: Adam forgot to do this in his motion planning 
-                                                                        // library (can't remember if it was Scadlib or just trapezoids),
-                                                                        // and it resulted in robot crashing into things LMAO
+            // Fun trivia: Adam forgot to do this in his motion planning
+            // library (can't remember if it was Scadlib or just trapezoids),
+            // and it resulted in robot crashing into things LMAO
         }
     }
 
@@ -121,8 +123,8 @@ public class PIDAndrew {
     private double getPathSpeed(double t) {
         if (t <= this.t1) { // This method is almost the same as getPathPosition
             return this.v0 + this.getPathAccel(0) * t;
-                    // Only difference is we use v = a*t + v_0
-                    // because we want the velocity (all of these formula assume acceleration is constant, which is true for each leg)
+            // Only difference is we use v = a*t + v_0
+            // because we want the velocity (all of these formula assume acceleration is constant, which is true for each leg)
         } else if (t <= this.t1 + this.t2) {
             return getPathSpeed(this.t1);
         } else if (t <= this.t1 + this.t2 + this.t3) {
@@ -155,9 +157,9 @@ public class PIDAndrew {
     }
 
     /**
-     * Given the current position and speed of the sensor, and the target (where we want the sensor to be), 
+     * Given the current position and speed of the sensor, and the target (where we want the sensor to be),
      * compute the motor power using PIDF and the trapezoidal velocity curve.
-     * 
+     *
      * This method recomputes the motion profile every time it's called, which might be better than setting it once
      * at the beginning? I'm not sure, testing is required.
      */
@@ -173,8 +175,8 @@ public class PIDAndrew {
         double deltaError = 0;
 
         if (dt != 0) { // check for divide by 0
-            deltaError = (error - lastError) / dt;  // delta error should be in units of units/time, otherwise a fluctuating 
-                                                    // time step will cause delta error to change
+            deltaError = (error - lastError) / dt;  // delta error should be in units of units/time, otherwise a fluctuating
+            // time step will cause delta error to change
         }
 
         lastError = error;
@@ -198,9 +200,9 @@ public class PIDAndrew {
     }
 
     /**
-     * Given the current position and speed of the sensor, and the target (where we want the sensor to be), 
+     * Given the current position and speed of the sensor, and the target (where we want the sensor to be),
      * compute the motor power using PIDF and the trapezoidal velocity curve.
-     * 
+     *
      * This method does not recompute the motion profile every time it's called, unlike the OTHER getMotorPower.
      */
     public double getMotorPower(double currentPosition, double currentSpeed) {
