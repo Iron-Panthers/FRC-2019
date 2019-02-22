@@ -12,6 +12,7 @@ import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.GearState;
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
+import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,8 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * drivebase motors.
  */
 public class Drive extends Subsystem {
-	private MotorGroup left = Robot.hardware.leftDriveMotors;
-	private MotorGroup right = Robot.hardware.rightDriveMotors;
+	private SparkMaxMotorGroup left = Robot.hardware.leftDriveMotors;
+	private SparkMaxMotorGroup right = Robot.hardware.rightDriveMotors;
 	public DoubleSolenoid gearShift = Robot.hardware.gearShift;
 	public GearState state;
 	public boolean isReversed;
@@ -68,12 +69,12 @@ public class Drive extends Subsystem {
 		right.stop();
 	}
 
-	public int getLeftEncoderTicks() {
-		return left.getMasterMotor().getSelectedSensorPosition();
+	public double getLeftEncoderRevolutions() {
+		return left.getEncoderPosition();
 	}
 
-	public int getRightEncoderTicks() {
-		return right.getMasterMotor().getSelectedSensorPosition();
+	public double getRightEncoderRevolutions() {
+		return right.getEncoderPosition();
 	}
 
 	@Override

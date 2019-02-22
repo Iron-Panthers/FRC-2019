@@ -126,4 +126,11 @@ public class SparkMaxMotorGroup {
 	public double getAppliedOutput() {
 		return masterMotor.getAppliedOutput();
 	}
+
+	/**
+	 * @return the encoder position in revolutions of the encoder.
+	 */
+	public double getEncoderPosition() {
+		return masterMotor.getEncoder().getPosition();
+	}
 }
