@@ -39,8 +39,16 @@ public class PIDAndrew {
      */
     private void setTarget(double d) {
         if (CRUISE_SPEED == 0 || MAX_ACCEL == 0) { // If either of these are 0, we can't ever go anywhere
-            throw new IllegalArgumentException();
+            return;    
+            //throw new IllegalArgumentException();
         }
+
+        // Save path if we need to reset to it
+        double t1O = this.t1;
+        double t2O = this.t2;
+        double t3O = this.t3;
+        double m1O = this.m1;
+        double m2O = this.m2;
 
         double aMax = MAX_ACCEL * Math.signum(d); // The maximum acceleration is generally the same sign as the distance
         double vMax = CRUISE_SPEED * Math.signum(d); // See above
@@ -87,8 +95,14 @@ public class PIDAndrew {
 
         }
 
-        if (this.t1 < 0 || this.t2 < 0 || this.t3 < 0) { // TODO: Remove this, only needed for testing
-            throw new IllegalArgumentException();
+        if (this.t1 < 0 || this.t2 < 0 || this.t3 < 0) {
+            this.t1 = t1O; // Reset the path if new path failed to generate
+            this.t2 = t2O;
+            this.t3 = t3O;
+            this.m1 = m1O;
+            this.m2 = m2O;
+            return;
+            // throw new IllegalArgumentException();
         }
 
         this.startTime = System.currentTimeMillis(); // Make current time be t = 0
