@@ -71,7 +71,9 @@ public class Hardware {
 		leftDriveMotors = new SparkMaxMotorGroup("Left Drive Motor Group", driveLeft1, driveLeft2);
 
 		rightDriveMotors.setIdleMode(IdleMode.kBrake);
+		rightDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
 		leftDriveMotors.setIdleMode(IdleMode.kBrake);
+		leftDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
 
 		/* Gyro */
 		gyroTestMotor = new TalonSRX(5);

@@ -113,6 +113,19 @@ public class SparkMaxMotorGroup {
 	}
 
 	/**
+	 * Sets the ramp rate for open loop control modes. This is the maximum rate at
+	 * which the motor controller's output is allowed to change.
+	 * 
+	 * @param rate Time in seconds to go from 0 to full throttle.
+	 */
+	public void setOpenLoopRampRate(double rate) {
+		masterMotor.setOpenLoopRampRate(rate);
+		for (CANSparkMax motor : this.motors) {
+			motor.setOpenLoopRampRate(rate);
+		}
+	}
+
+	/**
 	 * @return the master motor of the MotorGroup.
 	 */
 	public CANSparkMax getMasterMotor() {

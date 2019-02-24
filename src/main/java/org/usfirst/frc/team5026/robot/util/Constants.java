@@ -25,7 +25,8 @@ public class Constants {
         public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
                                                                    // the front
         public static final double TURN_SENSITIVITY = 1;
-        public static final double RADIAL_TURN_SENSITIVITY = 20;
+		public static final double RADIAL_TURN_SENSITIVITY = 20;
+		public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
 
         // Motion Profiling PID (For Velocity)
         public static final double F = 0; // TODO Find max velocity
