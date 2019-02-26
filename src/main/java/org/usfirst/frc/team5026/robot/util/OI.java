@@ -90,7 +90,7 @@ public class OI {
         reverseDrive.whileHeld(new ReverseDrive());
         shiftGearLow.whileHeld(new DriveShift());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
-        climbUp.whileHeld(new ClimbUp());
+        climbUp.whileHeld(new ManualClimbUpSeq());
         deployTrainingWheels.whenPressed(new DeployTrainingWheels());
         climbDown.whileHeld(new ClimbDown());
         retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
