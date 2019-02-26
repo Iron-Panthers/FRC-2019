@@ -21,6 +21,7 @@ public class FinishClimb extends CommandGroup {
 	 */
 	public FinishClimb() {
 		addSequential(new ClimbUpTo(Constants.Climb.CLIMB_THIRD_TARGET));
+		addSequential(new GoAllTheWayBabyyyy());
 		addSequential(new TrainingWheelDriveForwardForTime(Constants.Climb.TRAINING_WHEEL_DRIVE_TIME));
 		addSequential(new ClimbDownTo(Constants.Climb.CLIMB_FINAL_TARGET)); // When the robot climbs down past the
 																			// platform when it is contacting it, that

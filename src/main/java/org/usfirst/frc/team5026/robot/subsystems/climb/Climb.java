@@ -51,6 +51,7 @@ public class Climb extends Subsystem {
 			// Stop climbing, and indicate the climb has stopped
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
+			this.climbMotors.getMasterMotor().setEncPosition(Constants.Climb.TOP_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
@@ -88,6 +89,7 @@ public class Climb extends Subsystem {
 		if (this.bottomLimitSwitch.get()) {
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
+			Robot.climb.climbMotors.getMasterMotor().getEncoder().setPosition(0.0);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
@@ -139,6 +141,22 @@ public class Climb extends Subsystem {
 	 */
 	public void retractTrainingWheels() {
 		trainingWheelPiston.set(DoubleSolenoid.Value.kForward);
+	}
+
+	/**
+	 * climb with a specified power
+	 * @param power the power which the climb subsystem will be set to.
+	 */
+	public void climbWithPower(double power) {
+		// If the climb limit switch is triggered
+		if (this.topLimitSwitch.get()) {
+			// Stop climbing, and indicate the climb has stopped
+			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
+			this.stopClimb();
+		} else {
+			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
+			climbMotors.set(power);
+		}
 	}
 
 	@Override

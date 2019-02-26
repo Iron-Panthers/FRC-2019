@@ -58,6 +58,9 @@ public class Constants {
         public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11;
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
+        public static final int CLIMB_SETUP_BUTTON = 12;
+        public static final int CLIMB_FINISH_BUTTON = 12;
+        public static final int CANCEL_CLIMB_BUTTON = 12;
 
         // Driver B
         // Manual Arm
@@ -161,8 +164,8 @@ public class Constants {
         public static final double CLIMB_SECOND_TARGET = 6.0; // The target of rotations needed where the ramps fall to
                                                               // the ground. THIS IS IN ROTATIONS, NOT ENCODER TICKS.
                                                               // TODO: Test Value
-        public static final double CLIMB_THIRD_TARGET = 12.0; // The target of roataions needed to get onto the 3rd
-                                                              // level platform. THIS IS IN ROTATIONS, NOT ENCODER
+        public static final double CLIMB_THIRD_TARGET = 12.0; // The target of roataions needed to get to the soft
+                                                              // limit. THIS IS IN ROTATIONS, NOT ENCODER
                                                               // TICKS. TODO: Test Value
         public static final double CLIMB_FINAL_TARGET = 4.0; // The target of rotations needed to get the super
                                                              // structure off the ground when the robot is on the
@@ -171,5 +174,12 @@ public class Constants {
         public static final double TRAINING_WHEEL_DRIVE_TIME = 3.0; // The number of seconds that the robot training
                                                                     // wheels drive forward to move onto the platform.
                                                                     // TODO: Test Value
+        public static final double END_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
+                                                                  // at the end of the climb, used to determine climbing
+                                                                  // power
+        public static final double TOP_ENCODER_VALUE = 13.0; // The rotaions measured at the top of the climb. used for
+                                                             // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
+                                                             // TICKS. TODO: Find Value
+
     }
 }

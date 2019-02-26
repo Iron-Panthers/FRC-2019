@@ -101,6 +101,7 @@ public class Hardware {
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
 		climbMotors = new SparkMaxMotorGroup(rightMotor3, leftMotor2, leftMotor3, rightMotor1, rightMotor2, leftMotor1);
+		climbMotors.getMasterMotor().getEncoder().setPosition(0.0);
 		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor3.setInverted(Constants.Climb.IS_LEFT_INVERTED);
