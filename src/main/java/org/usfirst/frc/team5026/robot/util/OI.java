@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbUp;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.DeployTrainingWheels;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ExtendSuperStructurePistons;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.FinishClimb;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ManualClimbUpSeq;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStructurePistons;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.SetupClimb;
