@@ -12,11 +12,12 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GoAllTheWayBabyyyy extends Command {
+public class ClimbUpTheLastPart extends Command {
+  private double startMeasuredVelocity;
     /**
    * climbs the robot all the way up to the hard limit after it passes the encoder position specified for ClimbUpTo
    */
-  public GoAllTheWayBabyyyy() {
+  public ClimbUpTheLastPart() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.climb);
@@ -25,12 +26,13 @@ public class GoAllTheWayBabyyyy extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    startMeasuredVelocity = Robot.climb.climbMotors.getMasterMotor().getEncoder().getVelocity();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climb.climbWithPower(Constants.Climb.END_CLIMB_POWER_SCALAR/Robot.climb.climbMotors.getMasterMotor().getEncoder().getVelocity());
+    Robot.climb.climbWithPower(Constants.Climb.END_TOP_CLIMB_POWER_SCALAR/startMeasuredVelocity);
   }
 
   // Make this return true when this Command no longer needs to run execute()

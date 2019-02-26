@@ -21,6 +21,6 @@ public class ManualClimbUpSeq extends CommandGroup {
 	 */
 	public ManualClimbUpSeq() {
 		addSequential(new ClimbUpTo(Constants.Climb.CLIMB_THIRD_TARGET));
-		addSequential(new GoAllTheWayBabyyyy());
+		addSequential(new ClimbUpTheLastPart());
 	}
 }
