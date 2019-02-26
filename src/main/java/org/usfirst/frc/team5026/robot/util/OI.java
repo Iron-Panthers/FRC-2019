@@ -80,9 +80,9 @@ public class OI {
         retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
         trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
         trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
-        setupClimb = new JoystickButton(stick1, Constants.Input.CLIMB_SETUP_BUTTON);
-        finishClimb = new JoystickButton(stick1, Constants.Input.CLIMB_FINISH_BUTTON);
-        cancelClimb = new JoystickButton(stick1, Constants.Input.CANCEL_CLIMB_BUTTON);
+        setupClimb = new JoystickButton(stick2, Constants.Input.CLIMB_SETUP_BUTTON);
+        finishClimb = new JoystickButton(stick2, Constants.Input.CLIMB_FINISH_BUTTON);
+        cancelClimb = new JoystickButton(stick2, Constants.Input.CANCEL_CLIMB_BUTTON);
 
         trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
         trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
