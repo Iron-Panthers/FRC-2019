@@ -58,9 +58,7 @@ public class Constants {
         public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11;
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
-        public static final int CLIMB_SETUP_BUTTON = 12;
-        public static final int CLIMB_FINISH_BUTTON = 12;
-        public static final int CANCEL_CLIMB_BUTTON = 12;
+       
 
         // Driver B
         // Manual Arm
@@ -82,6 +80,9 @@ public class Constants {
         public static final double HORIZONTAL_BOWTIE_DEADZONE_SLOPE = 10;
         public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
         public static final double MAX_DESIRED_TURN_RADIUS = 40;
+        public static final int CLIMB_SETUP_BUTTON = 4;
+        public static final int CLIMB_FINISH_BUTTON = 5;
+        public static final int CANCEL_CLIMB_BUTTON = 6;
     }
 
     public class Camera {
