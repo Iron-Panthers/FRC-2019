@@ -70,9 +70,6 @@ public class OI {
         stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
         reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
         shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
-        // findF = new JoystickButton(stick1, Constants.Input.FIND_F_BUTTON);
-        // turnLeft = new JoystickButton(stick1, Constants.Input.TURN_LEFT_BUTTON);
-        // turnRight = new JoystickButton(stick1, Constants.Input.TURN_RIGHT_BUTTON);
         extendSuperStructurePistons = new JoystickButton(stick1, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
         climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
         deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEEL_BUTTON);

@@ -46,17 +46,15 @@ public class Constants {
         // Driver A
         public static final int REVERSE_DRIVE_BUTTON = 1;
         public static final int SHIFT_GEAR_LOW_BUTTON = 2;
-        public static final int TURN_LEFT_BUTTON = 9; // DO NOT USE
-        public static final int TURN_RIGHT_BUTTON = 10; // DO NOT USE
-        public static final int FIND_F_BUTTON = 13; // DO NOT USE
+
         // Climb
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;
-        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7;
+        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
         public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
         public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 10;
-        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11;
+        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
        
 
@@ -73,6 +71,9 @@ public class Constants {
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
+        public static final int CLIMB_SETUP_BUTTON = 4;
+        public static final int CLIMB_FINISH_BUTTON = 5;
+        public static final int CANCEL_CLIMB_BUTTON = 6;
 
         /** OTHER INPUT CONSTANTS */
         public static final double JOYSTICK_DEADBAND = 0.1;
@@ -80,9 +81,7 @@ public class Constants {
         public static final double HORIZONTAL_BOWTIE_DEADZONE_SLOPE = 10;
         public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
         public static final double MAX_DESIRED_TURN_RADIUS = 40;
-        public static final int CLIMB_SETUP_BUTTON = 4;
-        public static final int CLIMB_FINISH_BUTTON = 5;
-        public static final int CANCEL_CLIMB_BUTTON = 6;
+       
     }
 
     public class Camera {
