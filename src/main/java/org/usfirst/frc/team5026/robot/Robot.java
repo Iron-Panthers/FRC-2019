@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
+import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.util.NetworkTableReader;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -36,6 +38,8 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static Climb climb;
 
+	public static NetworkTableReader tableReader; // for testing
+
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -57,6 +61,8 @@ public class Robot extends TimedRobot {
 
 		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
+
+		tableReader = new NetworkTableReader(Constants.Camera.JETSON_STATIC_IP, 1234, "name"); // for testing, change parameters
 	}
 
 	/**

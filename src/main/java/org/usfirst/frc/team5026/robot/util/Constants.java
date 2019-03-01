@@ -91,6 +91,8 @@ public class Constants {
         public static final int CAMERA_HEIGHT = 144;
         public static final int CAMERA_WIDTH = 256;
         public static final int FRAME_RATE = 15;
+
+        public static final String JETSON_STATIC_IP = "10.50.26.19";
     }
 
     public class IntakeArm {
