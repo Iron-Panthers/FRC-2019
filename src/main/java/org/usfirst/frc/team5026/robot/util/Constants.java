@@ -93,6 +93,7 @@ public class Constants {
         public static final int FRAME_RATE = 15;
 
         public static final String JETSON_STATIC_IP = "10.50.26.19";
+        public static final String JETSON_NETTABLE_NAME = "CVResultsTable";
     }
 
     public class IntakeArm {

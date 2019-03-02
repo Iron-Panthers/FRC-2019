@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,7 +40,7 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static Climb climb;
 
-	public static NetworkTableReader tableReader; // for testing
+	public static NetworkTable jetsonTable; // for testing
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -62,7 +64,7 @@ public class Robot extends TimedRobot {
 		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
 
-		tableReader = new NetworkTableReader(Constants.Camera.JETSON_STATIC_IP, 1234, "name"); // for testing, change parameters
+		jetsonTable = NetworkTableInstance.getDefault().getTable(Constants.Camera.JETSON_NETTABLE_NAME);
 	}
 
 	/**
@@ -89,6 +91,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		String res = jetsonTable.getEntry("VisionResults").getString("NOPE");
+		SmartDashboard.putString("VisionResutlts", res);
 		Scheduler.getInstance().run();
 	}
 

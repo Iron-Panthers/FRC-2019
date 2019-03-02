@@ -10,6 +10,7 @@ package org.usfirst.frc.team5026.robot.util;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Reads from a single network table on a given ip and port.
@@ -19,10 +20,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class NetworkTableReader {
     private NetworkTable table;
 
-    public NetworkTableReader(String ip, int port, String tableName) {
+    public NetworkTableReader(String tableName) {
         NetworkTableInstance instance = NetworkTableInstance.getDefault();
         
-        instance.setServer(ip, port);
         table = instance.getTable(tableName);
     }
 
