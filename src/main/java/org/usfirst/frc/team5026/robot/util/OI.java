@@ -21,8 +21,7 @@ public class OI {
 
 	public OI() {
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
-		AlignmentSequence alignmentSequence = new AlignmentSequence();
 		button1 = new JoystickButton(stick1, 1);
-		button1.toggleWhenPressed(alignmentSequence);
+		button1.toggleWhenPressed(new AlignmentSequence());
 	}
 }

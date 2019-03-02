@@ -35,11 +35,12 @@ public class FollowLine extends Command {
 		// 5 is the max output voltage for the sensors
 		double leftSensorValue = Robot.hardware.driveRight1.getSelectedSensorPosition() * Constants.LineFollow.SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION;
 		double rightSensorValue = Robot.hardware.frontLightSensorRight.getVoltage();
-		double centerSensorValue = Robot.hardware.centerLightSensor.getVoltage();
+		double centerLeftSensorValue = Robot.hardware.centerLeftLightSensor.getVoltage();
+		double centerRightSensorValue = Robot.hardware.centerRightLightSensor.getVoltage();
 
-		double leftMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * centerSensorValue
+		double leftMPower = Constants.LineFollow.LINEFOLLOW_INNER_REACTION_POWER * (centerLeftSensorValue + -centerRightSensorValue)
 				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (leftSensorValue + -rightSensorValue);
-		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_POWER * centerSensorValue
+		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_REACTION_POWER * (centerRightSensorValue + centerLeftSensorValue)
 				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (-leftSensorValue + rightSensorValue);
 		Robot.drive.set(leftMPower, rightMPower);
 

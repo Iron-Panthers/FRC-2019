@@ -46,7 +46,7 @@ public class Constants {
 		//driving right or left based on the  outer sensor's values
         public static final double ACCEPTABLE_STRAIGHTNESS = .25; //not currently in use
         
-        public static final double LINEFOLLOW_INNER_POWER = 1; // the weight that the robot gives to
+        public static final double LINEFOLLOW_INNER_REACTION_POWER = 1; // the weight that the robot gives to
 		//driving straight based on the center sensor's value
 	}
 

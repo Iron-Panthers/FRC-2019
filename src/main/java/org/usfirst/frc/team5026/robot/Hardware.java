@@ -30,7 +30,9 @@ public class Hardware {
 	/** Motors/sensors for other subsystems will go down here */
 
 	// Line Follow
-	public AnalogInput centerLightSensor;
+	public AnalogInput centerLeftLightSensor;
+	public AnalogInput centerRightLightSensor;
+
     public AnalogInput backLightSensorRight;
     public AnalogInput backLightSensorLeft;
     public AnalogInput frontLightSensorRight;
@@ -56,8 +58,9 @@ public class Hardware {
         frontLightSensorRight = new AnalogInput(Constants.LineFollow.FRONT_RIGHT_SENSOR_PORT);
         // backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
         // backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
-		centerLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
-		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLightSensor, frontLightSensorRight);
+		centerLeftLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
+		centerRightLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
+		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLeftLightSensor, frontLightSensorRight);
 	}
 }
         
