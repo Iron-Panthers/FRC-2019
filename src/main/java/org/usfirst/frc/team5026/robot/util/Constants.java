@@ -28,12 +28,12 @@ public class Constants {
         public static final double RADIAL_TURN_SENSITIVITY = 20;
 
         // Motion Profiling PID (For Velocity)
-        public static final double F = 1/52000.0; // Practice Bot max v = 52000 ticks per second
+        public static final double F = 1/9.09; // TODO Practice Bot max v = 9.09 rotations per second, probably not accurate... test some more
         public static final double P = 0; // TODO Tune
         public static final double I = 0;
         public static final double D = 0;
-        public static final int DRIVE_CRUISE_VELOCITY = 50000; // ticks per second
-		public static final int DRIVE_ACCELERATION = 100000; // ticks per second per second TODO Tune
+        public static final double DRIVE_CRUISE_VELOCITY = 9.09; // Rotations per second
+		public static final double DRIVE_ACCELERATION = 18.18; // Rotations per second per second TODO Tune
 
         public static final double WHEEL_DIAMETER = 5.9;
     	public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;

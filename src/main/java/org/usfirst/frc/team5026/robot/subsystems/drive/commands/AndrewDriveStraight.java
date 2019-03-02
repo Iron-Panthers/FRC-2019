@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -21,14 +21,14 @@ public class AndrewDriveStraight extends Command {
   private PIDAndrew pidAndrew = new PIDAndrew(0, 0, 0, Constants.Drivebase.F);
   private double distance;
   private double target;
-  private TalonSRX encoderMotor = Robot.hardware.driveRight1;
+  private CANSparkMax encoderMotor = Robot.hardware.driveRight1;
 
   /**
    * Give distance in inches
    */
   public AndrewDriveStraight(double distance) {
     requires(Robot.drive);
-    this.distance = distance * Constants.Drivebase.INCHES_TO_TICKS;
+    this.distance = distance / Constants.Drivebase.WHEEL_CIRCUMFERENCE;//Distance in number of revolutions because that's how Sparks read distance
     pidAndrew.setCruiseSpeed(Constants.Drivebase.DRIVE_CRUISE_VELOCITY);
     pidAndrew.setMaxAccel(Constants.Drivebase.DRIVE_ACCELERATION);
   }
@@ -36,15 +36,15 @@ public class AndrewDriveStraight extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    this.target = this.distance + this.encoderMotor.getSelectedSensorPosition();
+    this.target = this.distance + this.encoderMotor.getEncoder().getPosition();
     pidAndrew.reset();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double currentPos = this.encoderMotor.getSelectedSensorPosition();
-    double currentSpeed = this.encoderMotor.getSelectedSensorVelocity()*10; // multiply by 10 to account for `per 100 ms to per second` conversion
+    double currentPos = this.encoderMotor.getEncoder().getPosition();
+    double currentSpeed = this.encoderMotor.getEncoder().getVelocity() * 60; // multiply by 60 to account for `per second to per minute` conversion
     double power = pidAndrew.getMotorPower(currentPos, currentSpeed, this.target);
     Robot.drive.set(power);
 

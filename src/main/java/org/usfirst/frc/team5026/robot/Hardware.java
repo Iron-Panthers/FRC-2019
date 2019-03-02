@@ -67,8 +67,8 @@ public class Hardware {
 		driveRight1.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 		driveLeft1.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 
-		rightDriveMotors = new SparkMaxMotorGroup(driveRight1, driveRight2);
-		leftDriveMotors = new SparkMaxMotorGroup(driveLeft1, driveLeft2);
+		rightDriveMotors = new SparkMaxMotorGroup("Right Drive Motors", driveRight1, driveRight2);
+		leftDriveMotors = new SparkMaxMotorGroup("Left Drive Motors", driveLeft1, driveLeft2);
 
 		rightDriveMotors.setIdleMode(IdleMode.kBrake);
 		leftDriveMotors.setIdleMode(IdleMode.kBrake);
@@ -94,7 +94,7 @@ public class Hardware {
 		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
-		climbMotors = new SparkMaxMotorGroup(rightMotor3, leftMotor2, leftMotor3, rightMotor1, rightMotor2, leftMotor1);
+		climbMotors = new SparkMaxMotorGroup("Climb Motors", rightMotor3, leftMotor2, leftMotor3, rightMotor1, rightMotor2, leftMotor1);
 		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor3.setInverted(Constants.Climb.IS_LEFT_INVERTED);
