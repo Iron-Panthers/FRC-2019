@@ -96,7 +96,8 @@ public class Hardware {
 		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
-		climbMotors = new SparkMaxMotorGroup("Climb Motor Group", rightMotor3, leftMotor2, leftMotor3, rightMotor1, rightMotor2, leftMotor1);
+		climbMotors = new SparkMaxMotorGroup("Climb Motor Group", rightMotor3, leftMotor2, leftMotor3, rightMotor1,
+				rightMotor2, leftMotor1);
 		climbMotors.getMasterMotor().getEncoder().setPosition(0.0);
 		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
@@ -105,8 +106,12 @@ public class Hardware {
 		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
-		forwardLimit = new DigitalInput(0); // rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-		reverseLimit = new DigitalInput(1); // rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		forwardLimit = new DigitalInput(0); // Limit Switch on the side of the robot, hits when robot climbs all the way
+											// up (elevator down all the way) //
+											// rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		reverseLimit = new DigitalInput(1); // Limit Switch nearest to the training wheels, hits when robot climbs down
+											// all the way (elevator up all the way) //
+											// rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
