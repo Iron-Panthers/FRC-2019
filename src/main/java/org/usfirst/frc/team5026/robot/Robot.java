@@ -145,7 +145,9 @@ public class Robot extends TimedRobot {
 		System.out.println("adjusted left: " + hardware.driveRight1.getSelectedSensorPosition() * Constants.LineFollow.SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION );
 
 		System.out.println("right: " + hardware.frontLightSensorRight.getVoltage());
-		System.out.println("center: " + hardware.centerLightSensor.getVoltage());
+		System.out.println("center left: " + hardware.centerLeftLightSensor.getVoltage());
+		System.out.println("center right: " + hardware.centerRightLightSensor.getVoltage());
+
 		
 		Scheduler.getInstance().run();
 	}

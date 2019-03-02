@@ -10,8 +10,8 @@ public class Constants {
 	// TODO adjust drivebase constants
 	public class Drivebase {
 		/** DRIVEBASE PORTS */
-		public static final int DRIVE_R1_PORT = 2;
-		public static final int DRIVE_R2_PORT = 2; // SPX
+		public static final int DRIVE_R1_PORT = 9;
+		public static final int DRIVE_R2_PORT = 9; // SPX
 		public static final int DRIVE_L1_PORT = 1;
 		public static final int DRIVE_L2_PORT = 1; // SPX
 
@@ -25,11 +25,13 @@ public class Constants {
 
 	public class LineFollow {
 		// LINEFOLLOW Ports
-		public static final int FRONT_LEFT_SENSOR_PORT = 1;
+		public static final int FRONT_LEFT_SENSOR_PORT = 3;
 		public static final int FRONT_RIGHT_SENSOR_PORT = 0;
 		// public static final int BACK_LEFT_SENSOR_PORT = 2;
 		// public static final int BACK_RIGHT_SENSOR_PORT = 3;
-		public static final int CENTER_SENSOR_PORT = 2;
+		public static final int CENTER_LEFT_SENSOR_PORT = 2;
+		public static final int CENTER_RIGHT_SENSOR_PORT = 1;
+
 
 		// LINEFOLLOW CONSTANTS
 		public static final double SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION = -.225 / 37.0;// the ratio between the values returned by

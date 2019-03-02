@@ -58,8 +58,8 @@ public class Hardware {
         frontLightSensorRight = new AnalogInput(Constants.LineFollow.FRONT_RIGHT_SENSOR_PORT);
         // backLightSensorLeft = new AnalogInput(Constants.LineFollow.BACK_LEFT_SENSOR_PORT);
         // backLightSensorRight = new AnalogInput(Constants.LineFollow.BACK_RIGHT_SENSOR_PORT);
-		centerLeftLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
-		centerRightLightSensor = new AnalogInput(Constants.LineFollow.CENTER_SENSOR_PORT);
+		centerLeftLightSensor = new AnalogInput(Constants.LineFollow.CENTER_LEFT_SENSOR_PORT);
+		centerRightLightSensor = new AnalogInput(Constants.LineFollow.CENTER_RIGHT_SENSOR_PORT);
 		lightSensors = new LightSensorGroup(5, frontLightSensorLeft, centerLeftLightSensor, frontLightSensorRight);
 	}
 }

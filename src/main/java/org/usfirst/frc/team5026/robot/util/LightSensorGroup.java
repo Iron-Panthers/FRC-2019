@@ -16,7 +16,7 @@ public class LightSensorGroup {
     private AnalogInput[] rightSensors;
 
     private double sideWeight = Constants.LineFollow.LINEFOLLOW_REACTION_POWER;
-    private double centerWeight = Constants.LineFollow.LINEFOLLOW_INNER_POWER;
+    private double centerWeight = Constants.LineFollow.LINEFOLLOW_INNER_REACTION_POWER;
 
     private double maxValue;
 
