@@ -10,10 +10,10 @@ public class Constants {
     // TODO adjust drivebase constants
     public class Drivebase {
         /** DRIVEBASE PORTS */
-        public static final int DRIVE_R1_PORT = 1;
-        public static final int DRIVE_R2_PORT = 21; // SPX
-        public static final int DRIVE_L1_PORT = 2;
-        public static final int DRIVE_L2_PORT = 22; // SPX
+        public static final int DRIVE_R1_PORT = 1;	// SparkMax
+        public static final int DRIVE_R2_PORT = 21; // See Above
+        public static final int DRIVE_L1_PORT = 2;	// See Above
+        public static final int DRIVE_L2_PORT = 22; // See Above
 
         public static final int GEAR_SHIFT_PORT_1 = 6;
         public static final int GEAR_SHIFT_PORT_2 = 7;
@@ -25,7 +25,8 @@ public class Constants {
         public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
                                                                    // the front
         public static final double TURN_SENSITIVITY = 1;
-        public static final double RADIAL_TURN_SENSITIVITY = 20;
+		public static final double RADIAL_TURN_SENSITIVITY = 20;
+		public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
 
         // Motion Profiling PID (For Velocity)
         public static final double F = 0; // TODO Find max velocity
