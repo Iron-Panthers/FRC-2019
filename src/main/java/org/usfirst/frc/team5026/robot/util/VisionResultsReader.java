@@ -23,11 +23,11 @@ public class VisionResultsReader {
     public String dataString;
 
     // Vision data
-    public int timeStamp;
+    public long timeStamp;
     public boolean valid;
-    public int x;
-    public int y;
-    public int theta;
+    public double x;
+    public double y;
+    public double theta;
 
     public VisionResultsReader(String tableName) {
         table = NetworkTableInstance.getDefault().getTable(tableName);
@@ -40,11 +40,14 @@ public class VisionResultsReader {
     public void updateResults() {
         dataString = table.getEntry(Constants.Camera.VISION_RESULTS_KEY).getString("NOPE");
         String[] splitData = dataString.split(",");
-        timeStamp = Integer.parseInt(splitData[0]);
+        if(splitData.length != 5) {
+            return;
+        }
+        timeStamp = Long.parseLong(splitData[0]);
         valid = Integer.parseInt(splitData[1]) == 0 ? false : true;
-        x = Integer.parseInt(splitData[2]);
-        y = Integer.parseInt(splitData[3]);
-        theta = Integer.parseInt(splitData[4]);
+        x = Double.parseDouble(splitData[2]);
+        y = Double.parseDouble(splitData[3]);
+        theta = Double.parseDouble(splitData[4]);
     }
 
     public void putToDashboard() {
