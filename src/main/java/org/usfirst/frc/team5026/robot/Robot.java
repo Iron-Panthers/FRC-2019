@@ -14,7 +14,7 @@ import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.Constants;
-import org.usfirst.frc.team5026.robot.util.NetworkTableReader;
+import org.usfirst.frc.team5026.robot.util.VisionResultsReader;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -40,7 +40,8 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	public static Climb climb;
 
-	public static NetworkTable jetsonTable; // for testing
+	// public static NetworkTable jetsonTable; // for testing
+	public static VisionResultsReader visionReader;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -64,7 +65,8 @@ public class Robot extends TimedRobot {
 		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
 
-		jetsonTable = NetworkTableInstance.getDefault().getTable(Constants.Camera.JETSON_NETTABLE_NAME);
+		// jetsonTable = NetworkTableInstance.getDefault().getTable(Constants.Camera.JETSON_NETTABLE_NAME);
+		visionReader = new VisionResultsReader(Constants.Camera.JETSON_NETTABLE_NAME);
 	}
 
 	/**
@@ -91,8 +93,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		String res = jetsonTable.getEntry("VisionResults").getString("NOPE");
-		SmartDashboard.putString("VisionResutlts", res);
+		// String res = jetsonTable.getEntry("VisionResults").getString("NOPE");
+		visionReader.updateResults();
+		visionReader.putToDashboard();
 		Scheduler.getInstance().run();
 	}
 

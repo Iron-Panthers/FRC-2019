@@ -94,6 +94,7 @@ public class Constants {
 
         public static final String JETSON_STATIC_IP = "10.50.26.19";
         public static final String JETSON_NETTABLE_NAME = "CVResultsTable";
+        public static final String VISION_RESULTS_KEY = "VisionResults";
     }
 
     public class IntakeArm {
