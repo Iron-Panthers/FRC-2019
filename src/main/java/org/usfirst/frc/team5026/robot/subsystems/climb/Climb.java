@@ -89,7 +89,7 @@ public class Climb extends Subsystem {
 		if (this.bottomLimitSwitch.get()) {
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
-			Robot.climb.climbMotors.getMasterMotor().getEncoder().setPosition(0.0);
+			Robot.climb.climbMotors.getMasterMotor().getEncoder().setPosition(Constants.Climb.BOTTOM_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);

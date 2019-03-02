@@ -154,8 +154,8 @@ public class Constants {
         public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
-        public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety
-        public static final double CLIMB_DOWN_SPEED = -0.25; // See above
+        public static final double CLIMB_UP_SPEED = 1; // Cannot be higher without limit switches for safety
+        public static final double CLIMB_DOWN_SPEED = 1; // See above
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 0.3;
         public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
@@ -183,6 +183,7 @@ public class Constants {
         public static final double TOP_ENCODER_VALUE = 13.0; // The rotaions measured at the top of the climb. used for
                                                              // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
                                                              // TICKS. TODO: Find Value
+        public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
 
     }
 }
