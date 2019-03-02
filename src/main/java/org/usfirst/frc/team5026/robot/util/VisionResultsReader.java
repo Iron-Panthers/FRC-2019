@@ -8,14 +8,11 @@
 package org.usfirst.frc.team5026.robot.util;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Reads from a single network table on a given ip and port.
- * 
- * All the methods that get specific values from the table just exist for reasons.
+ * Reads from a given table, expecting a comma-separated list of vision data.
  */
 public class VisionResultsReader {
 
@@ -29,6 +26,9 @@ public class VisionResultsReader {
     public double y;
     public double theta;
 
+    /**
+     * Creates a new VisionResultsReader for the given table.
+     */
     public VisionResultsReader(String tableName) {
         table = NetworkTableInstance.getDefault().getTable(tableName);
     }
@@ -38,11 +38,17 @@ public class VisionResultsReader {
      * The data should have exactly five data points.
      */
     public void updateResults() {
+        // Get the entry at the Camera key. If null, value defaults to "NOPE"
         dataString = table.getEntry(Constants.Camera.VISION_RESULTS_KEY).getString("NOPE");
+
+        // Split the data at all commas
         String[] splitData = dataString.split(",");
-        if(splitData.length != 5) {
+
+        // If we do not have all the required data, no need to continue
+        if (splitData.length != 5) {
             return;
         }
+
         timeStamp = Long.parseLong(splitData[0]);
         valid = Integer.parseInt(splitData[1]) == 0 ? false : true;
         x = Double.parseDouble(splitData[2]);
@@ -50,6 +56,9 @@ public class VisionResultsReader {
         theta = Double.parseDouble(splitData[4]);
     }
 
+    /**
+     * Puts the vision information to the dashboard. Does not update the results.
+     */
     public void putToDashboard() {
         SmartDashboard.putString("VisionResults", dataString);
         SmartDashboard.putNumber("VisionTimestamp", timeStamp);
