@@ -120,7 +120,7 @@ public class Constants {
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
-        public static final double INTAKE_ARM_P = 0.25;
+        public static final double INTAKE_ARM_P = 0.2;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
         public static final double ERROR_TOLERANCE = 3; // degrees
@@ -129,7 +129,7 @@ public class Constants {
 
         // INTAKE
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
-        public static final double OUTTAKE_POWER = -1;
+        public static final double OUTTAKE_POWER = -0.7;
     }
 
     public class Climb {
@@ -157,7 +157,7 @@ public class Constants {
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety
         public static final double CLIMB_DOWN_SPEED = -0.25; // See above
-        public static final double TRAINING_WHEEL_FORWARD_SPEED = 0.3;
+        public static final double TRAINING_WHEEL_FORWARD_SPEED = 0.7;
         public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
                                                              // training wheels. THIS IS IN ROTATIONS, NOT ENCODER
@@ -181,7 +181,7 @@ public class Constants {
         public static final double END_BOTTOM_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
                                                                   // at the end of the climb, used to determine climbing
                                                                   // power                                                          
-        public static final double TOP_ENCODER_VALUE = 13.0; // The rotaions measured at the top of the climb. used for
+        public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
                                                              // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
                                                              // TICKS. TODO: Find Value
         public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch

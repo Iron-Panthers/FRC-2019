@@ -89,11 +89,13 @@ public class OI {
         reverseDrive.whileHeld(new ReverseDrive());
         shiftGearLow.whileHeld(new DriveShift());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
-        climbUp.whenPressed(new ManualClimbUpSeq());
-        climbUp.whenReleased(new CancelClimb());
+        // climbUp.whenPressed(new ManualClimbUpSeq());
+        // climbUp.whenReleased(new CancelClimb());
+        climbUp.whileHeld(new ClimbUp());
         deployTrainingWheels.whenPressed(new DeployTrainingWheels());
-        climbDown.whenPressed(new ManualClimbDownSeq());
-        climbDown.whenReleased(new CancelClimb());
+        // climbDown.whenPressed(new ManualClimbDownSeq());
+        // climbDown.whenReleased(new CancelClimb());
+        climbDown.whileHeld(new ClimbDown());
         retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
         retractTrainingWheels.whenPressed(new RetractTrainingWheels());
         setupClimb.whenPressed(new SetupClimb());
