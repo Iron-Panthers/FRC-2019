@@ -7,12 +7,17 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.CancelClimb;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbDown;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbUp;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.DeployTrainingWheels;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ExtendSuperStructurePistons;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.FinishClimb;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ManualClimbDownSeq;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ManualClimbUpSeq;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStructurePistons;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.SetupClimb;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsBackward;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveShift;
@@ -55,6 +60,9 @@ public class OI {
     JoystickButton outtake;
     JoystickButton manualArm;
     JoystickButton zeroIntakeAngle;
+    JoystickButton setupClimb;
+    JoystickButton finishClimb;
+    JoystickButton cancelClimb;
 
     public OI() {
         // DRIVER 1
@@ -62,9 +70,6 @@ public class OI {
         stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
         reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
         shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
-        // findF = new JoystickButton(stick1, Constants.Input.FIND_F_BUTTON);
-        // turnLeft = new JoystickButton(stick1, Constants.Input.TURN_LEFT_BUTTON);
-        // turnRight = new JoystickButton(stick1, Constants.Input.TURN_RIGHT_BUTTON);
         extendSuperStructurePistons = new JoystickButton(stick1, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
         climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
         deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEEL_BUTTON);
@@ -74,6 +79,9 @@ public class OI {
         retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
         trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
         trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
+        setupClimb = new JoystickButton(stick2, Constants.Input.CLIMB_SETUP_BUTTON);
+        finishClimb = new JoystickButton(stick2, Constants.Input.CLIMB_FINISH_BUTTON);
+        cancelClimb = new JoystickButton(stick2, Constants.Input.CANCEL_CLIMB_BUTTON);
 
         trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
         trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
@@ -81,11 +89,21 @@ public class OI {
         reverseDrive.whileHeld(new ReverseDrive());
         shiftGearLow.whileHeld(new DriveShift());
         extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
+        // climbUp.whenPressed(new ManualClimbUpSeq());
+        // climbUp.whenReleased(new CancelClimb());
         climbUp.whileHeld(new ClimbUp());
         deployTrainingWheels.whenPressed(new DeployTrainingWheels());
+        // climbDown.whenPressed(new ManualClimbDownSeq());
+        // climbDown.whenReleased(new CancelClimb());
         climbDown.whileHeld(new ClimbDown());
         retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
         retractTrainingWheels.whenPressed(new RetractTrainingWheels());
+        setupClimb.whenPressed(new SetupClimb());
+        finishClimb.whenPressed(new FinishClimb());
+        cancelClimb.whenPressed(new CancelClimb());
+
+
+        
 
         // DRIVER 2
         manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
@@ -110,5 +128,6 @@ public class OI {
         outtake.toggleWhenPressed(new OuttakeCargo());
         manualArm.whileHeld(new ManualArmMovement());
         zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
+
     }
 }

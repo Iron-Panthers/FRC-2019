@@ -12,21 +12,15 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * FinishClimb is a completely sequential CommandGroup for doing everything
- * invloved with climbing after robots have climbed onto the ramps.
+ * ManualClimbUpSeq is a  sequential CommandGroup for manually raising the robot. It will slow down automatically to prevent 
+ * Killing the chain.
  */
-public class FinishClimb extends CommandGroup {
+public class ManualClimbUpSeq extends CommandGroup {
 	/**
-	 * Creates a new FinishClimb command group.
+	 * Creates a new ManualClimbUpSeq command group.
 	 */
-	public FinishClimb() {
+	public ManualClimbUpSeq() {
 		addSequential(new ClimbUpTo(Constants.Climb.CLIMB_THIRD_TARGET));
 		addSequential(new ClimbUpTheLastPart());
-		addSequential(new TrainingWheelDriveForwardForTime(Constants.Climb.TRAINING_WHEEL_DRIVE_TIME));
-		addSequential(new ClimbDownTo(Constants.Climb.CLIMB_FINAL_TARGET)); // When the robot climbs down past the
-																			// platform when it is contacting it, that
-																			// means that it will raise the super
-																			// structure.
-		addSequential(new ClimbDownTheLastPart());
 	}
 }

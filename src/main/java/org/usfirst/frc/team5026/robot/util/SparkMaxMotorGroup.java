@@ -20,23 +20,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SparkMaxMotorGroup {
 	private CANSparkMax masterMotor;
 	private CANSparkMax[] motors;
+	private String name;
 
-	// TODO if we want to use multiple SparkMaxMotorGroup, we should implement
 	// MotorGroup names
 	/**
-	 * Creates a new SparkMaxMotorGroup. The first parameter specified will be the
-	 * considered the "master motor" of the motor group.
+	 * Creates a new SparkMaxMotorGroup.
+	 * 
+	 * @param name        the name of the motor group
+	 * @param masterMotor the master motor of the motor group
+	 * @param motors      the other motor controllers to include
 	 */
-	public SparkMaxMotorGroup(CANSparkMax masterMotor, CANSparkMax... motors) {
+	public SparkMaxMotorGroup(String name, CANSparkMax masterMotor, CANSparkMax... motors) {
+		this.name = name;
 		this.masterMotor = masterMotor;
 		this.motors = motors;
 		setup(masterMotor);
 		for (CANSparkMax element : motors) {
 			setup(element);
 		}
-
-		// A consideration would be to utilize CANSparkMax.follow(leader), however this
-		// doesn't provide any clear benefits and didn't work in our previous testing
 	}
 
 	/**
@@ -53,19 +54,19 @@ public class SparkMaxMotorGroup {
 
 		// Set the idle mode to Brake. If it fails, display the error
 		if (m_motor.setIdleMode(IdleMode.kBrake) != CANError.kOK) {
-			SmartDashboard.putString("SparkMaxMotorGroup -- Idle Mode", "Failed to set");
+			SmartDashboard.putString("SparkMaxMotorGroup " + name + " -- Idle Mode", "Failed to set");
 		}
 
 		// Check the idle mode of the motor controller, and put to SmartDashboard
 		if (m_motor.getIdleMode() == IdleMode.kCoast) {
-			SmartDashboard.putString("SparkMaxMotorGroup -- Idle Mode", "Coast");
+			SmartDashboard.putString("SparkMaxMotorGroup " + name + " -- Idle Mode", "Coast");
 		} else {
-			SmartDashboard.putString("SparkMaxMotorGroup -- Idle Mode", "Brake");
+			SmartDashboard.putString("SparkMaxMotorGroup " + name + " -- Idle Mode", "Brake");
 		}
 
 		// Set open loop ramp rate to 0. If it fails, display the error
 		if (m_motor.setOpenLoopRampRate(0) != CANError.kOK) {
-			SmartDashboard.putString("SparkMaxMotorGroup -- Ramp Rate", "Error");
+			SmartDashboard.putString("SparkMaxMotorGroup " + name + " -- Ramp Rate", "Error");
 		}
 	}
 
@@ -78,8 +79,6 @@ public class SparkMaxMotorGroup {
 		masterMotor.set(power);
 		for (CANSparkMax motor : this.motors) {
 			motor.set(power);
-			// SmartDashboard.putNumber(motorGroupName + " ID: " + motor.getDeviceID(),
-			// motor.getMotorOutputPercent());
 		}
 	}
 
@@ -114,6 +113,19 @@ public class SparkMaxMotorGroup {
 	}
 
 	/**
+	 * Sets the ramp rate for open loop control modes. This is the maximum rate at
+	 * which the motor controller's output is allowed to change.
+	 * 
+	 * @param rate Time in seconds to go from 0 to full throttle.
+	 */
+	public void setOpenLoopRampRate(double rate) {
+		masterMotor.setOpenLoopRampRate(rate);
+		for (CANSparkMax motor : this.motors) {
+			motor.setOpenLoopRampRate(rate);
+		}
+	}
+
+	/**
 	 * @return the master motor of the MotorGroup.
 	 */
 	public CANSparkMax getMasterMotor() {
@@ -125,5 +137,12 @@ public class SparkMaxMotorGroup {
 	 */
 	public double getAppliedOutput() {
 		return masterMotor.getAppliedOutput();
+	}
+
+	/**
+	 * @return the encoder position in revolutions of the encoder.
+	 */
+	public double getEncoderPosition() {
+		return masterMotor.getEncoder().getPosition();
 	}
 }
