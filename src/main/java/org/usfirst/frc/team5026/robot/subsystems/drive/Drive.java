@@ -69,7 +69,9 @@ public class Drive extends Subsystem {
 		// 		|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
 		// 		|| Robot.hardware.centerLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
 		return Robot.hardware.centerLeftLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN ||
-		Robot.hardware.centerRightLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
+		Robot.hardware.centerRightLightSensor.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN
+		|| Robot.hardware.frontLightSensorLeft.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN 
+		|| Robot.hardware.frontLightSensorRight.getVoltage() > Constants.LineFollow.ODS_TAPE_SEEN;
 	}
 
 	public boolean hasHitWall() {

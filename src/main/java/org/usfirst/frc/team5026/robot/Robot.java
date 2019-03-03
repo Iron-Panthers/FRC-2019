@@ -69,6 +69,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
+		
+
 	}
 
 	/**
@@ -139,15 +141,23 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("left: ", hardware.frontLightSensorLeft.getVoltage());
+		SmartDashboard.putNumber("right: ", hardware.frontLightSensorRight.getVoltage());
+		SmartDashboard.putNumber("center left: ", hardware.centerLeftLightSensor.getVoltage());
+		SmartDashboard.putNumber("center right: ", hardware.centerRightLightSensor.getVoltage());
+		double leftSensorValue = Constants.LineFollow.LINEFOLLOW__LEFT1_DISTANCE_FROM_CENTER * Robot.hardware.frontLightSensorLeft.getVoltage();
+		double rightSensorValue =  Constants.LineFollow.LINEFOLLOW__RIGHT1_DISTANCE_FROM_CENTER * Robot.hardware.frontLightSensorRight.getVoltage();
+		double centerLeftSensorValue = Constants.LineFollow.LINEFOLLOW__LEFT0_DISTANCE_FROM_CENTER  * Robot.hardware.centerLeftLightSensor.getVoltage();
+		double centerRightSensorValue = Constants.LineFollow.LINEFOLLOW__RIGHT0_DISTANCE_FROM_CENTER  * Robot.hardware.centerRightLightSensor.getVoltage();
+
+		//an average of all the adjusted values. Determines the location of the line, positive is left, negative is right
+		double error = (leftSensorValue + rightSensorValue + centerLeftSensorValue + centerRightSensorValue);
+		
+		SmartDashboard.putNumber("error", error);
+
 		//System.out.println(hardware.frontLightSensorLeft.getVoltage());
 		//System.out.println(hardware.frontLightSensorRight.getVoltage());
-		System.out.println("left: " + hardware.driveRight1.getSelectedSensorPosition());
-		System.out.println("adjusted left: " + hardware.driveRight1.getSelectedSensorPosition() * Constants.LineFollow.SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION );
-
-		System.out.println("right: " + hardware.frontLightSensorRight.getVoltage());
-		System.out.println("center left: " + hardware.centerLeftLightSensor.getVoltage());
-		System.out.println("center right: " + hardware.centerRightLightSensor.getVoltage());
-
+		
 		
 		Scheduler.getInstance().run();
 	}

@@ -16,8 +16,13 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FollowLine extends Command {
+
+	double lastError;
+	double lastTime;
+
 	public FollowLine() {
 		requires(Robot.drive);
 		// Use requires() here to declare subsystem dependencies
@@ -27,32 +32,48 @@ public class FollowLine extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		lastError = Double.MAX_VALUE;
+		lastTime = System.currentTimeMillis();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 		// 5 is the max output voltage for the sensors
-		double leftSensorValue = Robot.hardware.driveRight1.getSelectedSensorPosition() * Constants.LineFollow.SRX_TO_RIO_SENSOR_VOLTAGE_CONVERSION;
-		double rightSensorValue = Robot.hardware.frontLightSensorRight.getVoltage();
-		double centerLeftSensorValue = Robot.hardware.centerLeftLightSensor.getVoltage();
-		double centerRightSensorValue = Robot.hardware.centerRightLightSensor.getVoltage();
+		//adjusted values
+		double leftSensorValue = Constants.LineFollow.LINEFOLLOW__LEFT1_DISTANCE_FROM_CENTER * Robot.hardware.frontLightSensorLeft.getVoltage();
+		double rightSensorValue =  Constants.LineFollow.LINEFOLLOW__RIGHT1_DISTANCE_FROM_CENTER * Robot.hardware.frontLightSensorRight.getVoltage();
+		double centerLeftSensorValue = Constants.LineFollow.LINEFOLLOW__LEFT0_DISTANCE_FROM_CENTER  * Robot.hardware.centerLeftLightSensor.getVoltage();
+		double centerRightSensorValue = Constants.LineFollow.LINEFOLLOW__RIGHT0_DISTANCE_FROM_CENTER  * Robot.hardware.centerRightLightSensor.getVoltage();
 
-		double leftMPower = Constants.LineFollow.LINEFOLLOW_INNER_REACTION_POWER * (centerLeftSensorValue + -centerRightSensorValue)
-				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (leftSensorValue + -rightSensorValue);
-		double rightMPower = Constants.LineFollow.LINEFOLLOW_INNER_REACTION_POWER * (centerRightSensorValue + centerLeftSensorValue)
-				+ Constants.LineFollow.LINEFOLLOW_REACTION_POWER * (-leftSensorValue + rightSensorValue);
+		//an average of all the adjusted values. Determines the location of the line, positive is left, negative is right
+		double error = (leftSensorValue + rightSensorValue + centerLeftSensorValue + centerRightSensorValue);
+		double dError = error - lastError;
+		if (lastError == Double.MAX_VALUE) {
+			dError = 0;
+		}
+		lastError = error;
+		double dT = (double)(System.currentTimeMillis() - lastTime) / 1000.0;
+		dError = dError / dT;
+
+		SmartDashboard.putNumber("error", error);
+		SmartDashboard.putNumber("dError", dError);
+
+		double leftMPower = Constants.LineFollow.LINEFOLLOW_BASE_POWER - Constants.LineFollow.LINEFOLLOW_P * error - Constants.LineFollow.LINEFOLLOW_D * dError;
+		double rightMPower = Constants.LineFollow.LINEFOLLOW_BASE_POWER + Constants.LineFollow.LINEFOLLOW_P * error + Constants.LineFollow.LINEFOLLOW_D * dError;
+		
 		Robot.drive.set(leftMPower, rightMPower);
+		SmartDashboard.putNumber("left motor output", leftMPower);
+		SmartDashboard.putNumber("right motor output", rightMPower);
+
 
 		System.out.println("Output Current: " + Robot.hardware.rightDriveMotors.getOutputCurrent());
-
-		;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Robot.drive.hasHitWall();
+		return false;
 	}
 
 	// Called once after isFinished returns true
