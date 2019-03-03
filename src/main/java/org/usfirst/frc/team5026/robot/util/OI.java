@@ -49,16 +49,13 @@ public class OI {
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
 		extendSuperStructurePistons = new JoystickButton(stick1, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
 		climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
-		deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEEL_BUTTON);
+		deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEELS_BUTTON);
 		climbDown = new JoystickButton(stick1, Constants.Input.CLIMB_DOWN_BUTTON);
 		retractSuperStructurePistons = new JoystickButton(stick1,
 				Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
 		retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
 		trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
 		trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
-		setupClimb = new JoystickButton(stick2, Constants.Input.CLIMB_SETUP_BUTTON);
-		finishClimb = new JoystickButton(stick2, Constants.Input.CLIMB_FINISH_BUTTON);
-		cancelClimb = new JoystickButton(stick2, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
 
@@ -72,9 +69,6 @@ public class OI {
 		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
 		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
-		setupClimb.whenPressed(new SetupClimb());
-		finishClimb.whenPressed(new FinishClimb());
-		cancelClimb.whenPressed(new CancelClimb());
 
 		// Create the buttons for driver 2
 
@@ -87,6 +81,9 @@ public class OI {
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
+		setupClimb = new JoystickButton(stick2, Constants.Input.CLIMB_SETUP_BUTTON);
+		finishClimb = new JoystickButton(stick2, Constants.Input.CLIMB_FINISH_BUTTON);
+		cancelClimb = new JoystickButton(stick2, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
 
@@ -101,5 +98,8 @@ public class OI {
 		outtake.toggleWhenPressed(new OuttakeCargo());
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
+		setupClimb.whenPressed(new SetupClimb());
+		finishClimb.whenPressed(new FinishClimb());
+		cancelClimb.whenPressed(new CancelClimb());
 	}
 }

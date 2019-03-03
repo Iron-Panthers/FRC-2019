@@ -54,7 +54,7 @@ public class Constants {
         public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
         public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
-        public static final int DEPLOY_TRAINING_WHEEL_BUTTON = 10;
+        public static final int DEPLOY_TRAINING_WHEELS_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
        
