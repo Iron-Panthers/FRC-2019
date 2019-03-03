@@ -67,13 +67,9 @@ public class OI {
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
 		extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
-		// climbUp.whenPressed(new ManualClimbUpSeq());
-		// climbUp.whenReleased(new CancelClimb());
 		climbUp.whileHeld(new ClimbUp());
-		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
-		// climbDown.whenPressed(new ManualClimbDownSeq());
-		// climbDown.whenReleased(new CancelClimb());
 		climbDown.whileHeld(new ClimbDown());
+		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
 		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
 		setupClimb.whenPressed(new SetupClimb());
@@ -99,9 +95,7 @@ public class OI {
 		oppCargoShipHeight.whenPressed(
 				new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-		// oppRocketLowHeight.whenPressed(new
-		// ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT -
-		// Constants.IntakeArm.CARGO_DIAMETER), false));
+		// oppRocketLowHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
 		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo());
