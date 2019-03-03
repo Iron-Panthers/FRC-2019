@@ -7,24 +7,9 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.CancelClimb;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbDown;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ClimbUp;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.DeployTrainingWheels;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.ExtendSuperStructurePistons;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.FinishClimb;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStructurePistons;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractTrainingWheels;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.SetupClimb;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsBackward;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveShift;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ReverseDrive;
-import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ArmToTarget;
-import org.usfirst.frc.team5026.robot.subsystems.intake.commands.IntakeCargo;
-import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ManualArmMovement;
-import org.usfirst.frc.team5026.robot.subsystems.intake.commands.OuttakeCargo;
-import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ZeroIntakeArm;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.*;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.*;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.*;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
