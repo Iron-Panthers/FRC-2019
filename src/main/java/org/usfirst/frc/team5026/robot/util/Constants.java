@@ -175,16 +175,17 @@ public class Constants {
         public static final double TRAINING_WHEEL_DRIVE_TIME = 3.0; // The number of seconds that the robot training
                                                                     // wheels drive forward to move onto the platform.
                                                                     // TODO: Test Value
-        public static final double END_TOP_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
-                                                                  // at the end of the climb, used to determine climbing
-                                                                  // power
-        public static final double END_BOTTOM_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
-                                                                  // at the end of the climb, used to determine climbing
-                                                                  // power                                                          
+        // public static final double END_TOP_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
+        //                                                           // at the end of the climb, used to determine climbing
+        //                                                           // power
+        // public static final double END_BOTTOM_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
+        //                                                           // at the end of the climb, used to determine climbing
+        //                                                           // power                                                          
         public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
                                                              // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
                                                              // TICKS. TODO: Find Value
         public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
+        public static final double TARGET_END_CLIMB_VELOCITY = 150.0; // RPM, target velocity at the top and bottom for climbing to slow down climb before limit switches TODO: Find Value
 
     }
 }
