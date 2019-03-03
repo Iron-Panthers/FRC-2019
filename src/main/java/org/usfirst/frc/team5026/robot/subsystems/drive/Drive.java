@@ -50,7 +50,6 @@ public class Drive extends Subsystem {
 		right.set(rightPower);
 		SmartDashboard.putNumber("Drive -- Set left power: ", leftPower);
 		SmartDashboard.putNumber("Drive -- Set right power: ", rightPower);
-
 	}
 
 	/**
@@ -61,6 +60,8 @@ public class Drive extends Subsystem {
 	public void set(double power) {
 		left.set(power);
 		right.set(power);
+		SmartDashboard.putNumber("Drive -- Set left power: ", power);
+		SmartDashboard.putNumber("Drive -- Set right power: ", power);
 	}
 
 	/**
