@@ -24,26 +24,17 @@ public class OI {
 	// ALl of the following buttons will belong to DRIVER 1
 	JoystickButton reverseDrive;
 	JoystickButton shiftGearLow;
-	JoystickButton extendSuperStructurePistons;
-	JoystickButton climbUp;
-	JoystickButton deployTrainingWheels;
-	JoystickButton climbDown;
-	JoystickButton retractSuperStructurePistons;
-	JoystickButton retractTrainingWheels;
-	JoystickButton trainingWheelsForward;
-	JoystickButton trainingWheelsBackward;
-	JoystickButton setupClimb;
-	JoystickButton finishClimb;
-	JoystickButton cancelClimb;
+	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
+	JoystickButton climbUp, climbDown;
+	JoystickButton trainingWheelsForward, trainingWheelsBackward;
+	JoystickButton deployTrainingWheels, retractTrainingWheels;
+	JoystickButton setupClimb, finishClimb, cancelClimb;
 
 	// All of the following buttons will belong to DRIVER 2
-	JoystickButton cargoShipHeight;
-	JoystickButton oppCargoShipHeight;
-	JoystickButton rocketLowHeight;
-	// JoystickButton oppRocketLowHeight;
 	JoystickButton lowestHeight;
-	JoystickButton intake;
-	JoystickButton outtake;
+	JoystickButton cargoShipHeight, oppCargoShipHeight;
+	JoystickButton rocketLowHeight, oppRocketLowHeight;
+	JoystickButton intake, outtake;
 	JoystickButton manualArm;
 	JoystickButton zeroIntakeAngle;
 
@@ -52,12 +43,8 @@ public class OI {
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
 		stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
 
-		// ///////////////////////////////////////////////
-		// All of the following buttons belong to DRIVER 1
-		// They are assigned to JOYSTICK 1 (called stick1)
-		// ///////////////////////////////////////////////
-		// Create the buttons
-		// ///////////////////////////////////////////////
+		// Create the buttons for driver 1
+
 		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
 		extendSuperStructurePistons = new JoystickButton(stick1, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
@@ -73,9 +60,8 @@ public class OI {
 		finishClimb = new JoystickButton(stick2, Constants.Input.CLIMB_FINISH_BUTTON);
 		cancelClimb = new JoystickButton(stick2, Constants.Input.CANCEL_CLIMB_BUTTON);
 
-		// /////////////////////////////////////////
-		// Assign commands to each of the buttons
-		// /////////////////////////////////////////
+		// Assign commands to each of the buttons for driver 1
+
 		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
 		trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
 		reverseDrive.whileHeld(new ReverseDrive());
@@ -94,33 +80,27 @@ public class OI {
 		finishClimb.whenPressed(new FinishClimb());
 		cancelClimb.whenPressed(new CancelClimb());
 
-		// ///////////////////////////////////////////////
-		// All of the following buttons belong to DRIVER 2
-		// They are assigned to JOYSTICK 2 (called stick2)
-		// ///////////////////////////////////////////////
-		// Create the buttons
-		// ///////////////////////////////////////////////
+		// Create the buttons for driver 2
+
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
 		intake = new JoystickButton(stick2, Constants.Input.INTAKE_BUTTON);
 		outtake = new JoystickButton(stick2, Constants.Input.OUTTAKE_BUTTON);
 		zeroIntakeAngle = new JoystickButton(stick2, Constants.Input.ZERO_INTAKE_ARM_BUTTON);
 		lowestHeight = new JoystickButton(stick2, Constants.Input.LOWEST_HEIGHT_BUTTON);
-		// oppRocketLowHeight = new JoystickButton(stick2,
-		// Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
+		oppRocketLowHeight = new JoystickButton(stick2, Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
-		// /////////////////////////////////////////
-		// Assign commands to each of the buttons
-		// /////////////////////////////////////////
+		// Assign commands to each of the buttons for driver 2
+
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
 		oppCargoShipHeight.whenPressed(
 				new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-		// oppRocketLowHeight.whenPressed(
-		// new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT -
+		// oppRocketLowHeight.whenPressed(new
+		// ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT -
 		// Constants.IntakeArm.CARGO_DIAMETER), false));
 		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
 		intake.toggleWhenPressed(new IntakeCargo());
