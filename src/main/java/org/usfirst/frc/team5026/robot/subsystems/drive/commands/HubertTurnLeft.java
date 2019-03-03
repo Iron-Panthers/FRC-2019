@@ -37,7 +37,6 @@ public class HubertTurnLeft extends Command {
 	@Override
 	protected void end() {
 		Robot.drive.set(0, 0);
-
 	}
 
 	// Called when another command which requires one or more of the same
@@ -45,6 +44,5 @@ public class HubertTurnLeft extends Command {
 	@Override
 	protected void interrupted() {
 		Robot.drive.set(0, 0);
-
 	}
 }

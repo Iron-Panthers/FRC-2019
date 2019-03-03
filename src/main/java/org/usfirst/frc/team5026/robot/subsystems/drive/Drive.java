@@ -28,7 +28,10 @@ public class Drive extends Subsystem {
 	public GearState state;
 	public boolean isReversed;
 
-
+	/**
+	 * Create the drivebase subsystem. This sets the inversion status of the left
+	 * and right drive motorgroups to values specified in constants.
+	 */
 	public Drive() {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
@@ -68,12 +71,34 @@ public class Drive extends Subsystem {
 		right.stop();
 	}
 
+	/**
+	 * @return the encoder position of the left encoder, in encoder revolutions.
+	 */
 	public double getLeftEncoderRevolutions() {
 		return left.getEncoderPosition();
 	}
 
+	/**
+	 * @return the encoder position of the right encoder, in encoder revolutions.
+	 */
 	public double getRightEncoderRevolutions() {
 		return right.getEncoderPosition();
+	}
+
+	/**
+	 * Shift the drivebase to low gear.
+	 */
+	public void shiftLow() {
+		state = GearState.HIGH; // Tested 2/19/2019
+		gearShift.set(DoubleSolenoid.Value.kReverse);
+	}
+
+	/**
+	 * Shift the drivebase to high gear.
+	 */
+	public void shiftHigh() {
+		state = GearState.LOW; // Tested 2/19/2019
+		gearShift.set(DoubleSolenoid.Value.kForward);
 	}
 
 	@Override
@@ -81,15 +106,4 @@ public class Drive extends Subsystem {
 		// Pick one of the drive mode commands.
 		setDefaultCommand(new ArcadeDrive());
 	}
-
-	public void shiftLow() {
-		state = GearState.HIGH; // Tested 2/19/2019
-		gearShift.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	public void shiftHigh() {
-		state = GearState.LOW; // Tested 2/19/2019 
-		gearShift.set(DoubleSolenoid.Value.kForward);
-	}
-
 }
