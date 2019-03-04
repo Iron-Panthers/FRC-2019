@@ -19,16 +19,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	// The two Joysticks for tele-operated input
-	public JoystickWrapper stick1, stick2;
+	public JoystickWrapper stick1, stick2, stick3;
 
 	// ALl of the following buttons will belong to DRIVER 1
 	JoystickButton reverseDrive;
 	JoystickButton shiftGearLow;
-	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
-	JoystickButton climbUp, climbDown;
-	JoystickButton trainingWheelsForward, trainingWheelsBackward;
-	JoystickButton deployTrainingWheels, retractTrainingWheels;
-	JoystickButton setupClimb, finishClimb, cancelClimb;
+	JoystickButton hubertOuttake;
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
@@ -38,37 +34,31 @@ public class OI {
 	JoystickButton manualArm;
 	JoystickButton zeroIntakeAngle;
 
+	// All of the following buttons will belong to the Climb Joystick
+	JoystickButton climbUpWithJoystick, climbDownWithJoystick;
+	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
+	JoystickButton climbUp, climbDown;
+	JoystickButton trainingWheelsForward, trainingWheelsBackward;
+	JoystickButton deployTrainingWheels, retractTrainingWheels;
+	JoystickButton setupClimb, finishClimb, cancelClimb;
+
 	public OI() {
 		// Create the Joysticks
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
 		stick2 = new JoystickWrapper(Constants.Input.JOYSTICK_2_PORT);
+		stick3 = new JoystickWrapper(Constants.Input.JOYSTICK_3_PORT);
 
 		// Create the buttons for driver 1
 
 		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
-		extendSuperStructurePistons = new JoystickButton(stick1, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
-		climbUp = new JoystickButton(stick1, Constants.Input.CLIMB_UP_BUTTON);
-		deployTrainingWheels = new JoystickButton(stick1, Constants.Input.DEPLOY_TRAINING_WHEELS_BUTTON);
-		climbDown = new JoystickButton(stick1, Constants.Input.CLIMB_DOWN_BUTTON);
-		retractSuperStructurePistons = new JoystickButton(stick1,
-				Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
-		retractTrainingWheels = new JoystickButton(stick1, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
-		trainingWheelsForward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
-		trainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
+		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
 
-		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
-		trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
-		extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
-		climbUp.whileHeld(new ClimbUp());
-		climbDown.whileHeld(new ClimbDown());
-		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
-		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
-		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
+		hubertOuttake.toggleWhenPressed(new OuttakeCargo());
 
 		// Create the buttons for driver 2
 
@@ -81,9 +71,6 @@ public class OI {
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
-		setupClimb = new JoystickButton(stick2, Constants.Input.CLIMB_SETUP_BUTTON);
-		finishClimb = new JoystickButton(stick2, Constants.Input.CLIMB_FINISH_BUTTON);
-		cancelClimb = new JoystickButton(stick2, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
 
@@ -92,14 +79,46 @@ public class OI {
 		oppCargoShipHeight.whenPressed(
 				new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-		// oppRocketLowHeight.whenPressed(new ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
+		// oppRocketLowHeight.whenPressed(new
+		// ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT -
+		// Constants.IntakeArm.CARGO_DIAMETER), false));
 		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo());
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
-		setupClimb.whenPressed(new SetupClimb());
-		finishClimb.whenPressed(new FinishClimb());
-		cancelClimb.whenPressed(new CancelClimb());
+
+		// Construct Buttons for Climb Joystick 3
+		climbUpWithJoystick = new JoystickButton(stick3, Constants.Input.CLIMB_UP_WITH_JOYSTICK);
+		climbDownWithJoystick = new JoystickButton(stick3, Constants.Input.CLIMB_DOWN_WITH_JOYSTICK);
+		extendSuperStructurePistons = new JoystickButton(stick3, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
+		climbUp = new JoystickButton(stick3, Constants.Input.CLIMB_UP_BUTTON);
+		deployTrainingWheels = new JoystickButton(stick3, Constants.Input.DEPLOY_TRAINING_WHEELS_BUTTON);
+		climbDown = new JoystickButton(stick3, Constants.Input.CLIMB_DOWN_BUTTON);
+		retractSuperStructurePistons = new JoystickButton(stick3,
+				Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
+		retractTrainingWheels = new JoystickButton(stick3, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
+		trainingWheelsForward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
+		trainingWheelsBackward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
+		// setupClimb = new JoystickButton(stick3, Constants.Input.CLIMB_SETUP_BUTTON);
+		// finishClimb = new JoystickButton(stick3,
+		// Constants.Input.CLIMB_FINISH_BUTTON);
+		// cancelClimb = new JoystickButton(stick3,
+		// Constants.Input.CANCEL_CLIMB_BUTTON);
+
+		// Assign commands to each of the button for Climb Joystick
+		climbUpWithJoystick.whileHeld(new ClimbUpWithJoystick());
+		climbDownWithJoystick.whileHeld(new ClimbDownWithJoystick());
+		extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
+		climbUp.whileHeld(new ClimbUp());
+		climbDown.whileHeld(new ClimbDown());
+		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
+		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
+		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
+		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
+		trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
+		// setupClimb.whenPressed(new SetupClimb());
+		// finishClimb.whenPressed(new FinishClimb());
+		// cancelClimb.whenPressed(new CancelClimb());
 	}
 }

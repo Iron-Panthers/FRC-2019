@@ -40,24 +40,16 @@ public class Constants {
     // TODO tune input constants
     public class Input {
         /** DEVICE PORTS */
-        public static final int JOYSTICK_1_PORT = 0;
-        public static final int JOYSTICK_2_PORT = 1;
+        public static final int JOYSTICK_1_PORT = 0; // Driver A
+        public static final int JOYSTICK_2_PORT = 1; // Driver B
+        public static final int JOYSTICK_3_PORT = 2; // Climb Joystcik
 
         /** Buttons */
         // Driver A
         public static final int REVERSE_DRIVE_BUTTON = 1;
         public static final int SHIFT_GEAR_LOW_BUTTON = 2;
-
-        // Climb
-        public static final int CLIMB_DOWN_BUTTON = 5;
-        public static final int CLIMB_UP_BUTTON = 6;
-        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
-        public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
-        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
-        public static final int DEPLOY_TRAINING_WHEELS_BUTTON = 10;
-        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
-        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
-       
+        // IntakeArm
+        public static final int HUBERT_OUTTAKE_BUTTON = 3;
 
         // Driver B
         // Manual Arm
@@ -72,9 +64,21 @@ public class Constants {
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
-        public static final int CLIMB_SETUP_BUTTON = 4;
-        public static final int CLIMB_FINISH_BUTTON = 5;
-        public static final int CANCEL_CLIMB_BUTTON = 6;
+
+        // Climb Joystick
+        public static final int CLIMB_DOWN_WITH_JOYSTICK = 3;
+        public static final int CLIMB_UP_WITH_JOYSTICK = 4;
+        public static final int CLIMB_DOWN_BUTTON = 5;
+        public static final int CLIMB_UP_BUTTON = 6;
+        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
+        public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
+        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
+        public static final int DEPLOY_TRAINING_WHEELS_BUTTON = 10;
+        public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
+        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
+        public static final int CLIMB_SETUP_BUTTON = 4; // Not used
+        public static final int CLIMB_FINISH_BUTTON = 5; // Not used
+        public static final int CANCEL_CLIMB_BUTTON = 6; // Not used
 
         /** OTHER INPUT CONSTANTS */
         public static final double JOYSTICK_DEADBAND = 0.1;
@@ -155,8 +159,8 @@ public class Constants {
         public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
-        public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety
-        public static final double CLIMB_DOWN_SPEED = -0.25; // See above
+        public static final double CLIMB_UP_SPEED = 0.5; // Cannot be higher without limit switches for safety, tested 3/3/2019
+        public static final double CLIMB_DOWN_SPEED = -0.5; // See above
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0;
         public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
