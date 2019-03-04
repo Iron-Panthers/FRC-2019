@@ -49,7 +49,8 @@ public class Constants {
         public static final int REVERSE_DRIVE_BUTTON = 1;
         public static final int SHIFT_GEAR_LOW_BUTTON = 2;
         // IntakeArm
-        public static final int HUBERT_OUTTAKE_BUTTON = 3;
+		public static final int HUBERT_OUTTAKE_BUTTON = 7;
+		public static final int HUBERT_FAST_OUTTAKE_BUTTON = 8;
 
         // Driver B
         // Manual Arm
@@ -60,7 +61,8 @@ public class Constants {
         // Arm Setpoints
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
-        public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
+		public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
+		public static final int HATCH_HEIGHT_BUTTON = 9;
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
@@ -116,7 +118,8 @@ public class Constants {
                                                                                // ratio)
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
-        public static final double ARM_BASE_HEIGHT = 18.75; // in
+		public static final double ARM_BASE_HEIGHT = 18.75; // in
+		public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
         public static final double LOWEST_HEIGHT = 12.0 - ARM_BASE_HEIGHT; // in - estimate
@@ -133,7 +136,8 @@ public class Constants {
 
         // INTAKE
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
-        public static final double OUTTAKE_POWER = -0.7;
+		public static final double OUTTAKE_POWER = -0.7;
+		public static final double FAST_OUTTAKE_POWER = -1.0; // For Level 2 Rocket
     }
 
     public class Climb {

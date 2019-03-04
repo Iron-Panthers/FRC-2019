@@ -25,9 +25,11 @@ public class OI {
 	JoystickButton reverseDrive;
 	JoystickButton shiftGearLow;
 	JoystickButton hubertOuttake;
+	JoystickButton hubertFastOuttake;
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
+	JoystickButton hatchHeight;
 	JoystickButton cargoShipHeight, oppCargoShipHeight;
 	JoystickButton rocketLowHeight, oppRocketLowHeight;
 	JoystickButton intake, outtake;
@@ -53,12 +55,14 @@ public class OI {
 		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
 		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
+		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
 
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
 		hubertOuttake.toggleWhenPressed(new OuttakeCargo());
+		hubertFastOuttake.toggleWhenPressed(new OuttakeCargoFast());
 
 		// Create the buttons for driver 2
 
@@ -67,13 +71,15 @@ public class OI {
 		outtake = new JoystickButton(stick2, Constants.Input.OUTTAKE_BUTTON);
 		zeroIntakeAngle = new JoystickButton(stick2, Constants.Input.ZERO_INTAKE_ARM_BUTTON);
 		lowestHeight = new JoystickButton(stick2, Constants.Input.LOWEST_HEIGHT_BUTTON);
-		oppRocketLowHeight = new JoystickButton(stick2, Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
+		// oppRocketLowHeight = new JoystickButton(stick2, Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
+		hatchHeight = new JoystickButton(stick2, Constants.Input.HATCH_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
 
+		hatchHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HEIGHT, true));
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
 		oppCargoShipHeight.whenPressed(
