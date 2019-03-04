@@ -13,44 +13,48 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimbUpTheLastPart extends Command {
-  private double startMeasuredVelocity;
-    /**
-   * climbs the robot all the way up to the hard limit after it passes the encoder position specified for ClimbUpTo
-   */
-  public ClimbUpTheLastPart() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.climb);
-  }
+	private double startMeasuredVelocity;
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    startMeasuredVelocity = Robot.climb.climbMotors.getMasterMotor().getEncoder().getVelocity();
-  }
+	/**
+	 * climbs the robot all the way up to the hard limit after it passes the encoder
+	 * position specified for ClimbUpTo
+	 */
+	public ClimbUpTheLastPart() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.climb);
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.climb.climbWithPower(Constants.Climb.END_TOP_CLIMB_POWER_SCALAR/startMeasuredVelocity);
-  }
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+		startMeasuredVelocity = Robot.climb.climbMotors.getMasterMotor().getEncoder().getVelocity();
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return Robot.climb.topLimitSwitch.get();
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		// Uses velocity when traveling at max power to then calculate F with the
+		// current number of robots climbing
+		Robot.climb.climbUpWithPower(Constants.Climb.TARGET_END_CLIMB_VELOCITY / startMeasuredVelocity);
+	}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    Robot.climb.stopClimb();
-  }
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
+	protected boolean isFinished() {
+		return Robot.climb.topLimitSwitch.get();
+	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    Robot.climb.stopClimb();
-  }
+	// Called once after isFinished returns true
+	@Override
+	protected void end() {
+		Robot.climb.stopClimb();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+		Robot.climb.stopClimb();
+	}
 }

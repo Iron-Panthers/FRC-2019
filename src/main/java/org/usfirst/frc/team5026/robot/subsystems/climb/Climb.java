@@ -144,10 +144,10 @@ public class Climb extends Subsystem {
 	}
 
 	/**
-	 * climb with a specified power
+	 * Climbs up with a specified power
 	 * @param power the power which the climb subsystem will be set to.
 	 */
-	public void climbWithPower(double power) {
+	public void climbUpWithPower(double power) {
 		// If the climb limit switch is triggered
 		if (this.topLimitSwitch.get()) {
 			// Stop climbing, and indicate the climb has stopped
@@ -155,7 +155,25 @@ public class Climb extends Subsystem {
 			this.stopClimb();
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
-			climbMotors.set(power);
+			// Math.abs used to ensure that the robot will climb up
+			climbMotors.set(Math.abs(power));
+		}
+	}
+
+	/**
+	 * Climbs down with a specified power
+	 * @param power The power to set the climb to
+	 */
+	public void climbDownWithPower(double power){
+		// If the bottom limit is triggered
+		if (this.bottomLimitSwitch.get()){
+			// Stop climbing down, show climb has stopped
+			SmartDashboard.putString("Climb -- isClimbing", "No, bottom limit switch triggered");
+			this.stopClimb();
+		} else {
+			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
+			// -Math.abs used to ensure that the robot will climb down
+			climbMotors.set(-Math.abs(power));
 		}
 	}
 

@@ -35,17 +35,19 @@ public class IntakeArm extends Subsystem {
 	}
 
 	public double getCurrentAngle() {
-		currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * (double)armMotor.getSelectedSensorPosition()) - 20;
+		currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * (double) armMotor.getSelectedSensorPosition()) - 20;
 		return currentAngle;
 	}
 
-	public double getCurrentHeight() { 
-		currentHeight = (Math.sin((getCurrentAngle()) * Constants.IntakeArm.DEGRESS_TO_RADIANS) * Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
+	public double getCurrentHeight() {
+		currentHeight = (Math.sin((getCurrentAngle()) * Constants.IntakeArm.DEGRESS_TO_RADIANS)
+				* Constants.IntakeArm.ARM_LENGTH) + Constants.IntakeArm.ARM_BASE_HEIGHT;
 		return currentHeight;
 	}
 
 	public double getBasePower() {
-		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT * Math.cos(getCurrentAngle() * Constants.IntakeArm.DEGRESS_TO_RADIANS);
+		basePower = Constants.IntakeArm.STALL_TORQUE_COEFFICIENT
+				* Math.cos(getCurrentAngle() * Constants.IntakeArm.DEGRESS_TO_RADIANS);
 		return basePower;
 	}
 

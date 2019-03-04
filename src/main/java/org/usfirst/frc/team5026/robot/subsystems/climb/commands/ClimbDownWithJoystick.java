@@ -8,39 +8,31 @@
 package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimbDownTheLastPart extends Command {
-	private double startMeasuredVelocity;
-
-	/**
-	 * climbs the robot all the way down to the hard limit after it passes the
-	 * encoder position specified for ClimbDownTo
-	 */
-	public ClimbDownTheLastPart() {
+public class ClimbDownWithJoystick extends Command {
+	public ClimbDownWithJoystick() {
+		requires(Robot.climb);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.climb);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		startMeasuredVelocity = Robot.climb.climbMotors.getMasterMotor().getEncoder().getVelocity();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.climb.climbDownWithPower(Constants.Climb.TARGET_END_CLIMB_VELOCITY / startMeasuredVelocity);
+		Robot.climb.climbDownWithPower(Robot.oi.stick3.getY());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Robot.climb.bottomLimitSwitch.get();
+		return false;
 	}
 
 	// Called once after isFinished returns true
