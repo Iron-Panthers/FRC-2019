@@ -36,9 +36,6 @@ public class ManualArmMovement extends Command {
 			power = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE
 					/ (1 - Constants.IntakeArm.Y_DEADZONE);
 		}
-		if (Robot.intakeArm.getCurrentAngle() > 180) {
-			power = 0;
-		}
 		Robot.intakeArm.moveArm(basePower + power);
 	}
 

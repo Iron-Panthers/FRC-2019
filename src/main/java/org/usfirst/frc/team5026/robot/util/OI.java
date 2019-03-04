@@ -51,21 +51,18 @@ public class OI {
 		stick3 = new JoystickWrapper(Constants.Input.JOYSTICK_3_PORT);
 
 		// Create the buttons for driver 1
-
 		reverseDrive = new JoystickButton(stick1, Constants.Input.REVERSE_DRIVE_BUTTON);
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
 		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
 		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
-
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
-		hubertOuttake.toggleWhenPressed(new OuttakeCargo());
-		hubertFastOuttake.toggleWhenPressed(new OuttakeCargoFast());
+		hubertOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
+		hubertFastOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
 
 		// Create the buttons for driver 2
-
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
 		intake = new JoystickButton(stick2, Constants.Input.INTAKE_BUTTON);
 		outtake = new JoystickButton(stick2, Constants.Input.OUTTAKE_BUTTON);
@@ -78,7 +75,6 @@ public class OI {
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
-
 		hatchHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HEIGHT, true));
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
@@ -88,9 +84,9 @@ public class OI {
 		// oppRocketLowHeight.whenPressed(new
 		// ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT -
 		// Constants.IntakeArm.CARGO_DIAMETER), false));
-		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.LOWEST_HEIGHT, true));
+		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.BASE_ANGLE_OFFSET));
 		intake.toggleWhenPressed(new IntakeCargo());
-		outtake.toggleWhenPressed(new OuttakeCargo());
+		outtake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 

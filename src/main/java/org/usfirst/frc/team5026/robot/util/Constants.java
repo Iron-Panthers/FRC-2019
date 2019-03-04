@@ -114,19 +114,19 @@ public class Constants {
         public static final double POWER_SCALE = 0.7;
 
         // INTAKE ARM SETPOINTS - TODO Double Check Measurements
-        public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket
-                                                                               // ratio)
+        public static final double TICKS_TO_DEGREES = 360.0 / (4096.0 * 4.0); // 360 / (ticks per rotation * sprocket ratio)
+        public static final double BASE_ANGLE_OFFSET = 20; // degrees
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
 		public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
-        public static final double LOWEST_HEIGHT = 12.0 - ARM_BASE_HEIGHT; // in - estimate
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
+        public static final double INTAKE_ARM_MAX_POWER = 0.4;
         public static final double INTAKE_ARM_P = 0.1;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
