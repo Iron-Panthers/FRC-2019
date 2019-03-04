@@ -17,7 +17,7 @@ public class TrainingWheelsBackward extends Command {
 	 * Constants.
 	 */
 	public TrainingWheelsBackward() {
-		requires(Robot.climb);
+		// requires(Robot.climb);
 	}
 
 	// Called just before this Command runs the first time
