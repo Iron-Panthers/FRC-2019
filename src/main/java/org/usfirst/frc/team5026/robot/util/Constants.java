@@ -147,13 +147,13 @@ public class Constants {
         public static final int LEFT_MOTOR_3_PORT = 10;
         public static final int RIGHT_MOTOR_1_PORT = 11;
         public static final int RIGHT_MOTOR_2_PORT = 12;
-        public static final int RIGHT_MOTOR_3_PORT = 13;
+		public static final int RIGHT_MOTOR_3_PORT = 13;
+		// Training Wheel Port
+		public static final int TRAINING_WHEEL_MOTOR_PORT = 3;
 
         // Climb Side Inversions
         public static final boolean IS_LEFT_INVERTED = false;
         public static final boolean IS_RIGHT_INVERTED = true;
-
-        public static final int TRAINING_WHEEL_MOTOR_PORT = 3; // To be changed
 
         // Climb Solenoid Ports
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
@@ -163,10 +163,16 @@ public class Constants {
         public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
-        public static final double CLIMB_UP_SPEED = 0.5; // Cannot be higher without limit switches for safety, tested 3/3/2019
-        public static final double CLIMB_DOWN_SPEED = -0.5; // See above
-        public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
-        public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
+        public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
+		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
+		// Tested setpoints
+		public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
+                                                             // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
+															 // TICKS.
+		public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
+		// Constants to be tested
+		public static final double TARGET_END_CLIMB_VELOCITY = 150.0; // RPM, target velocity at the top and bottom for climbing to slow down climb before limit switches TODO: Find Value
+		// Setpoints that are not yet tested
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
                                                              // training wheels. THIS IS IN ROTATIONS, NOT ENCODER
                                                              // TICKS. TODO: Test value
@@ -188,12 +194,12 @@ public class Constants {
         //                                                           // power
         // public static final double END_BOTTOM_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
         //                                                           // at the end of the climb, used to determine climbing
-        //                                                           // power                                                          
-        public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
-                                                             // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
-                                                             // TICKS. TODO: Find Value
-        public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
-        public static final double TARGET_END_CLIMB_VELOCITY = 150.0; // RPM, target velocity at the top and bottom for climbing to slow down climb before limit switches TODO: Find Value
-
+        //                                                           // power  
+		
+		// Training Wheel Constants
+        public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
+		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
+		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power. TODO: Test Value
+		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
     }
 }

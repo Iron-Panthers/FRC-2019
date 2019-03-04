@@ -94,6 +94,7 @@ public class Hardware {
 		rightMotor3 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_3_PORT, MotorType.kBrushless);
 
 		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
+		trainingWheelMotor.configOpenloopRamp(Constants.Climb.TRAINING_WHEEL_RAMP_RATE, Constants.Climb.TRAINING_WHEEL_TIMEOUT_MS);
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
 		climbMotors = new SparkMaxMotorGroup("Climb Motor Group", rightMotor3, leftMotor2, leftMotor3, rightMotor1,
