@@ -115,7 +115,7 @@ public class Constants {
 
         // INTAKE ARM SETPOINTS - TODO Double Check Measurements
         public static final double TICKS_TO_DEGREES = 360.0 / (4096.0 * 4.0); // 360 / (ticks per rotation * sprocket ratio)
-        public static final double BASE_ANGLE_OFFSET = 20; // degrees
+        public static final double BASE_ANGLE_OFFSET = -20; // degrees
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
