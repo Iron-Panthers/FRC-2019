@@ -49,7 +49,9 @@ public class Constants {
         public static final int REVERSE_DRIVE_BUTTON = 1;
         public static final int SHIFT_GEAR_LOW_BUTTON = 2;
         // IntakeArm
-        public static final int HUBERT_OUTTAKE_BUTTON = 3;
+		public static final int HUBERT_OUTTAKE_BUTTON = 7;
+		public static final int HUBERT_FAST_OUTTAKE_BUTTON = 8;
+		public static final int HUBERT_SLOW_OUTTAKE_BUTTON = 9;
 
         // Driver B
         // Manual Arm
@@ -60,14 +62,14 @@ public class Constants {
         // Arm Setpoints
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
-        public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
+		public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
+		public static final int HATCH_HEIGHT_BUTTON = 9;
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
         // Climb Joystick
-        public static final int CLIMB_DOWN_WITH_JOYSTICK = 3;
-        public static final int CLIMB_UP_WITH_JOYSTICK = 4;
+        public static final int CLIMB_WITH_JOYSTICK = 4;
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;
         public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
@@ -112,18 +114,19 @@ public class Constants {
         public static final double POWER_SCALE = 0.7;
 
         // INTAKE ARM SETPOINTS - TODO Double Check Measurements
-        public static final double TICKS_TO_DEGREES = 360.0 / (1024.0 * 16.0); // 360 / (ticks per rotation * sprocket
-                                                                               // ratio)
+        public static final double TICKS_TO_DEGREES = 360.0 / (4096.0 * 4.0); // 360 / (ticks per rotation * sprocket ratio)
+        public static final double BASE_ANGLE_OFFSET = -20; // degrees
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
-        public static final double ARM_BASE_HEIGHT = 18.75; // in
+		public static final double ARM_BASE_HEIGHT = 18.75; // in
+		public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
-        public static final double LOWEST_HEIGHT = 12.0 - ARM_BASE_HEIGHT; // in - estimate
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
         // INTAKE ARM PID - TODO Tune PID
+        public static final double INTAKE_ARM_MAX_POWER = 0.4;
         public static final double INTAKE_ARM_P = 0.1;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
@@ -133,7 +136,9 @@ public class Constants {
 
         // INTAKE
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
-        public static final double OUTTAKE_POWER = -0.7;
+		public static final double OUTTAKE_POWER = -0.7;
+		public static final double FAST_OUTTAKE_POWER = -1.0; // For Level 2 Rocket
+		public static final double SLOW_OUTTAKE_POWER = -0.5; // For close cargo ship
     }
 
     public class Climb {
@@ -143,13 +148,13 @@ public class Constants {
         public static final int LEFT_MOTOR_3_PORT = 10;
         public static final int RIGHT_MOTOR_1_PORT = 11;
         public static final int RIGHT_MOTOR_2_PORT = 12;
-        public static final int RIGHT_MOTOR_3_PORT = 13;
+		public static final int RIGHT_MOTOR_3_PORT = 13;
+		// Training Wheel Port
+		public static final int TRAINING_WHEEL_MOTOR_PORT = 3;
 
         // Climb Side Inversions
         public static final boolean IS_LEFT_INVERTED = false;
         public static final boolean IS_RIGHT_INVERTED = true;
-
-        public static final int TRAINING_WHEEL_MOTOR_PORT = 3; // To be changed
 
         // Climb Solenoid Ports
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
@@ -159,10 +164,16 @@ public class Constants {
         public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
-        public static final double CLIMB_UP_SPEED = 0.5; // Cannot be higher without limit switches for safety, tested 3/3/2019
-        public static final double CLIMB_DOWN_SPEED = -0.5; // See above
-        public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0;
-        public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
+        public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
+		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
+		// Tested setpoints
+		public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
+                                                             // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
+															 // TICKS.
+		public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
+		// Constants to be tested
+		public static final double TARGET_END_CLIMB_VELOCITY = 150.0; // RPM, target velocity at the top and bottom for climbing to slow down climb before limit switches TODO: Find Value
+		// Setpoints that are not yet tested
         public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
                                                              // training wheels. THIS IS IN ROTATIONS, NOT ENCODER
                                                              // TICKS. TODO: Test value
@@ -184,12 +195,12 @@ public class Constants {
         //                                                           // power
         // public static final double END_BOTTOM_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
         //                                                           // at the end of the climb, used to determine climbing
-        //                                                           // power                                                          
-        public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
-                                                             // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
-                                                             // TICKS. TODO: Find Value
-        public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
-        public static final double TARGET_END_CLIMB_VELOCITY = 150.0; // RPM, target velocity at the top and bottom for climbing to slow down climb before limit switches TODO: Find Value
-
+        //                                                           // power  
+		
+		// Training Wheel Constants
+        public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
+		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
+		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power. TODO: Test Value
+		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
     }
 }

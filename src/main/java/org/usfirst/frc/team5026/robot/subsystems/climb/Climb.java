@@ -66,12 +66,20 @@ public class Climb extends Subsystem {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED);
 	}
 
+	public void trainingWheelsForwardWithPower(double power) {
+		trainingWheelMotor.set(ControlMode.PercentOutput, Math.abs(power));
+	}
+
 	/**
 	 * Sets the training wheel motor controller to a specified backward speed,
 	 * defined in the Constants class.
 	 */
 	public void trainingWheelsBackward() {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED);
+	}
+
+	public void trainingWheelsBackwardWithPower(double power){
+		trainingWheelMotor.set(ControlMode.PercentOutput, -Math.abs(power));
 	}
 
 	/**
