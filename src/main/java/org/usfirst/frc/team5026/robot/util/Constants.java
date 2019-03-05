@@ -51,6 +51,7 @@ public class Constants {
         // IntakeArm
 		public static final int HUBERT_OUTTAKE_BUTTON = 7;
 		public static final int HUBERT_FAST_OUTTAKE_BUTTON = 8;
+		public static final int HUBERT_SLOW_OUTTAKE_BUTTON = 9;
 
         // Driver B
         // Manual Arm
@@ -137,6 +138,7 @@ public class Constants {
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
 		public static final double OUTTAKE_POWER = -0.7;
 		public static final double FAST_OUTTAKE_POWER = -1.0; // For Level 2 Rocket
+		public static final double SLOW_OUTTAKE_POWER = -0.5; // For close cargo ship
     }
 
     public class Climb {

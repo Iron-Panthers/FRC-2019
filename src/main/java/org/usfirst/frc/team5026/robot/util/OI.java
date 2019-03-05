@@ -26,6 +26,7 @@ public class OI {
 	JoystickButton shiftGearLow;
 	JoystickButton hubertOuttake;
 	JoystickButton hubertFastOuttake;
+	JoystickButton hubertSlowOuttake;
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
@@ -55,12 +56,14 @@ public class OI {
 		shiftGearLow = new JoystickButton(stick1, Constants.Input.SHIFT_GEAR_LOW_BUTTON);
 		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
 		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
+		hubertSlowOuttake = new JoystickButton(sick1, Constants.Input.HUBERT_SLOW_OUTTAKE_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
 		hubertOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hubertFastOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
+		hubertSlowOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
 
 		// Create the buttons for driver 2
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
