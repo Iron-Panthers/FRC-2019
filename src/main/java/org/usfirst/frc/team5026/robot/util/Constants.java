@@ -50,7 +50,7 @@ public class Constants {
 		public static final double LINEFOLLOW__LEFT1_DISTANCE_FROM_CENTER = 2.8; 
 		public static final double LINEFOLLOW__RIGHT0_DISTANCE_FROM_CENTER = -0.9; 
 		public static final double LINEFOLLOW__RIGHT1_DISTANCE_FROM_CENTER = -2.8; 
-		public static final double LINEFOLLOW_P = 0.35;
+		public static final double LINEFOLLOW_P = 0.55;
 		public static final double LINEFOLLOW_D = 0.6;
 
 		//driving right or left based on the  outer sensor's values
