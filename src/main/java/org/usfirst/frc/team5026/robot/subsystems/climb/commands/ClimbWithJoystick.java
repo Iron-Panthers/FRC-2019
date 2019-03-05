@@ -11,11 +11,12 @@ import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimbUpWithJoystick extends Command {
-	public ClimbUpWithJoystick() {
+/**
+ * Either climbs up or down, depending on joystick Y-axis.
+ */
+public class ClimbWithJoystick extends Command {
+	public ClimbWithJoystick() {
 		requires(Robot.climb);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -26,7 +27,12 @@ public class ClimbUpWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.climb.climbUpWithPower(Robot.oi.stick3.getY());
+		double stickY = Robot.oi.stick3.getY();
+		if (stickY > 0) {
+			Robot.climb.climbUpWithPower(stickY);
+		} else {
+			Robot.climb.climbDownWithPower(stickY);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
