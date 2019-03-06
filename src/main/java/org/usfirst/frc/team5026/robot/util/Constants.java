@@ -51,7 +51,9 @@ public class Constants {
         // IntakeArm
 		public static final int HUBERT_OUTTAKE_BUTTON = 7;
 		public static final int HUBERT_FAST_OUTTAKE_BUTTON = 8;
-		public static final int HUBERT_SLOW_OUTTAKE_BUTTON = 9;
+        public static final int HUBERT_SLOW_OUTTAKE_BUTTON = 9;
+        // Additional climb functionality
+        public static final int ALT_CLIMB_DOWN_BUTTON = 5;
 
         // Driver B
         // Manual Arm
