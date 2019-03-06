@@ -64,6 +64,8 @@ public class ArmToTarget extends Command {
 		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError)
 				+ (Constants.IntakeArm.INTAKE_ARM_I * errorSum) + (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
 
+		power *= Constants.IntakeArm.INTAKE_ARM_MAX_POWER;
+
 		if (Math.abs(power) > Constants.IntakeArm.INTAKE_ARM_MAX_POWER) {
 			power = Math.copySign(Constants.IntakeArm.INTAKE_ARM_MAX_POWER, power);
 		}
