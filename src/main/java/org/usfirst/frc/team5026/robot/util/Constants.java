@@ -121,7 +121,7 @@ public class Constants {
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
-		public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
+		public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
@@ -138,7 +138,7 @@ public class Constants {
 
         // INTAKE
         public static final double INTAKE_POWER = 0.5; // TODO Find Best Power
-		public static final double OUTTAKE_POWER = -0.7;
+		public static final double OUTTAKE_POWER = -0.7; // For side cargo ship
 		public static final double FAST_OUTTAKE_POWER = -1.0; // For Level 2 Rocket
 		public static final double SLOW_OUTTAKE_POWER = -0.5; // For close cargo ship
     }
