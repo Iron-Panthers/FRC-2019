@@ -83,6 +83,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("pos", hardware.driveRight1.getEncoder().getPosition());
 		Scheduler.getInstance().run();
 	}
 
@@ -145,6 +146,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("conversion", hardware.driveRight1.getEncoder().getVelocityConversionFactor());
+		if (oi.stick1.findRightPower() > 0) {
+			SmartDashboard.putNumber("speed", hardware.driveRight1.getEncoder().getVelocity() / oi.stick1.findRightPower());
+		}
 		Scheduler.getInstance().run();
 	}
 
