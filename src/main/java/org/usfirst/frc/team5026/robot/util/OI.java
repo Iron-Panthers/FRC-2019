@@ -27,6 +27,7 @@ public class OI {
 	JoystickButton hubertOuttake;
 	JoystickButton hubertFastOuttake;
 	JoystickButton hubertSlowOuttake;
+	JoystickButton altClimbDown; // Hubert wants ClimbDown to be accessible while driving
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
@@ -57,6 +58,7 @@ public class OI {
 		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
 		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
 		hubertSlowOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_SLOW_OUTTAKE_BUTTON);
+		altClimbDown = new JoystickButton(stick1, Constants.Input.ALT_CLIMB_DOWN_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
 		reverseDrive.whileHeld(new ReverseDrive());
@@ -64,6 +66,7 @@ public class OI {
 		hubertOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hubertFastOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
 		hubertSlowOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
+		altClimbDown.whileHeld(new ClimbDown());
 
 		// Create the buttons for driver 2
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
@@ -71,7 +74,8 @@ public class OI {
 		outtake = new JoystickButton(stick2, Constants.Input.OUTTAKE_BUTTON);
 		zeroIntakeAngle = new JoystickButton(stick2, Constants.Input.ZERO_INTAKE_ARM_BUTTON);
 		lowestHeight = new JoystickButton(stick2, Constants.Input.LOWEST_HEIGHT_BUTTON);
-		// oppRocketLowHeight = new JoystickButton(stick2, Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
+		// oppRocketLowHeight = new JoystickButton(stick2,
+		// Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
 		hatchHeight = new JoystickButton(stick2, Constants.Input.HATCH_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
