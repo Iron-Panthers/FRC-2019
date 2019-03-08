@@ -31,7 +31,7 @@ public class OI {
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
-	JoystickButton hatchHeight;
+	JoystickButton hatchHeight, hatchLoadingHeight;
 	JoystickButton cargoShipHeight, oppCargoShipHeight;
 	JoystickButton rocketLowHeight, oppRocketLowHeight;
 	JoystickButton intake, outtake;
@@ -78,12 +78,14 @@ public class OI {
 		// oppRocketLowHeight = new JoystickButton(stick2,
 		// Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
 		hatchHeight = new JoystickButton(stick2, Constants.Input.HATCH_HEIGHT_BUTTON);
+		hatchLoadingHeight = new JoystickButton(stick2, Constants.Input.HATCH_LOADING_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
 		hatchHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HEIGHT, true));
+		hatchLoadingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_LOADING_HEIGHT, true));
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
 		oppCargoShipHeight.whenPressed(
