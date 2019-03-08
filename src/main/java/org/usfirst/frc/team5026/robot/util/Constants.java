@@ -70,7 +70,8 @@ public class Constants {
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
-        // Climb Joystick
+		// Climb Joystick
+		public static final int REVERSE_TRAINING_WHEELS_BUTTON = 1;
         public static final int CLIMB_WITH_JOYSTICK = 4;
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;

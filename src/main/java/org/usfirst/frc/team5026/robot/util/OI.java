@@ -39,6 +39,7 @@ public class OI {
 	JoystickButton zeroIntakeAngle;
 
 	// All of the following buttons will belong to the Climb Joystick
+	public JoystickButton reverseTrainingWheels;
 	JoystickButton climbWithJoystick;
 	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
 	JoystickButton climbUp, climbDown;
@@ -98,6 +99,7 @@ public class OI {
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 
 		// Construct Buttons for Climb Joystick 3
+		reverseTrainingWheels = new JoystickButton(stick3, Constants.Input.REVERSE_TRAINING_WHEELS_BUTTON);
 		climbWithJoystick = new JoystickButton(stick3, Constants.Input.CLIMB_WITH_JOYSTICK);
 		extendSuperStructurePistons = new JoystickButton(stick3, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
 		climbUp = new JoystickButton(stick3, Constants.Input.CLIMB_UP_BUTTON);
@@ -115,6 +117,7 @@ public class OI {
 		// Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the button for Climb Joystick
+		// Reverse Training Wheels does not need to be bound, functionality in trainingWheelsForward command
 		climbWithJoystick.whileHeld(new ClimbWithJoystick());
 		extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
 		climbUp.whileHeld(new ClimbUp());
@@ -123,7 +126,6 @@ public class OI {
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
 		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
 		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
-		trainingWheelsBackward.whileHeld(new TrainingWheelsBackward());
 		// setupClimb.whenPressed(new SetupClimb());
 		// finishClimb.whenPressed(new FinishClimb());
 		// cancelClimb.whenPressed(new CancelClimb());
