@@ -127,7 +127,7 @@ public class Constants {
         public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
         public static final double HATCH_LOADING_HEIGHT = 12.5 - ARM_BASE_HEIGHT;
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
-        public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
+        public static final double ROCKET_LOW_HEIGHT = 34.0 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
