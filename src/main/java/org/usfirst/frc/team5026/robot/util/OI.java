@@ -43,7 +43,7 @@ public class OI {
 	JoystickButton climbWithJoystick;
 	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
 	JoystickButton climbUp, climbDown;
-	JoystickButton trainingWheelsForward, trainingWheelsBackward;
+	JoystickButton trainingWheelsForward, slowTrainingWheelsForward;
 	JoystickButton deployTrainingWheels, retractTrainingWheels;
 	JoystickButton setupClimb, finishClimb, cancelClimb;
 
@@ -102,6 +102,7 @@ public class OI {
 
 		// Construct Buttons for Climb Joystick 3
 		reverseTrainingWheels = new JoystickButton(stick3, Constants.Input.REVERSE_TRAINING_WHEELS_BUTTON);
+		slowTrainingWheelsForward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_SLOW_FORWARD_BUTTON);
 		climbWithJoystick = new JoystickButton(stick3, Constants.Input.CLIMB_WITH_JOYSTICK);
 		extendSuperStructurePistons = new JoystickButton(stick3, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
 		climbUp = new JoystickButton(stick3, Constants.Input.CLIMB_UP_BUTTON);
@@ -111,7 +112,6 @@ public class OI {
 				Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
 		retractTrainingWheels = new JoystickButton(stick3, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
 		trainingWheelsForward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
-		trainingWheelsBackward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
 		// setupClimb = new JoystickButton(stick3, Constants.Input.CLIMB_SETUP_BUTTON);
 		// finishClimb = new JoystickButton(stick3,
 		// Constants.Input.CLIMB_FINISH_BUTTON);
@@ -127,7 +127,8 @@ public class OI {
 		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
 		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
-		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward());
+		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
+		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
 		// setupClimb.whenPressed(new SetupClimb());
 		// finishClimb.whenPressed(new FinishClimb());
 		// cancelClimb.whenPressed(new CancelClimb());

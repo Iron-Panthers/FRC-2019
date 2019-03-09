@@ -12,11 +12,15 @@ import org.usfirst.frc.team5026.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TrainingWheelsDriveForward extends Command {
+
+	private double speed;
+
 	/**
 	 * A command which drives the training wheels forward at a speed specified in
 	 * Constants.
 	 */
-	public TrainingWheelsDriveForward() {
+	public TrainingWheelsDriveForward(double speed) {
+		this.speed = speed;
 		// requires(Robot.climb);
 	}
 
@@ -31,7 +35,7 @@ public class TrainingWheelsDriveForward extends Command {
 		if (Robot.oi.reverseTrainingWheels.get()) {
 			Robot.climb.trainingWheelsBackward();
 		} else {
-			Robot.climb.trainingWheelsForward();
+			Robot.climb.trainingWheelsForwardWithPower(speed);
 		}
 	}
 

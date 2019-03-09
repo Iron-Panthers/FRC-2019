@@ -77,11 +77,12 @@ public class Constants {
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;
         public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
+        public static final int TRAINING_WHEELS_SLOW_FORWARD_BUTTON = 7;
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
         public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
         public static final int DEPLOY_TRAINING_WHEELS_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
-        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
+        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12; 
         public static final int CLIMB_SETUP_BUTTON = 4; // Not used
         public static final int CLIMB_FINISH_BUTTON = 5; // Not used
         public static final int CANCEL_CLIMB_BUTTON = 6; // Not used
@@ -204,6 +205,7 @@ public class Constants {
 		
 		// Training Wheel Constants
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
+        public static final double TRAINING_WHEEL_SLOW_FORWARD_SPEED = 0.3;
 		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
 		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power. TODO: Test Value
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
