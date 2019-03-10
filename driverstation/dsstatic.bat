@@ -1,5 +1,8 @@
 @echo off
 
+:: This script was for our practice field in the pre-season
+:: It does not work with the FMS, and serves functionally no use in season competition
+
 net session
 :: Exists to check for admin permissions
 :: If not enough permissions, puts "System error 5 has occured. ... Access is denied."

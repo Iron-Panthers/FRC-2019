@@ -62,6 +62,7 @@ public class Constants {
         public static final int INTAKE_BUTTON = 2;
         public static final int OUTTAKE_BUTTON = 3;
         // Arm Setpoints
+        public static final int HATCH_LOADING_HEIGHT_BUTTON = 4;
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
 		public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
@@ -70,16 +71,18 @@ public class Constants {
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
-        // Climb Joystick
+		// Climb Joystick
+		public static final int REVERSE_TRAINING_WHEELS_BUTTON = 1;
         public static final int CLIMB_WITH_JOYSTICK = 4;
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;
         public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
+        public static final int TRAINING_WHEELS_SLOW_FORWARD_BUTTON = 7;
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
         public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
         public static final int DEPLOY_TRAINING_WHEELS_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
-        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12;
+        public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12; 
         public static final int CLIMB_SETUP_BUTTON = 4; // Not used
         public static final int CLIMB_FINISH_BUTTON = 5; // Not used
         public static final int CANCEL_CLIMB_BUTTON = 6; // Not used
@@ -121,9 +124,10 @@ public class Constants {
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
-		public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
+        public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
+        public static final double HATCH_LOADING_HEIGHT = 12.5 - ARM_BASE_HEIGHT;
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
-        public static final double ROCKET_LOW_HEIGHT = 35.0 - ARM_BASE_HEIGHT; // in
+        public static final double ROCKET_LOW_HEIGHT = 34.0 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
@@ -201,6 +205,7 @@ public class Constants {
 		
 		// Training Wheel Constants
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
+        public static final double TRAINING_WHEEL_SLOW_FORWARD_SPEED = 0.3;
 		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
 		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power. TODO: Test Value
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
