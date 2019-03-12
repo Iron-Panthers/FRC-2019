@@ -172,36 +172,12 @@ public class Constants {
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
 		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
+		public static final double CLIMB_HOLD_POWER = 0.05; // To hold the elevator at the same height when by itself
 		// Tested setpoints
 		public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
                                                              // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
 															 // TICKS.
 		public static final double BOTTOM_ENCODER_VALUE = 0.0; // The rotations at the bottom limit switch
-		// Constants to be tested
-		public static final double TARGET_END_CLIMB_VELOCITY = 150.0; // RPM, target velocity at the top and bottom for climbing to slow down climb before limit switches TODO: Find Value
-		// Setpoints that are not yet tested
-        public static final double CLIMB_FIRST_TARGET = 3.0; // The target of rotations needed before we can deploy the
-                                                             // training wheels. THIS IS IN ROTATIONS, NOT ENCODER
-                                                             // TICKS. TODO: Test value
-        public static final double CLIMB_SECOND_TARGET = 6.0; // The target of rotations needed where the ramps fall to
-                                                              // the ground. THIS IS IN ROTATIONS, NOT ENCODER TICKS.
-                                                              // TODO: Test Value
-        public static final double CLIMB_THIRD_TARGET = 12.0; // The target of roataions needed to get to the soft
-                                                              // limit. THIS IS IN ROTATIONS, NOT ENCODER
-                                                              // TICKS. TODO: Test Value
-        public static final double CLIMB_FINAL_TARGET = 4.0; // The target of rotations needed to get the super
-                                                             // structure off the ground when the robot is on the
-                                                             // third level platform. THIS IS IN ROTATIONS, NOT
-                                                             // ENCODER TICKS. TODO: Test Value
-        public static final double TRAINING_WHEEL_DRIVE_TIME = 3.0; // The number of seconds that the robot training
-                                                                    // wheels drive forward to move onto the platform.
-                                                                    // TODO: Test Value
-        // public static final double END_TOP_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
-        //                                                           // at the end of the climb, used to determine climbing
-        //                                                           // power
-        // public static final double END_BOTTOM_CLIMB_POWER_SCALAR = 3.03; // The scalar to be divided by the velocity at the end
-        //                                                           // at the end of the climb, used to determine climbing
-        //                                                           // power  
 		
 		// Training Wheel Constants
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
