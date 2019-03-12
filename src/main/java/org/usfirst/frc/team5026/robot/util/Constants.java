@@ -7,7 +7,6 @@ package org.usfirst.frc.team5026.robot.util;
  */
 public class Constants {
 
-    // TODO adjust drivebase constants
     public class Drivebase {
         /** DRIVEBASE PORTS */
         public static final int DRIVE_R1_PORT = 1;	// SparkMax
@@ -37,7 +36,6 @@ public class Constants {
         public static final double SCALING_POWER = 2.75;
     }
 
-    // TODO tune input constants
     public class Input {
         /** DEVICE PORTS */
         public static final int JOYSTICK_1_PORT = 0; // Driver A
@@ -131,7 +129,7 @@ public class Constants {
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
         public static final double DEGRESS_TO_RADIANS = Math.PI / 180;
 
-        // INTAKE ARM PID - TODO Tune PID
+        // INTAKE ARM PID
         public static final double INTAKE_ARM_MAX_POWER = 0.4;
         public static final double INTAKE_ARM_P = 0.2;
         public static final double INTAKE_ARM_I = 0;
@@ -183,7 +181,7 @@ public class Constants {
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
         public static final double TRAINING_WHEEL_SLOW_FORWARD_SPEED = 0.3;
 		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
-		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power. TODO: Test Value
+		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power.
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
     }
 }
