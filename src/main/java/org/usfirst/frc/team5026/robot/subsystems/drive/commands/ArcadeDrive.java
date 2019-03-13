@@ -71,6 +71,7 @@ public class ArcadeDrive extends Command {
 		for (double element : powers) {
 			if (Math.abs(element) > 1) {
 				isOverOne = true;
+				break;
 			}
 		}
 		if (!isOverOne) {
