@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -84,6 +85,7 @@ public class Hardware {
 		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
 		armIntakeMotor.setInverted(Constants.IntakeArm.IS_INTAKE_INVERTED);
 		armMotor.setNeutralMode(NeutralMode.Brake);
+		armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 		/* Climb Subsystem creation */
 		leftMotor1 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_1_PORT, MotorType.kBrushless);
