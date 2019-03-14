@@ -113,7 +113,9 @@ public class Constants {
         public static final boolean IS_INTAKE_INVERTED = true;
 
         // INTAKE JOYSTICK - TODO Tune To Driver Preference
-        public static final double Y_DEADZONE = 0.1;
+		public static final double Y_DEADZONE = 0.1;
+		public static final double SLOW_Y_DEADZONE = 0.5; // Deadzone for fine control
+		public static final double SLOW_POWER_SCALE = 0.25; // Power scale for fine control
         public static final double POWER_SCALE = 0.7;
 
         // INTAKE ARM SETPOINTS - TODO Double Check Measurements
@@ -170,7 +172,8 @@ public class Constants {
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
 		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
-		public static final double CLIMB_HOLD_POWER = 0.05; // To hold the elevator at the same height when by itself
+		public static final double CLIMB_HOLD_POWER = 0.05; // To hold the elevator at the same height when driving around TODO: Test Value
+		public static final double CLIMB_ONE_HOLD_POWER = 0.1; // To hold the elevator at the same height when doing single climb TODO: Test Value
 		// Tested setpoints
 		public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
                                                              // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER

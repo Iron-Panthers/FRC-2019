@@ -32,9 +32,19 @@ public class ManualArmMovement extends Command {
 		basePower = Robot.intakeArm.getBasePower();
 		if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.Y_DEADZONE) {
 			power = 0;
-		} else {
-			power = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE
+		} 
+		else if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.SLOW_Y_DEADZONE){
+			// Power after scaling, before applying negative or positive depending on getY
+			double tempPower = (Math.abs(Robot.oi.stick2.getY()) - Constants.IntakeArm.SLOW_Y_DEADZONE) * Constants.IntakeArm.SLOW_POWER_SCALE
 					/ (1 - Constants.IntakeArm.Y_DEADZONE);
+			// Ensures the output correctly scales when the joystick has a negative getY
+			power = Math.copySign(tempPower, Robot.oi.stick2.getY());
+			
+		}
+		else {
+			double tempPower = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE
+					/ (1 - Constants.IntakeArm.Y_DEADZONE);
+			power = Math.copySign(tempPower, Robot.oi.stick2.getY());
 		}
 		Robot.intakeArm.moveArm(basePower + power);
 	}
