@@ -94,17 +94,6 @@ public class Constants {
        
     }
 
-    public class Camera {
-        // Camera Ports
-        public static final int CAMERA_PORT_1 = 0;
-        public static final int CAMERA_PORT_2 = 0;
-
-        // Camera Constants
-        public static final int CAMERA_HEIGHT = 144;
-        public static final int CAMERA_WIDTH = 256;
-        public static final int FRAME_RATE = 15;
-    }
-
     public class IntakeArm {
         // INTAKE ARM PORTS
         public static final int INTAKE_ARM_MOTOR_PORT = 6;
