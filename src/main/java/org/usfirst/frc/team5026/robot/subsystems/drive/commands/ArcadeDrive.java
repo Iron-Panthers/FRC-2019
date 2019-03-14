@@ -56,18 +56,16 @@ public class ArcadeDrive extends Command {
 		if (!isOverOne) {
 			return powers;
 		}
-		double currentMax = powers[0];
 		// Finds the highest value
-		for (int i = 0; i < powers.length; i++) {
-			if (Math.abs(powers[i]) > currentMax) {
-				currentMax = Math.abs(powers[i]);
-			}
+		double greatestPower = powers[0];
+		if (Math.abs(powers[1]) > greatestPower) {
+			greatestPower = Math.abs(powers[1]);
 		}
 		// Scales all values
 		for (int i = 0; i < powers.length; i++) {
-			powers[i] /= currentMax;
+			powers[i] /= greatestPower;
 		}
-
+		
 		return powers;
 	}
 
