@@ -163,7 +163,8 @@ public class Constants {
 		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
 		public static final double CLIMB_HOLD_POWER = 0.05; // To hold the elevator at the same height when driving around TODO: Test Value
 		public static final double CLIMB_ONE_HOLD_POWER = 0.1; // To hold the elevator at the same height when doing single climb TODO: Test Value
-		// Tested setpoints
+        public static final double CLIMB_VELOCITY_TOLERANCE = 1; // Minimum velocity allowed for HoldElevator command TODO: Test Value
+        // Tested setpoints
 		public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
                                                              // calibrating encoders. THIS IS IN ROTATIONS, NOT ENCODER
 															 // TICKS.

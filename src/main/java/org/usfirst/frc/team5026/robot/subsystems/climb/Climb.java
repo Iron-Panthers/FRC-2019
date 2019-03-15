@@ -124,6 +124,10 @@ public class Climb extends Subsystem {
 		return climbMotors.getMasterMotor().getEncoder().getPosition();
 	}
 
+	public double getEncoderVelocity() {
+		return climbMotors.getMasterMotor().getEncoder().getVelocity();
+	}
+
 	/**
 	 * Extends the superstructure pistons.
 	 */
