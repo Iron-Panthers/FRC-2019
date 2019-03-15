@@ -13,9 +13,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class HoldElevator extends Command {
-	private double power;
 	public HoldElevator() {
-		power = Constants.Climb.CLIMB_HOLD_POWER;
 		requires(Robot.climb);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -29,10 +27,7 @@ public class HoldElevator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if(Robot.climb.getEncoderVelocity() > Constants.Climb.CLIMB_VELOCITY_TOLERANCE){
-			power++;
-		}
-		Robot.climb.climbUpWithPower(power);
+		Robot.climb.climbUpWithPower(Constants.Climb.CLIMB_HOLD_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
