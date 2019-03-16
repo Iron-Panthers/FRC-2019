@@ -30,7 +30,7 @@ public class Climb1ElevatorHold extends Command {
 	@Override
 	protected void execute() {
 		if(Robot.climb.getEncoderVelocity() > Constants.Climb.CLIMB_VELOCITY_TOLERANCE){
-			power++;
+			power += Constants.Climb.CLIMB_HOLD_POWER_INCREMENT;
 		}
 		Robot.climb.climbUpWithPower(power);
 	}
