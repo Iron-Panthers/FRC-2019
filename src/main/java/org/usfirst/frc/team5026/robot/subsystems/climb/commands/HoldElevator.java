@@ -27,7 +27,7 @@ public class HoldElevator extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.climb.climbUpWithPower(Constants.Climb.CLIMB_HOLD_POWER);
+		Robot.climb.climbDownWithPower(Constants.Climb.CLIMB_HOLD_POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -161,9 +161,9 @@ public class Constants {
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
 		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
-        public static final double CLIMB_HOLD_POWER = 0.00; // To hold the elevator at the same height when driving around TODO: Test Value
+        public static final double CLIMB_HOLD_POWER = 0.05025; // To hold the elevator at the same height when driving around Tested 3/17/2019 by James, moves elevator up slowly until it stops
         public static final double CLIMB_HOLD_POWER_INCREMENT = 0.000000000001; //Increment to find holding power
-		public static final double CLIMB_ONE_HOLD_POWER = 0.0; // To hold the elevator at the same height when doing single climb TODO: Test Value
+		public static final double CLIMB_ONE_HOLD_POWER = 0.02; // To hold the elevator at the same height when doing single climb Tested 3/17/2019 by James, does not move if climb1
         public static final double CLIMB_VELOCITY_TOLERANCE = 1; // Minimum velocity allowed for HoldElevator command TODO: Test Value
 
         // Tested setpoints
