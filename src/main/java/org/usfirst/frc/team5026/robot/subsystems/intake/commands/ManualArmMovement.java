@@ -30,21 +30,22 @@ public class ManualArmMovement extends Command {
 	@Override
 	protected void execute() {
 		basePower = Robot.intakeArm.getBasePower();
-		if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.Y_DEADZONE) {
+		double joystickY = Robot.oi.stick2.getY();					// Makes code easy to read //
+		double slowPower = Constants.IntakeArm.SLOW_POWER_SCALE;   //                        //    
+		double fastPower = Constants.IntakeArm.POWER_SCALE;       ///////////////////////////
+		if (Math.abs(joystickY) < Constants.IntakeArm.Y_DEADZONE) {
 			power = 0;
 		} 
-		else if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.SLOW_Y_DEADZONE){
+		else if (Math.abs(joystickY) < Constants.IntakeArm.SLOW_Y_DEADZONE){
 			// If within slow deadzone, multiply by slow scalar
 			// Power after scaling, before applying negative or positive depending on getY
-			double tempSlowPower = ((Math.abs(Robot.oi.stick2.getY()) - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.SLOW_POWER_SCALE)
-					/ (1 - Constants.IntakeArm.Y_DEADZONE);
+			double tempSlowPower = interpolate(joystickY, Constants.IntakeArm.Y_DEADZONE, Constants.IntakeArm.SLOW_Y_DEADZONE, 0, slowPower);
 			// Ensures the output correctly scales when the joystick has a negative getY
-			power = Math.copySign(tempSlowPower, Robot.oi.stick2.getY());
+			power = Math.copySign(slowPower, joystickY);
 			
 		}
 		else {
-			double tempPower = ((Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE)
-					/ (1 - Constants.IntakeArm.Y_DEADZONE);
+			double tempPower = interpolate(joystickY, Constants.IntakeArm.SLOW_Y_DEADZONE, 1, slowPower, fastPower);
 			power = Math.copySign(tempPower, Robot.oi.stick2.getY());
 		}
 		Robot.intakeArm.moveArm(basePower + power);
@@ -67,5 +68,12 @@ public class ManualArmMovement extends Command {
 	@Override
 	protected void interrupted() {
 		Robot.intakeArm.moveArm(basePower);
+	}
+	/**
+	 * maps a value from within a specific range to another range
+	 */
+	private double interpolate(double value, double min, double max, double newMin, double newMax){
+		if(max <= min || newMax <= newMin) { return value;}// the maximum values MUST be greater than the minimum values
+		return (value - min) / (max - min) * (newMax - newMin) + newMin;
 	}
 }

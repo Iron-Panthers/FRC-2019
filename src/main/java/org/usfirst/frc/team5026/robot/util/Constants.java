@@ -104,8 +104,8 @@ public class Constants {
         // INTAKE JOYSTICK - TODO Tune To Driver Preference
 		public static final double Y_DEADZONE = 0.1;
 		public static final double SLOW_Y_DEADZONE = 0.7; // Deadzone for fine control
-		public static final double SLOW_POWER_SCALE = 0.1; // Power scale for fine control
-        public static final double POWER_SCALE = 0.7;
+        public static final double SLOW_POWER_SCALE = 0.2; // Power scale for fine control
+        public static final double POWER_SCALE = 0.7; // Should be greater than SLOW_POWER_SCALE
 
         // INTAKE ARM SETPOINTS - TODO Double Check Measurements
         public static final double TICKS_TO_DEGREES = 360.0 / (4096.0 * 4.0); // 360 / (ticks per rotation * sprocket ratio)
