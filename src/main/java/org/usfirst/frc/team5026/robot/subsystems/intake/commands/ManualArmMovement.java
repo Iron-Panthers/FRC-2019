@@ -46,7 +46,7 @@ public class ManualArmMovement extends Command {
 		}
 		else {
 			double tempPower = interpolate(joystickY, Constants.IntakeArm.SLOW_Y_DEADZONE, 1, slowPower, fastPower);
-			power = Math.copySign(tempPower, Robot.oi.stick2.getY());
+			power = Math.copySign(tempPower, joystickY);
 		}
 		Robot.intakeArm.moveArm(basePower + power);
 	}
