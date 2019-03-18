@@ -34,15 +34,16 @@ public class ManualArmMovement extends Command {
 			power = 0;
 		} 
 		else if (Math.abs(Robot.oi.stick2.getY()) < Constants.IntakeArm.SLOW_Y_DEADZONE){
+			// If within slow deadzone, multiply by slow scalar
 			// Power after scaling, before applying negative or positive depending on getY
-			double tempPower = (Math.abs(Robot.oi.stick2.getY()) - Constants.IntakeArm.SLOW_Y_DEADZONE) * Constants.IntakeArm.SLOW_POWER_SCALE
-					/ (1 - Constants.IntakeArm.SLOW_Y_DEADZONE);
+			double tempSlowPower = ((Math.abs(Robot.oi.stick2.getY()) - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.SLOW_POWER_SCALE)
+					/ (1 - Constants.IntakeArm.Y_DEADZONE);
 			// Ensures the output correctly scales when the joystick has a negative getY
-			power = Math.copySign(tempPower, Robot.oi.stick2.getY());
+			power = Math.copySign(tempSlowPower, Robot.oi.stick2.getY());
 			
 		}
 		else {
-			double tempPower = (Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE
+			double tempPower = ((Robot.oi.stick2.getY() - Constants.IntakeArm.Y_DEADZONE) * Constants.IntakeArm.POWER_SCALE)
 					/ (1 - Constants.IntakeArm.Y_DEADZONE);
 			power = Math.copySign(tempPower, Robot.oi.stick2.getY());
 		}
