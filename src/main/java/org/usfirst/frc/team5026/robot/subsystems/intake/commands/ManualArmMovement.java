@@ -41,7 +41,7 @@ public class ManualArmMovement extends Command {
 			// Power after scaling, before applying negative or positive depending on getY
 			double tempSlowPower = interpolate(joystickY, Constants.IntakeArm.Y_DEADZONE, Constants.IntakeArm.SLOW_Y_DEADZONE, 0, slowPower);
 			// Ensures the output correctly scales when the joystick has a negative getY
-			power = Math.copySign(slowPower, joystickY);
+			power = Math.copySign(tempSlowPower, joystickY);
 			
 		}
 		else {
