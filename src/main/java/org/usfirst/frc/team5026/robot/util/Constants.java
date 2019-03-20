@@ -27,6 +27,14 @@ public class Constants {
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
 		public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
 
+        // Max Velocity in RPM
+        // Low gear (High RPM, low robot speed) // Tested 3/20/2019 by James
+        public static final double LOW_GEAR_LEFT_MAX_RPM = 5280.0;
+        public static final double LOW_GEAR_RIGHT_MAX_RPM = 5070.0;
+        // High gear (Low RPM, high robot speed) // Tested 3/20/2019 by James
+        public static final double HIGH_GEAR_LEFT_MAX_RPM = 3630.0;
+        public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
+
         // Motion Profiling PID (For Velocity)
         public static final double F = 0; // TODO Find max velocity
         public static final double P = 0; // TODO Tune

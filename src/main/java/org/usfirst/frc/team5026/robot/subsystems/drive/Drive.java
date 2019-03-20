@@ -73,6 +73,19 @@ public class Drive extends Subsystem {
 	}
 
 	/**
+	 * @return The velocity of the motor in RPM
+	 */
+	public double getLeftVelocity(){
+		return left.getMasterMotor().getEncoder().getVelocity();
+	}
+
+	/**
+	 * @return The velocity of the motor in RPM
+	 */
+	public double getRightVelocity(){
+		return right.getMasterMotor().getEncoder().getVelocity();
+	}
+	/**
 	 * @return the encoder position of the left encoder, in encoder revolutions.
 	 */
 	public double getLeftEncoderRevolutions() {
