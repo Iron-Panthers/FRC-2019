@@ -30,21 +30,19 @@ public class ManualArmMovement extends Command {
 	@Override
 	protected void execute() {
 		basePower = Robot.intakeArm.getBasePower();
-		double joystickY = Robot.oi.stick2.getY();					// Makes code easy to read //
-		double slowPower = Constants.IntakeArm.SLOW_POWER_SCALE;   //                        //    
-		double fastPower = Constants.IntakeArm.POWER_SCALE;       ///////////////////////////
+		double joystickY = Robot.oi.stick2.getY();
+		double slowPower = Constants.IntakeArm.SLOW_POWER_SCALE;
+		double fastPower = Constants.IntakeArm.POWER_SCALE; 
 		if (Math.abs(joystickY) < Constants.IntakeArm.Y_DEADZONE) {
 			power = 0;
-		} 
-		else if (Math.abs(joystickY) < Constants.IntakeArm.SLOW_Y_DEADZONE){
+		} else if (Math.abs(joystickY) < Constants.IntakeArm.SLOW_Y_DEADZONE) {
 			// If within slow deadzone, multiply by slow scalar
 			// Power after scaling, before applying negative or positive depending on getY
-			double tempSlowPower = interpolate(joystickY, Constants.IntakeArm.Y_DEADZONE, Constants.IntakeArm.SLOW_Y_DEADZONE, 0, slowPower);
+			double tempSlowPower = interpolate(joystickY, Constants.IntakeArm.Y_DEADZONE,
+					Constants.IntakeArm.SLOW_Y_DEADZONE, 0, slowPower);
 			// Ensures the output correctly scales when the joystick has a negative getY
 			power = Math.copySign(tempSlowPower, joystickY);
-			
-		}
-		else {
+		} else {
 			double tempPower = interpolate(joystickY, Constants.IntakeArm.SLOW_Y_DEADZONE, 1, slowPower, fastPower);
 			power = Math.copySign(tempPower, joystickY);
 		}
@@ -69,11 +67,14 @@ public class ManualArmMovement extends Command {
 	protected void interrupted() {
 		Robot.intakeArm.moveArm(basePower);
 	}
+
 	/**
-	 * maps a value from within a specific range to another range
+	 * Maps a value from within a specified range to another range.
 	 */
-	private double interpolate(double value, double min, double max, double newMin, double newMax){
-		if(max <= min || newMax <= newMin) { return value;}// the maximum values MUST be greater than the minimum values
+	private double interpolate(double value, double min, double max, double newMin, double newMax) {
+		if (max <= min || newMax <= newMin) {
+			return value;
+		} // the maximum values MUST be greater than the minimum values
 		return (value - min) / (max - min) * (newMax - newMin) + newMin;
 	}
 }
