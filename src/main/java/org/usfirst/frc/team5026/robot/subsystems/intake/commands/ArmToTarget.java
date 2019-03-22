@@ -31,10 +31,10 @@ public class ArmToTarget extends Command {
 	public ArmToTarget(double targetHeight, boolean isFront) {
 		if (!isFront) {
 			this.target = 180 - (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
-					/ Constants.IntakeArm.DEGRESS_TO_RADIANS);
+					* Constants.IntakeArm.RADIANS_TO_DEGREES);
 		} else {
 			this.target = (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
-					/ Constants.IntakeArm.DEGRESS_TO_RADIANS);
+					* Constants.IntakeArm.RADIANS_TO_DEGREES);
 		}
 		requires(Robot.intakeArm);
 	}
