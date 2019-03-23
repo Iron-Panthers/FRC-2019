@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.CancelClimb;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
@@ -79,7 +80,7 @@ public class Climb extends Subsystem {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED);
 	}
 
-	public void trainingWheelsBackwardWithPower(double power){
+	public void trainingWheelsBackwardWithPower(double power) {
 		trainingWheelMotor.set(ControlMode.PercentOutput, -Math.abs(power));
 	}
 
@@ -158,6 +159,7 @@ public class Climb extends Subsystem {
 
 	/**
 	 * Climbs up with a specified power
+	 * 
 	 * @param power the power which the climb subsystem will be set to.
 	 */
 	public void climbUpWithPower(double power) {
@@ -175,11 +177,12 @@ public class Climb extends Subsystem {
 
 	/**
 	 * Climbs down with a specified power
+	 * 
 	 * @param power The power to set the climb to
 	 */
-	public void climbDownWithPower(double power){
+	public void climbDownWithPower(double power) {
 		// If the bottom limit is triggered
-		if (this.bottomLimitSwitch.get()){
+		if (this.bottomLimitSwitch.get()) {
 			// Stop climbing down, show climb has stopped
 			SmartDashboard.putString("Climb -- isClimbing", "No, bottom limit switch triggered");
 			this.stopClimb();
@@ -188,6 +191,15 @@ public class Climb extends Subsystem {
 			// -Math.abs used to ensure that the robot will climb down
 			climbMotors.set(-Math.abs(power));
 		}
+	}
+
+	/**
+	 * Stops elevator, and sets default command to CancelClimb to stop it from
+	 * moving for after climb is completed.
+	 */
+	public void cancelClimb() {
+		stopClimb();
+		setDefaultCommand(new CancelClimb());
 	}
 
 	@Override
