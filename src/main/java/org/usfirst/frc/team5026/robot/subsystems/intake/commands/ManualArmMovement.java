@@ -30,22 +30,28 @@ public class ManualArmMovement extends Command {
 	@Override
 	protected void execute() {
 		basePower = Robot.intakeArm.getBasePower();
-		double joystickY = Robot.oi.stick2.getY();					// Makes code easy to read //
-		double slowPower = Constants.IntakeArm.SLOW_POWER_SCALE;   //                        //    
-		double fastPower = Constants.IntakeArm.POWER_SCALE;       ///////////////////////////
-		if (Math.abs(joystickY) < Constants.IntakeArm.Y_DEADZONE) {
+		double joystickY = Robot.oi.stick2.getY();
+		double slowPower = Constants.IntakeArm.SLOW_POWER_SCALE;
+		double fastPower = Constants.IntakeArm.POWER_SCALE;
+		double yDeadzone = Constants.IntakeArm.Y_DEADZONE;
+		double slowYDeadzone = Constants.IntakeArm.SLOW_Y_DEADZONE;
+
+		if (Math.abs(joystickY) < yDeadzone) {
 			power = 0;
-		} 
-		else if (Math.abs(joystickY) < Constants.IntakeArm.SLOW_Y_DEADZONE){
+		} else if (Math.abs(joystickY) < slowYDeadzone) {
+			double[] joystickYMinmax = { yDeadzone, slowYDeadzone };
+			double[] powerMinMax = { 0, slowPower };
+			
 			// If within slow deadzone, multiply by slow scalar
 			// Power after scaling, before applying negative or positive depending on getY
-			double tempSlowPower = interpolate(joystickY, Constants.IntakeArm.Y_DEADZONE, Constants.IntakeArm.SLOW_Y_DEADZONE, 0, slowPower);
+			double tempSlowPower = interpolate(joystickY, joystickYMinmax, powerMinMax);
 			// Ensures the output correctly scales when the joystick has a negative getY
 			power = Math.copySign(tempSlowPower, joystickY);
-			
-		}
-		else {
-			double tempPower = interpolate(joystickY, Constants.IntakeArm.SLOW_Y_DEADZONE, 1, slowPower, fastPower);
+		} else {
+			double[] joystickYMinMax = { slowYDeadzone, 1 };
+			double[] powerMinMax = { slowPower, fastPower };
+
+			double tempPower = interpolate(joystickY, joystickYMinMax, powerMinMax);
 			power = Math.copySign(tempPower, joystickY);
 		}
 		Robot.intakeArm.moveArm(basePower + power);
@@ -69,11 +75,16 @@ public class ManualArmMovement extends Command {
 	protected void interrupted() {
 		Robot.intakeArm.moveArm(basePower);
 	}
+
 	/**
-	 * maps a value from within a specific range to another range
+	 * Maps a value from within a specified range to another range.
 	 */
-	private double interpolate(double value, double min, double max, double newMin, double newMax){
-		if(max <= min || newMax <= newMin) { return value;}// the maximum values MUST be greater than the minimum values
+	private double interpolate(double value, double[] minMax, double[] newMinMax) {
+		double min = minMax[0], max = minMax[1], newMin = newMinMax[0], newMax = newMinMax[1];
+		// If either of the maximum values are not greater than the minimum values
+		if (max <= min || newMax <= newMin) {
+			return value;
+		}
 		return (value - min) / (max - min) * (newMax - newMin) + newMin;
 	}
 }
