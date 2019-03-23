@@ -122,7 +122,7 @@ public class Constants {
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
         public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
-        public static final double HATCH_HOLDING_HEIGHT = 30.0 - ARM_BASE_HEIGHT;
+        public static final double HATCH_HOLDING_HEIGHT = 15.0 - ARM_BASE_HEIGHT;// TODO: test value - may not be accurate
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 34.0 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
