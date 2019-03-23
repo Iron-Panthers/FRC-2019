@@ -78,11 +78,12 @@ public class Constants {
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
 		// Climb Joystick
-		public static final int REVERSE_TRAINING_WHEELS_BUTTON = 1;
+        public static final int REVERSE_TRAINING_WHEELS_BUTTON = 1; // Not in use. DO NOT USE
+        public static final int CANCEL_CLIMB_BUTTON = 3; // Used after robot on lvl 3 hab to stop elevator
         public static final int CLIMB_WITH_JOYSTICK = 4;
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;
-        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP
+        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP, NOT IN USE
         public static final int TRAINING_WHEELS_SLOW_FORWARD_BUTTON = 7;
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
         public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
@@ -91,7 +92,6 @@ public class Constants {
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12; 
         public static final int CLIMB_SETUP_BUTTON = 4; // Not used
         public static final int CLIMB_FINISH_BUTTON = 5; // Not used
-        public static final int CANCEL_CLIMB_BUTTON = 6; // Not used
 
         /** OTHER INPUT CONSTANTS */
         public static final double JOYSTICK_DEADBAND = 0.1;
@@ -121,8 +121,8 @@ public class Constants {
         public static final double CARGO_DIAMETER = 13; // in
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
-        public static final double HATCH_HEIGHT = 18.75 - ARM_BASE_HEIGHT;
-        public static final double HATCH_HOLDING_HEIGHT = 15.0 - ARM_BASE_HEIGHT;// Value for holding the hatch so it doesn't fall off. TODO: test value - may not be accurate
+        public static final double HATCH_HEIGHT = 16.0 - ARM_BASE_HEIGHT; // May not be used, can just use the bottom instead
+        public static final double HATCH_HOLDING_HEIGHT = 20.0 - ARM_BASE_HEIGHT;// Value for lifting the intake to hold and also score the hatch. TODO: test value - may not be accurate
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 34.0 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
@@ -170,7 +170,7 @@ public class Constants {
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
 		public static final double CLIMB_DOWN_SPEED = -0.25; // See above
-        public static final double CLIMB_HOLD_POWER = 0.05025; // To hold the elevator at the same height when driving around Tested 3/17/2019 by James, moves elevator up slowly until it stops
+        public static final double CLIMB_HOLD_POWER = 0.03025; // To hold the elevator at the same height when driving around Tested 3/17/2019 by James, moves elevator up slowly until it stops
         public static final double CLIMB_HOLD_POWER_INCREMENT = 0.000000000001; //Increment to find holding power
 		public static final double CLIMB_ONE_HOLD_POWER = 0.02; // To hold the elevator at the same height when doing single climb Tested 3/17/2019 by James, does not move if climb1
         public static final double CLIMB_VELOCITY_TOLERANCE = 1; // Minimum velocity allowed for HoldElevator command TODO: Test Value

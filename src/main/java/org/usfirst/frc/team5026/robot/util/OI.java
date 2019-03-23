@@ -115,8 +115,7 @@ public class OI {
 		// setupClimb = new JoystickButton(stick3, Constants.Input.CLIMB_SETUP_BUTTON);
 		// finishClimb = new JoystickButton(stick3,
 		// Constants.Input.CLIMB_FINISH_BUTTON);
-		// cancelClimb = new JoystickButton(stick3,
-		// Constants.Input.CANCEL_CLIMB_BUTTON);
+		cancelClimb = new JoystickButton(stick3, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the button for Climb Joystick
 		// Reverse Training Wheels does not need to be bound, functionality in trainingWheelsForward command
@@ -131,6 +130,6 @@ public class OI {
 		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
 		// setupClimb.whenPressed(new SetupClimb());
 		// finishClimb.whenPressed(new FinishClimb());
-		// cancelClimb.whenPressed(new CancelClimb());
+		cancelClimb.whenPressed(new CancelClimb());
 	}
 }
