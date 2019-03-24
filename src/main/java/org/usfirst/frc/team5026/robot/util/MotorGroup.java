@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotorGroup {
-	private String name;
 	private TalonSRX masterMotor;
 	private IMotorController[] motors;
 
@@ -21,13 +20,11 @@ public class MotorGroup {
 	 * This class is currently not in use, and exists only for if we decide to bring
 	 * back CTRE motor controllers.
 	 * 
-	 * @param name        the name of the MotorGroup, for debugging purposes.
 	 * @param masterMotor the master motor controller of the MotorGroup. Must be a
 	 *                    TalonSRX.
 	 * @param motors      other motor controllers to include in the MotorGroup.
 	 */
-	public MotorGroup(String name, TalonSRX masterMotor, IMotorController... motors) {
-		this.name = name;
+	public MotorGroup(TalonSRX masterMotor, IMotorController... motors) {
 		this.masterMotor = masterMotor;
 		this.motors = motors;
 		followMaster();
