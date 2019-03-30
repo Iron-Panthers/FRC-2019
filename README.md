@@ -12,8 +12,5 @@ We use a WPILib command/subsystem-based approach for our robot code. Most FRC te
 
 If you would like more details about how WPILib commands and subsystems work, you can refer to [this article](https://wpilib.screenstepslive.com/s/currentCS/m/java/l/599732-what-is-command-based-programming)
 
-## Build status
-We don't have any continuous integration or pre-commit hooks... yet. They are in the works.
-
 ## Getting an env running
 In order to work on this project, no additional tools are required beyond what is [recommended here](https://wpilib.screenstepslive.com/s/4485/m/13503). Running a 'Build' command using the Visual Studio code plugin should install all the necessary vendor APIs.
