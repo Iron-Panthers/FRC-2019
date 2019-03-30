@@ -122,7 +122,7 @@ public class Constants {
         public static final double ARM_LENGTH = 27.4; // in
 		public static final double ARM_BASE_HEIGHT = 18.75; // in
         public static final double HATCH_HEIGHT = 16.0 - ARM_BASE_HEIGHT; // May not be used, can just use the bottom instead
-        public static final double HATCH_HOLDING_HEIGHT = 20.0 - ARM_BASE_HEIGHT;// Value for lifting the intake to hold and also score the hatch. TODO: test value - may not be accurate
+        public static final double HATCH_HOLDING_HEIGHT = 18.75 - ARM_BASE_HEIGHT;// Value for lifting the intake to hold and also score the hatch. TODO: test value - may not be accurate
         public static final double CARGO_SHIP_HEIGHT = 39.0 - ARM_BASE_HEIGHT + CARGO_DIAMETER; // in
         public static final double ROCKET_LOW_HEIGHT = 34.0 - ARM_BASE_HEIGHT; // in
         public static final double CARGO_SHIP_FRONT_BACK_ADJUST = 9; // in
@@ -130,7 +130,7 @@ public class Constants {
         public static final double RADIANS_TO_DEGREES = 180 / Math.PI;
 
         // INTAKE ARM PID
-        public static final double INTAKE_ARM_MAX_POWER = 0.4;
+        public static final double INTAKE_ARM_MAX_POWER = 0.35;
         public static final double INTAKE_ARM_P = 0.2;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;

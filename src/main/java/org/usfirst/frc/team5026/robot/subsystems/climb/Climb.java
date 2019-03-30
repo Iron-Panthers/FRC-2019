@@ -133,14 +133,14 @@ public class Climb extends Subsystem {
 	 * Extends the superstructure pistons.
 	 */
 	public void extendSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
+		superStructurePistons.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
 	 * Retracts the superstructure pistons.
 	 */
 	public void retractSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kForward);
+		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/**
