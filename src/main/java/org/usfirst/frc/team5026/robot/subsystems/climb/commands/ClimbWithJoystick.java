@@ -10,6 +10,7 @@ package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * Either climbs up or down, depending on joystick Y-axis.
@@ -52,5 +53,6 @@ public class ClimbWithJoystick extends Command {
 	@Override
 	protected void interrupted() {
 		Robot.climb.stopClimb();
+		Scheduler.getInstance().add(new Climb1ElevatorHold());
 	}
 }

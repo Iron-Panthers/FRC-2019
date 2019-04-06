@@ -31,7 +31,7 @@ public class OI {
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
-	JoystickButton hatchHeight, hatchLoadingHeight;
+	JoystickButton hatchHeight, hatchHoldingHeight;
 	JoystickButton cargoShipHeight, oppCargoShipHeight;
 	JoystickButton rocketLowHeight, oppRocketLowHeight;
 	JoystickButton intake, outtake;
@@ -78,14 +78,14 @@ public class OI {
 		// oppRocketLowHeight = new JoystickButton(stick2,
 		// Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
 		hatchHeight = new JoystickButton(stick2, Constants.Input.HATCH_HEIGHT_BUTTON);
-		hatchLoadingHeight = new JoystickButton(stick2, Constants.Input.HATCH_LOADING_HEIGHT_BUTTON);
+		hatchHoldingHeight = new JoystickButton(stick2, Constants.Input.HATCH_HOLDING_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
 		hatchHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HEIGHT, true));
-		hatchLoadingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_LOADING_HEIGHT, true));
+		hatchHoldingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HOLDING_HEIGHT, true));
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
 		oppCargoShipHeight.whenPressed(
@@ -115,8 +115,7 @@ public class OI {
 		// setupClimb = new JoystickButton(stick3, Constants.Input.CLIMB_SETUP_BUTTON);
 		// finishClimb = new JoystickButton(stick3,
 		// Constants.Input.CLIMB_FINISH_BUTTON);
-		// cancelClimb = new JoystickButton(stick3,
-		// Constants.Input.CANCEL_CLIMB_BUTTON);
+		cancelClimb = new JoystickButton(stick3, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the button for Climb Joystick
 		// Reverse Training Wheels does not need to be bound, functionality in trainingWheelsForward command
@@ -131,6 +130,6 @@ public class OI {
 		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
 		// setupClimb.whenPressed(new SetupClimb());
 		// finishClimb.whenPressed(new FinishClimb());
-		// cancelClimb.whenPressed(new CancelClimb());
+		cancelClimb.whenPressed(new CancelClimb());
 	}
 }

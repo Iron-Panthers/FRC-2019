@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team5026.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
@@ -54,8 +52,6 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
-
-		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
 	}
 

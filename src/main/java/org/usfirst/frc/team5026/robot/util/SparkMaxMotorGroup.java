@@ -22,13 +22,16 @@ public class SparkMaxMotorGroup {
 	private CANSparkMax[] motors;
 	private String name;
 
-	// MotorGroup names
 	/**
 	 * Creates a new SparkMaxMotorGroup.
+	 * <p>
+	 * SparkMaxMotorGroup is a flexible-size grouping of SparkMax motor controllers.
 	 * 
-	 * @param name        the name of the motor group
-	 * @param masterMotor the master motor of the motor group
-	 * @param motors      the other motor controllers to include
+	 * @param name        the name of the motor group.
+	 * @param masterMotor the master motor controller of the motor group. A getter
+	 *                    is supplied for this motor controller, which should be
+	 *                    used for encoder information, etc.
+	 * @param motors      other motor controllers to include in the group.
 	 */
 	public SparkMaxMotorGroup(String name, CANSparkMax masterMotor, CANSparkMax... motors) {
 		this.name = name;
