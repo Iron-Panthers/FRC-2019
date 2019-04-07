@@ -82,7 +82,6 @@ public class OI {
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
-		hatchHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HEIGHT, true));
 		hatchHoldingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HOLDING_HEIGHT, true));
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
