@@ -63,9 +63,9 @@ public class OI {
 		// Assign commands to each of the buttons for driver 1
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
-		hubertOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
-		hubertFastOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
-		hubertSlowOuttake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
+		hubertOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
+		hubertFastOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
+		hubertSlowOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
 		altClimbDown.whileHeld(new ClimbDown());
 
 		// Create the buttons for driver 2
@@ -91,7 +91,7 @@ public class OI {
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
 		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.BASE_ANGLE_OFFSET));
 		intake.toggleWhenPressed(new IntakeCargo());
-		outtake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
+		outtake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hatchIntake.whenPressed(new IntakeHatch());
 		hatchOuttake.whenPressed(new OuttakeHatch());
 		manualArm.whileHeld(new ManualArmMovement());
