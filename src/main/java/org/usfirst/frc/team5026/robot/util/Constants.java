@@ -66,32 +66,27 @@ public class Constants {
         public static final int MANUAL_ARM_BUTTON = 1;
         // Intake
         public static final int INTAKE_BUTTON = 2;
-        public static final int OUTTAKE_BUTTON = 3;
+		public static final int OUTTAKE_BUTTON = 3;
+		public static final int INTAKE_HATCH_BUTTON = 5;
+		public static final int OUTTAKE_HATCH_BUTTON = 6;
         // Arm Setpoints
         public static final int HATCH_HOLDING_HEIGHT_BUTTON = 4;
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
-		public static final int OPP_ROCKET_LOW_HEIGHT_BUTTON = 9; // DO NOT USE
-		public static final int HATCH_HEIGHT_BUTTON = 9;
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
         public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
 		// Climb Joystick
-        public static final int REVERSE_TRAINING_WHEELS_BUTTON = 1; // Not in use. DO NOT USE
+		// DO NOT USE TRIGGER. EVER. (on climb joystick)
         public static final int CANCEL_CLIMB_BUTTON = 3; // Used after robot on lvl 3 hab to stop elevator
         public static final int CLIMB_WITH_JOYSTICK = 4;
         public static final int CLIMB_DOWN_BUTTON = 5;
         public static final int CLIMB_UP_BUTTON = 6;
-        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 7; // MAYBE NOT COMP, NOT IN USE
         public static final int TRAINING_WHEELS_SLOW_FORWARD_BUTTON = 7;
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
-        public static final int RETRACT_TRAINING_WHEELS_BUTTON = 9;
-        public static final int DEPLOY_TRAINING_WHEELS_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12; 
-        public static final int CLIMB_SETUP_BUTTON = 4; // Not used
-        public static final int CLIMB_FINISH_BUTTON = 5; // Not used
 
         /** OTHER INPUT CONSTANTS */
         public static final double JOYSTICK_DEADBAND = 0.1;
@@ -164,8 +159,8 @@ public class Constants {
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
         public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 1;
 
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_1 = 2;
-        public static final int TRAINING_WHEEL_PISTON_SOLENOID_PORT_2 = 3;
+        public static final int HATCH_PISTON_SOLENOID_PORT_1 = 2;
+        public static final int HATCH_PISTON_SOLENOID_PORT_2 = 3;
 
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick

@@ -5,22 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
+package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class RetractTrainingWheels extends InstantCommand {
+/**
+ * Add your docs here.
+ */
+public class IntakeHatch extends InstantCommand {
 	/**
-	 * A command which retracts the training wheels when called.
+	 * Add your docs here.
 	 */
-	public RetractTrainingWheels() {
+	public IntakeHatch() {
+		super();
+		requires(Robot.intake);
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 	}
 
 	// Called once when the command executes
 	@Override
 	protected void initialize() {
-		Robot.climb.retractTrainingWheels();
+		Robot.intake.hatchIntake();
 	}
+
 }

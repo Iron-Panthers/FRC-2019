@@ -33,19 +33,18 @@ public class OI {
 	JoystickButton lowestHeight;
 	JoystickButton hatchHeight, hatchHoldingHeight;
 	JoystickButton cargoShipHeight, oppCargoShipHeight;
-	JoystickButton rocketLowHeight, oppRocketLowHeight;
+	JoystickButton rocketLowHeight;
 	JoystickButton intake, outtake;
+	JoystickButton hatchIntake, hatchOuttake;
 	JoystickButton manualArm;
 	JoystickButton zeroIntakeAngle;
 
 	// All of the following buttons will belong to the Climb Joystick
-	public JoystickButton reverseTrainingWheels;
 	JoystickButton climbWithJoystick;
 	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
 	JoystickButton climbUp, climbDown;
 	JoystickButton trainingWheelsForward, slowTrainingWheelsForward;
-	JoystickButton deployTrainingWheels, retractTrainingWheels;
-	JoystickButton setupClimb, finishClimb, cancelClimb;
+	JoystickButton cancelClimb;
 
 	public OI() {
 		// Create the Joysticks
@@ -73,11 +72,10 @@ public class OI {
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
 		intake = new JoystickButton(stick2, Constants.Input.INTAKE_BUTTON);
 		outtake = new JoystickButton(stick2, Constants.Input.OUTTAKE_BUTTON);
+		hatchIntake = new JoystickButton(stick2, Constants.Input.INTAKE_HATCH_BUTTON);
+		hatchOuttake = new JoystickButton(stick2, Constants.Input.OUTTAKE_HATCH_BUTTON);
 		zeroIntakeAngle = new JoystickButton(stick2, Constants.Input.ZERO_INTAKE_ARM_BUTTON);
 		lowestHeight = new JoystickButton(stick2, Constants.Input.LOWEST_HEIGHT_BUTTON);
-		// oppRocketLowHeight = new JoystickButton(stick2,
-		// Constants.Input.OPP_ROCKET_LOW_HEIGHT_BUTTON);
-		hatchHeight = new JoystickButton(stick2, Constants.Input.HATCH_HEIGHT_BUTTON);
 		hatchHoldingHeight = new JoystickButton(stick2, Constants.Input.HATCH_HOLDING_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
@@ -91,30 +89,23 @@ public class OI {
 		oppCargoShipHeight.whenPressed(
 				new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
-		// oppRocketLowHeight.whenPressed(new
-		// ArmToTarget((Constants.IntakeArm.ROCKET_LOW_HEIGHT -
-		// Constants.IntakeArm.CARGO_DIAMETER), false));
 		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.BASE_ANGLE_OFFSET));
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.toggleWhenPressed(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
+		hatchIntake.whenPressed(new IntakeHatch());
+		hatchOuttake.whenPressed(new OuttakeHatch());
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 
 		// Construct Buttons for Climb Joystick 3
-		reverseTrainingWheels = new JoystickButton(stick3, Constants.Input.REVERSE_TRAINING_WHEELS_BUTTON);
 		slowTrainingWheelsForward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_SLOW_FORWARD_BUTTON);
 		climbWithJoystick = new JoystickButton(stick3, Constants.Input.CLIMB_WITH_JOYSTICK);
 		extendSuperStructurePistons = new JoystickButton(stick3, Constants.Input.EXTEND_SUPER_STRUCURE_PISTONS_BUTTON);
 		climbUp = new JoystickButton(stick3, Constants.Input.CLIMB_UP_BUTTON);
-		deployTrainingWheels = new JoystickButton(stick3, Constants.Input.DEPLOY_TRAINING_WHEELS_BUTTON);
 		climbDown = new JoystickButton(stick3, Constants.Input.CLIMB_DOWN_BUTTON);
 		retractSuperStructurePistons = new JoystickButton(stick3,
 				Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
-		retractTrainingWheels = new JoystickButton(stick3, Constants.Input.RETRACT_TRAINING_WHEELS_BUTTON);
 		trainingWheelsForward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
-		// setupClimb = new JoystickButton(stick3, Constants.Input.CLIMB_SETUP_BUTTON);
-		// finishClimb = new JoystickButton(stick3,
-		// Constants.Input.CLIMB_FINISH_BUTTON);
 		cancelClimb = new JoystickButton(stick3, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the button for Climb Joystick
@@ -123,13 +114,9 @@ public class OI {
 		extendSuperStructurePistons.whenPressed(new ExtendSuperStructurePistons());
 		climbUp.whileHeld(new ClimbUp());
 		climbDown.whileHeld(new ClimbDown());
-		deployTrainingWheels.whenPressed(new DeployTrainingWheels());
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
-		retractTrainingWheels.whenPressed(new RetractTrainingWheels());
 		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
 		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
-		// setupClimb.whenPressed(new SetupClimb());
-		// finishClimb.whenPressed(new FinishClimb());
 		cancelClimb.whenPressed(new CancelClimb());
 	}
 }

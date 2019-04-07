@@ -36,7 +36,6 @@ public class Climb extends Subsystem {
 		this.climbMotors = Robot.hardware.climbMotors;
 		this.trainingWheelMotor = Robot.hardware.trainingWheelMotor;
 		this.superStructurePistons = Robot.hardware.superStructurePistons;
-		this.trainingWheelPiston = Robot.hardware.trainingWheelPiston;
 		this.topLimitSwitch = Robot.hardware.forwardLimit;
 		this.bottomLimitSwitch = Robot.hardware.reverseLimit;
 	}
@@ -141,20 +140,6 @@ public class Climb extends Subsystem {
 	 */
 	public void retractSuperStructurePistons() {
 		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	/**
-	 * Extends the training wheel piston.
-	 */
-	public void extendTrainingWheels() {
-		trainingWheelPiston.set(DoubleSolenoid.Value.kReverse);
-	}
-
-	/**
-	 * Retracts the training wheel piston.
-	 */
-	public void retractTrainingWheels() {
-		trainingWheelPiston.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
