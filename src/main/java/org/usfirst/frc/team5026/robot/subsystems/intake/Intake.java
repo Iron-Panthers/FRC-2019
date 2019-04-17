@@ -12,35 +12,52 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.Robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
 public class Intake extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    public TalonSRX intakeMotor;
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
+	public TalonSRX intakeMotor;
+	public DoubleSolenoid hatchPiston;
 
-    public Intake() {
-        intakeMotor = Robot.hardware.armIntakeMotor;
-    }
+	public Intake() {
+		intakeMotor = Robot.hardware.armIntakeMotor;
+		hatchPiston = Robot.hardware.hatchPiston;
+	}
 
-    public void setIntakePower(double power) {
-        intakeMotor.set(ControlMode.PercentOutput, power);
-    }
+	public void setIntakePower(double power) {
+		intakeMotor.set(ControlMode.PercentOutput, power);
+	}
 
-    public void brakeIntake() {
-        intakeMotor.set(ControlMode.PercentOutput, 0);
-    }
+	public void brakeIntake() {
+		intakeMotor.set(ControlMode.PercentOutput, 0);
+	}
 
-    public double getCurrent() {
-        return intakeMotor.getOutputCurrent();
-    }
+	/**
+	 * Extends hatch piston to hold onto the hatch
+	 */
+	public void hatchIntake() { // TODO: Test
+		hatchPiston.set(DoubleSolenoid.Value.kForward);
+	}
 
-    @Override
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
-    }
+	/**
+	 * Retracts hatch piston to let go of hatch/prepare to grab one
+	 */
+	public void hatchOuttake() { // TODO: Test
+		hatchPiston.set(DoubleSolenoid.Value.kReverse);
+	}
+
+	public double getCurrent() {
+		return intakeMotor.getOutputCurrent();
+	}
+
+	@Override
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
+	}
 }
