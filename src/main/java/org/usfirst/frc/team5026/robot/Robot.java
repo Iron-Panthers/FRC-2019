@@ -8,6 +8,8 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.Climb1ElevatorHold;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
@@ -99,6 +101,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
+		intake.hatchIntake();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -126,6 +129,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
+		intake.hatchIntake();
+		climb.resetDefaultCommand();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

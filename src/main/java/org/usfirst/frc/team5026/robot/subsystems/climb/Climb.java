@@ -187,6 +187,13 @@ public class Climb extends Subsystem {
 		setDefaultCommand(new CancelClimb());
 	}
 
+	/**
+	 * Resets default command for teleopinit to hold the elevator
+	 */
+	public void resetDefaultCommand(){
+		setDefaultCommand(new HoldElevator());
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
