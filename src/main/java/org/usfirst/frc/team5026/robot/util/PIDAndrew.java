@@ -187,7 +187,7 @@ public class PIDAndrew {
 
         double error = pathPosition - currentPosition; // find error
         sumError += error; // accumulate error
-        double dt = (System.currentTimeMillis() - this.lastErrorTime) / 1000.0; // find change in time for deltaError
+        double dt = (System.currentTimeMillis() - this.lastErrorTime) / 1000.0; // find change in time for deltaError in seconds
         double deltaError = 0;
 
         if (dt != 0) { // check for divide by 0
@@ -231,7 +231,7 @@ public class PIDAndrew {
 
         double error = pathPosition - currentPosition;
         sumError += error;
-        double dt = (System.currentTimeMillis() - this.lastErrorTime) / 1000.0;
+        double dt = (System.currentTimeMillis() - this.lastErrorTime) / 1000.0; // Finds delta time in seconds for calculating delta error
         double deltaError = 0;
 
         if (this.lastErrorTime != 0 && dt != 0) {
