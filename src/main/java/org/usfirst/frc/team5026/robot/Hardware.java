@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5026.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -67,11 +68,13 @@ public class Hardware {
 		driveRight1.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 		driveLeft1.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 
-		rightDriveMotors = new SparkMaxMotorGroup("Right Drive Motors", driveRight1, driveRight2);
-		leftDriveMotors = new SparkMaxMotorGroup("Left Drive Motors", driveLeft1, driveLeft2);
+		rightDriveMotors = new SparkMaxMotorGroup("Right Drive Motor Group", driveRight1, driveRight2);
+		leftDriveMotors = new SparkMaxMotorGroup("Left Drive Motor Group", driveLeft1, driveLeft2);
 
 		rightDriveMotors.setIdleMode(IdleMode.kBrake);
+		rightDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
 		leftDriveMotors.setIdleMode(IdleMode.kBrake);
+		leftDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
 
 		/* Gyro */
 		gyroTestMotor = new TalonSRX(5);
@@ -82,6 +85,7 @@ public class Hardware {
 		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
 		armIntakeMotor.setInverted(Constants.IntakeArm.IS_INTAKE_INVERTED);
 		armMotor.setNeutralMode(NeutralMode.Brake);
+		armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 		/* Climb Subsystem creation */
 		leftMotor1 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_1_PORT, MotorType.kBrushless);
@@ -92,9 +96,12 @@ public class Hardware {
 		rightMotor3 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_3_PORT, MotorType.kBrushless);
 
 		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
+		trainingWheelMotor.configOpenloopRamp(Constants.Climb.TRAINING_WHEEL_RAMP_RATE, Constants.Climb.TRAINING_WHEEL_TIMEOUT_MS);
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
-		climbMotors = new SparkMaxMotorGroup("Climb Motors", rightMotor3, leftMotor2, leftMotor3, rightMotor1, rightMotor2, leftMotor1);
+		climbMotors = new SparkMaxMotorGroup("Climb Motor Group", rightMotor3, leftMotor2, leftMotor3, rightMotor1,
+				rightMotor2, leftMotor1);
+		climbMotors.getMasterMotor().getEncoder().setPosition(0.0);
 		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
 		leftMotor3.setInverted(Constants.Climb.IS_LEFT_INVERTED);
@@ -102,8 +109,12 @@ public class Hardware {
 		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
-		forwardLimit = new DigitalInput(0); // rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-		reverseLimit = new DigitalInput(1); // rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		forwardLimit = new DigitalInput(0); // Limit Switch on the side of the robot, hits when robot climbs all the way
+											// up (elevator down all the way) //
+											// rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+		reverseLimit = new DigitalInput(1); // Limit Switch nearest to the training wheels, hits when robot climbs down
+											// all the way (elevator up all the way) //
+											// rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);

@@ -23,15 +23,28 @@ public class ArmToTarget extends Command {
 	private long lastTimeOutOfThreshold;
 	private double basePower;
 
+	/**
+	 * Takes in heights and converts to a target angle
+	 * @param targetHeight
+	 * @param isFront
+	 */
 	public ArmToTarget(double targetHeight, boolean isFront) {
 		if (!isFront) {
 			this.target = 180 - (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
-					/ Constants.IntakeArm.DEGRESS_TO_RADIANS);
+					* Constants.IntakeArm.RADIANS_TO_DEGREES);
 		} else {
 			this.target = (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
-					/ Constants.IntakeArm.DEGRESS_TO_RADIANS);
+					* Constants.IntakeArm.RADIANS_TO_DEGREES);
 		}
 		requires(Robot.intakeArm);
+	}
+
+	/**
+	 * Takes in an angle and sets it as the target
+	 * @param targetAngle
+	 */
+	public ArmToTarget(double targetAngle) {
+		this.target = targetAngle;
 	}
 
 	// Called just before this Command runs the first time
@@ -51,8 +64,10 @@ public class ArmToTarget extends Command {
 		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError)
 				+ (Constants.IntakeArm.INTAKE_ARM_I * errorSum) + (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
 
-		if (Math.abs(power) > 0.5) {
-			power = 0.5 * (power / Math.abs(power));
+		power *= Constants.IntakeArm.INTAKE_ARM_MAX_POWER;
+
+		if (Math.abs(power) > Constants.IntakeArm.INTAKE_ARM_MAX_POWER) {
+			power = Math.copySign(Constants.IntakeArm.INTAKE_ARM_MAX_POWER, power);
 		}
 
 		Robot.intakeArm.moveArm(power + basePower);

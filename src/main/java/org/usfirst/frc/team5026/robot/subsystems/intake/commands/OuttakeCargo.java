@@ -8,12 +8,15 @@
 package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class OuttakeCargo extends Command {
-	public OuttakeCargo() {
+
+	private double outtakeSpeed;
+
+	public OuttakeCargo(double outtakeSpeed) {
+		this.outtakeSpeed = outtakeSpeed;
 		requires(Robot.intake);
 	}
 
@@ -25,7 +28,7 @@ public class OuttakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(Constants.IntakeArm.OUTTAKE_POWER);
+		Robot.intake.setIntakePower(outtakeSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

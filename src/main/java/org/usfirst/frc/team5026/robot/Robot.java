@@ -8,8 +8,6 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
@@ -54,8 +52,6 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
-
-		hardware.armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
 	}
 
@@ -83,6 +79,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("pos", hardware.driveRight1.getEncoder().getPosition());
 		Scheduler.getInstance().run();
 	}
 
@@ -145,6 +142,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("conversion", hardware.driveRight1.getEncoder().getVelocityConversionFactor());
+		if (oi.stick1.findRightPower() > 0) {
+			SmartDashboard.putNumber("speed", hardware.driveRight1.getEncoder().getVelocity() / oi.stick1.findRightPower());
+		}
 		Scheduler.getInstance().run();
 	}
 

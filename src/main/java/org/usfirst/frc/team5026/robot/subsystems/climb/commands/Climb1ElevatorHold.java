@@ -8,18 +8,17 @@
 package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimbDownTo extends Command {
-	private double target;
-
-	/**
-	 * A command which climbs the robot down to a parameterized target.
-	 */
-	public ClimbDownTo(double target) {
+public class Climb1ElevatorHold extends Command {
+	private double power;
+	public Climb1ElevatorHold() {
+		power = Constants.Climb.CLIMB_ONE_HOLD_POWER;
 		requires(Robot.climb);
-		this.target = target;
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -30,13 +29,16 @@ public class ClimbDownTo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.climb.climbDown();
+		if(Robot.climb.getEncoderVelocity() > Constants.Climb.CLIMB_VELOCITY_TOLERANCE){
+			power += Constants.Climb.CLIMB_HOLD_POWER_INCREMENT;
+		}
+		Robot.climb.climbUpWithPower(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Robot.climb.getEncoderPosition() < target;
+		return false;
 	}
 
 	// Called once after isFinished returns true

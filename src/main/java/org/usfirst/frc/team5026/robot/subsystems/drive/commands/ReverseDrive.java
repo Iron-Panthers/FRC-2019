@@ -11,6 +11,11 @@ import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * When triggered, changes the isReversed property of the drive subsystem. This
+ * has the result of reversing the direction of the robot until the command is
+ * interrupted or stopped.
+ */
 public class ReverseDrive extends Command {
 	public ReverseDrive() {
 		// This Command must not require a subsystem

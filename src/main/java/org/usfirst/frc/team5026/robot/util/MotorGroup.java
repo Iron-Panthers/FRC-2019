@@ -6,22 +6,27 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotorGroup {
-	private String motorGroupName;
 	private TalonSRX masterMotor;
 	private IMotorController[] motors;
 
 	/**
-	 * MotorGroup is a flexible-size grouping of TalonSRX
+	 * Creates a new MotorGroup.
+	 * <p>
+	 * MotorGroup is a flexible-size grouping of CTRE motor controllers.
+	 * <p>
+	 * The supplied masterMotor must be a TalonSRX. The other motor controllers must
+	 * implement IMotorController.
+	 * <p>
+	 * This class is currently not in use, and exists only for if we decide to bring
+	 * back CTRE motor controllers.
 	 * 
-	 * @param motorGroupName the name of the MotorGroup, (displayed in
-	 *                       SmartDashboard)
-	 * @param motors         the motors to include in the MotorGroup. First motor is
-	 *                       assumed to be the "leader motor"
+	 * @param masterMotor the master motor controller of the MotorGroup. Must be a
+	 *                    TalonSRX.
+	 * @param motors      other motor controllers to include in the MotorGroup.
 	 */
-	public MotorGroup(String motorGroupName, TalonSRX masterMotor, IMotorController... motors) {
+	public MotorGroup(TalonSRX masterMotor, IMotorController... motors) {
 		this.masterMotor = masterMotor;
 		this.motors = motors;
-		this.motorGroupName = motorGroupName;
 		followMaster();
 	}
 

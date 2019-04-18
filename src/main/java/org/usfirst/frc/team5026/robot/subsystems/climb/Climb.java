@@ -11,6 +11,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.CancelClimb;
+import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
@@ -51,6 +53,7 @@ public class Climb extends Subsystem {
 			// Stop climbing, and indicate the climb has stopped
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
+			this.climbMotors.getMasterMotor().setEncPosition(Constants.Climb.TOP_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
@@ -65,12 +68,20 @@ public class Climb extends Subsystem {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED);
 	}
 
+	public void trainingWheelsForwardWithPower(double power) {
+		trainingWheelMotor.set(ControlMode.PercentOutput, Math.abs(power));
+	}
+
 	/**
 	 * Sets the training wheel motor controller to a specified backward speed,
 	 * defined in the Constants class.
 	 */
 	public void trainingWheelsBackward() {
 		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED);
+	}
+
+	public void trainingWheelsBackwardWithPower(double power) {
+		trainingWheelMotor.set(ControlMode.PercentOutput, -Math.abs(power));
 	}
 
 	/**
@@ -88,6 +99,7 @@ public class Climb extends Subsystem {
 		if (this.bottomLimitSwitch.get()) {
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
+			Robot.climb.climbMotors.getMasterMotor().getEncoder().setPosition(Constants.Climb.BOTTOM_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
 			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
@@ -113,18 +125,22 @@ public class Climb extends Subsystem {
 		return climbMotors.getMasterMotor().getEncoder().getPosition();
 	}
 
+	public double getEncoderVelocity() {
+		return climbMotors.getMasterMotor().getEncoder().getVelocity();
+	}
+
 	/**
 	 * Extends the superstructure pistons.
 	 */
 	public void extendSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
+		superStructurePistons.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
 	 * Retracts the superstructure pistons.
 	 */
 	public void retractSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kForward);
+		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/**
@@ -141,9 +157,55 @@ public class Climb extends Subsystem {
 		trainingWheelPiston.set(DoubleSolenoid.Value.kForward);
 	}
 
+	/**
+	 * Climbs up with a specified power
+	 * 
+	 * @param power the power which the climb subsystem will be set to.
+	 */
+	public void climbUpWithPower(double power) {
+		// If the climb limit switch is triggered
+		if (this.topLimitSwitch.get()) {
+			// Stop climbing, and indicate the climb has stopped
+			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
+			this.stopClimb();
+		} else {
+			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
+			// Math.abs used to ensure that the robot will climb up
+			climbMotors.set(Math.abs(power));
+		}
+	}
+
+	/**
+	 * Climbs down with a specified power
+	 * 
+	 * @param power The power to set the climb to
+	 */
+	public void climbDownWithPower(double power) {
+		// If the bottom limit is triggered
+		if (this.bottomLimitSwitch.get()) {
+			// Stop climbing down, show climb has stopped
+			SmartDashboard.putString("Climb -- isClimbing", "No, bottom limit switch triggered");
+			this.stopClimb();
+		} else {
+			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
+			// -Math.abs used to ensure that the robot will climb down
+			climbMotors.set(-Math.abs(power));
+		}
+	}
+
+	/**
+	 * Stops elevator, and sets default command to CancelClimb to stop it from
+	 * moving for after climb is completed.
+	 */
+	public void cancelClimb() {
+		stopClimb();
+		setDefaultCommand(new CancelClimb());
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new HoldElevator());
 	}
 }

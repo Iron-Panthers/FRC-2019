@@ -5,15 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
+package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
-public class HubertTurnLeft extends Command {
-	public HubertTurnLeft() {
-		// This Command must not require a subsystem
+/**
+ * Either climbs up or down, depending on joystick Y-axis.
+ */
+public class ClimbWithJoystick extends Command {
+	public ClimbWithJoystick() {
+		requires(Robot.climb);
 	}
 
 	// Called just before this Command runs the first time
@@ -24,7 +28,12 @@ public class HubertTurnLeft extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.set(.4, -.4);
+		double stickY = Robot.oi.stick3.getY();
+		if (stickY > 0) {
+			Robot.climb.climbUpWithPower(stickY);
+		} else {
+			Robot.climb.climbDownWithPower(stickY);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -36,15 +45,14 @@ public class HubertTurnLeft extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.set(0, 0);
-
+		Robot.climb.stopClimb();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drive.set(0, 0);
-
+		Robot.climb.stopClimb();
+		Scheduler.getInstance().add(new Climb1ElevatorHold());
 	}
 }

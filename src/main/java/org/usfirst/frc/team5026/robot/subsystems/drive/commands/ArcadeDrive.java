@@ -11,7 +11,6 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArcadeDrive extends Command {
 
@@ -40,27 +39,6 @@ public class ArcadeDrive extends Command {
 	}
 
 	/**
-	 * scalePower returns a correctly scaled power result if the power is greater
-	 * than 1. It uses both powers, finds the highest one, if it is greater than one
-	 * it divides both by that power. It returns the scaled value for the first
-	 * parameter.
-	 * 
-	 * @param power      The power you are attempting to scale
-	 * @param otherPower The power of the other motor to determine the correct value
-	 *                   to use for scaling
-	 * @return Returns the scaled output of the power parameter
-	 */
-	public double scalePower(double power, double otherPower) {
-		if (Math.abs(power) > 1.0 || Math.abs(otherPower) > 1.0) {
-			if (Math.abs(power) > Math.abs(otherPower)) { // Needs to check abs value to find the greater one
-				return power / Math.abs(power);
-			}
-			return power / Math.abs(otherPower);
-		}
-		return power;
-	}
-
-	/**
 	 * Scales an array of powers
 	 * 
 	 * @param powers An array of powers, left power, then right power
@@ -72,23 +50,22 @@ public class ArcadeDrive extends Command {
 		for (double element : powers) {
 			if (Math.abs(element) > 1) {
 				isOverOne = true;
+				break;
 			}
 		}
 		if (!isOverOne) {
 			return powers;
 		}
-		double currentMax = powers[0];
 		// Finds the highest value
-		for (int i = 0; i < powers.length; i++) {
-			if (Math.abs(powers[i]) > currentMax) {
-				currentMax = Math.abs(powers[i]);
-			}
+		double greatestPower = powers[0];
+		if (Math.abs(powers[1]) > greatestPower) {
+			greatestPower = Math.abs(powers[1]);
 		}
 		// Scales all values
 		for (int i = 0; i < powers.length; i++) {
-			powers[i] /= currentMax;
+			powers[i] /= greatestPower;
 		}
-
+		
 		return powers;
 	}
 
