@@ -66,6 +66,7 @@ public class ManualArmMovement extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		Robot.intakeArm.target = Robot.intakeArm.getCurrentAngle();
 		Robot.intakeArm.moveArm(basePower);
 	}
 
@@ -73,6 +74,7 @@ public class ManualArmMovement extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.intakeArm.target = Robot.intakeArm.getCurrentAngle();
 		Robot.intakeArm.moveArm(basePower);
 	}
 

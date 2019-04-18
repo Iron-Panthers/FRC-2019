@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.intake.commands.ArmHoldTarget;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,6 +26,8 @@ public class IntakeArm extends Subsystem {
 	public double currentAngle;
 	public double currentTorque;
 	public double basePower;
+
+	public double target;
 
 	public IntakeArm() {
 		armMotor = Robot.hardware.armMotor;
@@ -57,7 +60,6 @@ public class IntakeArm extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand())
+		setDefaultCommand(new ArmHoldTarget());
 	}
 }
