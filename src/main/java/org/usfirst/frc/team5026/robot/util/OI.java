@@ -76,13 +76,13 @@ public class OI {
 		hatchOuttake = new JoystickButton(stick2, Constants.Input.OUTTAKE_HATCH_BUTTON);
 		zeroIntakeAngle = new JoystickButton(stick2, Constants.Input.ZERO_INTAKE_ARM_BUTTON);
 		lowestHeight = new JoystickButton(stick2, Constants.Input.LOWEST_HEIGHT_BUTTON);
-		hatchHoldingHeight = new JoystickButton(stick2, Constants.Input.HATCH_HOLDING_HEIGHT_BUTTON);
+		//hatchHoldingHeight = new JoystickButton(stick2, Constants.Input.HATCH_HOLDING_HEIGHT_BUTTON);
 		rocketLowHeight = new JoystickButton(stick2, Constants.Input.ROCKET_LOW_HEIGHT_BUTTON);
 		oppCargoShipHeight = new JoystickButton(stick2, Constants.Input.OPP_CARGO_SHIP_HEIGHT_BUTTOM);
 		cargoShipHeight = new JoystickButton(stick2, Constants.Input.CARGO_SHIP_HEIGHT_BUTTON);
 
 		// Assign commands to each of the buttons for driver 2
-		hatchHoldingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HOLDING_HEIGHT, true));
+		//hatchHoldingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HOLDING_HEIGHT, true));
 		cargoShipHeight.whenPressed(new ArmToTarget(
 				Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_SHIP_FRONT_BACK_ADJUST, true));
 		oppCargoShipHeight.whenPressed(

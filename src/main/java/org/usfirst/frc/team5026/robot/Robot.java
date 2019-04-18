@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
+		intake.hatchIntake();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -126,6 +127,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
+		intake.hatchIntake();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

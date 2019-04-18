@@ -67,8 +67,8 @@ public class Constants {
         // Intake
         public static final int INTAKE_BUTTON = 2;
 		public static final int OUTTAKE_BUTTON = 3;
-		public static final int INTAKE_HATCH_BUTTON = 5;
-		public static final int OUTTAKE_HATCH_BUTTON = 6;
+		public static final int INTAKE_HATCH_BUTTON = 6;
+		public static final int OUTTAKE_HATCH_BUTTON = 5;
         // Arm Setpoints
         public static final int HATCH_HOLDING_HEIGHT_BUTTON = 4;
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
