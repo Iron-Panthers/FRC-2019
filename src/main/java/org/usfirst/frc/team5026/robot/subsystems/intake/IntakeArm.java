@@ -58,6 +58,12 @@ public class IntakeArm extends Subsystem {
 		armMotor.set(ControlMode.PercentOutput, power);
 	}
 
+	public void autoRetractHatch() {
+		if (currentAngle > 30) {
+			Robot.intake.hatchIntake();
+		}
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new ArmHoldTarget());

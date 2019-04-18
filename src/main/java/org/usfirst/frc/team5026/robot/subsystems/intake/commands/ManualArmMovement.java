@@ -54,6 +54,7 @@ public class ManualArmMovement extends Command {
 			double tempPower = interpolate(joystickY, joystickYMinMax, powerMinMax);
 			power = Math.copySign(tempPower, joystickY);
 		}
+		Robot.intakeArm.autoRetractHatch();
 		Robot.intakeArm.moveArm(basePower + power);
 	}
 

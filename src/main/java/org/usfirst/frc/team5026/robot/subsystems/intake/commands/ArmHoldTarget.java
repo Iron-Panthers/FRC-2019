@@ -27,6 +27,7 @@ public class ArmHoldTarget extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.intakeArm.target = Robot.intakeArm.getCurrentAngle();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -47,6 +48,7 @@ public class ArmHoldTarget extends Command {
       power = Math.copySign(Constants.IntakeArm.INTAKE_ARM_MAX_POWER, power);
     }
 
+    Robot.intakeArm.autoRetractHatch();
     Robot.intakeArm.moveArm(power + basePower);
   }
 
