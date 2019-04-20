@@ -20,5 +20,6 @@ public class ZeroIntakeArm extends InstantCommand {
 	@Override
 	protected void initialize() {
 		Robot.hardware.armMotor.setSelectedSensorPosition(0);
+		Robot.intakeArm.target = Robot.intakeArm.getCurrentAngle();
 	}
 }
