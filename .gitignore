@@ -157,6 +157,6 @@ gradle-app.setting
 bin/
 
 # MP4 Gitignore
-.mp4
+*.mp4
 
 # End of https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
