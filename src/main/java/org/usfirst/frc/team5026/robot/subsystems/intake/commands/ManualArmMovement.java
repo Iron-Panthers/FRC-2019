@@ -54,6 +54,7 @@ public class ManualArmMovement extends Command {
 			double tempPower = interpolate(joystickY, joystickYMinMax, powerMinMax);
 			power = Math.copySign(tempPower, joystickY);
 		}
+		Robot.intakeArm.autoRetractHatch();
 		Robot.intakeArm.moveArm(basePower + power);
 	}
 
@@ -66,6 +67,7 @@ public class ManualArmMovement extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		Robot.intakeArm.target = Robot.intakeArm.getCurrentAngle();
 		Robot.intakeArm.moveArm(basePower);
 	}
 
@@ -73,6 +75,7 @@ public class ManualArmMovement extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.intakeArm.target = Robot.intakeArm.getCurrentAngle();
 		Robot.intakeArm.moveArm(basePower);
 	}
 

@@ -10,18 +10,11 @@ package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class ArmToTarget extends Command {
+public class ArmToTarget extends InstantCommand {
 
 	private double target;
-	private double currentError;
-	private double errorSum;
-	private double errorChange;
-	private double lastError;
-	private long lastTimeOutOfThreshold;
-	private double basePower;
 
 	/**
 	 * Takes in heights and converts to a target angle
@@ -36,7 +29,6 @@ public class ArmToTarget extends Command {
 			this.target = (Math.asin(targetHeight / Constants.IntakeArm.ARM_LENGTH)
 					* Constants.IntakeArm.RADIANS_TO_DEGREES);
 		}
-		requires(Robot.intakeArm);
 	}
 
 	/**
@@ -50,52 +42,7 @@ public class ArmToTarget extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		Robot.intakeArm.target = this.target;
 	}
 
-	// Called repeatedly when this Command is scheduled to run
-	@Override
-	protected void execute() {
-		currentError = target - Robot.intakeArm.getCurrentAngle();
-		errorChange = currentError - lastError;
-		errorSum += currentError;
-		lastError = currentError;
-		basePower = Robot.intakeArm.getBasePower();
-
-		double power = -1 * ((Constants.IntakeArm.INTAKE_ARM_P * currentError)
-				+ (Constants.IntakeArm.INTAKE_ARM_I * errorSum) + (Constants.IntakeArm.INTAKE_ARM_D * errorChange));
-
-		power *= Constants.IntakeArm.INTAKE_ARM_MAX_POWER;
-
-		if (Math.abs(power) > Constants.IntakeArm.INTAKE_ARM_MAX_POWER) {
-			power = Math.copySign(Constants.IntakeArm.INTAKE_ARM_MAX_POWER, power);
-		}
-
-		Robot.intakeArm.moveArm(power + basePower);
-	}
-
-	// Make this return true when this Command no longer needs to run execute()
-	@Override
-	protected boolean isFinished() {
-		long currentTime = System.currentTimeMillis();
-		if (Math.abs(currentError) > Constants.IntakeArm.ERROR_TOLERANCE) {
-			lastTimeOutOfThreshold = currentTime;
-			SmartDashboard.putBoolean("ArmToTarget -- Finished", false);
-			return false;
-		}
-		SmartDashboard.putBoolean("ArmToTarget -- Finished", true);
-		return currentTime - lastTimeOutOfThreshold > Constants.IntakeArm.ERROR_TOLERANCE_TIME;
-	}
-
-	// Called once after isFinished returns true
-	@Override
-	protected void end() {
-		Robot.intakeArm.moveArm(basePower);
-	}
-
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	@Override
-	protected void interrupted() {
-		Robot.intakeArm.moveArm(basePower);
-	}
 }
