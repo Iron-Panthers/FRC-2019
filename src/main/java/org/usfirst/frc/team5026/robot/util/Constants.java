@@ -48,7 +48,7 @@ public class Constants {
         /** DEVICE PORTS */
         public static final int JOYSTICK_1_PORT = 0; // Driver A
         public static final int JOYSTICK_2_PORT = 1; // Driver B
-        public static final int JOYSTICK_3_PORT = 2; // Climb Joystcik
+        public static final int JOYSTICK_3_PORT = 2; // Climb Joystick
 
         /** Buttons */
         // Driver A
@@ -74,7 +74,7 @@ public class Constants {
         public static final int ZERO_INTAKE_ARM_BUTTON = 7;
         public static final int LOWEST_HEIGHT_BUTTON = 8;
         public static final int ROCKET_LOW_HEIGHT_BUTTON = 10;
-        public static final int OPP_CARGO_SHIP_HEIGHT_BUTTOM = 11;
+        public static final int OPP_CARGO_SHIP_HEIGHT_BUTTON = 11;
         public static final int CARGO_SHIP_HEIGHT_BUTTON = 12;
 
 		// Climb Joystick
