@@ -9,9 +9,9 @@ public class Constants {
 
     public class Drivebase {
         /** DRIVEBASE PORTS */
-        public static final int DRIVE_R1_PORT = 1;	// SparkMax
+        public static final int DRIVE_R1_PORT = 14;	// SparkMax
         public static final int DRIVE_R2_PORT = 21; // See Above
-        public static final int DRIVE_L1_PORT = 2;	// See Above
+        public static final int DRIVE_L1_PORT = 15;	// See Above
         public static final int DRIVE_L2_PORT = 22; // See Above
 
         public static final int GEAR_SHIFT_PORT_1 = 6;

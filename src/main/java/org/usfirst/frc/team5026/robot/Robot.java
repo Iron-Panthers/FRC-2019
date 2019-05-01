@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
-		intake.hatchIntake();
+		// intake.hatchIntake();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -129,8 +129,9 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
-		intake.hatchIntake();
+		// intake.hatchIntake();
 		climb.resetDefaultCommand();
+		hardware.gyro.setYaw(0);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -145,6 +146,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		double[] ypr = new double[3];
+		double p = 0.5;
+		double target = 90;
+		hardware.gyro.getYawPitchRoll(ypr);
+		double degError = target-ypr[0];
+		drive.set(p*degError, -p*degError);
+		System.out.println(ypr[0] + " yaw");
 		SmartDashboard.putNumber("conversion", hardware.driveRight1.getEncoder().getVelocityConversionFactor());
 		if (oi.stick1.findRightPower() > 0) {
 			SmartDashboard.putNumber("speed", hardware.driveRight1.getEncoder().getVelocity() / oi.stick1.findRightPower());

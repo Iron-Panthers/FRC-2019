@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * configure the encoder, calculate the angle, height, and basePower.
  */
 public class IntakeArm extends Subsystem {
-	public TalonSRX armMotor;
 	public double currentHeight;
 	public double currentAngle;
 	public double currentTorque;
@@ -30,15 +29,12 @@ public class IntakeArm extends Subsystem {
 	public double target;
 
 	public IntakeArm() {
-		armMotor = Robot.hardware.armMotor;
 	}
 
 	public void resetEncoder() {
-		armMotor.setSelectedSensorPosition(0);
 	}
 
 	public double getCurrentAngle() {
-		currentAngle = (Constants.IntakeArm.TICKS_TO_DEGREES * (double) armMotor.getSelectedSensorPosition()) + Constants.IntakeArm.BASE_ANGLE_OFFSET;
 		return currentAngle;
 	}
 
@@ -55,12 +51,11 @@ public class IntakeArm extends Subsystem {
 	}
 
 	public void moveArm(double power) {
-		armMotor.set(ControlMode.PercentOutput, power);
 	}
 
 	public void autoRetractHatch() {
 		if (currentAngle > 30) {
-			Robot.intake.hatchIntake();
+			// Robot.intake.hatchIntake();
 		}
 	}
 

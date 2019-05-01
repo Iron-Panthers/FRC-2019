@@ -27,15 +27,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * methods for controlling them.
  */
 public class Climb extends Subsystem {
-	public SparkMaxMotorGroup climbMotors;
-	public TalonSRX trainingWheelMotor;
-	public DoubleSolenoid superStructurePistons, trainingWheelPiston;
+	// public SparkMaxMotorGroup climbMotors;
+	// public TalonSRX trainingWheelMotor;
 	public DigitalInput topLimitSwitch, bottomLimitSwitch;
 
 	public Climb() {
-		this.climbMotors = Robot.hardware.climbMotors;
-		this.trainingWheelMotor = Robot.hardware.trainingWheelMotor;
-		this.superStructurePistons = Robot.hardware.superStructurePistons;
 		this.topLimitSwitch = Robot.hardware.forwardLimit;
 		this.bottomLimitSwitch = Robot.hardware.reverseLimit;
 	}
@@ -52,10 +48,8 @@ public class Climb extends Subsystem {
 			// Stop climbing, and indicate the climb has stopped
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
-			this.climbMotors.getMasterMotor().setEncPosition(Constants.Climb.TOP_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
-			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
 		}
 	}
 
@@ -64,11 +58,9 @@ public class Climb extends Subsystem {
 	 * defined in the Constants class.
 	 */
 	public void trainingWheelsForward() {
-		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED);
 	}
 
 	public void trainingWheelsForwardWithPower(double power) {
-		trainingWheelMotor.set(ControlMode.PercentOutput, Math.abs(power));
 	}
 
 	/**
@@ -76,18 +68,15 @@ public class Climb extends Subsystem {
 	 * defined in the Constants class.
 	 */
 	public void trainingWheelsBackward() {
-		trainingWheelMotor.set(ControlMode.PercentOutput, Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED);
 	}
 
 	public void trainingWheelsBackwardWithPower(double power) {
-		trainingWheelMotor.set(ControlMode.PercentOutput, -Math.abs(power));
 	}
 
 	/**
 	 * Stops the training wheel motor controller.
 	 */
 	public void trainingWheelsStop() {
-		trainingWheelMotor.set(ControlMode.PercentOutput, 0);
 	}
 
 	/**
@@ -98,20 +87,15 @@ public class Climb extends Subsystem {
 		if (this.bottomLimitSwitch.get()) {
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
-			Robot.climb.climbMotors.getMasterMotor().getEncoder().setPosition(Constants.Climb.BOTTOM_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
-			climbMotors.set(Constants.Climb.CLIMB_DOWN_SPEED);
 		}
-		SmartDashboard.putNumber("Climb -- Climb motor output", climbMotors.getAppliedOutput());
 	}
 
 	/**
 	 * Stops the climb motor motor controllers.
 	 */
 	public void stopClimb() {
-		climbMotors.set(0);
-		SmartDashboard.putNumber("Climb -- Climb motor output", climbMotors.getAppliedOutput());
 	}
 
 	/**
@@ -121,25 +105,25 @@ public class Climb extends Subsystem {
 	 * @return A double, which is the number of rotations
 	 */
 	public double getEncoderPosition() {
-		return climbMotors.getMasterMotor().getEncoder().getPosition();
+		return 0;
 	}
 
 	public double getEncoderVelocity() {
-		return climbMotors.getMasterMotor().getEncoder().getVelocity();
+		return 0;
 	}
 
 	/**
 	 * Extends the superstructure pistons.
 	 */
 	public void extendSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kForward);
+		// superStructurePistons.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
 	 * Retracts the superstructure pistons.
 	 */
 	public void retractSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
+		// superStructurePistons.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/**
@@ -156,7 +140,6 @@ public class Climb extends Subsystem {
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
 			// Math.abs used to ensure that the robot will climb up
-			climbMotors.set(Math.abs(power));
 		}
 	}
 
@@ -174,7 +157,6 @@ public class Climb extends Subsystem {
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing down");
 			// -Math.abs used to ensure that the robot will climb down
-			climbMotors.set(-Math.abs(power));
 		}
 	}
 
