@@ -5,16 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.intake.commands;
+package org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class IntakeCargo extends Command {
-	public IntakeCargo() {
-		requires(Robot.intake);
+public class HoldTurretPosition extends Command {
+	double error;
+	double p;
+	public HoldTurretPosition() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.turret);
+		error = 0;
+		p = Constants.TShirtCannon.TURRET_P;
 	}
 
 	// Called just before this Command runs the first time
@@ -25,25 +32,27 @@ public class IntakeCargo extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setIntakePower(Constants.IntakeArm.INTAKE_POWER);
+		error = 0 - Robot.turret.getYaw(); // The target will always be the starting position of the turret
+		Robot.turret.setTurret(p * error);
+		p = SmartDashboard.getNumber("Turret P", p);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
-	protected boolean isFinished() {
+	protected boolean isFinished() { // This will never end because it will always try to maintain the position
 		return false;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intake.brakeIntake();
+		Robot.turret.reset();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intake.brakeIntake();
+		Robot.turret.reset();
 	}
 }

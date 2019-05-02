@@ -26,7 +26,6 @@ public class Hardware {
 	public CANSparkMax driveLeft1;
 	public CANSparkMax driveLeft2;
 
-	public TalonSRX gyroTestMotor;
 	public PigeonIMU gyro;
 
 	/* Drivebase MotorGroups */
@@ -34,8 +33,8 @@ public class Hardware {
 	public SparkMaxMotorGroup leftDriveMotors;
 
 	/* IntakeArm motor controllers */
-	public TalonSRX armMotor;
-	public TalonSRX armIntakeMotor;
+	public TalonSRX turretMotor;
+	public TalonSRX cannonMotor;
 
 	/* Climb motor controllers and pneumatics */
 	public CANSparkMax leftMotor1;
@@ -52,8 +51,8 @@ public class Hardware {
 	public SparkMaxMotorGroup climbMotors;
 
 	public DoubleSolenoid superStructurePistons;
-	public DoubleSolenoid hatchPiston;
 	public DoubleSolenoid gearShift;
+	public DoubleSolenoid solenoidForPressurizing;
 
 	/** Motors/sensors for other subsystems will go down here */
 
@@ -76,16 +75,16 @@ public class Hardware {
 		leftDriveMotors.setIdleMode(IdleMode.kBrake);
 		leftDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
 
-		/* Gyro */
-		gyroTestMotor = new TalonSRX(5);
-		gyro = new PigeonIMU(gyroTestMotor);
-
 		/* IntakeArm motor controller creation */
-		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
-		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
-		armIntakeMotor.setInverted(Constants.IntakeArm.IS_INTAKE_INVERTED);
-		armMotor.setNeutralMode(NeutralMode.Brake);
-		armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		turretMotor = new TalonSRX(Constants.TShirtCannon.TURRET_MOTOR_PORT);
+		cannonMotor = new TalonSRX(Constants.TShirtCannon.CANNON_MOTOR_PORT);
+		cannonMotor.setInverted(Constants.TShirtCannon.IS_CANNON_INVERTED);
+		turretMotor.setNeutralMode(NeutralMode.Brake);
+		turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		
+		/* Gyro */
+		gyro = new PigeonIMU(turretMotor);
+		gyro.setYaw(0);
 
 		/* Climb Subsystem creation */
 		leftMotor1 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_1_PORT, MotorType.kBrushless);
@@ -118,7 +117,7 @@ public class Hardware {
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
-		hatchPiston = new DoubleSolenoid(Constants.Climb.HATCH_PISTON_SOLENOID_PORT_1,
+		solenoidForPressurizing = new DoubleSolenoid(Constants.Climb.HATCH_PISTON_SOLENOID_PORT_1,
 				Constants.Climb.HATCH_PISTON_SOLENOID_PORT_2);
 		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, Constants.Drivebase.GEAR_SHIFT_PORT_2);
 	}

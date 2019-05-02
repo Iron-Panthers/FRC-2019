@@ -8,11 +8,9 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.Climb1ElevatorHold;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
-import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
-import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
+import org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.Cannon;
+import org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.Turret;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -32,8 +30,8 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
 	public static Hardware hardware;
-	public static IntakeArm intakeArm;
-	public static Intake intake;
+	public static Turret turret;
+	public static Cannon cannon;
 	public static Climb climb;
 
 	Command m_autonomousCommand;
@@ -46,8 +44,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		hardware = new Hardware();
-		intakeArm = new IntakeArm();
-		intake = new Intake();
+		turret = new Turret();
+		cannon = new Cannon();
 		drive = new Drive();
 		climb = new Climb();
 		/** Instance of OI must be created after all subsystems */
@@ -101,7 +99,6 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
-		intake.hatchIntake();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -129,7 +126,6 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
-		intake.hatchIntake();
 		climb.resetDefaultCommand();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
