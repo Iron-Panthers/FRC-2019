@@ -16,6 +16,7 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.RetractSuperStru
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.TrainingWheelsDriveForward;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.DriveShift;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ReverseDrive;
+import org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.commands.MoveTurret;
 import org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.commands.ShootCannon;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -35,6 +36,7 @@ public class OI {
 	JoystickButton fireCannon;
 
 	// All of the following buttons will belong to DRIVER 2
+	JoystickButton moveTurret;
 
 	// All of the following buttons will belong to the Climb Joystick
 	JoystickButton climbWithJoystick;
@@ -59,9 +61,11 @@ public class OI {
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());
 		altClimbDown.whileHeld(new ClimbDown());
-		fireCannon.whileHeld(new ShootCannon());
+		fireCannon.whenPressed(new ShootCannon(Constants.TShirtCannon.CANNON_FIRE_TIME));
 
 		// Assign commands to each of the buttons for driver 2
+		moveTurret = new JoystickButton(stick2, Constants.Input.MOVE_TURRET_BUTTON);
+		moveTurret.whileHeld(new MoveTurret());
 		//hatchHoldingHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.HATCH_HOLDING_HEIGHT, true));
 
 		// Construct Buttons for Climb Joystick 3

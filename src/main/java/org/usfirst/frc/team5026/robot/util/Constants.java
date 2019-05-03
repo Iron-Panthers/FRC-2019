@@ -59,6 +59,9 @@ public class Constants {
 		// Turret buttons
 		public static final int FIRE_CANNON_BUTTON = 3;
 
+		// Driver B
+		public static final int MOVE_TURRET_BUTTON = 1;
+
 		// Climb Joystick
 		// DO NOT USE TRIGGER. EVER. (on climb joystick)
         public static final int CANCEL_CLIMB_BUTTON = 3; // Used after robot on lvl 3 hab to stop elevator
@@ -82,16 +85,16 @@ public class Constants {
     public class TShirtCannon {
 		// INTAKE ARM PORTS
         public static final int TURRET_MOTOR_PORT = 6;
-        public static final int CANNON_MOTOR_PORT = 4;
+        public static final int CANNON_MOTOR_PORT = 3;
 
-        public static final boolean IS_CANNON_INVERTED = true;
+        public static final boolean IS_CANNON_INVERTED = false; //TODO: Test
 
         // TURRET PID
-        public static final double TURRET_P = 0.5; // TODO: Tune
-		public static final double ERROR_TOLERANCE = 3; // degrees
+        public static final double TURRET_P = 0.025; // TODO: Tune
 		
 		// CANNON CONSTANTS
-		public static final double CANNON_POWER = 0.5;
+		public static final double CANNON_POWER = 1.0;
+		public static final double CANNON_FIRE_TIME = 0.29;
     }
 
     public class Climb {

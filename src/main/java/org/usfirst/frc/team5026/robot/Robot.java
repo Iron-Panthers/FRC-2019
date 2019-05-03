@@ -127,6 +127,7 @@ public class Robot extends TimedRobot {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
 		climb.resetDefaultCommand();
+		hardware.gyro.setYaw(0);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

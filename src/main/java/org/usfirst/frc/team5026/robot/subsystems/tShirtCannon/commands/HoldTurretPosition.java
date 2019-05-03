@@ -16,12 +16,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class HoldTurretPosition extends Command {
 	double error;
 	double p;
-	public HoldTurretPosition() {
+	double target;
+	public HoldTurretPosition(double target) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.turret);
 		error = 0;
 		p = Constants.TShirtCannon.TURRET_P;
+		this.target = target;
 	}
 
 	// Called just before this Command runs the first time
@@ -32,7 +34,7 @@ public class HoldTurretPosition extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		error = 0 - Robot.turret.getYaw(); // The target will always be the starting position of the turret
+		error = target - Robot.turret.getYaw(); // The target will always be the starting position of the turret
 		Robot.turret.setTurret(p * error);
 		p = SmartDashboard.getNumber("Turret P", p);
 	}
