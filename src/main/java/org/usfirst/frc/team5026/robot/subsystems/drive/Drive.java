@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -25,6 +27,8 @@ public class Drive extends Subsystem {
 	private SparkMaxMotorGroup left = Robot.hardware.leftDriveMotors;
 	private SparkMaxMotorGroup right = Robot.hardware.rightDriveMotors;
 	public DoubleSolenoid gearShift = Robot.hardware.gearShift;
+	public PigeonIMU gyro = Robot.hardware.gyro;
+	public double[] ypr = new double[3];
 	public GearState state;
 	public boolean isReversed;
 
@@ -113,6 +117,22 @@ public class Drive extends Subsystem {
 	public void shiftHigh() {
 		state = GearState.LOW; // Tested 2/19/2019
 		gearShift.set(DoubleSolenoid.Value.kForward);
+	}
+
+	/**
+	 * Update the array with gyro values
+	 */
+	public void updateGyro() {
+		gyro.getYawPitchRoll(ypr);
+	}
+	
+	/**
+	 * Updates gyro and then returns yaw
+	 * @return Returns the yaw of the gyro
+	 */
+	public double getYaw(){
+		updateGyro();
+		return ypr[0];
 	}
 
 	@Override
