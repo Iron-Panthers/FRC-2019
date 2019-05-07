@@ -8,17 +8,21 @@
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class PF_Follow extends Command {
+	EncoderFollower left;
+	EncoderFollower right;
   public PF_Follow(Trajectory trajectory) {
-	  requires(Robot.drive);
-	  EncoderFollower left = new EncoderFollower(trajectory);
-	  EncoderFollower right = new EncoderFollower(trajectory);
+	requires(Robot.drive);
+	left = new EncoderFollower(trajectory);
+	right = new EncoderFollower(trajectory);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -26,35 +30,42 @@ public class PF_Follow extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    left.configureEncoder(Robot.hardware.driveLeft1.getEncoderPosition(), Constants.drivebase.TICKS_PER_WHEEL_REVOLUTION, Constants.drivebase.WHEEL_DIAMETER_METERS);
-    right.configureEncoder(Robot.hardware.driveRight1.getEncoderPosition(), Constants.drivebase.TICKS_PER_WHEEL_REVOLUTION, Constants.drivebase.WHEEL_DIAMETER_METERS);
+	int leftEncPosition = (int) Robot.hardware.driveLeft1.getEncoder().getPosition();
+	int rightEncPosition = (int) Robot.hardware.driveRight1.getEncoder().getPosition();
 
-    left.configurePIDVA(1.0, 0.0, 0.0, 1 / Constants.MAX_VELOCITY, 0);
-    right.configurePIDVA(1.0, 0.0, 0.0, 1 / Constants.MAX_VELOCITY, 0);
+	left.configureEncoder(leftEncPosition, (int) Constants.Drivebase.TICKS_PER_WHEEL_REVOLUTION, 
+	(int) Constants.Drivebase.WHEEL_DIAMETER_METERS);
+	right.configureEncoder(rightEncPosition, (int) Constants.Drivebase.TICKS_PER_WHEEL_REVOLUTION, 
+	(int) Constants.Drivebase.WHEEL_DIAMETER_METERS);
+
+	left.configurePIDVA(Constants.PathfinderConstants.PATHFINDER_KP, Constants.PathfinderConstants.PATHFINDER_KI, 
+	Constants.PathfinderConstants.PATHFINDER_KD, 1 / Constants.Drivebase.MAX_VELOCITY, Constants.PathfinderConstants.PATHFINDER_A);
+	
+	right.configurePIDVA(Constants.PathfinderConstants.PATHFINDER_KP, Constants.PathfinderConstants.PATHFINDER_KI,
+	Constants.PathfinderConstants.PATHFINDER_KD, 1 / Constants.Drivebase.MAX_VELOCITY, Constants.PathfinderConstants.PATHFINDER_A);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double encoder_position_left = Robot.hardware.driveLeft1.getEncoderPosition();
-    double encoder_position_right = Robot.hardware.driveRight1.getEncoderPosition();
-	  double l = left.calculate(encoder_position_left);
-    double r = right.calculate(encoder_position_right);
+    double encoder_position_left = Robot.hardware.driveLeft1.getEncoder().getPosition();
+    double encoder_position_right = Robot.hardware.driveRight1.getEncoder().getPosition();
+	double l = left.calculate((int) encoder_position_left);
+    double r = right.calculate((int) encoder_position_right);
 
-    double gyro_heading = ... your gyro code here ...    // Assuming the gyro is giving a value in degrees
+    double gyro_heading = Robot.hardware.gyro.getAbsoluteCompassHeading(); // Assuming the gyro is giving a value in degrees
     double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 
     // This allows the angle difference to respect 'wrapping', where 360 and 0 are the same value
     double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
     angleDifference = angleDifference % 360.0;
     if (Math.abs(angleDifference) > 180.0) {
-      angleDiff = (angleDifference > 0) ? angleDifference - 360 : angleDiff + 360;
+      angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
     } 
 
     double turn = 0.8 * (-1.0/80.0) * angleDifference;
 
-    Robot.drive.setLeftMotors(l + turn);
-    Robot.drive.setRightMotors(r - turn);
+    Robot.drive.set(l + turn, r - turn);
   }
 
   // Make this return true when this Command no longer needs to run execute()

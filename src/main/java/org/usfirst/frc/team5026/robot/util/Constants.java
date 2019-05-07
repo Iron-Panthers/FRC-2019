@@ -48,8 +48,11 @@ public class Constants {
 
         public static final double SCALING_POWER = 2.75;
 
-        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000;
-        public static final double WHEEL_DIAMETER_METERS = .2;
+        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000;//TODO plz measure
+		public static final double WHEEL_DIAMETER_METERS = .2;//TODO plz measure
+		public static final double MAX_VELOCITY = 1.7;//TODO plz measure
+		public static final double MAX_ACCEL = 2.0;//TODO plz measure
+		public static final double MAX_JERK = 60.0;//TODO plz measure
     }
 
     public class Input {
@@ -196,12 +199,24 @@ public class Constants {
 
 		public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[]{
             new Waypoint(0, 3, Pathfinder.d2r(0)),      // Waypoint in form x, y, exit angle
-            new Waypoint(2, 3, Pathfinder.d2r(90)),                       
-            new Waypoint(0, 0, Pathfinder.d2r(0))                           
+            new Waypoint(2, 3, Pathfinder.d2r(90))                          
         }; //go straight, then left, then right
         public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, 
-                                                                            Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+			Trajectory.Config.SAMPLES_HIGH, PathfinderConstants.PATHFINDER_DT, 
+			Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCEL, Drivebase.MAX_JERK);
 		public static final Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
 
+	}
+
+	public static class PathfinderConstants { //pathfinder motion constants
+		//PID
+		public static final double PATHFINDER_KP = 1.0; 
+		public static final double PATHFINDER_KI = 0.0;
+		public static final double PATHFINDER_KD = 0.0;
+
+		//acceleration rate. Default is 0.0, increase to increase acceleration during paths.
+		public static final double PATHFINDER_A = 0.0;
+		//time between points (in seconds)
+		public static final double PATHFINDER_DT = 0.05;
 	}
 }
