@@ -47,6 +47,9 @@ public class Constants {
         public static final double D = 0;
 
         public static final double SCALING_POWER = 2.75;
+
+        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000;
+        public static final double WHEEL_DIAMETER_METERS = .2;
     }
 
     public class Input {
@@ -191,9 +194,14 @@ public class Constants {
 	
 	public static class AutoPaths {
 
-		public static final Waypoint[] pathToFrontHatchWayPoints = new Waypoint[]{};
-		public static final Trajectory.Config pathToFrontHatchConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-		public static final Trajectory pathToFrontHatch = Pathfinder.generate(pathToFrontHatchWayPoints, pathToFrontHatchConfig);
+		public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[]{
+            new Waypoint(0, 3, Pathfinder.d2r(0)),      // Waypoint in form x, y, exit angle
+            new Waypoint(2, 3, Pathfinder.d2r(90)),                       
+            new Waypoint(0, 0, Pathfinder.d2r(0))                           
+        }; //go straight, then left, then right
+        public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, 
+                                                                            Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+		public static final Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
 
 	}
 }
