@@ -1,5 +1,10 @@
 package org.usfirst.frc.team5026.robot.util;
 
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Waypoint;
+import jaci.pathfinder.Trajectory.Config;
+
 /**
  * This class is meant to store constant (and often final) variables that should
  * be accessible throughout the project. Examples: ports, conversion rates,
@@ -182,5 +187,13 @@ public class Constants {
 		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
 		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power.
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
-    }
+	}
+	
+	public static class AutoPaths {
+
+		public static final Waypoint[] pathToFrontHatchWayPoints = new Waypoint[]{};
+		public static final Trajectory.Config pathToFrontHatchConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+		public static final Trajectory pathToFrontHatch = Pathfinder.generate(pathToFrontHatchWayPoints, pathToFrontHatchConfig);
+
+	}
 }
