@@ -197,14 +197,18 @@ public class Constants {
 	
 	public static class AutoPaths {
 
-		public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[]{
-            new Waypoint(0, 3, Pathfinder.d2r(0)),      // Waypoint in form x, y, exit angle
-            new Waypoint(2, 3, Pathfinder.d2r(90))                          
-        }; //go straight, then left, then right
-        public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, 
-			Trajectory.Config.SAMPLES_HIGH, PathfinderConstants.PATHFINDER_DT, 
-			Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCEL, Drivebase.MAX_JERK);
-		public static final Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
+		public static Waypoint[] points = new Waypoint[] {
+			new Waypoint(-4, -1, 0),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+			new Waypoint(-2, -2, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
+			new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
+		};
+		
+		public static Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+		public static Trajectory trajectory = Pathfinder.generate(points, config);//go straight, then left, then right
+        // public static Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, 
+		// 	Trajectory.Config.SAMPLES_HIGH, PathfinderConstants.PATHFINDER_DT, 
+		// 	Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCEL, Drivebase.MAX_JERK);
+		// public static Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
 
 	}
 

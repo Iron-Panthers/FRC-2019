@@ -8,8 +8,6 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.Climb1ElevatorHold;
-import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.PF_Follow;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
@@ -104,7 +102,8 @@ public class Robot extends TimedRobot {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
 		intake.hatchIntake();
-		m_autonomousCommand = new PF_Follow(Constants.AutoPaths.pathfinderTestTrajectory);
+		PF_Follow testTrajectory = new PF_Follow(Constants.AutoPaths.trajectory);
+		m_autonomousCommand = testTrajectory;
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");

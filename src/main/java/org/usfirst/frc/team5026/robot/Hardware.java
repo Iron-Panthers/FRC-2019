@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -25,6 +26,9 @@ public class Hardware {
 	public CANSparkMax driveRight2;
 	public CANSparkMax driveLeft1;
 	public CANSparkMax driveLeft2;
+
+	public CANEncoder leftDriveEncoder;
+	public CANEncoder rightDriveEncoder;
 
 	public TalonSRX gyroTestMotor;
 	public PigeonIMU gyro;
@@ -75,6 +79,9 @@ public class Hardware {
 		rightDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
 		leftDriveMotors.setIdleMode(IdleMode.kBrake);
 		leftDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
+
+		leftDriveEncoder = new CANEncoder(driveLeft1);
+		rightDriveEncoder = new CANEncoder(driveRight1);
 
 		/* Gyro */
 		gyroTestMotor = new TalonSRX(5);
