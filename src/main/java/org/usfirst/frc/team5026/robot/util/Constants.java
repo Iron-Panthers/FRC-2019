@@ -51,7 +51,7 @@ public class Constants {
 
         public static final double SCALING_POWER = 2.75;
 
-        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000;
+        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000; // This is really NEO revolutions per wheel revolution, not ticks. Placeholder Value TODO: Measure
         public static final double WHEEL_DIAMETER_METERS = .2;
     }
 
