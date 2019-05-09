@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
+import com.ctre.phoenix.sensors.PigeonIMU;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -27,6 +29,8 @@ public class Drive extends Subsystem {
 	public DoubleSolenoid gearShift = Robot.hardware.gearShift;
 	public GearState state;
 	public boolean isReversed;
+	private PigeonIMU gyro;
+	private double[] ypr;
 
 	/**
 	 * Create the drivebase subsystem. This sets the inversion status of the left
@@ -35,6 +39,8 @@ public class Drive extends Subsystem {
 	public Drive() {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
+		this.gyro = Robot.hardware.gyro;
+		ypr = new double[3];
 		isReversed = false;
 	}
 
@@ -75,16 +81,17 @@ public class Drive extends Subsystem {
 	/**
 	 * @return The velocity of the motor in RPM
 	 */
-	public double getLeftVelocity(){
+	public double getLeftVelocity() {
 		return left.getMasterMotor().getEncoder().getVelocity();
 	}
 
 	/**
 	 * @return The velocity of the motor in RPM
 	 */
-	public double getRightVelocity(){
+	public double getRightVelocity() {
 		return right.getMasterMotor().getEncoder().getVelocity();
 	}
+
 	/**
 	 * @return the encoder position of the left encoder, in encoder revolutions.
 	 */
@@ -113,6 +120,23 @@ public class Drive extends Subsystem {
 	public void shiftHigh() {
 		state = GearState.LOW; // Tested 2/19/2019
 		gearShift.set(DoubleSolenoid.Value.kForward);
+	}
+
+	/**
+	 * Updates array of yaw, pitch, and roll with the current gyro values
+	 */
+	public void updateGyro() {
+		gyro.getYawPitchRoll(ypr);
+	}
+
+	/**
+	 * Updates gyro and returns yaw
+	 * 
+	 * @return Yaw of the gyro
+	 */
+	public double getYaw() {
+		updateGyro();
+		return ypr[0];
 	}
 
 	@Override

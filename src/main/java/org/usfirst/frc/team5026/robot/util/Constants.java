@@ -38,7 +38,10 @@ public class Constants {
         public static final double LOW_GEAR_RIGHT_MAX_RPM = 5070.0;
         // High gear (Low RPM, high robot speed) // Tested 3/20/2019 by James
         public static final double HIGH_GEAR_LEFT_MAX_RPM = 3630.0;
-        public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
+		public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
+		
+		// Pathfinder Constants
+		public static final double MAX_VELOCITY = 10.0; // Placeholder value TODO: Tune, comment units
 
         // Motion Profiling PID (For Velocity)
         public static final double F = 0; // TODO Find max velocity
