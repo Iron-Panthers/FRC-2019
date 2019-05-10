@@ -110,6 +110,7 @@ public class Robot extends TimedRobot {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
 		intake.hatchIntake();
+		SmartDashboard.putNumber("start yaw:", Constants.AutoPaths.constrainedStartYaw);
 		m_autonomousCommand = new PF_Follow(Constants.AutoPaths.pathfinderTestTrajectory);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");

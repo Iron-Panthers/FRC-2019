@@ -2,6 +2,7 @@ package org.usfirst.frc.team5026.robot.util;
 
 import org.usfirst.frc.team5026.robot.Robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -209,12 +210,21 @@ public class Constants {
         //     new Waypoint(0, 0, Pathfinder.d2r(0))                           
         // }; //go straight, then left, then right
         
-        public static final double startYaw = Robot.drive.getYaw();
+        public static final double measuredStartYaw = Robot.drive.getYaw() % 360;
+        public static final double constrainedStartYaw = (measuredStartYaw < 0) ? measuredStartYaw + 360 : measuredStartYaw;
+        
         public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[] {
             
-            new Waypoint(0, 0, Pathfinder.d2r(startYaw)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
-            new Waypoint(0, 1, Pathfinder.d2r(startYaw-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+            new Waypoint(0, 0, Pathfinder.d2r(constrainedStartYaw)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 40))      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+            
         };
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 60)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 90)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 120)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 150)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 180)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 210))      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
 
         public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Drivebase.PATHFINDER_DT, Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCELERATION, Drivebase.MAX_JERK);
 		public static final Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
