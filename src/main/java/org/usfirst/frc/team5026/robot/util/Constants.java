@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.Robot;
+
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -41,7 +43,14 @@ public class Constants {
 		public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
 		
 		// Pathfinder Constants
-		public static final double MAX_VELOCITY = 10.0; // Placeholder value TODO: Tune, comment units
+        public static final double MAX_VELOCITY = 4.1; //Hubert's estimation in m/sec
+        public static final double MAX_ACCELERATION = 2.0; // Placeholder value TODO: Tune, comment units
+		public static final double MAX_JERK = 60.0; // Placeholder value TODO: Tune, comment units
+        public static final double ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION = 5.0; // NEO revolutions per wheel revolution. Has now been measured
+        public static final double WHEEL_DIAMETER_METERS = .1397;
+        public static final double PATHFINDER_TURN_SENSITIVITY = -.001;
+        public static final double PATHFINDER_DT = 0.05; //time between pathfinder segments, in seconds
+
 
         // Motion Profiling PID (For Velocity)
         public static final double F = 0; // TODO Find max velocity
@@ -50,9 +59,6 @@ public class Constants {
         public static final double D = 0;
 
         public static final double SCALING_POWER = 2.75;
-
-        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000; // This is really NEO revolutions per wheel revolution, not ticks. Placeholder Value TODO: Measure
-        public static final double WHEEL_DIAMETER_METERS = .2;
     }
 
     public class Input {
@@ -197,13 +203,20 @@ public class Constants {
 	
 	public static class AutoPaths {
 
-		public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[]{
-            new Waypoint(0, 3, Pathfinder.d2r(0)),      // Waypoint in form x, y, exit angle
-            new Waypoint(2, 3, Pathfinder.d2r(90)),                       
-            new Waypoint(0, 0, Pathfinder.d2r(0))                           
-        }; //go straight, then left, then right
-        public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, 
-                                                                            Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+		// public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[]{
+        //     new Waypoint(0, 3, Pathfinder.d2r(0)),      // Waypoint in form x, y, exit angle
+        //     new Waypoint(2, 3, Pathfinder.d2r(90)),                       
+        //     new Waypoint(0, 0, Pathfinder.d2r(0))                           
+        // }; //go straight, then left, then right
+        
+        public static final double startYaw = Robot.drive.getYaw();
+        public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[] {
+            
+            new Waypoint(0, 0, Pathfinder.d2r(startYaw)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(0, 1, Pathfinder.d2r(startYaw-45)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        };
+
+        public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Drivebase.PATHFINDER_DT, Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCELERATION, Drivebase.MAX_JERK);
 		public static final Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
 
 	}

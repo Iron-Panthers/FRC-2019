@@ -11,8 +11,10 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.Climb1ElevatorHold;
 import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
+import org.usfirst.frc.team5026.robot.subsystems.drive.commands.PF_Follow;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -68,6 +70,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
+		SmartDashboard.putNumber("encoder", hardware.driveRight1.getEncoder().getPosition());
+		SmartDashboard.putNumber("gyro yaw", drive.getYaw());
+
+
 	}
 
 	/**
@@ -99,11 +105,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		hardware.leftDriveEncoder.setPosition(0.0);
+		hardware.leftDriveEncoder.setPosition(0.0);
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
 		intake.hatchIntake();
-		m_autonomousCommand = m_chooser.getSelected();
-
+		m_autonomousCommand = new PF_Follow(Constants.AutoPaths.pathfinderTestTrajectory);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		 * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -146,6 +153,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("conversion", hardware.driveRight1.getEncoder().getVelocityConversionFactor());
+
 		if (oi.stick1.findRightPower() > 0) {
 			SmartDashboard.putNumber("speed", hardware.driveRight1.getEncoder().getVelocity() / oi.stick1.findRightPower());
 		}

@@ -39,9 +39,9 @@ public class PF_Follow extends Command {
 	protected void initialize() {
 		// Unfortunately, Pathfinder expects ticks like from TalonSRX, not double from
 		// SparkMax rotations. This might not work as intended
-		left.configureEncoder((int) leftEncoder.getPosition(), (int) Constants.Drivebase.TICKS_PER_WHEEL_REVOLUTION,
+		left.configureEncoder((int) leftEncoder.getPosition(), (int) Constants.Drivebase.ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION,
 				Constants.Drivebase.WHEEL_DIAMETER_METERS);
-		right.configureEncoder((int) rightEncoder.getPosition(), (int) Constants.Drivebase.TICKS_PER_WHEEL_REVOLUTION,
+		right.configureEncoder((int) rightEncoder.getPosition(), (int) Constants.Drivebase.ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION,
 				Constants.Drivebase.WHEEL_DIAMETER_METERS);
 
 		// TODO: Replace magic numbers
@@ -67,7 +67,7 @@ public class PF_Follow extends Command {
 			angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
 		} 
 		//TODO: Replace magic numbers
-		double turn = 0.8 * (-1.0/80.0) * angleDifference;
+		double turn = Constants.Drivebase.PATHFINDER_TURN_SENSITIVITY * angleDifference;
 
 		Robot.drive.set(l + turn, r - turn);
   	}
