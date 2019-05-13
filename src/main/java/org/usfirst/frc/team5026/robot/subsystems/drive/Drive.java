@@ -139,6 +139,12 @@ public class Drive extends Subsystem {
 		return ypr[0];
 	}
 
+	public void resetYaw() {
+		gyro.setYaw(0);
+		updateGyro();
+	}
+
+
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.

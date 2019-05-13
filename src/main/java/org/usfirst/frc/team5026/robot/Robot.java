@@ -52,6 +52,7 @@ public class Robot extends TimedRobot {
 		intake = new Intake();
 		drive = new Drive();
 		climb = new Climb();
+		Robot.drive.resetYaw();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -110,7 +111,6 @@ public class Robot extends TimedRobot {
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
 		intake.hatchIntake();
-		SmartDashboard.putNumber("start yaw:", Constants.AutoPaths.constrainedStartYaw);
 		m_autonomousCommand = new PF_Follow(Constants.AutoPaths.pathfinderTestTrajectory);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");

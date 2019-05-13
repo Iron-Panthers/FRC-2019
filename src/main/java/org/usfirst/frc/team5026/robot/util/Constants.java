@@ -209,15 +209,11 @@ public class Constants {
         //     new Waypoint(2, 3, Pathfinder.d2r(90)),                       
         //     new Waypoint(0, 0, Pathfinder.d2r(0))                           
         // }; //go straight, then left, then right
-        
-        public static final double measuredStartYaw = Robot.drive.getYaw() % 360;
-        public static final double constrainedStartYaw = (measuredStartYaw < 0) ? measuredStartYaw + 360 : measuredStartYaw;
-        
+                
         public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[] {
             
-            new Waypoint(0, 0, Pathfinder.d2r(constrainedStartYaw)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
-            new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 40))      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-            
+            new Waypoint(0, 0, Pathfinder.d2r(1)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(0, 1, Pathfinder.d2r(-40)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
         };
         // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 60)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
         // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 90)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees

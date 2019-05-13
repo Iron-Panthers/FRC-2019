@@ -45,8 +45,8 @@ public class PF_Follow extends Command {
 				Constants.Drivebase.WHEEL_DIAMETER_METERS);
 
 		// TODO: Replace magic numbers
-		left.configurePIDVA(1.0, 0.0, 0.0, 1 / Constants.Drivebase.MAX_VELOCITY, 0);
-		right.configurePIDVA(1.0, 0.0, 0.0, 1 / Constants.Drivebase.MAX_VELOCITY, 0);
+		left.configurePIDVA(1.0, 0.0, .05, 1 / Constants.Drivebase.MAX_VELOCITY, 0);
+		right.configurePIDVA(1.0, 0.0, .05, 1 / Constants.Drivebase.MAX_VELOCITY, 0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -57,19 +57,17 @@ public class PF_Follow extends Command {
 		double l = left.calculate(leftPosition);
 		double r = right.calculate(rightPosition);
 
-		double gyro_heading = Robot.drive.getYaw();  // Assuming the gyro is giving a value in degrees
+		double gyro_heading = (Robot.drive.getYaw() % 360 < 0) ? (Robot.drive.getYaw() % 360) + 360 : Robot.drive.getYaw() % 360;  // Assuming the gyro is giving a value in degrees
 		double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
-
-		// This allows the angle difference to respect 'wrapping', where 360 and 0 are the same value
-		double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-		angleDifference = angleDifference % 360.0;
-		if (Math.abs(angleDifference) > 180.0) {
-			angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
-		} 
+		double angleDifference =  desired_heading - gyro_heading;
+		if(angleDifference > 180) {
+			angleDifference = angleDifference - 360;
+		}
+		
 		//TODO: Replace magic numbers
 		double turn = Constants.Drivebase.PATHFINDER_TURN_SENSITIVITY * angleDifference;
 
-		Robot.drive.set(l + turn, r - turn);
+		Robot.drive.set(l - turn, r + turn);
   	}
 
 	// Make this return true when this Command no longer needs to run execute()
