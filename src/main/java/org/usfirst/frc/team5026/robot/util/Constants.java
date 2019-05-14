@@ -1,5 +1,8 @@
 package org.usfirst.frc.team5026.robot.util;
 
+import org.usfirst.frc.team5026.robot.Robot;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -38,21 +41,25 @@ public class Constants {
         public static final double LOW_GEAR_RIGHT_MAX_RPM = 5070.0;
         // High gear (Low RPM, high robot speed) // Tested 3/20/2019 by James
         public static final double HIGH_GEAR_LEFT_MAX_RPM = 3630.0;
-        public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
+		public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
+		
+		// Pathfinder Constants
+        public static final double MAX_VELOCITY = 4.1; //Hubert's estimation in m/sec
+        public static final double MAX_ACCELERATION = 2.0; // Placeholder value TODO: Tune, comment units
+		public static final double MAX_JERK = 60.0; // Placeholder value TODO: Tune, comment units
+        public static final double ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION = 5.0; // NEO revolutions per wheel revolution. Has now been measured
+        public static final double WHEEL_DIAMETER_METERS = .1397;
+        public static final double PATHFINDER_TURN_SENSITIVITY = -.001;
+        public static final double PATHFINDER_DT = 0.05; //time between pathfinder segments, in seconds
 
-        // Motion Profiling PID (For Velocity)
-        public static final double F = 0; // TODO Find max velocity
-        public static final double P = 0; // TODO Tune
-        public static final double I = 0;
-        public static final double D = 0;
+        // Pathfinder PIDVA
+        public static final double P = 1.0; // TODO Tune
+        public static final double I = 0.0;
+		public static final double D = 0.05;
+		public static final double V = 1 / MAX_VELOCITY;
+		public static final double A = 0.0; // Default Value for Pathfinder
 
         public static final double SCALING_POWER = 2.75;
-
-        public static final double TICKS_PER_WHEEL_REVOLUTION = 1000;//TODO plz measure
-		public static final double WHEEL_DIAMETER_METERS = .2;//TODO plz measure
-		public static final double MAX_VELOCITY = 1.7;//TODO plz measure
-		public static final double MAX_ACCEL = 2.0;//TODO plz measure
-		public static final double MAX_JERK = 60.0;//TODO plz measure
     }
 
     public class Input {
@@ -197,18 +204,26 @@ public class Constants {
 	
 	public static class AutoPaths {
 
-		public static Waypoint[] points = new Waypoint[] {
-			new Waypoint(-4, -1, 0),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
-			new Waypoint(-2, -2, 0),                        // Waypoint @ x=-2, y=-2, exit angle=0 radians
-			new Waypoint(0, 0, 0)                           // Waypoint @ x=0, y=0,   exit angle=0 radians
-		};
-		
-		public static Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-		public static Trajectory trajectory = Pathfinder.generate(points, config);//go straight, then left, then right
-        // public static Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, 
-		// 	Trajectory.Config.SAMPLES_HIGH, PathfinderConstants.PATHFINDER_DT, 
-		// 	Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCEL, Drivebase.MAX_JERK);
-		// public static Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
+		// public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[]{
+        //     new Waypoint(0, 3, Pathfinder.d2r(0)),      // Waypoint in form x, y, exit angle
+        //     new Waypoint(2, 3, Pathfinder.d2r(90)),                       
+        //     new Waypoint(0, 0, Pathfinder.d2r(0))                           
+        // }; //go straight, then left, then right
+                
+        public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[] {
+            
+            new Waypoint(0, 0, Pathfinder.d2r(1)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(0, 1, Pathfinder.d2r(-40)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        };
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 60)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 90)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 120)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 150)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 180)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+        // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 210))      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+
+        public static final Trajectory.Config pathfinderTestPathConfig = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Drivebase.PATHFINDER_DT, Drivebase.MAX_VELOCITY, Drivebase.MAX_ACCELERATION, Drivebase.MAX_JERK);
+		public static final Trajectory pathfinderTestTrajectory = Pathfinder.generate(pathfinderTestWaypoints, pathfinderTestPathConfig);
 
 	}
 

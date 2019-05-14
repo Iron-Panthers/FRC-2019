@@ -72,6 +72,9 @@ public class Hardware {
 		driveRight1.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 		driveLeft1.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 
+		leftDriveEncoder = new CANEncoder(driveLeft1);
+		rightDriveEncoder = new CANEncoder(driveRight1);
+
 		rightDriveMotors = new SparkMaxMotorGroup("Right Drive Motor Group", driveRight1, driveRight2);
 		leftDriveMotors = new SparkMaxMotorGroup("Left Drive Motor Group", driveLeft1, driveLeft2);
 

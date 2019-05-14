@@ -13,23 +13,36 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
-import jaci.pathfinder.modifiers.TankModifier;
 
 public class PF_Follow extends Command {
-	EncoderFollower left;
-	EncoderFollower right;
-	CANEncoder leftDriveEncoder;
-	CANEncoder rightDriveEncoder;
+	private CANEncoder leftEncoder;
+	private CANEncoder rightEncoder;
+
+	private EncoderFollower left;
+	private EncoderFollower right;
+
+	private double p;
+	private double i;
+	private double d;
+	private double v;
+	private double a;
 
 	public PF_Follow(Trajectory trajectory) {
 		requires(Robot.drive);
 		left = new EncoderFollower(trajectory);
 		right = new EncoderFollower(trajectory);
-		leftDriveEncoder = Robot.hardware.leftDriveEncoder;
-		rightDriveEncoder = Robot.hardware.rightDriveEncoder;
+		leftEncoder = Robot.hardware.leftDriveEncoder;
+		rightEncoder = Robot.hardware.rightDriveEncoder;
+
+		SmartDashboard.putNumber("Pathfinder P", Constants.Drivebase.P);
+		SmartDashboard.putNumber("Pathfinder I", Constants.Drivebase.I);
+		SmartDashboard.putNumber("Pathfinder D", Constants.Drivebase.D);
+		SmartDashboard.putNumber("Pathfinder V", Constants.Drivebase.V);
+		SmartDashboard.putNumber("Pathfinder A", Constants.Drivebase.A);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -37,47 +50,42 @@ public class PF_Follow extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		int leftEncPosition = (int) Robot.hardware.driveLeft1.getEncoder().getPosition();
-		int rightEncPosition = (int) Robot.hardware.driveRight1.getEncoder().getPosition();
+		// Unfortunately, Pathfinder expects ticks like from TalonSRX, not double from
+		// SparkMax rotations. This might not work as intended
+		left.configureEncoder((int) leftEncoder.getPosition(), (int) Constants.Drivebase.ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION,
+				Constants.Drivebase.WHEEL_DIAMETER_METERS);
+		right.configureEncoder((int) rightEncoder.getPosition(), (int) Constants.Drivebase.ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION,
+				Constants.Drivebase.WHEEL_DIAMETER_METERS);
 
-		left.configureEncoder(leftEncPosition, (int) Constants.Drivebase.TICKS_PER_WHEEL_REVOLUTION,
-				(int) Constants.Drivebase.WHEEL_DIAMETER_METERS);
-		right.configureEncoder(rightEncPosition, (int) Constants.Drivebase.TICKS_PER_WHEEL_REVOLUTION,
-				(int) Constants.Drivebase.WHEEL_DIAMETER_METERS);
-
-		left.configurePIDVA(Constants.PathfinderConstants.PATHFINDER_KP, Constants.PathfinderConstants.PATHFINDER_KI,
-				Constants.PathfinderConstants.PATHFINDER_KD, 1 / Constants.Drivebase.MAX_VELOCITY,
-				Constants.PathfinderConstants.PATHFINDER_A);
-
-		right.configurePIDVA(Constants.PathfinderConstants.PATHFINDER_KP, Constants.PathfinderConstants.PATHFINDER_KI,
-				Constants.PathfinderConstants.PATHFINDER_KD, 1 / Constants.Drivebase.MAX_VELOCITY,
-				Constants.PathfinderConstants.PATHFINDER_A);
+		p = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.P);
+		i = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.I);
+		d = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.D);
+		v = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.V);
+		a = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.A);
+		left.configurePIDVA(p, i, d, v, a);
+		right.configurePIDVA(p, i, d, v, a);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {
-		double encoder_position_left = leftDriveEncoder.getPosition();
-		double encoder_position_right = rightDriveEncoder.getPosition();
-		double l = left.calculate((int) encoder_position_left);
-		double r = right.calculate((int) encoder_position_right);
+  	protected void execute() {
+		int leftPosition = (int) leftEncoder.getPosition();
+		int rightPosition = (int) rightEncoder.getPosition();
+		double l = left.calculate(leftPosition);
+		double r = right.calculate(rightPosition);
 
-		double gyro_heading = Robot.hardware.gyro.getAbsoluteCompassHeading(); // Assuming the gyro is giving a value in
-																				// degrees
-		double desired_heading = Pathfinder.r2d(left.getHeading()); // Should also be in degrees
-
-		// This allows the angle difference to respect 'wrapping', where 360 and 0 are
-		// the same value
-		double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-		angleDifference = angleDifference % 360.0;
-		if (Math.abs(angleDifference) > 180.0) {
-			angleDifference = (angleDifference > 0) ? angleDifference - 360 : angleDifference + 360;
+		double gyro_heading = (Robot.drive.getYaw() % 360 < 0) ? (Robot.drive.getYaw() % 360) + 360 : Robot.drive.getYaw() % 360;  // Assuming the gyro is giving a value in degrees
+		double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
+		double angleDifference =  desired_heading - gyro_heading;
+		if(angleDifference > 180) {
+			angleDifference = angleDifference - 360;
 		}
+		
+		//TODO: Replace magic numbers
+		double turn = Constants.Drivebase.PATHFINDER_TURN_SENSITIVITY * angleDifference;
 
-		double turn = 0.8 * (-1.0 / 80.0) * angleDifference;
-
-		Robot.drive.set(l + turn, r - turn);
-	}
+		Robot.drive.set(l - turn, r + turn);
+  	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
@@ -88,12 +96,13 @@ public class PF_Follow extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.set(0);
+		Robot.drive.reset();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.drive.reset();
 	}
 }

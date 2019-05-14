@@ -50,6 +50,7 @@ public class Robot extends TimedRobot {
 		intake = new Intake();
 		drive = new Drive();
 		climb = new Climb();
+		Robot.drive.resetYaw();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -68,6 +69,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotPeriodic() {
+		SmartDashboard.putNumber("encoder", hardware.driveRight1.getEncoder().getPosition());
+		SmartDashboard.putNumber("gyro yaw", drive.getYaw());
+
+
 	}
 
 	/**
@@ -99,12 +104,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		hardware.leftDriveEncoder.setPosition(0.0);
+		hardware.leftDriveEncoder.setPosition(0.0);
 		drive.shiftHigh();
 		climb.retractSuperStructurePistons();
 		intake.hatchIntake();
-		PF_Follow testTrajectory = new PF_Follow(Constants.AutoPaths.trajectory);
-		m_autonomousCommand = testTrajectory;
-
+		drive.resetYaw();
+		m_autonomousCommand = new PF_Follow(Constants.AutoPaths.pathfinderTestTrajectory);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		 * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -147,6 +153,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		SmartDashboard.putNumber("conversion", hardware.driveRight1.getEncoder().getVelocityConversionFactor());
+
 		if (oi.stick1.findRightPower() > 0) {
 			SmartDashboard.putNumber("speed", hardware.driveRight1.getEncoder().getVelocity() / oi.stick1.findRightPower());
 		}
