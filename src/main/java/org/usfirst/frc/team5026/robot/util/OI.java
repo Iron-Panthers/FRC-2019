@@ -46,6 +46,8 @@ public class OI {
 	JoystickButton trainingWheelsForward, slowTrainingWheelsForward;
 	JoystickButton cancelClimb;
 
+	public VisionResultsReader visionReader;
+
 	public OI() {
 		// Create the Joysticks
 		stick1 = new JoystickWrapper(Constants.Input.JOYSTICK_1_PORT);
@@ -61,7 +63,8 @@ public class OI {
 		altClimbDown = new JoystickButton(stick1, Constants.Input.ALT_CLIMB_DOWN_BUTTON);
 
 		// Assign commands to each of the buttons for driver 1
-		reverseDrive.whileHeld(new ReverseDrive());
+		// reverseDrive.whileHeld(new ReverseDrive());
+		reverseDrive.whileHeld(new AutoAlignCargo());
 		shiftGearLow.whileHeld(new DriveShift());
 		hubertOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hubertFastOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
@@ -117,5 +120,7 @@ public class OI {
 		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
 		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
 		cancelClimb.whenPressed(new CancelClimb());
+
+		visionReader = new VisionResultsReader(Constants.Camera.JETSON_NETTABLE_NAME);	
 	}
 }

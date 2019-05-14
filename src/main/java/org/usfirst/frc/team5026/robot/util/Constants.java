@@ -183,4 +183,12 @@ public class Constants {
 		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power.
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
     }
+
+    public class Camera {
+        public static final String JETSON_STATIC_IP = "10.50.26.19";
+        public static final String JETSON_NETTABLE_NAME = "CVResultsTable";
+		public static final String VISION_RESULTS_KEY = "VisionResults";
+		
+		public static final double ANGLE_P = 0.005; // angle in degrees, output joystick x
+    }
 }

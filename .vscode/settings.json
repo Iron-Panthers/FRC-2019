@@ -15,5 +15,6 @@
     "**/.factorypath": true
   },
   "wpilib.online": true,
-  "java.dependency.packagePresentation": "hierarchical"
+  "java.dependency.packagePresentation": "hierarchical",
+  "editor.insertSpaces": false
 }

@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickWrapper extends Joystick {
 	private double x; // this does not reflect the physical joystick X-axis
 	private double y; // this does not reflect the physical joystick Y-axis
+	public boolean overrideX = false;
+	public double overrideXValue = 0;
 
 	/**
 	 * Creates a new JoystickWrapper. Port is the USB port of the physical device,
@@ -36,7 +38,11 @@ public class JoystickWrapper extends Joystick {
 	 */
 	public void update() {
 		// Update X and Y to match the X and Y axes of the device
-		x = getX();
+		if (overrideX) {
+			x = overrideXValue;
+		} else {
+			x = getX();
+		}
 		y = getY();
 		SmartDashboard.putNumber("JoystickWrapper -- Raw X: ", x);
 		SmartDashboard.putNumber("JoystickWrapper -- Raw Y: ", y);

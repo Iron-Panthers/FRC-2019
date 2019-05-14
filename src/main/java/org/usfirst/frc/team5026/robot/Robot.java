@@ -51,7 +51,7 @@ public class Robot extends TimedRobot {
 		drive = new Drive();
 		climb = new Climb();
 		/** Instance of OI must be created after all subsystems */
-		oi = new OI();
+		oi = new OI();	
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Robot -- Auton mode", m_chooser);
