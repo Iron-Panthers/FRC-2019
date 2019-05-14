@@ -139,11 +139,13 @@ public class Drive extends Subsystem {
 		return ypr[0];
 	}
 
+	/**
+	 * Sets the gyro yaw to 0 and then updates the ypr array
+	 */
 	public void resetYaw() {
 		gyro.setYaw(0);
 		updateGyro();
 	}
-
 
 	@Override
 	public void initDefaultCommand() {

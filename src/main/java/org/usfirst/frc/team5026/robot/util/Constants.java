@@ -52,12 +52,12 @@ public class Constants {
         public static final double PATHFINDER_TURN_SENSITIVITY = -.001;
         public static final double PATHFINDER_DT = 0.05; //time between pathfinder segments, in seconds
 
-
-        // Motion Profiling PID (For Velocity)
-        public static final double F = 0; // TODO Find max velocity
-        public static final double P = 0; // TODO Tune
-        public static final double I = 0;
-        public static final double D = 0;
+        // Pathfinder PIDVA
+        public static final double P = 1.0; // TODO Tune
+        public static final double I = 0.0;
+		public static final double D = 0.05;
+		public static final double V = 1 / MAX_VELOCITY;
+		public static final double A = 0.0; // Default Value for Pathfinder
 
         public static final double SCALING_POWER = 2.75;
     }

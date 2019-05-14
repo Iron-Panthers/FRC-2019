@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -24,12 +25,24 @@ public class PF_Follow extends Command {
 	private EncoderFollower left;
 	private EncoderFollower right;
 
+	private double p;
+	private double i;
+	private double d;
+	private double v;
+	private double a;
+
 	public PF_Follow(Trajectory trajectory) {
 		requires(Robot.drive);
 		left = new EncoderFollower(trajectory);
 		right = new EncoderFollower(trajectory);
 		leftEncoder = Robot.hardware.leftDriveEncoder;
 		rightEncoder = Robot.hardware.rightDriveEncoder;
+
+		SmartDashboard.putNumber("Pathfinder P", Constants.Drivebase.P);
+		SmartDashboard.putNumber("Pathfinder I", Constants.Drivebase.I);
+		SmartDashboard.putNumber("Pathfinder D", Constants.Drivebase.D);
+		SmartDashboard.putNumber("Pathfinder V", Constants.Drivebase.V);
+		SmartDashboard.putNumber("Pathfinder A", Constants.Drivebase.A);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -44,9 +57,13 @@ public class PF_Follow extends Command {
 		right.configureEncoder((int) rightEncoder.getPosition(), (int) Constants.Drivebase.ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION,
 				Constants.Drivebase.WHEEL_DIAMETER_METERS);
 
-		// TODO: Replace magic numbers
-		left.configurePIDVA(1.0, 0.0, .05, 1 / Constants.Drivebase.MAX_VELOCITY, 0);
-		right.configurePIDVA(1.0, 0.0, .05, 1 / Constants.Drivebase.MAX_VELOCITY, 0);
+		p = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.P);
+		i = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.I);
+		d = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.D);
+		v = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.V);
+		a = SmartDashboard.getNumber("Pathfinder P", Constants.Drivebase.A);
+		left.configurePIDVA(p, i, d, v, a);
+		right.configurePIDVA(p, i, d, v, a);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
