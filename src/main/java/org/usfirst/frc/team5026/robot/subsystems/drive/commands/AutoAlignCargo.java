@@ -32,6 +32,9 @@ public class AutoAlignCargo extends Command {
 		double distance = Robot.oi.visionReader.cargoDistance;
 
 		double joyX = -angle * Constants.Camera.ANGLE_P;
+		if (Math.abs(joyX) > 0.01) {
+			joyX += Math.signum(joyX)*0.1;
+		}
 		Robot.oi.stick1.overrideX = true;
 		Robot.oi.stick1.overrideXValue = joyX;
 		SmartDashboard.putNumber("wanted x", joyX);
