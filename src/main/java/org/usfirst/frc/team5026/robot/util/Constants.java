@@ -189,6 +189,6 @@ public class Constants {
         public static final String JETSON_NETTABLE_NAME = "CVResultsTable";
 		public static final String VISION_RESULTS_KEY = "VisionResults";
 		
-		public static final double ANGLE_P = 0.005; // angle in degrees, output joystick x
+		public static final double ANGLE_P = 3; // angle in radians, output joystick x
     }
 }

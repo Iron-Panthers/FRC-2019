@@ -83,6 +83,9 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		SmartDashboard.putNumber("pos", hardware.driveRight1.getEncoder().getPosition());
 		Scheduler.getInstance().run();
+
+		oi.visionReader.updateResults();
+		oi.visionReader.putToDashboard();
 	}
 
 	/**

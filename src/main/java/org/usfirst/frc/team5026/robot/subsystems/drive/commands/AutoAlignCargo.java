@@ -11,6 +11,7 @@ import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoAlignCargo extends Command {
 
@@ -30,9 +31,10 @@ public class AutoAlignCargo extends Command {
 		double angle = Robot.oi.visionReader.cargoAngle;
 		double distance = Robot.oi.visionReader.cargoDistance;
 
-		double joyX = angle * Constants.Camera.ANGLE_P;
+		double joyX = -angle * Constants.Camera.ANGLE_P;
 		Robot.oi.stick1.overrideX = true;
 		Robot.oi.stick1.overrideXValue = joyX;
+		SmartDashboard.putNumber("wanted x", joyX);
 	}
 	
 	// Make this return true when this Command no longer needs to run execute()
