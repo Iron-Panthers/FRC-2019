@@ -74,12 +74,15 @@ public class PF_Follow extends Command {
 		double l = left.calculate(leftPosition);
 		double r = right.calculate(rightPosition);
 
-		double gyro_heading = (Robot.drive.getYaw() % 360 < 0) ? (Robot.drive.getYaw() % 360) + 360 : Robot.drive.getYaw() % 360;  // Assuming the gyro is giving a value in degrees
+		double gyro_heading = ((Robot.drive.getYaw() % 360) + 360) % 360;  // Assuming the gyro is giving a value in degrees
 		double desired_heading = Pathfinder.r2d(left.getHeading());  // Should also be in degrees
 		double angleDifference =  desired_heading - gyro_heading;
-		if(angleDifference > 180) {
-			angleDifference = angleDifference - 360;
+		if(Math.abs(angleDifference) > 180) {
+			angleDifference = (angleDifference < 0) ? angleDifference + 360 : angleDifference - 360;
 		}
+
+		SmartDashboard.putNumber("desired angle", desired_heading);
+		SmartDashboard.putNumber("angle error:", angleDifference);
 		
 		//TODO: Replace magic numbers
 		double turn = Constants.Drivebase.PATHFINDER_TURN_SENSITIVITY * angleDifference;

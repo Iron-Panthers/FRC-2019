@@ -44,18 +44,18 @@ public class Constants {
 		public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
 		
 		// Pathfinder Constants
-        public static final double MAX_VELOCITY = 4.1; //Hubert's estimation in m/sec
+        public static final double MAX_VELOCITY = 2.0; //Wesley's estimation in m/sec
         public static final double MAX_ACCELERATION = 2.0; // Placeholder value TODO: Tune, comment units
 		public static final double MAX_JERK = 60.0; // Placeholder value TODO: Tune, comment units
         public static final double ENCODER_REVOLUTIONS_PER_WHEEL_REVOLUTION = 5.0; // NEO revolutions per wheel revolution. Has now been measured
         public static final double WHEEL_DIAMETER_METERS = .1397;
-        public static final double PATHFINDER_TURN_SENSITIVITY = -.001;
+        public static final double PATHFINDER_TURN_SENSITIVITY = .0025;
         public static final double PATHFINDER_DT = 0.05; //time between pathfinder segments, in seconds
 
         // Pathfinder PIDVA
-        public static final double P = 1.0; // TODO Tune
+        public static final double P = 0.3; // TODO Tune
         public static final double I = 0.0;
-		public static final double D = 0.05;
+		public static final double D = 0.0;
 		public static final double V = 1 / MAX_VELOCITY;
 		public static final double A = 0.0; // Default Value for Pathfinder
 
@@ -212,8 +212,8 @@ public class Constants {
                 
         public static final Waypoint[] pathfinderTestWaypoints = new Waypoint[] {
             
-            new Waypoint(0, 0, Pathfinder.d2r(1)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
-            new Waypoint(0, 1, Pathfinder.d2r(-40)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
+            new Waypoint(0, 0, Pathfinder.d2r(0.0)),      // Waypoint @ x=0, y=0,   exit angle=0 radians
+            new Waypoint(2, -2, Pathfinder.d2r(270)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
         };
         // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 60)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
         // new Waypoint(0, 1, Pathfinder.d2r(constrainedStartYaw - 90)),      // Waypoint @ x=-4, y=-1, exit angle=-45 degrees
