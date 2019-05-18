@@ -25,9 +25,7 @@ public class Constants {
                                                                    // the front
         public static final double TURN_SENSITIVITY = 1;
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
-        public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
-        public static final boolean IS_BABY_PROOFED = true;
-        public static final double BABY_PROOF_MODIFIER = 0.25;
+		public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
 
         // Max Velocity in RPM
         // Low gear (High RPM, low robot speed) // Tested 3/20/2019 by James
