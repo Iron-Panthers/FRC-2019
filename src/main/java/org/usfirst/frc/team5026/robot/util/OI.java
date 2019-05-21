@@ -89,7 +89,7 @@ public class OI {
 				new ArmToTarget((Constants.IntakeArm.CARGO_SHIP_HEIGHT - Constants.IntakeArm.CARGO_DIAMETER), false));
 		rocketLowHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.ROCKET_LOW_HEIGHT, true));
 		lowestHeight.whenPressed(new ArmToTarget(Constants.IntakeArm.BASE_ANGLE_OFFSET));
-		intake.toggleWhenPressed(new IntakeCargo());
+		intake.whileHeld(new IntakeCargo());
 		outtake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hatchIntake.whenPressed(new IntakeHatch());
 		hatchOuttake.whenPressed(new OuttakeHatch());

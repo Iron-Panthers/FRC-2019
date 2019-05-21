@@ -126,7 +126,7 @@ public class Constants {
 
         // INTAKE ARM PID
         public static final double INTAKE_ARM_MAX_POWER = 0.35;
-        public static final double INTAKE_ARM_P = 0.2;
+        public static final double INTAKE_ARM_P = 0.15;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
         public static final double ERROR_TOLERANCE = 3; // degrees
