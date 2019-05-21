@@ -9,6 +9,8 @@ package org.usfirst.frc.team5026.robot.util;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team5026.robot.Robot;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -76,6 +78,47 @@ public class VisionResultsReader {
 		timeLog.add(System.currentTimeMillis());
 		xLog.add(hatchX);
 		yLog.add(hatchY);
+
+		double totalPosError = 0;
+		double totalNegError = 0;
+		int count = 0;
+
+		for (int i = 1; i < 5; i++) {
+			int j = timeLog.size() - i - 1;
+			if (j < 0) {
+				break;
+			}
+
+			long millis = timeLog.get(j);
+			double[] driveD = Robot.drive.delta(millis);
+			double[] cameraD = new double[]{xLog.get(j)-xLog.get(j-1), yLog.get(j)-yLog.get(j-1)};
+			
+			double driveS = Math.sqrt(driveD[0]*driveD[0] + driveD[1]*driveD[1]);
+			double cameraS = Math.sqrt(cameraD[0]*cameraD[0] + cameraD[1]*cameraD[1]);
+
+			driveD[0] /= driveS;
+			driveD[1] /= driveS;
+			cameraD[0] /= cameraS;
+			cameraD[1] /= cameraS;
+
+			double posDot = driveD[0]*cameraD[0] + driveD[1]*cameraD[1];
+			double negDot = -driveD[0]*cameraD[0] + driveD[1]*cameraD[1];
+			totalPosError += 1 - posDot;
+			totalNegError += 1 - negDot;
+			count++;
+		}
+
+		totalPosError /= count;
+		totalNegError /= count;
+
+		if (totalNegError < totalPosError && totalNegError < 0.2) {
+			hatchX *= -1;
+			hatchWallAngle = Math.PI - hatchWallAngle;
+		}
+
+		double hatchToField = Robot.drive.getYaw() + hatchAngle - hatchWallAngle;
+		SmartDashboard.putNumber("hatch_to_field", hatchToField);
+
     }
 
     /**
@@ -92,5 +135,6 @@ public class VisionResultsReader {
 		SmartDashboard.putBoolean("Cargo Valid", cargoValid);
         SmartDashboard.putNumber("Cargo Angle", cargoAngle);
         SmartDashboard.putNumber("Cargo Distance", cargoDistance);
-    }
+	}
+	
 }

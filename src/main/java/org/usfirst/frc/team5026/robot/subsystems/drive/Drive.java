@@ -33,11 +33,9 @@ public class Drive extends Subsystem {
 	public ArrayList<Long> timeLog = new ArrayList<>();
 	public ArrayList<Double> dxLog = new ArrayList<>();
 	public ArrayList<Double> dyLog = new ArrayList<>();
+	private long lastTime = 0;
 
-	private double leftWheelPos = 0;
-	private double rightWheelPos = 0;
-	private long lastMilli = 0;
-	private double lastAngle = 0;
+	private double[] ypr;
 
 	/**
 	 * Create the drivebase subsystem. This sets the inversion status of the left
@@ -50,24 +48,51 @@ public class Drive extends Subsystem {
 	}
 
 	private void updatePosLogs() {
-		if (lastMilli == 0) {
-			lastMilli = System.currentTimeMillis();
-			leftWheelPos = getLeftEncoderRevolutions();
-			rightWheelPos = getRightEncoderRevolutions();
-		} else {
-			double dt = ((double)(System.currentTimeMillis() - lastMilli)) / 1000.0;
-			double dLeft = Math.PI * Constants.Drivebase.WHEEL_DIAMETER * (getLeftEncoderRevolutions() - leftWheelPos);
-			double dRight = Math.PI * Constants.Drivebase.WHEEL_DIAMETER * (getRightEncoderRevolutions() - rightWheelPos);
-
-			double turnRadius = Constants.Drivebase.DRIVEBASE_WIDTH / (dRight/dLeft - 1);
-			double turnTheta = dLeft / turnRadius;
-
-
-
-			lastMilli = System.currentTimeMillis();
-			leftWheelPos = getLeftEncoderRevolutions();
-			rightWheelPos = getRightEncoderRevolutions();
+		double dt = 0;
+		if (lastTime != 0) {
+			dt = System.currentTimeMillis() - lastTime;
+			lastTime = System.currentTimeMillis();
 		}
+
+		double s = Math.PI*Constants.Drivebase.WHEEL_DIAMETER*(getLeftVelocity() + getRightVelocity())/2;
+		double a = getYaw() / 180.0 * Math.PI;
+		double dx = dt * s * Math.cos(a);
+		double dy = dt * s * Math.sin(a);
+		
+		timeLog.add(System.currentTimeMillis());
+		dxLog.add(dx);
+		dyLog.add(dy);
+	}
+
+	public double[] delta(long millis) {
+		int lI = 0;
+		int hI = timeLog.size();
+		int i = (lI + hI)/2;
+		long belowTime = timeLog.get(i);
+		long aboveTime = timeLog.get(i+1);
+		while (millis < belowTime || millis > aboveTime) {
+			if (millis < belowTime) {
+				hI = i;
+				i = (lI + hI)/2;
+				if (lI == hI) {
+					return new double[] { dxLog.get(0), dyLog.get(0) };
+				}
+				belowTime = timeLog.get(i);
+		 		aboveTime = timeLog.get(i+1);
+			} else if (millis > aboveTime) {
+				lI = i+1;
+				i = (lI + hI)/2;
+				if (i + 1 >= timeLog.size()) {
+					return new double[] { dxLog.get(dxLog.size() - 1), dyLog.get(dyLog.size() - 1) };
+				}
+				belowTime = timeLog.get(i);
+				aboveTime = timeLog.get(i + 1);
+			}
+		}
+
+		double[] p = {dxLog.get(i), dyLog.get(i)};
+		return p;
+
 	}
 
 	/**
@@ -80,6 +105,7 @@ public class Drive extends Subsystem {
 	public void set(double leftPower, double rightPower) {
 		left.set(leftPower);
 		right.set(rightPower);
+		updatePosLogs();
 		SmartDashboard.putNumber("Drive -- Set left power: ", leftPower);
 		SmartDashboard.putNumber("Drive -- Set right power: ", rightPower);
 	}
@@ -92,6 +118,7 @@ public class Drive extends Subsystem {
 	public void set(double power) {
 		left.set(power);
 		right.set(power);
+		updatePosLogs();
 		SmartDashboard.putNumber("Drive -- Set left power: ", power);
 		SmartDashboard.putNumber("Drive -- Set right power: ", power);
 	}
@@ -147,9 +174,19 @@ public class Drive extends Subsystem {
 		gearShift.set(DoubleSolenoid.Value.kForward);
 	}
 
+	public void updateGyro() {
+		Robot.hardware.gyro.getYawPitchRoll(ypr);
+	}
+
+	public double getYaw() {
+		updateGyro();
+		return ypr[0];
+	}
+
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.
 		setDefaultCommand(new ArcadeDrive());
 	}
+
 }
