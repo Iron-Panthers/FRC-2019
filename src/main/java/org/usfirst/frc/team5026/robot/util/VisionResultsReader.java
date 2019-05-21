@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.util;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,11 +24,20 @@ public class VisionResultsReader {
     // Vision data
     public long timeStamp;
     public boolean hatchValid;
-    public double hatchAngle;
-    public double hatchDisplacement;
+    public double hatchEyeAngle;
+	public double hatchDistance;
+	public double hatchWallAngle;
+	public double hatchX;
+	public double hatchY;
 	public boolean cargoValid;
 	public double cargoAngle;
 	public double cargoDistance;
+
+	public double hatchAngle = 0;
+
+	public ArrayList<Long> timeLog = new ArrayList<>();
+	public ArrayList<Double> xLog = new ArrayList<>();
+	public ArrayList<Double> yLog = new ArrayList<>();
 
     /**
      * Creates a new VisionResultsReader for the given table.
@@ -53,11 +64,18 @@ public class VisionResultsReader {
 
         timeStamp = Long.parseLong(splitData[0]);
         hatchValid = Integer.parseInt(splitData[1]) == 0 ? false : true;
-        hatchAngle = Double.parseDouble(splitData[2]);
-        hatchDisplacement = Double.parseDouble(splitData[3]);
-        cargoValid = Integer.parseInt(splitData[4]) == 0 ? false : true;
-		cargoAngle = Double.parseDouble(splitData[5]);
-		cargoDistance = Double.parseDouble(splitData[6]);
+        hatchEyeAngle = Double.parseDouble(splitData[2]);
+		hatchDistance = Double.parseDouble(splitData[3]);
+		hatchWallAngle = Double.parseDouble(splitData[4]);
+		hatchX = Double.parseDouble(splitData[5]);
+		hatchY = Double.parseDouble(splitData[6]);
+        cargoValid = Integer.parseInt(splitData[7]) == 0 ? false : true;
+		cargoAngle = Double.parseDouble(splitData[8]);
+		cargoDistance = Double.parseDouble(splitData[9]);
+
+		timeLog.add(System.currentTimeMillis());
+		xLog.add(hatchX);
+		yLog.add(hatchY);
     }
 
     /**
@@ -65,8 +83,13 @@ public class VisionResultsReader {
      */
     public void putToDashboard() {
         SmartDashboard.putString("Vision Results", dataString);
-        SmartDashboard.putNumber("Vision Timestamp", timeStamp);
-        SmartDashboard.putBoolean("Cargo Valid", cargoValid);
+		SmartDashboard.putNumber("Vision Timestamp", timeStamp);
+		SmartDashboard.putNumber("Hatch Angle", hatchEyeAngle);
+		SmartDashboard.putNumber("Hatch Distance", hatchDistance);
+		SmartDashboard.putNumber("Hatch Wall Angle", hatchWallAngle);
+		SmartDashboard.putNumber("Hatch X", hatchX);
+		SmartDashboard.putNumber("Hatch Y", hatchY);
+		SmartDashboard.putBoolean("Cargo Valid", cargoValid);
         SmartDashboard.putNumber("Cargo Angle", cargoAngle);
         SmartDashboard.putNumber("Cargo Distance", cargoDistance);
     }

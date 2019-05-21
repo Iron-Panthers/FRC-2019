@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.drive;
 
+import java.util.ArrayList;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
@@ -28,6 +30,15 @@ public class Drive extends Subsystem {
 	public GearState state;
 	public boolean isReversed;
 
+	public ArrayList<Long> timeLog = new ArrayList<>();
+	public ArrayList<Double> dxLog = new ArrayList<>();
+	public ArrayList<Double> dyLog = new ArrayList<>();
+
+	private double leftWheelPos = 0;
+	private double rightWheelPos = 0;
+	private long lastMilli = 0;
+	private double lastAngle = 0;
+
 	/**
 	 * Create the drivebase subsystem. This sets the inversion status of the left
 	 * and right drive motorgroups to values specified in constants.
@@ -36,6 +47,27 @@ public class Drive extends Subsystem {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 		isReversed = false;
+	}
+
+	private void updatePosLogs() {
+		if (lastMilli == 0) {
+			lastMilli = System.currentTimeMillis();
+			leftWheelPos = getLeftEncoderRevolutions();
+			rightWheelPos = getRightEncoderRevolutions();
+		} else {
+			double dt = ((double)(System.currentTimeMillis() - lastMilli)) / 1000.0;
+			double dLeft = Math.PI * Constants.Drivebase.WHEEL_DIAMETER * (getLeftEncoderRevolutions() - leftWheelPos);
+			double dRight = Math.PI * Constants.Drivebase.WHEEL_DIAMETER * (getRightEncoderRevolutions() - rightWheelPos);
+
+			double turnRadius = Constants.Drivebase.DRIVEBASE_WIDTH / (dRight/dLeft - 1);
+			double turnTheta = dLeft / turnRadius;
+
+
+
+			lastMilli = System.currentTimeMillis();
+			leftWheelPos = getLeftEncoderRevolutions();
+			rightWheelPos = getRightEncoderRevolutions();
+		}
 	}
 
 	/**

@@ -7,7 +7,7 @@ package org.usfirst.frc.team5026.robot.util;
  */
 public class Constants {
 
-    public class Drivebase {
+    public static class Drivebase {
         /** DRIVEBASE PORTS */
         public static final int DRIVE_R1_PORT = 1;	// SparkMax
         public static final int DRIVE_R2_PORT = 21; // See Above
@@ -22,7 +22,8 @@ public class Constants {
         public static final boolean IS_LEFT_INVERTED = true;
         public static final boolean IS_RIGHT_INVERTED = false;
         public static final boolean IS_DRIVEBASE_BACKWARDS = true; // Needed so the robot actually thinks the front is
-                                                                   // the front
+		public static final double WHEEL_DIAMETER = 6; // inches							  
+		// the front
         public static final double TURN_SENSITIVITY = 1;
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
 		public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
@@ -44,7 +45,7 @@ public class Constants {
         public static final double SCALING_POWER = 2.75;
     }
 
-    public class Input {
+    public static class Input {
         /** DEVICE PORTS */
         public static final int JOYSTICK_1_PORT = 0; // Driver A
         public static final int JOYSTICK_2_PORT = 1; // Driver B
@@ -97,7 +98,7 @@ public class Constants {
        
     }
 
-    public class IntakeArm {
+    public static class IntakeArm {
 		// INTAKE ARM PORTS
         public static final int INTAKE_ARM_MOTOR_PORT = 6;
         public static final int INTAKE_MOTOR_PORT = 4;
@@ -140,7 +141,7 @@ public class Constants {
 		public static final double SLOW_OUTTAKE_POWER = -0.5; // For close cargo ship
     }
 
-    public class Climb {
+    public static class Climb {
         // Climb Motor Ports
         public static final int LEFT_MOTOR_1_PORT = 8;
         public static final int LEFT_MOTOR_2_PORT = 9;
@@ -184,11 +185,13 @@ public class Constants {
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
     }
 
-    public class Camera {
+    public static class Camera {
         public static final String JETSON_STATIC_IP = "10.50.26.19";
         public static final String JETSON_NETTABLE_NAME = "CVResultsTable";
 		public static final String VISION_RESULTS_KEY = "VisionResults";
 		
-		public static final double ANGLE_P = 1; // angle in radians, output joystick x
+		public static final double ANGLE_P = 0.005; // angle in degrees, output joystick x
+
+		public static final double[] HATCH_ANGLE_OPTIONS = {0, Math.PI/2, Math.PI, 3*Math.PI/2};
     }
 }
