@@ -45,6 +45,7 @@ public class Drive extends Subsystem {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
 		isReversed = false;
+		ypr = new double[3];
 	}
 
 	private void updatePosLogs() {
@@ -55,13 +56,13 @@ public class Drive extends Subsystem {
 		}
 
 		double s = Math.PI*Constants.Drivebase.WHEEL_DIAMETER*(getLeftVelocity() + getRightVelocity())/2;
-		// double a = getYaw() * Constants.IntakeArm.DEGRESS_TO_RADIANS;
-		// double dx = dt * s * Math.cos(a);
-		// double dy = dt * s * Math.sin(a);
+		double a = getYaw() * Constants.IntakeArm.DEGRESS_TO_RADIANS;
+		double dx = dt * s * Math.cos(a);
+		double dy = dt * s * Math.sin(a);
 		
-		// timeLog.add(System.currentTimeMillis());
-		// dxLog.add(dx);
-		// dyLog.add(dy);
+		timeLog.add(System.currentTimeMillis());
+		dxLog.add(dx);
+		dyLog.add(dy);
 	}
 
 	public double[] delta(long millis) {
