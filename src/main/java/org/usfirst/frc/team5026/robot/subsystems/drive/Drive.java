@@ -30,9 +30,9 @@ public class Drive extends Subsystem {
 	public GearState state;
 	public boolean isReversed;
 
-	public ArrayList<Long> timeLog = new ArrayList<>();
-	public ArrayList<Double> dxLog = new ArrayList<>();
-	public ArrayList<Double> dyLog = new ArrayList<>();
+	public ArrayList<Long> timeLog = new ArrayList<Long>();
+	public ArrayList<Double> dxLog = new ArrayList<Double>();
+	public ArrayList<Double> dyLog = new ArrayList<Double>();
 	private long lastTime = 0;
 
 	private double[] ypr;
@@ -55,13 +55,13 @@ public class Drive extends Subsystem {
 		}
 
 		double s = Math.PI*Constants.Drivebase.WHEEL_DIAMETER*(getLeftVelocity() + getRightVelocity())/2;
-		double a = getYaw() / 180.0 * Math.PI;
-		double dx = dt * s * Math.cos(a);
-		double dy = dt * s * Math.sin(a);
+		// double a = getYaw() * Constants.IntakeArm.DEGRESS_TO_RADIANS;
+		// double dx = dt * s * Math.cos(a);
+		// double dy = dt * s * Math.sin(a);
 		
-		timeLog.add(System.currentTimeMillis());
-		dxLog.add(dx);
-		dyLog.add(dy);
+		// timeLog.add(System.currentTimeMillis());
+		// dxLog.add(dx);
+		// dyLog.add(dy);
 	}
 
 	public double[] delta(long millis) {

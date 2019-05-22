@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("gyro", drive.getYaw());
+		// SmartDashboard.putNumber("gyro", drive.getYaw());
 		Scheduler.getInstance().run();
 
 		oi.visionReader.updateResults();
