@@ -5,11 +5,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
+import org.usfirst.frc.team5026.robot.util.SwerveMC;
+import org.usfirst.frc.team5026.robot.util.SwerveMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -20,18 +21,26 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  * otherwise be in Robot class.
  */
 public class Hardware {
-	/* Drivebase motor controllers */
-	public CANSparkMax driveRight1;
-	public CANSparkMax driveRight2;
-	public CANSparkMax driveLeft1;
-	public CANSparkMax driveLeft2;
 
+	/* Swerve Stuff*/
+
+	public SwerveMC swerveFrontRight;
+	public SwerveMC swerveFrontLeft;
+	public SwerveMC swerveBackRight;
+	public SwerveMC swerveBackLeft;
+
+	public SwerveMotorGroup swerveMotors;
+
+	/* Drive Motors*/
+
+	public TalonSRX driveFrontRight;
+	public TalonSRX driveFrontLeft;
+	public TalonSRX driveBackRight;
+	public TalonSRX driveBackLeft;
+	
+	/* Gyro */
 	public TalonSRX gyroTestMotor;
 	public PigeonIMU gyro;
-
-	/* Drivebase MotorGroups */
-	public SparkMaxMotorGroup rightDriveMotors;
-	public SparkMaxMotorGroup leftDriveMotors;
 
 	/* IntakeArm motor controllers */
 	public TalonSRX armMotor;
@@ -58,23 +67,24 @@ public class Hardware {
 	/** Motors/sensors for other subsystems will go down here */
 
 	public Hardware() {
-		/* Drivebase motor controller creation */
-		driveRight1 = new CANSparkMax(Constants.Drivebase.DRIVE_R1_PORT, MotorType.kBrushless);
-		driveRight2 = new CANSparkMax(Constants.Drivebase.DRIVE_R2_PORT, MotorType.kBrushless);
-		driveLeft1 = new CANSparkMax(Constants.Drivebase.DRIVE_L1_PORT, MotorType.kBrushless);
-		driveLeft2 = new CANSparkMax(Constants.Drivebase.DRIVE_L2_PORT, MotorType.kBrushless);
+		
+		/* Swerve motor and motor group instanciation and configuration */
+		swerveFrontRight = new SwerveMC(Constants.Drivebase.SWERVE_FRONT_RIGHT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
+		swerveFrontLeft = new SwerveMC(Constants.Drivebase.SWERVE_FRONT_LEFT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
+		swerveBackRight = new SwerveMC(Constants.Drivebase.SWERVE_BACK_RIGHT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
+		swerveBackLeft = new SwerveMC(Constants.Drivebase.SWERVE_BACK_LEFT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
 
-		/* Drivebase configuration */
-		driveRight1.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
-		driveLeft1.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
+		//set inverted here if you want. e.g. swerveFrontRight.setInverted(true);
 
-		rightDriveMotors = new SparkMaxMotorGroup("Right Drive Motor Group", driveRight1, driveRight2);
-		leftDriveMotors = new SparkMaxMotorGroup("Left Drive Motor Group", driveLeft1, driveLeft2);
+		swerveMotors = new SwerveMotorGroup(swerveFrontRight, swerveFrontLeft, swerveBackRight, swerveBackLeft);
 
-		rightDriveMotors.setIdleMode(IdleMode.kBrake);
-		rightDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
-		leftDriveMotors.setIdleMode(IdleMode.kBrake);
-		leftDriveMotors.setOpenLoopRampRate(Constants.Drivebase.RAMP_RATE);
+		/* Drive motor instanciation and configuration */
+		driveFrontRight = new TalonSRX(Constants.Drivebase.DRIVE_FRONT_RIGHT_PORT);
+		driveFrontLeft = new TalonSRX(Constants.Drivebase.DRIVE_FRONT_LEFT_PORT);
+		driveBackRight = new TalonSRX(Constants.Drivebase.DRIVE_BACK_RIGHT_PORT);
+		driveBackLeft = new TalonSRX(Constants.Drivebase.DRIVE_BACK_LEFT_PORT);
+
+		//set inverted, idle mode or ramp rate here if you so desire
 
 		/* Gyro */
 		gyroTestMotor = new TalonSRX(5);

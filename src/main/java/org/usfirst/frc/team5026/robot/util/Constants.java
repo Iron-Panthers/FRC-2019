@@ -9,13 +9,21 @@ public class Constants {
 
     public class Drivebase {
         /** DRIVEBASE PORTS */
-        public static final int DRIVE_R1_PORT = 1;	// SparkMax
-        public static final int DRIVE_R2_PORT = 21; // See Above
-        public static final int DRIVE_L1_PORT = 2;	// See Above
-        public static final int DRIVE_L2_PORT = 22; // See Above
+        public static final int SWERVE_FRONT_RIGHT_PORT = 0;
+        public static final int SWERVE_FRONT_LEFT_PORT = 1;
+        public static final int SWERVE_BACK_RIGHT_PORT = 2;
+        public static final int SWERVE_BACK_LEFT_PORT = 3;
 
-        public static final int GEAR_SHIFT_PORT_1 = 6;
-        public static final int GEAR_SHIFT_PORT_2 = 7;
+        public static final int DRIVE_FRONT_RIGHT_PORT = 5;
+        public static final int DRIVE_FRONT_LEFT_PORT = 6;
+        public static final int DRIVE_BACK_RIGHT_PORT = 7;
+        public static final int DRIVE_BACK_LEFT_PORT = 8;
+
+        // Swerve Constants (TODO tune)
+        public static final double SWERVE_P = 0;
+        public static final double SWERVE_D = 0;
+        public static final double CORNER_DIFF_TO_TURN_MODIFIER = .001;
+        public static final double TURN_TO_F_RATIO = 1.0;
 
         /** DRIVEBASE CONSTANTS */
         public static final double DRIVEBASE_WIDTH = 30; // inches
@@ -25,7 +33,9 @@ public class Constants {
                                                                    // the front
         public static final double TURN_SENSITIVITY = 1;
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
-		public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
+        public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
+        
+        
 
         // Max Velocity in RPM
         // Low gear (High RPM, low robot speed) // Tested 3/20/2019 by James
@@ -34,12 +44,6 @@ public class Constants {
         // High gear (Low RPM, high robot speed) // Tested 3/20/2019 by James
         public static final double HIGH_GEAR_LEFT_MAX_RPM = 3630.0;
         public static final double HIGH_GEAR_RIGHT_MAX_RPM = 3502.0;
-
-        // Motion Profiling PID (For Velocity)
-        public static final double F = 0; // TODO Find max velocity
-        public static final double P = 0; // TODO Tune
-        public static final double I = 0;
-        public static final double D = 0;
 
         public static final double SCALING_POWER = 2.75;
     }
@@ -95,6 +99,12 @@ public class Constants {
         public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
         public static final double MAX_DESIRED_TURN_RADIUS = 40;
        
+    }
+
+    public class Swerve {
+
+        public static final double SWERVE_MOTOR_TICKS_PER_DEGREE = 5.0;
+
     }
 
     public class IntakeArm {

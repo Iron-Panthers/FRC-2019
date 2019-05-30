@@ -6,8 +6,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotorGroup {
-	private TalonSRX masterMotor;
-	private IMotorController[] motors;
+	protected TalonSRX masterMotor;
+	protected IMotorController[] motors;
 
 	/**
 	 * Creates a new MotorGroup.
@@ -16,9 +16,6 @@ public class MotorGroup {
 	 * <p>
 	 * The supplied masterMotor must be a TalonSRX. The other motor controllers must
 	 * implement IMotorController.
-	 * <p>
-	 * This class is currently not in use, and exists only for if we decide to bring
-	 * back CTRE motor controllers.
 	 * 
 	 * @param masterMotor the master motor controller of the MotorGroup. Must be a
 	 *                    TalonSRX.

@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * controller, which provides for some utility methods for controlling them.
  */
 public class SparkMaxMotorGroup {
-	private CANSparkMax masterMotor;
-	private CANSparkMax[] motors;
-	private String name;
+	protected CANSparkMax masterMotor;
+	protected CANSparkMax[] motors;
+	protected String name;
 
 	/**
 	 * Creates a new SparkMaxMotorGroup.
