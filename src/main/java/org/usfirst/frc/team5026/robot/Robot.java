@@ -7,10 +7,9 @@
 
 package org.usfirst.frc.team5026.robot;
 
-import org.usfirst.frc.team5026.robot.subsystems.climb.Climb;
-import org.usfirst.frc.team5026.robot.subsystems.drive.SwerveDrive;
-import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
-import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
+import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveDrive;
+import org.usfirst.frc.team5026.robot.util.Constants.Climb;
+import org.usfirst.frc.team5026.robot.util.Constants.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -29,9 +28,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Hardware hardware;
-	public static IntakeArm intakeArm;
-	public static Intake intake;
-	public static Climb climb;
 	public static SwerveDrive drive;
 
 	Command m_autonomousCommand;
@@ -45,9 +41,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		hardware = new Hardware();
 		drive = new SwerveDrive();
-		intakeArm = new IntakeArm();
-		intake = new Intake();
-		climb = new Climb();
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
