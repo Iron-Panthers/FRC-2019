@@ -7,10 +7,10 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMC;
+import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMotorGroup;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
-import org.usfirst.frc.team5026.robot.util.SwerveMC;
-import org.usfirst.frc.team5026.robot.util.SwerveMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;

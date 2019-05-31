@@ -1,6 +1,8 @@
-package org.usfirst.frc.team5026.robot.util;
+package org.usfirst.frc.team5026.robot.util.swerve;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,6 +25,29 @@ public  class SwerveMath {
         return difference;
 
     }
+
+    /**
+     * calculates the direction angle of a vector going from 0,0 to a point x,y
+     * @param x
+     * @param y
+     * @return
+     */
+    public static double getAngleFromPoint(double x, double y) {
+        double referenceAngle = (360/Math.PI) * Math.atan(Math.abs((y)/(x)));
+		if(x >= 0 && y > 0) {
+			return referenceAngle;
+		}
+		else if(x < 0 && y > 0) {
+			return 180 - referenceAngle;
+		}
+		else if(x < 0 && y <= 0) {
+			return 180 + referenceAngle;
+		}
+		else if(x >= 0 && y <= 0) {
+			return 360 - referenceAngle;
+		}
+		return 0.0;
+	}
 
 
     /**

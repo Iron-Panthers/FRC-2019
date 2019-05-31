@@ -5,12 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.util;
+package org.usfirst.frc.team5026.robot.subsystems.swervedrive;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.IMotorController;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANSparkMax;
+import org.usfirst.frc.team5026.robot.util.MotorGroup;
 
 public class SwerveMotorGroup extends MotorGroup {
 

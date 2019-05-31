@@ -5,38 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.climb.commands;
+package org.usfirst.frc.team5026.robot.subsystems.swervedrive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TrainingWheelsDriveForward extends Command {
+public class SwerveArcadeDrive extends Command {
 
-	private double speed;
-
-	/**
-	 * A command which drives the training wheels forward at a speed specified in
-	 * Constants.
-	 */
-	public TrainingWheelsDriveForward(double speed) {
-		this.speed = speed;
-		// requires(Robot.climb);
+	public SwerveArcadeDrive() {
+		requires(Robot.drive);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+
+        
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		// if (Robot.oi.reverseTrainingWheels.get()) {
-		// 	Robot.climb.trainingWheelsBackward();
-		// } else {
-			Robot.climb.trainingWheelsForwardWithPower(speed);
-		// }
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -48,13 +39,11 @@ public class TrainingWheelsDriveForward extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.climb.trainingWheelsStop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.climb.trainingWheelsStop();
 	}
 }

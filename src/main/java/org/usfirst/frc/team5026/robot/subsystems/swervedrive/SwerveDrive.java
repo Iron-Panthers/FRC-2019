@@ -5,17 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.drive;
+package org.usfirst.frc.team5026.robot.subsystems.swervedrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.subsystems.drive.commands.ArcadeDrive;
+import org.usfirst.frc.team5026.robot.subsystems.swervedrive.commands.SwerveArcadeDrive;
 import org.usfirst.frc.team5026.robot.util.Constants;
-import org.usfirst.frc.team5026.robot.util.SwerveMC;
-import org.usfirst.frc.team5026.robot.util.SwerveMath;
-import org.usfirst.frc.team5026.robot.util.SwerveMotorGroup;
+import org.usfirst.frc.team5026.robot.util.swerve.SwerveMath;
+import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMotorGroup;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -90,6 +89,6 @@ public class SwerveDrive extends Subsystem {
 	@Override
 	public void initDefaultCommand() {
 		// Pick one of the drive mode commands.
-		setDefaultCommand(new ArcadeDrive());
+		setDefaultCommand(new SwerveArcadeDrive());
 	}
 }
