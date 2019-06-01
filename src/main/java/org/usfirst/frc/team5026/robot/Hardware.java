@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMC;
 import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMotorGroup;
 import org.usfirst.frc.team5026.robot.util.Constants;
-import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -58,8 +57,6 @@ public class Hardware {
 
 	public TalonSRX trainingWheelMotor;
 
-	public SparkMaxMotorGroup climbMotors;
-
 	public DoubleSolenoid superStructurePistons;
 	public DoubleSolenoid hatchPiston;
 	public DoubleSolenoid gearShift;
@@ -90,46 +87,5 @@ public class Hardware {
 		gyroTestMotor = new TalonSRX(5);
 		gyro = new PigeonIMU(gyroTestMotor);
 
-		/* IntakeArm motor controller creation */
-		armMotor = new TalonSRX(Constants.IntakeArm.INTAKE_ARM_MOTOR_PORT);
-		armIntakeMotor = new TalonSRX(Constants.IntakeArm.INTAKE_MOTOR_PORT);
-		armIntakeMotor.setInverted(Constants.IntakeArm.IS_INTAKE_INVERTED);
-		armMotor.setNeutralMode(NeutralMode.Brake);
-		armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-
-		/* Climb Subsystem creation */
-		leftMotor1 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_1_PORT, MotorType.kBrushless);
-		leftMotor2 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_2_PORT, MotorType.kBrushless);
-		leftMotor3 = new CANSparkMax(Constants.Climb.LEFT_MOTOR_3_PORT, MotorType.kBrushless);
-		rightMotor1 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_1_PORT, MotorType.kBrushless);
-		rightMotor2 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_2_PORT, MotorType.kBrushless);
-		rightMotor3 = new CANSparkMax(Constants.Climb.RIGHT_MOTOR_3_PORT, MotorType.kBrushless);
-
-		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
-		trainingWheelMotor.configOpenloopRamp(Constants.Climb.TRAINING_WHEEL_RAMP_RATE, Constants.Climb.TRAINING_WHEEL_TIMEOUT_MS);
-		// Motor Group
-		// All are on the same motor group to reduce required limit switches
-		climbMotors = new SparkMaxMotorGroup("Climb Motor Group", rightMotor3, leftMotor2, leftMotor3, rightMotor1,
-				rightMotor2, leftMotor1);
-		climbMotors.getMasterMotor().getEncoder().setPosition(0.0);
-		leftMotor1.setInverted(Constants.Climb.IS_LEFT_INVERTED);
-		leftMotor2.setInverted(Constants.Climb.IS_LEFT_INVERTED);
-		leftMotor3.setInverted(Constants.Climb.IS_LEFT_INVERTED);
-		rightMotor1.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
-		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
-		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
-
-		forwardLimit = new DigitalInput(0); // Limit Switch on the side of the robot, hits when robot climbs all the way
-											// up (elevator down all the way) //
-											// rightMotor3.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-		reverseLimit = new DigitalInput(1); // Limit Switch nearest to the training wheels, hits when robot climbs down
-											// all the way (elevator up all the way) //
-											// rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-
-		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
-				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
-		hatchPiston = new DoubleSolenoid(Constants.Climb.HATCH_PISTON_SOLENOID_PORT_1,
-				Constants.Climb.HATCH_PISTON_SOLENOID_PORT_2);
-		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, Constants.Drivebase.GEAR_SHIFT_PORT_2);
 	}
 }

@@ -8,8 +8,6 @@
 package org.usfirst.frc.team5026.robot;
 
 import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveDrive;
-import org.usfirst.frc.team5026.robot.util.Constants.Climb;
-import org.usfirst.frc.team5026.robot.util.Constants.IntakeArm;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -72,7 +70,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("pos", hardware.driveRight1.getEncoder().getPosition());
 		Scheduler.getInstance().run();
 	}
 
@@ -90,9 +87,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		drive.shiftHigh();
-		climb.retractSuperStructurePistons();
-		intake.hatchIntake();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -118,10 +112,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		drive.shiftHigh();
-		climb.retractSuperStructurePistons();
-		intake.hatchIntake();
-		climb.resetDefaultCommand();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -136,10 +126,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("conversion", hardware.driveRight1.getEncoder().getVelocityConversionFactor());
-		if (oi.stick1.findRightPower() > 0) {
-			SmartDashboard.putNumber("speed", hardware.driveRight1.getEncoder().getVelocity() / oi.stick1.findRightPower());
-		}
 		Scheduler.getInstance().run();
 	}
 
