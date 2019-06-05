@@ -1,4 +1,6 @@
-package org.usfirst.frc.team5026.robot.util.swerve;
+package org.usfirst.frc.team5026.robot.subsystems.swerve.input;
+
+import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
 
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -44,11 +46,11 @@ public class SwerveGamepad extends XboxController {
     }
 
     public double getSwerveAngle() {
-        return SwerveMath.getAngleFromPoint(strafeX, strafeY);
+        return SwerveMath.getHeadingFromPoint(strafeX, strafeY);
     }
 
     public double getTurn() {
-        return - rotateX;
+        return rotateX;
     }
 
     public double getForward() {

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team5026.robot.subsystems.swervedrive;
+package org.usfirst.frc.team5026.robot.subsystems.swerve.hardware;
 
 import org.usfirst.frc.team5026.robot.util.MotorGroup;
 

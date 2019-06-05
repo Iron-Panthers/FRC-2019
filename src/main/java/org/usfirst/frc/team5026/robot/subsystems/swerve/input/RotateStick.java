@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5026.robot.util.swerve;
+package org.usfirst.frc.team5026.robot.subsystems.swerve.input;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class RotateStick extends Joystick {

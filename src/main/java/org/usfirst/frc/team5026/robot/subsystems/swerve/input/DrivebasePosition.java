@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5026.robot.util.swerve;
+package org.usfirst.frc.team5026.robot.subsystems.swerve.input;
 
 public enum DrivebasePosition {
 

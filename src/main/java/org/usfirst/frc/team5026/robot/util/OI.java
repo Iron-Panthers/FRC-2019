@@ -9,11 +9,7 @@ package org.usfirst.frc.team5026.robot.util;
 
 
 
-import org.usfirst.frc.team5026.robot.util.swerve.SwerveGamepad;
-
-import edu.wpi.first.wpilibj.GamepadBase;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.input.SwerveGamepad;
 
 /**
  * This class is the glue that binds the controls on the physical operator

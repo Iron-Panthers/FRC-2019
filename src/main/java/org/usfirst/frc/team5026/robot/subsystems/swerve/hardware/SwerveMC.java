@@ -1,9 +1,9 @@
-package org.usfirst.frc.team5026.robot.subsystems.swervedrive;
+package org.usfirst.frc.team5026.robot.subsystems.swerve.hardware;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
 import org.usfirst.frc.team5026.robot.util.Constants;
-import org.usfirst.frc.team5026.robot.util.swerve.SwerveMath;
 
 public class SwerveMC extends TalonSRX {
 
@@ -37,14 +37,14 @@ public class SwerveMC extends TalonSRX {
     }
 
     /**
-     * get the angle of the motor from 0 to 360
+     * get the angle of the motor from -180 to 180
      * @return
      */
     public double getAngle() {
 
-        double overflowingAngle = getSelectedSensorPosition() / Constants.Swerve.SWERVE_MOTOR_TICKS_PER_DEGREE;
+        double overflowAngle = getSelectedSensorPosition() / Constants.Swerve.SWERVE_MOTOR_TICKS_PER_DEGREE;
 
-        return ((overflowingAngle % 360) + 360) % 360;
+        return SwerveMath.boundToHeading(overflowAngle);
     }
 
     /** 

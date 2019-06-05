@@ -1,4 +1,7 @@
-package org.usfirst.frc.team5026.robot.util.swerve;
+package org.usfirst.frc.team5026.robot.subsystems.swerve.input;
+
+import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 public class StrafeStick extends Joystick {
@@ -11,7 +14,7 @@ public class StrafeStick extends Joystick {
     }
 
     public double getSwerveAngle() {
-        return SwerveMath.getAngleFromPoint(x,y);
+        return SwerveMath.getHeadingFromPoint(x,y);
     }
 
     public void update() {

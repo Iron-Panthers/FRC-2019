@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team5026.robot;
 
-import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveDrive;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveDrive;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;

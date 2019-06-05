@@ -1,15 +1,13 @@
 package org.usfirst.frc.team5026.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMC;
-import org.usfirst.frc.team5026.robot.subsystems.swervedrive.SwerveMotorGroup;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveMC;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveMotorGroup;
 import org.usfirst.frc.team5026.robot.util.Constants;
+import org.usfirst.frc.team5026.robot.util.SuperiorGyro;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -39,7 +37,7 @@ public class Hardware {
 	
 	/* Gyro */
 	public TalonSRX gyroTestMotor;
-	public PigeonIMU gyro;
+	public SuperiorGyro gyro;
 
 	/* IntakeArm motor controllers */
 	public TalonSRX armMotor;
@@ -85,7 +83,7 @@ public class Hardware {
 
 		/* Gyro */
 		gyroTestMotor = new TalonSRX(5);
-		gyro = new PigeonIMU(gyroTestMotor);
+		gyro = new SuperiorGyro(gyroTestMotor);
 
 	}
 }

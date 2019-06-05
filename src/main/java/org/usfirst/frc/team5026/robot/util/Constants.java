@@ -22,7 +22,7 @@ public class Constants {
         // Swerve Constants (TODO tune)
         public static final double SWERVE_P = 0;
         public static final double SWERVE_D = 0;
-        public static final double CORNER_DIFF_TO_TURN_MODIFIER = .001;
+        public static final double CORNER_DIFF_TO_TURN_MODIFIER = 1/45;
         public static final double TURN_TO_F_RATIO = 1.0;
 
         /** DRIVEBASE CONSTANTS */
