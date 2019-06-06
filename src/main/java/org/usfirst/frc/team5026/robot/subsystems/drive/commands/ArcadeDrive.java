@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.JoystickWrapper;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -35,7 +36,12 @@ public class ArcadeDrive extends Command {
 		double[] powers = { leftPower, rightPower };
 		powers = scalePower(powers);
 		// Uses ScalePower method to scale the power of both sides if either is over 1
-		Robot.drive.set(powers[0], powers[1]);
+		if (!Constants.Drivebase.IS_BABY_PROOFED){
+			Robot.drive.set(powers[0], powers[1]);
+		}
+		else {
+			Robot.drive.set(powers[0]*Constants.Drivebase.BABY_PROOF_MODIFIER, powers[1]*Constants.Drivebase.BABY_PROOF_MODIFIER);
+		}
 	}
 
 	/**
