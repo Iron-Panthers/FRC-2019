@@ -27,7 +27,7 @@ public class Constants {
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
         public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
         public static final boolean IS_BABY_PROOFED = true;
-        public static final double BABY_PROOF_MODIFIER = 0.125;
+        public static final double BABY_PROOF_MODIFIER = 0.2;
 
         // Max Velocity in RPM
         // Low gear (High RPM, low robot speed) // Tested 3/20/2019 by James
@@ -87,6 +87,7 @@ public class Constants {
         public static final int CLIMB_UP_BUTTON = 6;
         public static final int TRAINING_WHEELS_SLOW_FORWARD_BUTTON = 7;
         public static final int TRAINING_WHEELS_FORWARD_BUTTON = 8;
+        public static final int TRAINING_WHEELS_BACKWARD_BUTTON = 10;
         public static final int RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON = 11; // MAYBE NOT
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12; 
 

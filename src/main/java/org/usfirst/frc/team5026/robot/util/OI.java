@@ -43,7 +43,7 @@ public class OI {
 	JoystickButton climbWithJoystick;
 	JoystickButton extendSuperStructurePistons, retractSuperStructurePistons;
 	JoystickButton climbUp, climbDown;
-	JoystickButton trainingWheelsForward, slowTrainingWheelsForward;
+	JoystickButton trainingWheelsForward, slowTrainingWheelsForward, trainingWheelsBackward;
 	JoystickButton cancelClimb;
 
 	public OI() {
@@ -105,6 +105,7 @@ public class OI {
 		retractSuperStructurePistons = new JoystickButton(stick3,
 				Constants.Input.RETRACT_SUPER_STRUCTURE_PISTONS_BUTTON);
 		trainingWheelsForward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_FORWARD_BUTTON);
+		trainingWheelsBackward = new JoystickButton(stick3, Constants.Input.TRAINING_WHEELS_BACKWARD_BUTTON);
 		cancelClimb = new JoystickButton(stick3, Constants.Input.CANCEL_CLIMB_BUTTON);
 
 		// Assign commands to each of the button for Climb Joystick
@@ -116,6 +117,7 @@ public class OI {
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
 		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
 		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
+		trainingWheelsBackward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED));
 		cancelClimb.whenPressed(new CancelClimb());
 	}
 }
