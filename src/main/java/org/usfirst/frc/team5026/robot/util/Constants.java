@@ -26,8 +26,10 @@ public class Constants {
         public static final double TURN_SENSITIVITY = 1;
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
         public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
-        public static final boolean IS_BABY_PROOFED = true;
-        public static final double BABY_PROOF_MODIFIER = 0.2;
+        public static final boolean IS_BABY_PROOFED = true
+        
+        ;
+        public static final double BABY_PROOF_MODIFIER = 0.15;
 
         // Max Velocity in RPM
         // Low gear (High RPM, low robot speed) // Tested 3/20/2019 by James
@@ -92,7 +94,7 @@ public class Constants {
         public static final int EXTEND_SUPER_STRUCURE_PISTONS_BUTTON = 12; 
 
         /** OTHER INPUT CONSTANTS */
-        public static final double JOYSTICK_DEADBAND = 0.1;
+        public static final double JOYSTICK_DEADBAND = 0.24;
         public static final double VERTICAL_BOWTIE_DEADZONE_SLOPE = 10;
         public static final double HORIZONTAL_BOWTIE_DEADZONE_SLOPE = 10;
         public static final double JOYSTICK_DEADZONE_CIRCLE = 0.14;
@@ -129,7 +131,7 @@ public class Constants {
 
         // INTAKE ARM PID
         public static final double INTAKE_ARM_MAX_POWER = 0.35;
-        public static final double INTAKE_ARM_P = 0.15;
+        public static final double INTAKE_ARM_P = 0.2;
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
         public static final double ERROR_TOLERANCE = 3; // degrees
