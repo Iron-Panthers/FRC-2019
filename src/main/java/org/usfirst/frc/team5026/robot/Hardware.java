@@ -64,20 +64,20 @@ public class Hardware {
 	public Hardware() {
 		
 		/* Swerve motor and motor group instanciation and configuration */
-		swerveFrontRight = new SwerveMC(Constants.Drivebase.SWERVE_FRONT_RIGHT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
-		swerveFrontLeft = new SwerveMC(Constants.Drivebase.SWERVE_FRONT_LEFT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
-		swerveBackRight = new SwerveMC(Constants.Drivebase.SWERVE_BACK_RIGHT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
-		swerveBackLeft = new SwerveMC(Constants.Drivebase.SWERVE_BACK_LEFT_PORT, Constants.Drivebase.SWERVE_P, Constants.Drivebase.SWERVE_D);
+		swerveFrontRight = new SwerveMC(Constants.Swerve.SWERVE_FRONT_RIGHT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
+		swerveFrontLeft = new SwerveMC(Constants.Swerve.SWERVE_FRONT_LEFT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
+		swerveBackRight = new SwerveMC(Constants.Swerve.SWERVE_BACK_RIGHT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
+		swerveBackLeft = new SwerveMC(Constants.Swerve.SWERVE_BACK_LEFT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
 
 		//set inverted here if you want. e.g. swerveFrontRight.setInverted(true);
 
 		swerveMotors = new SwerveMotorGroup(swerveFrontRight, swerveFrontLeft, swerveBackRight, swerveBackLeft);
 
 		/* Drive motor instanciation and configuration */
-		driveFrontRight = new TalonSRX(Constants.Drivebase.DRIVE_FRONT_RIGHT_PORT);
-		driveFrontLeft = new TalonSRX(Constants.Drivebase.DRIVE_FRONT_LEFT_PORT);
-		driveBackRight = new TalonSRX(Constants.Drivebase.DRIVE_BACK_RIGHT_PORT);
-		driveBackLeft = new TalonSRX(Constants.Drivebase.DRIVE_BACK_LEFT_PORT);
+		driveFrontRight = new TalonSRX(Constants.Drive.DRIVE_FRONT_RIGHT_PORT);
+		driveFrontLeft = new TalonSRX(Constants.Drive.DRIVE_FRONT_LEFT_PORT);
+		driveBackRight = new TalonSRX(Constants.Drive.DRIVE_BACK_RIGHT_PORT);
+		driveBackLeft = new TalonSRX(Constants.Drive.DRIVE_BACK_LEFT_PORT);
 
 		//set inverted, idle mode or ramp rate here if you so desire
 

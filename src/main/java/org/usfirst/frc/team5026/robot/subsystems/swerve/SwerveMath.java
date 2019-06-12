@@ -69,7 +69,7 @@ public  class SwerveMath {
      */
     public static double getInnerTurnModifier(double angle) {
         double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
-        double modifier = angularDistanceFromClosestCorner * Constants.Drivebase.CORNER_DIFF_TO_TURN_MODIFIER;
+        double modifier = angularDistanceFromClosestCorner * Constants.Swerve.CORNER_DIFF_TO_TURN_MODIFIER;
         return boundBelowOne(modifier);
     }
 
@@ -81,7 +81,7 @@ public  class SwerveMath {
      */
     public static double getOuterTurnModifier(double angle) {
         double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
-        double modifier = (90 - angularDistanceFromClosestCorner) * Constants.Drivebase.CORNER_DIFF_TO_TURN_MODIFIER;
+        double modifier = (90 - angularDistanceFromClosestCorner) * Constants.Swerve.CORNER_DIFF_TO_TURN_MODIFIER;
         return boundBelowOne(modifier);
     }
 
@@ -174,11 +174,34 @@ public  class SwerveMath {
     }
 
     /**
-     * bounds a number to a max of 1.
+     * bounds a number to a max of 1.0; 2 returns 1.0; 0.5 returns 0.5
      * @param value
      * @return
      */
     public static double boundBelowOne(double value) {
         return (value <= 1) ? value : 1;
+    }
+
+    /**
+     * maintains a constant ratio between two numbers, while changing the larger number to 1. For example,
+     * 2 and 1 will return 1 and 0.5; 0.2 and 0.3 would return .667 and 1
+     * @return
+     */
+    public static double[] ratioToOne(double arg0, double arg1) {
+
+        double reducedArg0;
+        double reducedArg1;
+
+        if(arg0 > arg1) {
+            reducedArg0 = 1;
+            reducedArg1 = arg1/arg0;
+        }
+        else {
+            reducedArg0 = arg0/arg1;
+            reducedArg1 = 1;
+        }
+
+        return new double[] {reducedArg0, reducedArg1};
+
     }
 }

@@ -90,7 +90,7 @@ public class SwerveDrive extends Subsystem {
 
 		//the swerve motors will PID to the desired swerveAngle, as well as rotating at velocity proportional to
 		// -turn. The latter is intended to anticipate the change in angle of the robot
-		swerveMotors.set(relativeSwerveAngle, -turn * Constants.Drivebase.TURN_TO_F_RATIO);
+		swerveMotors.set(relativeSwerveAngle, -turn * Constants.Swerve.TURN_TO_F_RATIO);
 
 	}
 
