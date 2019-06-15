@@ -26,9 +26,7 @@ public class Constants {
         public static final double TURN_SENSITIVITY = 1;
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
         public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
-        public static final boolean IS_BABY_PROOFED = true
-        
-        ;
+        public static final boolean IS_BABY_PROOFED = true;
         public static final double BABY_PROOF_MODIFIER = 0.15;
 
         // Max Velocity in RPM

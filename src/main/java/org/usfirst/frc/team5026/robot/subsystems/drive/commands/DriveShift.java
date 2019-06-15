@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,8 +20,10 @@ public class DriveShift extends Command {
 	
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.drive.shiftLow();
-		System.out.println("Shift low!");
+		if (!Constants.Drivebase.IS_BABY_PROOFED){
+			Robot.drive.shiftLow();
+			System.out.println("Shift low!");
+		}
 	}
 	
 	// Called repeatedly when this Command is scheduled to run
@@ -34,14 +37,18 @@ public class DriveShift extends Command {
 	
 	// Called once after isFinished returns true
 	protected void end() {
-		System.out.println("Shift high");
-		Robot.drive.shiftHigh();
+		if (!Constants.Drivebase.IS_BABY_PROOFED){
+			System.out.println("Shift high");
+			Robot.drive.shiftHigh();
+		}
 	}
 	
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		System.out.println("Shift high!");
-		Robot.drive.shiftHigh();
+		if (!Constants.Drivebase.IS_BABY_PROOFED){
+			System.out.println("Shift high!");
+			Robot.drive.shiftHigh();
+		}
 	}
 }
