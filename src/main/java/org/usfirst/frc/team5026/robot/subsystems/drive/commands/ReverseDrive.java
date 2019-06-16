@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5026.robot.subsystems.drive.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -24,7 +25,12 @@ public class ReverseDrive extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.drive.isReversed = true;
+		if(Robot.IS_BABY_PROOFED) {
+			setReversed(Constants.Drivebase.BABY_PROOF_REVERSE_DRIVE);
+		}
+		else{
+			reverse();
+		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -41,13 +47,31 @@ public class ReverseDrive extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.drive.isReversed = false;
+		if(Robot.IS_BABY_PROOFED) {
+			setReversed(Constants.Drivebase.BABY_PROOF_REVERSE_DRIVE);
+		}
+		else{
+			unReverse();
+		}
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.drive.isReversed = false;
+		if(Robot.IS_BABY_PROOFED) {
+			setReversed(Constants.Drivebase.BABY_PROOF_REVERSE_DRIVE);
+		}
+		else{
+			unReverse();
+		}
 	}
+
+	private void setReversed(boolean onOff){
+		Robot.drive.isReversed = onOff;
+	}
+
+	private void reverse() { setReversed(true); }
+
+	private void unReverse() { setReversed(false); }
 }

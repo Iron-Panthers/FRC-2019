@@ -17,6 +17,7 @@ public class ArcadeDrive extends Command {
 
 	private double leftPower, rightPower;
 	private JoystickWrapper stick = Robot.oi.stick1;
+	private JoystickWrapper driver2Stick = Robot.oi.stick2;
 
 	public ArcadeDrive() {
 		requires(Robot.drive);
@@ -35,8 +36,10 @@ public class ArcadeDrive extends Command {
 		leftPower = stick.findLeftPower() + stick.skim(stick.findRightPower());
 		double[] powers = { leftPower, rightPower };
 		powers = scalePower(powers);
+
+		Robot.IS_BABY_PROOFED = determineBabyMode(driver2Stick);
 		// Uses ScalePower method to scale the power of both sides if either is over 1
-		if (!Constants.Drivebase.IS_BABY_PROOFED){
+		if (!Robot.IS_BABY_PROOFED){
 			Robot.drive.set(powers[0], powers[1]);
 		}
 		else {
@@ -73,6 +76,15 @@ public class ArcadeDrive extends Command {
 		}
 		
 		return powers;
+	}
+
+	private boolean determineBabyMode(JoystickWrapper stick){
+		boolean result = Robot.IS_BABY_PROOFED;
+		double deadzone = 0.6;// The percentage area from the center of the axis that is ignored
+		double slider = stick.getRawAxis(3);// The slider on a Logicech joystick
+
+		result = slider > Math.abs(deadzone) ? true : slider < -Math.abs(deadzone) ? false : result;
+		return result;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

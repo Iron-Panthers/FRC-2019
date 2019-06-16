@@ -60,6 +60,9 @@ public class OI {
 		hubertSlowOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_SLOW_OUTTAKE_BUTTON);
 		altClimbDown = new JoystickButton(stick1, Constants.Input.ALT_CLIMB_DOWN_BUTTON);
 
+		//Baby mode for drivebase
+		
+
 		// Assign commands to each of the buttons for driver 1
 		reverseDrive.whileHeld(new ReverseDrive());
 		shiftGearLow.whileHeld(new DriveShift());

@@ -27,6 +27,7 @@ public class Constants {
 		public static final double RADIAL_TURN_SENSITIVITY = 20;
         public static final double RAMP_RATE = 0.25; // Seconds to go from 0 to full throttle
         public static final boolean IS_BABY_PROOFED = true;
+        public static final boolean BABY_PROOF_REVERSE_DRIVE = true;
         public static final double BABY_PROOF_MODIFIER = 0.15;
 
         // Max Velocity in RPM
@@ -39,7 +40,7 @@ public class Constants {
 
         // Motion Profiling PID (For Velocity)
         public static final double F = 0; // TODO Find max velocity
-        public static final double P = 0; // TODO Tune
+        public static final double P = 0.1; // TODO Tune
         public static final double I = 0;
         public static final double D = 0;
 

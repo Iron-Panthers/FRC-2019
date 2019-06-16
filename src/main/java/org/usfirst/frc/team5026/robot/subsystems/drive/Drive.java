@@ -35,7 +35,7 @@ public class Drive extends Subsystem {
 	public Drive() {
 		left.setInverted(Constants.Drivebase.IS_LEFT_INVERTED);
 		right.setInverted(Constants.Drivebase.IS_RIGHT_INVERTED);
-		isReversed = false;
+		isReversed = Constants.Drivebase.BABY_PROOF_REVERSE_DRIVE;
 	}
 
 	/**

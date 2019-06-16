@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.subsystems.climb.commands.HoldElevator;
 import org.usfirst.frc.team5026.robot.subsystems.drive.Drive;
 import org.usfirst.frc.team5026.robot.subsystems.intake.Intake;
 import org.usfirst.frc.team5026.robot.subsystems.intake.IntakeArm;
+import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.OI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
 	public static IntakeArm intakeArm;
 	public static Intake intake;
 	public static Climb climb;
+	public static boolean IS_BABY_PROOFED;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -50,6 +52,7 @@ public class Robot extends TimedRobot {
 		intake = new Intake();
 		drive = new Drive();
 		climb = new Climb();
+		IS_BABY_PROOFED = Constants.Drivebase.IS_BABY_PROOFED;
 		/** Instance of OI must be created after all subsystems */
 		oi = new OI();
 		// m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
