@@ -9,7 +9,6 @@ package org.usfirst.frc.team5026.robot.subsystems.swerve.commands;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.input.SwerveGamepad;
-import org.usfirst.frc.team5026.robot.util.SuperiorGyro;
 
 import edu.wpi.first.wpilibj.command.Command;
 

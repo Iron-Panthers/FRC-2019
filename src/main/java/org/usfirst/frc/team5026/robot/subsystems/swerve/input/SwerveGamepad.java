@@ -14,7 +14,7 @@ public class SwerveGamepad extends XboxController {
 
     /**
      * Xbox controller for swerve. invertSides switches what the left and 
-     * right sides of the controller do.
+     * right sides of the controller do. Use it if you're a lefty or you like driving better that way for some reason.
      *@param port
      *@param invertSides 
      */

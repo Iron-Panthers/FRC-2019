@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5026.robot.subsystems.swerve.hardware;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
@@ -26,23 +27,54 @@ public class SwerveMC extends TalonSRX {
     }
 
     /**
-     * set the motor controller to PDF (no I as of now) towards a desired angle. 
+     * set the motor controller to PDF (no I as of now) towards a desired angle. "forward angle" means that
+     * the swerve motor will point the drive motor in the forward direction toward desiredAngle
      * The angle is going to be relative to encoder absolute 0 so make sure to zero encoder when you can.
      * @param desiredAngle
      * @param f
      */
-    public void set(double desiredAngle, double f) {
+    public void moveToForwardAngle(double desiredAngle, double f) {
+
         double currentError = SwerveMath.getAngleDifference(getAngle(), desiredAngle);
         double power = f + currentError * p + getDeltaError(currentError) * d;
+        set(ControlMode.PercentOutput, power);
+
+    }
+
+     /**
+     * set the motor controller to PDF (no I as of now) towards a desired angle. "backward angle" means that
+     * the swerve motor will point the drive motor in the backward direction toward desiredAngle
+     * The angle is going to be relative to encoder absolute 0 so make sure to zero encoder when you can.
+     * @param desiredAngle
+     * @param f
+     */
+    public void moveToBackwardAngle(double desiredAngle, double f) {
+
+        double currentError = SwerveMath.getAngleDifference(getAngle() - 180, desiredAngle);
+        double power = f + currentError * p + getDeltaError(currentError) * d;
+        set(ControlMode.PercentOutput, power);
+
     }
 
     /**
-     * get the angle of the motor from -180 to 180
+     * checks, for a given angle, whether it would be more efficient to turn the swerve motor to face the 
+     * drive motor forwards, or backwards
+     * @return
+     */
+    public boolean checkForwardsMoreEfficient(double desiredAngle) {
+
+        //getAngle() returns forward heading. Thus, if the difference were greater than 90,
+        // it would be more efficient to go backwards, as the angle would have to be closer to 180 away from the forward heading
+        return SwerveMath.getAngleDifference(getAngle(), desiredAngle) <= 90;
+    }
+
+    /**
+     * get the forward heading of the motor from -180 to 180
      * @return
      */
     public double getAngle() {
 
-        double overflowAngle = getSelectedSensorPosition() / Constants.Swerve.SWERVE_MOTOR_TICKS_PER_DEGREE;
+        double overflowAngle = getSelectedSensorPosition() / Constants.SwerveDrive.SWERVE_MOTOR_TICKS_PER_DEGREE;
 
         return SwerveMath.boundToHeading(overflowAngle);
     }

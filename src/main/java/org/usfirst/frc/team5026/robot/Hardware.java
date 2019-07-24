@@ -1,11 +1,10 @@
 package org.usfirst.frc.team5026.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 
 import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveMC;
-import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveMotorGroup;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveModule;
 import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SuperiorGyro;
 
@@ -21,12 +20,12 @@ public class Hardware {
 
 	/* Swerve Stuff*/
 
+	/* Swerve Motors*/
+
 	public SwerveMC swerveFrontRight;
 	public SwerveMC swerveFrontLeft;
 	public SwerveMC swerveBackRight;
 	public SwerveMC swerveBackLeft;
-
-	public SwerveMotorGroup swerveMotors;
 
 	/* Drive Motors*/
 
@@ -34,6 +33,13 @@ public class Hardware {
 	public TalonSRX driveFrontLeft;
 	public TalonSRX driveBackRight;
 	public TalonSRX driveBackLeft;
+
+	/* Swerve Modules*/
+
+	public SwerveModule frontRightModule;
+	public SwerveModule frontLeftModule;
+	public SwerveModule backRightModule;
+	public SwerveModule backLeftModule;
 	
 	/* Gyro */
 	public TalonSRX gyroTestMotor;
@@ -64,26 +70,30 @@ public class Hardware {
 	public Hardware() {
 		
 		/* Swerve motor and motor group instanciation and configuration */
-		swerveFrontRight = new SwerveMC(Constants.Swerve.SWERVE_FRONT_RIGHT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
-		swerveFrontLeft = new SwerveMC(Constants.Swerve.SWERVE_FRONT_LEFT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
-		swerveBackRight = new SwerveMC(Constants.Swerve.SWERVE_BACK_RIGHT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
-		swerveBackLeft = new SwerveMC(Constants.Swerve.SWERVE_BACK_LEFT_PORT, Constants.Swerve.SWERVE_P, Constants.Swerve.SWERVE_D);
+		swerveFrontRight = new SwerveMC(Constants.SwerveDrive.SWERVE_FRONT_RIGHT_PORT, Constants.SwerveDrive.SWERVE_P, Constants.SwerveDrive.SWERVE_D);
+		swerveFrontLeft = new SwerveMC(Constants.SwerveDrive.SWERVE_FRONT_LEFT_PORT, Constants.SwerveDrive.SWERVE_P, Constants.SwerveDrive.SWERVE_D);
+		swerveBackRight = new SwerveMC(Constants.SwerveDrive.SWERVE_BACK_RIGHT_PORT, Constants.SwerveDrive.SWERVE_P, Constants.SwerveDrive.SWERVE_D);
+		swerveBackLeft = new SwerveMC(Constants.SwerveDrive.SWERVE_BACK_LEFT_PORT, Constants.SwerveDrive.SWERVE_P, Constants.SwerveDrive.SWERVE_D);
 
 		//set inverted here if you want. e.g. swerveFrontRight.setInverted(true);
 
-		swerveMotors = new SwerveMotorGroup(swerveFrontRight, swerveFrontLeft, swerveBackRight, swerveBackLeft);
-
 		/* Drive motor instanciation and configuration */
-		driveFrontRight = new TalonSRX(Constants.Drive.DRIVE_FRONT_RIGHT_PORT);
-		driveFrontLeft = new TalonSRX(Constants.Drive.DRIVE_FRONT_LEFT_PORT);
-		driveBackRight = new TalonSRX(Constants.Drive.DRIVE_BACK_RIGHT_PORT);
-		driveBackLeft = new TalonSRX(Constants.Drive.DRIVE_BACK_LEFT_PORT);
+		driveFrontRight = new TalonSRX(Constants.SwerveDrive.DRIVE_FRONT_RIGHT_PORT);
+		driveFrontLeft = new TalonSRX(Constants.SwerveDrive.DRIVE_FRONT_LEFT_PORT);
+		driveBackRight = new TalonSRX(Constants.SwerveDrive.DRIVE_BACK_RIGHT_PORT);
+		driveBackLeft = new TalonSRX(Constants.SwerveDrive.DRIVE_BACK_LEFT_PORT);
 
 		//set inverted, idle mode or ramp rate here if you so desire
 
+		/*Swerve Module instanciation*/
+		frontRightModule = new SwerveModule(swerveFrontRight, driveFrontRight);
+		frontLeftModule = new SwerveModule(swerveFrontLeft, driveFrontLeft);
+		backRightModule = new SwerveModule(swerveBackRight, driveBackRight);
+		backLeftModule = new SwerveModule(swerveBackLeft, driveBackLeft);
+
 		/* Gyro */
 		gyroTestMotor = new TalonSRX(5);
-		gyro = new SuperiorGyro(gyroTestMotor);
+		gyro = new SuperiorGyro(gyroTestMotor, Constants.DrivebaseProperties.START_HEADING);
 
 	}
 }

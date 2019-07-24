@@ -7,6 +7,7 @@ public class PathChunk {
 
     double targetDeltaPositionInches;
     double targetAbsoluteSwerveAngle;
+    double targetDeltaAngle;
     double targetDeltaAngleInches;
 
     double encDelta;
@@ -18,20 +19,31 @@ public class PathChunk {
 
     OutputTrapezoid forwardProfile;
     OutputTrapezoid angleProfile;
+
+    double ticksPerInch;
+
+    double forwardMaintenanceP;
+    double angleMaintenanceP;
     
-    public PathChunk(PathPoint start, PathPoint end) {
+    public PathChunk(PathPoint start, PathPoint end, double ticksPerInch, double ticksToAccelerate, 
+    double degreesToAccelerate, double turningCircumference, double forwardMaintenanceP, double angleMaintenanceP) {
+
+        this.ticksPerInch = ticksPerInch;
+        this.forwardMaintenanceP = forwardMaintenanceP;
+        this.angleMaintenanceP = angleMaintenanceP;
 
         targetAbsoluteSwerveAngle = start.getHeadingTo(end);
         targetDeltaPositionInches = start.getDistanceTo(end);
-        double targetDeltaAngle = SwerveMath.getAngleDifference(start.theta, end.theta);
-        targetDeltaAngleInches = (targetDeltaAngle / 360) * Constants.DrivebaseProperties.DRIVEBASE_TURNING_CIRCUMFERENCE;
+        targetDeltaAngle = SwerveMath.getAngleDifference(start.theta, end.theta);
+        targetDeltaAngleInches = (targetDeltaAngle / 360) * turningCircumference;
 
         double[] turnAndForwardList = SwerveMath.ratioToOne(targetDeltaAngleInches, targetDeltaPositionInches);
         baseTurn = turnAndForwardList[0];
         baseForward = turnAndForwardList[1];
 
-        forwardProfile = new OutputTrapezoid(targetDeltaPositionInches * Constants.Drive.TICKS_PER_INCH, Constants.Drive.TICKS_TO_ACCELERATE);
-        angleProfile = new OutputTrapezoid(targetDeltaAngle, Constants.Drive.DEGREES_TO_ANGULARLY_ACCELERATE);
+        forwardProfile = new OutputTrapezoid(targetDeltaPositionInches * ticksPerInch, ticksToAccelerate);
+        angleProfile = new OutputTrapezoid(targetDeltaAngle, degreesToAccelerate);
+
     }
 
     public void update(double encDelta, double gyroDelta) {
@@ -41,12 +53,26 @@ public class PathChunk {
     }
 
     public double getForward() {
-        return baseForward * forwardProfile.getModifier(encDelta);
+        double encBasedForwardOutput = baseForward * forwardProfile.getModifier(encDelta);
+        double desiredAngleBasedForwardProgress = (gyroDelta / targetDeltaAngle) * targetDeltaPositionInches;
+        double angleBasedForwardError = (encDelta / ticksPerInch) - desiredAngleBasedForwardProgress;
+        double trapazoidalPower = encBasedForwardOutput - forwardMaintenanceP * angleBasedForwardError;
+
+        //this term makes sure that the robot is actually strafing at all times - it's sort of like a baseline feedforward term
+        double minimumForwardMovement = baseForward * Constants.SwerveDrive.MINIMUM_AUTO_MOVEMENT;
+        return minimumForwardMovement + (1 - minimumForwardMovement) * trapazoidalPower;
 
     }
 
     public double getTurn() {
-        return baseTurn * angleProfile.getModifier(gyroDelta);
+        double angleBasedTurnOutput = baseTurn * angleProfile.getModifier(gyroDelta);
+        double desiredForwardBasedAngleProgress = ( (encDelta / ticksPerInch) / targetDeltaPositionInches) * targetDeltaAngle;
+        double forwardBasedAngleError =  gyroDelta - desiredForwardBasedAngleProgress;
+        double trapazoidalTurn = angleBasedTurnOutput - angleMaintenanceP * forwardBasedAngleError;
+
+        //see above explanation, but this time it's for angle, so for turning.
+        double minimumAngleMovement = baseTurn * Constants.SwerveDrive.MINIMUM_AUTO_MOVEMENT;
+        return minimumAngleMovement + (1 - minimumAngleMovement) * trapazoidalTurn;
 
     }
 

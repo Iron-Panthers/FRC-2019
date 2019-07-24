@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5026.robot.subsystems.swerve;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import org.usfirst.frc.team5026.robot.subsystems.swerve.input.DrivebasePosition;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveModule;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +22,7 @@ public  class SwerveMath {
     }
 
     /**
-     * Returns difference between two angles. Angles must be within 360 degrees of each other.
+     * Returns difference between two angles.
      * If the second angle is larger than the first, result will be positive, if not 
      * (you guessed it) it will be negative. Results will be between -180 to 180
      * @param angle1
@@ -69,21 +68,26 @@ public  class SwerveMath {
      */
     public static double getInnerTurnModifier(double angle) {
         double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
-        double modifier = angularDistanceFromClosestCorner * Constants.Swerve.CORNER_DIFF_TO_TURN_MODIFIER;
-        return boundBelowOne(modifier);
-    }
+        double rawModifier = angularDistanceFromClosestCorner * Constants.SwerveDrive.CORNER_DIFF_TO_TURN_MODIFIER;
 
-    /**
-     * get the amount turn is taken into account for outer motors 
-     * based on where the swerve motors are being pointed
-     * @param angle
-     * @return
-     */
-    public static double getOuterTurnModifier(double angle) {
-        double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
-        double modifier = (90 - angularDistanceFromClosestCorner) * Constants.Swerve.CORNER_DIFF_TO_TURN_MODIFIER;
+        double modifier = (Math.sin(Math.PI * (rawModifier - 1/2) ) + 1 ) / 2;
+        //this function smooths out the effect of the modifier, hopefully providing provide better protection against 
+        //wheel slip, and also better utilization of the inner wheel. See a graph of it at https://www.desmos.com/calculator/bihvxiww5a
         return boundBelowOne(modifier);
     }
+    
+    //NOT CURRENTLY WANTED OR NEEDED. UNCOMMENT IF WE DECIDE WE THINK THIS IS GONNA MAKE TURNING SMOOTHER
+    // /**
+    //  * get the amount turn is taken into account for outer motors 
+    //  * based on where the swerve motors are being pointed
+    //  * @param angle
+    //  * @return
+    //  */
+    // public static double getOuterTurnModifier(double angle) {
+    //     double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
+    //     double modifier = (90 - angularDistanceFromClosestCorner) * Constants.SwerveDrive.CORNER_DIFF_TO_TURN_MODIFIER;
+    //     return boundBelowOne(modifier);
+    // }
 
     public static double getClosestCornerAngle(double angle) {
 
@@ -134,43 +138,43 @@ public  class SwerveMath {
     }
 
     /**
-     * Reorders a set of mcs, figuring out where they are in relation to the direction the swerve
+     * Reorders a set of modules, figuring out where they are in relation to the direction the swerve
      * wheels are facing. Returns a list in format {innerRight, innerLeft, outerRight, outerLeft}.
-     * @param preOrderedControllerList MUST be formatted as {frontRight, frontLeft, backRight, backLeft}.
+     * @param preOrderedModuleList MUST be formatted as {frontRight, frontLeft, backRight, backLeft}.
      * @param swerveAngle
      * @return
      */
-    public static TalonSRX[] organizePositions(TalonSRX[] preOrderedControllerList, double swerveAngle) {
+    public static SwerveModule[] organizePositions(SwerveModule[] preOrderedModuleList, double swerveAngle) {
         
         //these represent the angles of the frontRight, frontLeft, backRight, and backLeft motors
         int[] positionAngles = new int[] {45, -45, 135, -135};
 
         //these aren't really being set here, you can just kind of ignore this. The complier gets
         //mad at me if I don't initialize outside of the switch.
-        TalonSRX innerRight = preOrderedControllerList[0];
-        TalonSRX innerLeft = preOrderedControllerList[1];
-        TalonSRX outerRight = preOrderedControllerList[2];
-        TalonSRX outerLeft = preOrderedControllerList[3];
+        SwerveModule innerRight = preOrderedModuleList[0];
+        SwerveModule innerLeft = preOrderedModuleList[1];
+        SwerveModule outerRight = preOrderedModuleList[2];
+        SwerveModule outerLeft = preOrderedModuleList[3];
 
         //go through each controller in the input list and assign it to a new reference
         //based on its DriveBasePosition
-        for(int i = 0; i < preOrderedControllerList.length; i++) {
+        for(int i = 0; i < preOrderedModuleList.length; i++) {
             switch(getDrivebasePosition(swerveAngle, positionAngles[i])) {
                 case INNER_RIGHT : 
-                    innerRight = preOrderedControllerList[i];
+                    innerRight = preOrderedModuleList[i];
                 case INNER_LEFT :
-                    innerLeft = preOrderedControllerList[i];
+                    innerLeft = preOrderedModuleList[i];
                 case OUTER_RIGHT :
-                    outerRight = preOrderedControllerList[i];
+                    outerRight = preOrderedModuleList[i];
                 case OUTER_LEFT :
-                    outerLeft = preOrderedControllerList[i];
+                    outerLeft = preOrderedModuleList[i];
                 default :
                     System.out.println("a problem occured with identifying drive motor positions");
                     SmartDashboard.putString("a problem occured with identifying drive motor positions", "");
             }
         }
 
-        return new TalonSRX[] {innerRight, innerLeft, outerRight, outerLeft};
+        return new SwerveModule[] {innerRight, innerLeft, outerRight, outerLeft};
     }
 
     /**

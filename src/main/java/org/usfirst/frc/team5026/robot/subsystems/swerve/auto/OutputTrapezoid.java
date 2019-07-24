@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5026.robot.subsystems.swerve.auto;
 
 import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
-import org.usfirst.frc.team5026.robot.util.Constants;
 
 public class OutputTrapezoid {
 
@@ -11,8 +10,6 @@ public class OutputTrapezoid {
     public OutputTrapezoid(double targetDelta, double distanceToAccel) {
 
         this.targetDelta = targetDelta;
-        if(targetDelta < 2 * distanceToAccel);
-        
         this.distanceToAccel = distanceToAccel;
     }
 
@@ -27,6 +24,5 @@ public class OutputTrapezoid {
 
         return SwerveMath.boundBelowOne((targetDelta - delta) / distanceToAccel);
     }
-
 
 }
