@@ -126,7 +126,7 @@ public class Constants {
 
         // INTAKE ARM PID
         public static final double INTAKE_ARM_MAX_POWER = 0.35;
-        public static final double INTAKE_ARM_P = 0.2;
+        public static final double INTAKE_ARM_P = 0.1; // 0.1 Works well, but slow on comp robot, 0.15-0.2 has too much oscillation, 0.125 okay, but some oscillation (James 8/7/2019)
         public static final double INTAKE_ARM_I = 0;
         public static final double INTAKE_ARM_D = 0;
         public static final double ERROR_TOLERANCE = 3; // degrees
