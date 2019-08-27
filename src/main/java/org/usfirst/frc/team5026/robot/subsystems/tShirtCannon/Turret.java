@@ -13,6 +13,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.commands.HoldTurretPosition;
+import org.usfirst.frc.team5026.robot.subsystems.tShirtCannon.commands.SetTurretWithJoystick;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -60,6 +61,6 @@ public class Turret extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new HoldTurretPosition(0));
+		setDefaultCommand(new SetTurretWithJoystick());
 	}
 }

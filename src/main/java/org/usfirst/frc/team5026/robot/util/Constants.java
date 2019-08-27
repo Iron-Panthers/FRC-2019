@@ -85,12 +85,13 @@ public class Constants {
     public class TShirtCannon {
 		// INTAKE ARM PORTS
         public static final int TURRET_MOTOR_PORT = 6;
-        public static final int CANNON_MOTOR_PORT = 3;
+        public static final int CANNON_MOTOR_PORT = 4;
 
         public static final boolean IS_CANNON_INVERTED = false; //TODO: Test
 
-        // TURRET PID
-        public static final double TURRET_P = 0.025; // TODO: Tune
+        // TURRET PID/Constants
+		public static final double TURRET_P = 0.025; // TODO: Tune
+		public static final boolean TURRET_INVERTED = false; //use this to reverse rotation direction of turret when controlling manually
 		
 		// CANNON CONSTANTS
 		public static final double CANNON_POWER = 1.0;
