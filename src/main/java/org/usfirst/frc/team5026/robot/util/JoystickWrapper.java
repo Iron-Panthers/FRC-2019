@@ -41,8 +41,9 @@ public class JoystickWrapper extends Joystick {
 		SmartDashboard.putNumber("JoystickWrapper -- Raw X: ", x);
 		SmartDashboard.putNumber("JoystickWrapper -- Raw Y: ", y);
 
-		// Our joystick has unusual behavior so we must do this
-		x = -1 * x;
+		// Our joystick sometimes has unusual behavior; if so we must invert 
+		int invertMultiplier = (Constants.Input.JOYSTICK_TURN_INVERTED) ? -1 : 1;
+		x = invertMultiplier * x;
 	}
 
 	/**

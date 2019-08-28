@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class SetTurretWithJoystick extends Command {
   public SetTurretWithJoystick() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+	// eg. requires(chassis);
+	requires(Robot.turret);
   }
 
   // Called just before this Command runs the first time
