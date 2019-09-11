@@ -52,7 +52,7 @@ public class Climb extends Subsystem {
 			// Stop climbing, and indicate the climb has stopped
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
-			this.climbMotors.getMasterMotor().setEncPosition(Constants.Climb.TOP_ENCODER_VALUE);
+			this.climbMotors.getMasterMotor().getEncoder().setPosition(Constants.Climb.TOP_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);

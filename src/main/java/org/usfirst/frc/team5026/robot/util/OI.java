@@ -92,7 +92,7 @@ public class OI {
 		intake.toggleWhenPressed(new IntakeCargo());
 		outtake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hatchIntake.whenPressed(new IntakeHatch());
-		hatchOuttake.whenPressed(new OuttakeHatch());
+		hatchOuttake.whenPressed(new OuttakeHatch(Constants.IntakeArm.RETRACT_HATCH_PISTON_DELAY));
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 

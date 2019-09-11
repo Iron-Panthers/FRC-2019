@@ -19,7 +19,6 @@ public class IntakeHatch extends InstantCommand {
 	 * Add your docs here.
 	 */
 	public IntakeHatch() {
-		super();
 		requires(Robot.intake);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -28,6 +27,7 @@ public class IntakeHatch extends InstantCommand {
 	// Called once when the command executes
 	@Override
 	protected void initialize() {
+		// Open the hatch intake to hold onto the hatch
 		Robot.intake.hatchIntake();
 	}
 

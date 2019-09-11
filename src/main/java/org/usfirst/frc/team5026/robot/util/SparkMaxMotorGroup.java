@@ -56,7 +56,7 @@ public class SparkMaxMotorGroup {
 		// CANError.kOk, CANError.kError, or CANError.kTimeout.
 
 		// Set the idle mode to Brake. If it fails, display the error
-		if (m_motor.setIdleMode(IdleMode.kBrake) != CANError.kOK) {
+		if (m_motor.setIdleMode(IdleMode.kBrake) != CANError.kOk) {
 			SmartDashboard.putString("SparkMaxMotorGroup " + name + " -- Idle Mode", "Failed to set");
 		}
 
@@ -68,7 +68,7 @@ public class SparkMaxMotorGroup {
 		}
 
 		// Set open loop ramp rate to 0. If it fails, display the error
-		if (m_motor.setOpenLoopRampRate(0) != CANError.kOK) {
+		if (m_motor.setOpenLoopRampRate(0) != CANError.kOk) {
 			SmartDashboard.putString("SparkMaxMotorGroup " + name + " -- Ramp Rate", "Error");
 		}
 	}

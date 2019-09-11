@@ -138,6 +138,7 @@ public class Constants {
 		public static final double OUTTAKE_POWER = -0.7;
 		public static final double FAST_OUTTAKE_POWER = -1.0; // For Level 2 Rocket
 		public static final double SLOW_OUTTAKE_POWER = -0.5; // For close cargo ship
+		public static final double RETRACT_HATCH_PISTON_DELAY = 0.1;
     }
 
     public class Climb {
