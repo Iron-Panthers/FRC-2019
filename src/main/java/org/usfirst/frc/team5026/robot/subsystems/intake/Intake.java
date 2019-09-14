@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team5026.robot.Robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,7 +23,7 @@ public class Intake extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	public TalonSRX intakeMotor;
-	public DoubleSolenoid hatchPiston;
+	public Solenoid hatchPiston;
 
 	public Intake() {
 		intakeMotor = Robot.hardware.armIntakeMotor;
@@ -41,14 +42,18 @@ public class Intake extends Subsystem {
 	 * Extends hatch piston to hold onto the hatch
 	 */
 	public void hatchIntake() { // TODO: Test
-		hatchPiston.set(DoubleSolenoid.Value.kForward);
+		hatchPiston.close();
+
+		// This only works with a double solenoid
+		// hatchPiston.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/**
 	 * Retracts hatch piston to let go of hatch/prepare to grab one
 	 */
 	public void hatchOuttake() { // TODO: Test
-		hatchPiston.set(DoubleSolenoid.Value.kReverse);
+		hatchPiston.free();
+		// hatchPiston.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	public double getCurrent() {

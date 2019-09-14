@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * This class is meant to store raw hardware instances. Examples: Motor
@@ -52,7 +53,7 @@ public class Hardware {
 	public SparkMaxMotorGroup climbMotors;
 
 	public DoubleSolenoid superStructurePistons;
-	public DoubleSolenoid hatchPiston;
+	public Solenoid hatchPiston;
 	public DoubleSolenoid gearShift;
 
 	/** Motors/sensors for other subsystems will go down here */
@@ -118,8 +119,7 @@ public class Hardware {
 
 		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
 				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
-		hatchPiston = new DoubleSolenoid(Constants.Climb.HATCH_PISTON_SOLENOID_PORT_1,
-				Constants.Climb.HATCH_PISTON_SOLENOID_PORT_2);
+		hatchPiston = new Solenoid(Constants.Climb.HATCH_PISTON_SOLENOID_PORT_1);
 		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, Constants.Drivebase.GEAR_SHIFT_PORT_2);
 	}
 }
