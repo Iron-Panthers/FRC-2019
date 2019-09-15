@@ -17,7 +17,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Climb extends Subsystem {
 	public SparkMaxMotorGroup climbMotors;
 	public TalonSRX trainingWheelMotor;
-	public DoubleSolenoid superStructurePistons, trainingWheelPiston;
+	public Solenoid superStructurePistons, trainingWheelPiston;
 	public DigitalInput topLimitSwitch, bottomLimitSwitch;
 
 	public Climb() {
@@ -132,14 +132,14 @@ public class Climb extends Subsystem {
 	 * Extends the superstructure pistons.
 	 */
 	public void extendSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kForward);
+		superStructurePistons.set(false);
 	}
 
 	/**
 	 * Retracts the superstructure pistons.
 	 */
 	public void retractSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
+		superStructurePistons.set(true);
 	}
 
 	/**

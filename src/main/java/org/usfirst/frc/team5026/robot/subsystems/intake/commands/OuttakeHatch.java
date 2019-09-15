@@ -28,10 +28,11 @@ public class OuttakeHatch extends TimedCommand {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		System.out.println("OuttakeHatch");
 		// Close the intake mechanism to prepare for outtake
 		Robot.intake.hatchOuttake();
 		// Use the hatch outtake pistons to push the hatch off (SuperStructurePistons for now)
-		Robot.climb.extendSuperStructurePistons();
+		Robot.intake.extendHatchPistons();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -43,7 +44,7 @@ public class OuttakeHatch extends TimedCommand {
 	@Override
 	protected void end() {
 		// Retract the outtake pistons after the timeout
-		Robot.climb.retractSuperStructurePistons();
+		Robot.intake.retractHatchPistons();
 	}
 
 	// Called when another command which requires one or more of the same

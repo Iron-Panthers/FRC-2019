@@ -14,8 +14,7 @@ public class Constants {
         public static final int DRIVE_L1_PORT = 2;	// See Above
         public static final int DRIVE_L2_PORT = 22; // See Above
 
-        public static final int GEAR_SHIFT_PORT_1 = 6;
-        public static final int GEAR_SHIFT_PORT_2 = 7;
+        public static final int GEAR_SHIFT_PORT = 6;
 
         /** DRIVEBASE CONSTANTS */
         public static final double DRIVEBASE_WIDTH = 30; // inches
@@ -100,7 +99,10 @@ public class Constants {
     public class IntakeArm {
 		// INTAKE ARM PORTS
         public static final int INTAKE_ARM_MOTOR_PORT = 6;
-        public static final int INTAKE_MOTOR_PORT = 4;
+		public static final int INTAKE_MOTOR_PORT = 4;
+		
+		public static final int HATCH_PISTON_SOLENOID_PORT = 2;
+		public static final int HATCH_EXTENDER_PISTON_SOLENOID_PORT = 0;
 
         public static final boolean IS_INTAKE_INVERTED = true;
 
@@ -157,11 +159,7 @@ public class Constants {
         public static final boolean IS_RIGHT_INVERTED = true;
 
         // Climb Solenoid Ports
-        public static final int SUPER_STRUCTURE_SOLENOID_PORT_1 = 0;
-        public static final int SUPER_STRUCTURE_SOLENOID_PORT_2 = 1;
-
-        public static final int HATCH_PISTON_SOLENOID_PORT_1 = 2;
-        public static final int HATCH_PISTON_SOLENOID_PORT_2 = 3;
+        public static final int SUPER_STRUCTURE_SOLENOID_PORT = 4;
 
         // Climb Constants
         public static final double CLIMB_UP_SPEED = 0.25; // Cannot be higher without limit switches for safety, tested 3/3/2019, we now use Joystick
