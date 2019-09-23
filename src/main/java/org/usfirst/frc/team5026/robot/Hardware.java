@@ -13,6 +13,7 @@ import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * This class is meant to store raw hardware instances. Examples: Motor
@@ -51,9 +52,10 @@ public class Hardware {
 
 	public SparkMaxMotorGroup climbMotors;
 
-	public DoubleSolenoid superStructurePistons;
-	public DoubleSolenoid hatchPiston;
-	public DoubleSolenoid gearShift;
+	public Solenoid superStructurePistons;
+	public Solenoid hatchPiston;
+	public Solenoid hatchExtenderPistons;
+	public Solenoid gearShift;
 
 	/** Motors/sensors for other subsystems will go down here */
 
@@ -116,10 +118,9 @@ public class Hardware {
 											// all the way (elevator up all the way) //
 											// rightMotor3.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
 
-		superStructurePistons = new DoubleSolenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_1,
-				Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT_2);
-		hatchPiston = new DoubleSolenoid(Constants.Climb.HATCH_PISTON_SOLENOID_PORT_1,
-				Constants.Climb.HATCH_PISTON_SOLENOID_PORT_2);
-		gearShift = new DoubleSolenoid(Constants.Drivebase.GEAR_SHIFT_PORT_1, Constants.Drivebase.GEAR_SHIFT_PORT_2);
+		superStructurePistons = new Solenoid(Constants.Climb.SUPER_STRUCTURE_SOLENOID_PORT);
+		hatchPiston = new Solenoid(Constants.IntakeArm.HATCH_PISTON_SOLENOID_PORT);
+		hatchExtenderPistons = new Solenoid(Constants.IntakeArm.HATCH_EXTENDER_PISTON_SOLENOID_PORT);
+		gearShift = new Solenoid(Constants.Drivebase.GEAR_SHIFT_PORT);
 	}
 }
