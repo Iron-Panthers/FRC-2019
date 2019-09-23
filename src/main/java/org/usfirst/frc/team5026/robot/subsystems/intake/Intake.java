@@ -43,7 +43,7 @@ public class Intake extends Subsystem {
 	 * Extends hatch piston to hold onto the hatch
 	 */
 	public void hatchIntake() { // TODO: Test
-		hatchPiston.set(true);
+		hatchPiston.set(false);
 
 		// Only functional with DoubleSolenoid:
 		// hatchPiston.set(DoubleSolenoid.Value.kForward);
@@ -53,7 +53,7 @@ public class Intake extends Subsystem {
 	 * Retracts hatch piston to let go of hatch/prepare to grab one
 	 */
 	public void hatchOuttake() { // TODO: Test
-		hatchPiston.set(false);
+		hatchPiston.set(true);
 
 		// Only functional with DoubleSolenoid:
 		// hatchPiston.set(DoubleSolenoid.Value.kReverse);

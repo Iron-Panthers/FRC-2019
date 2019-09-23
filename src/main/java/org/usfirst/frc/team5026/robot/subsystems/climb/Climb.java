@@ -132,14 +132,14 @@ public class Climb extends Subsystem {
 	 * Extends the superstructure pistons.
 	 */
 	public void extendSuperStructurePistons() {
-		superStructurePistons.set(false);
+		superStructurePistons.set(true);
 	}
 
 	/**
 	 * Retracts the superstructure pistons.
 	 */
 	public void retractSuperStructurePistons() {
-		superStructurePistons.set(true);
+		superStructurePistons.set(false);
 	}
 
 	/**
