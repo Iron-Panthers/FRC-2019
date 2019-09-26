@@ -58,7 +58,7 @@ public class Constants {
 		public static final int HUBERT_FAST_OUTTAKE_BUTTON = 8;
         public static final int HUBERT_SLOW_OUTTAKE_BUTTON = 9;
         // Additional climb functionality
-        public static final int ALT_CLIMB_DOWN_BUTTON = 5;
+		public static final int TRAINING_WHEELS_BACKWARDS_SLOW = 12;
 
         // Driver B
         // Manual Arm
@@ -179,6 +179,7 @@ public class Constants {
         public static final double TRAINING_WHEEL_FORWARD_SPEED = 1.0; // Add OpenLoopRampRate
         public static final double TRAINING_WHEEL_SLOW_FORWARD_SPEED = 0.3;
 		public static final double TRAINING_WHEEL_BACKWARD_SPEED = -0.3;
+		public static final double TRAINING_WHEEL_SLOW_BACKWARD_SPEED = -0.1;
 		public static final double TRAINING_WHEEL_RAMP_RATE = 0.5; // Seconds from 0 to full power.
 		public static final int TRAINING_WHEEL_TIMEOUT_MS = 30; // If something goes wrong, it takes 30 ms before it can move again
     }

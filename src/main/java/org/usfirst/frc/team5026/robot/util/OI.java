@@ -27,7 +27,7 @@ public class OI {
 	JoystickButton hubertOuttake;
 	JoystickButton hubertFastOuttake;
 	JoystickButton hubertSlowOuttake;
-	JoystickButton altClimbDown; // Hubert wants ClimbDown to be accessible while driving
+	JoystickButton slowTrainingWheelsBackward; // Hubert wants to go backwards slowly
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
@@ -58,7 +58,7 @@ public class OI {
 		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
 		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
 		hubertSlowOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_SLOW_OUTTAKE_BUTTON);
-		altClimbDown = new JoystickButton(stick1, Constants.Input.ALT_CLIMB_DOWN_BUTTON);
+		slowTrainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARDS_SLOW);
 
 		// Assign commands to each of the buttons for driver 1
 		reverseDrive.whileHeld(new ReverseDrive());
@@ -66,7 +66,7 @@ public class OI {
 		hubertOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hubertFastOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
 		hubertSlowOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
-		altClimbDown.whileHeld(new ClimbDown());
+		slowTrainingWheelsBackward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_SLOW_BACKWARD_SPEED));
 
 		// Create the buttons for driver 2
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
@@ -114,8 +114,8 @@ public class OI {
 		climbUp.whileHeld(new ClimbUp());
 		climbDown.whileHeld(new ClimbDown());
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
-		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
-		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
+		trainingWheelsForward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
+		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
 		cancelClimb.whenPressed(new CancelClimb());
 	}
 }
