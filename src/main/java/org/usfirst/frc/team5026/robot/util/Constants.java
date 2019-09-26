@@ -150,7 +150,10 @@ public class Constants {
         public static final int LEFT_MOTOR_3_PORT = 10;
         public static final int RIGHT_MOTOR_1_PORT = 11;
         public static final int RIGHT_MOTOR_2_PORT = 12;
-		public static final int RIGHT_MOTOR_3_PORT = 13;
+        public static final int RIGHT_MOTOR_3_PORT = 13;
+        public static final int WINCH_RIGHT_PORT = 5;
+        public static final int WINCH_LEFT_PORT = 7;
+
 		// Training Wheel Port
 		public static final int TRAINING_WHEEL_MOTOR_PORT = 3;
 
@@ -168,6 +171,7 @@ public class Constants {
         public static final double CLIMB_HOLD_POWER_INCREMENT = 0.000000000001; //Increment to find holding power
 		public static final double CLIMB_ONE_HOLD_POWER = 0.02; // To hold the elevator at the same height when doing single climb Tested 3/17/2019 by James, does not move if climb1
         public static final double CLIMB_VELOCITY_TOLERANCE = 1; // Minimum velocity allowed for HoldElevator command TODO: Test Value
+        public static final double SAFE_WINCH_OUTPUT = 1.0;
 
         // Tested setpoints
 		public static final double TOP_ENCODER_VALUE = 129.2132568359375; // The rotaions measured at the top of the climb. used for
