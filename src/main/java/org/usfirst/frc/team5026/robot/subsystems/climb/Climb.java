@@ -122,7 +122,11 @@ public class Climb extends Subsystem {
     
     public void lowerLeftWinch() {
         leftWinch.set(ControlMode.PercentOutput, -1.0 * Constants.Climb.SAFE_WINCH_OUTPUT);
-    }
+	}
+	
+	public void stopLeftWinch() {
+		leftWinch.set(ControlMode.PercentOutput, 0.0);
+	}
 
     public void raiseRightWinch() {
         rightWinch.set(ControlMode.PercentOutput, Constants.Climb.SAFE_WINCH_OUTPUT);
@@ -130,7 +134,11 @@ public class Climb extends Subsystem {
 
     public void lowerRightWinch() {
         rightWinch.set(ControlMode.PercentOutput, -1.0 * Constants.Climb.SAFE_WINCH_OUTPUT);
-    }
+	}
+	
+	public void stopRightWinch() {
+		rightWinch.set(ControlMode.PercentOutput, 0.0);
+	}
 
 	/**
 	 * Get the lower number of rotations between the left and right side of the

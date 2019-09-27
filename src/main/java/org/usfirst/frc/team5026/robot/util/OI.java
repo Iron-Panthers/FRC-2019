@@ -27,6 +27,8 @@ public class OI {
 	JoystickButton hubertOuttake;
 	JoystickButton hubertFastOuttake;
 	JoystickButton hubertSlowOuttake;
+	JoystickButton raiseLeftWinch, lowerLeftWinch;
+	JoystickButton raiseRightWinch, lowerRightWinch;
 	JoystickButton slowTrainingWheelsBackward; // Hubert wants to go backwards slowly
 
 	// All of the following buttons will belong to DRIVER 2
@@ -59,6 +61,10 @@ public class OI {
 		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
 		hubertSlowOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_SLOW_OUTTAKE_BUTTON);
 		slowTrainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARDS_SLOW);
+		raiseLeftWinch = new JoystickButton(stick1, Constants.Input.RAISE_LEFT_WINCH);
+		lowerLeftWinch = new JoystickButton(stick1, Constants.Input.LOWER_LEFT_WINCH);
+		raiseRightWinch = new JoystickButton(stick1, Constants.Input.RAISE_RIGHT_WINCH);
+		lowerRightWinch = new JoystickButton(stick1, Constants.Input.LOWER_RIGHT_WINCH);
 
 		// Assign commands to each of the buttons for driver 1
 		reverseDrive.whileHeld(new ReverseDrive());
@@ -67,6 +73,10 @@ public class OI {
 		hubertFastOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
 		hubertSlowOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
 		slowTrainingWheelsBackward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_SLOW_BACKWARD_SPEED));
+		raiseLeftWinch.whileHeld(new RaiseLeftWinch());
+		lowerLeftWinch.whileHeld(new LowerLeftWinch());
+		raiseRightWinch.whileHeld(new RaiseRightWinch());
+		lowerRightWinch.whileHeld(new LowerRightWinch());
 
 		// Create the buttons for driver 2
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
