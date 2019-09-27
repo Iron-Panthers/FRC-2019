@@ -172,6 +172,10 @@ public class Constants {
 		public static final boolean IS_LEFT_INVERTED = false;
 		public static final boolean IS_RIGHT_INVERTED = true;
 
+		// Winch Side Inversions
+		public static final boolean IS_LEFT_WINCH_INVERTED = false;
+		public static final boolean IS_RIGHT_WINCH_INVERTED = true;
+
 		// Climb Solenoid Ports
 		public static final int SUPER_STRUCTURE_SOLENOID_PORT = 4;
 
