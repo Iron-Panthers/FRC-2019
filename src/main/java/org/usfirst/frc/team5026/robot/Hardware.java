@@ -102,6 +102,8 @@ public class Hardware {
 
 		trainingWheelMotor = new TalonSRX(Constants.Climb.TRAINING_WHEEL_MOTOR_PORT);
 		trainingWheelMotor.configOpenloopRamp(Constants.Climb.TRAINING_WHEEL_RAMP_RATE, Constants.Climb.TRAINING_WHEEL_TIMEOUT_MS);
+		trainingWheelMotor.setInverted(true);
+
 		// Motor Group
 		// All are on the same motor group to reduce required limit switches
 		climbMotors = new SparkMaxMotorGroup("Climb Motor Group", rightMotor3, leftMotor2, leftMotor3, rightMotor1,
