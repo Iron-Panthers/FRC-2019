@@ -115,7 +115,9 @@ public class Hardware {
 		rightMotor1.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor2.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 		rightMotor3.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
+		leftWinchMotor.setNeutralMode(NeutralMode.Brake);
 		leftWinchMotor.setInverted(Constants.Climb.IS_LEFT_INVERTED);
+		rightWinchMotor.setNeutralMode(NeutralMode.Brake);
 		rightWinchMotor.setInverted(Constants.Climb.IS_RIGHT_INVERTED);
 
 		forwardLimit = new DigitalInput(0); // Limit Switch on the side of the robot, hits when robot climbs all the way
