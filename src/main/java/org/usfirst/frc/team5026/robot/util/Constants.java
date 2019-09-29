@@ -115,7 +115,7 @@ public class Constants {
 		public static final double Y_DEADZONE = 0.1;
 		public static final double SLOW_Y_DEADZONE = 0.7; // Deadzone for fine control
 		public static final double SLOW_POWER_SCALE = 0.2; // Power scale for fine control
-		public static final double POWER_SCALE = 0.7; // Should be greater than SLOW_POWER_SCALE
+		public static final double POWER_SCALE = 1; // Should be greater than SLOW_POWER_SCALE
 
 		// INTAKE ARM SETPOINTS - TODO Double Check Measurements
 		public static final double TICKS_TO_DEGREES = 360.0 / (4096.0 * 4.0); // 360 / (ticks per rotation * sprocket
@@ -137,7 +137,7 @@ public class Constants {
 		public static final double RADIANS_TO_DEGREES = 180 / Math.PI;
 
 		// INTAKE ARM PID
-		public static final double INTAKE_ARM_MAX_POWER = 0.35;
+		public static final double INTAKE_ARM_MAX_POWER = 1;
 		public static final double INTAKE_ARM_P = 0.1; // New motor as of 9/10/19, decreased the P from 0.1 to 0.07,
 														// 9/21/10 Increased to 0.1 during Bellarmine Practice.
 		public static final double INTAKE_ARM_I = 0;
