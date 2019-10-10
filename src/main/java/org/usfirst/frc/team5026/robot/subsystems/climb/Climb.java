@@ -28,13 +28,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Climb extends Subsystem {
 	public SparkMaxMotorGroup climbMotors;
-	public TalonSRX trainingWheelMotor;
+    public TalonSRX trainingWheelMotor, leftWinch, rightWinch;
 	public Solenoid superStructurePistons, trainingWheelPiston;
 	public DigitalInput topLimitSwitch, bottomLimitSwitch;
 
 	public Climb() {
 		this.climbMotors = Robot.hardware.climbMotors;
 		this.trainingWheelMotor = Robot.hardware.trainingWheelMotor;
+		this.leftWinch = Robot.hardware.leftWinchMotor;
+		this.rightWinch = Robot.hardware.rightWinchMotor;
 		this.superStructurePistons = Robot.hardware.superStructurePistons;
 		this.topLimitSwitch = Robot.hardware.forwardLimit;
 		this.bottomLimitSwitch = Robot.hardware.reverseLimit;
@@ -112,6 +114,30 @@ public class Climb extends Subsystem {
 	public void stopClimb() {
 		climbMotors.set(0);
 		SmartDashboard.putNumber("Climb -- Climb motor output", climbMotors.getAppliedOutput());
+	}
+
+	public void raiseLeftWinch() {
+        leftWinch.set(ControlMode.PercentOutput, Constants.Climb.SAFE_WINCH_OUTPUT);
+    }
+    
+    public void lowerLeftWinch() {
+        leftWinch.set(ControlMode.PercentOutput, -1.0 * Constants.Climb.SAFE_WINCH_OUTPUT);
+	}
+	
+	public void stopLeftWinch() {
+		leftWinch.set(ControlMode.PercentOutput, 0.0);
+	}
+
+    public void raiseRightWinch() {
+        rightWinch.set(ControlMode.PercentOutput, Constants.Climb.SAFE_WINCH_OUTPUT);
+    }
+
+    public void lowerRightWinch() {
+        rightWinch.set(ControlMode.PercentOutput, -1.0 * Constants.Climb.SAFE_WINCH_OUTPUT);
+	}
+	
+	public void stopRightWinch() {
+		rightWinch.set(ControlMode.PercentOutput, 0.0);
 	}
 
 	/**
