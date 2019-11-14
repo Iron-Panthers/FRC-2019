@@ -54,7 +54,7 @@ public class SwerveGamepad extends XboxController {
     }
 
     public double getForward() {
-        return Math.abs(Math.sqrt(strafeX * strafeX + strafeY * strafeY));
+        return Math.sqrt(strafeX * strafeX + strafeY * strafeY);
 
         //double magnitude = Math.abs(Math.sqrt(x * x + y * y));
         // // Calculate the maximum possible magnitude of the joystick at its current angle.

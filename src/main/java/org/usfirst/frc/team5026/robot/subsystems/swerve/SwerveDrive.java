@@ -136,6 +136,19 @@ public class SwerveDrive extends Subsystem {
 	}
 
 	/**
+	 * gets the average distance travelled by each drive motor since the last 
+	 * @return
+	 */
+	public double getAvgEncDelta() {
+		double deltaSum = 0;
+		for(SwerveModule module : modules) {
+			deltaSum += module.getForwardDelta();
+		}
+		return deltaSum / 4;
+
+	}
+
+	/**
 	 * check whether every module has reached its target
 	 * @return
 	 */

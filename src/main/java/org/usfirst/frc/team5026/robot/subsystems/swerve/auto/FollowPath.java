@@ -8,7 +8,7 @@
 package org.usfirst.frc.team5026.robot.subsystems.swerve.auto;
 
 import org.usfirst.frc.team5026.robot.Robot;
-import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
+import org.usfirst.frc.team5026.robot.util.Constants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -54,13 +54,16 @@ public class FollowPath extends Command {
 
       currentChunkIndex ++;
 
-      if(currentChunkIndex == totalChunks) { break; }
+      if( !(currentChunkIndex == totalChunks) ) {
 
-      currentChunk = path.chunks.get(currentChunkIndex);
-
+        currentChunk = path.chunks.get(currentChunkIndex);
+        Robot.drive.startNewAutoChunk(currentChunk.targetDeltaPositionInches * currentChunk.ticksPerInch, Constants.SwerveDrive.AUTO_FORWARD_DEADZONE, currentChunk.targetAbsoluteSwerveAngle);
+        Robot.hardware.gyro.startNewSegment(currentChunk.targetDeltaAngle, Constants.SwerveDrive.AUTO_ANGLE_DEADZONE);
+      }
     }
     
-    currentChunk.update(encDelta, gyroDelta);
+    currentChunk.update(Robot.drive.getAvgEncDelta(), Robot.hardware.gyro.getDeltaAngle());
+
     Robot.drive.set(currentChunk.targetAbsoluteSwerveAngle, currentChunk.getForward(), currentChunk.getTurn());
 
   }

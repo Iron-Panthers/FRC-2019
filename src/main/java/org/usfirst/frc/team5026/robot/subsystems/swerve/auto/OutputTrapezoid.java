@@ -18,11 +18,20 @@ public class OutputTrapezoid {
      */
     public double getModifier(double delta) {
 
-        if(delta < targetDelta / 2) {
-            return SwerveMath.boundBelowOne(delta / distanceToAccel);
+        if(targetDelta >= 0) {
+            if(delta < targetDelta / 2) {
+                return SwerveMath.boundBelowOne(delta / distanceToAccel);
+            }
+    
+            return SwerveMath.boundBelowOne((targetDelta - delta) / distanceToAccel);
         }
 
-        return SwerveMath.boundBelowOne((targetDelta - delta) / distanceToAccel);
+        if(delta > targetDelta / 2) {
+            return SwerveMath.boundBelowOne(-delta / distanceToAccel);
+        }
+
+        return SwerveMath.boundBelowOne((delta - targetDelta) / distanceToAccel);
+        
     }
 
 }

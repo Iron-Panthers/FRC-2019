@@ -7,6 +7,7 @@ import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
 
 public class SuperiorGyro extends PigeonIMU {
 
+	double angleAtChunkStart;
 	double angleTarget;
     double angleDeadzone;
     public boolean targetReached;
@@ -50,7 +51,6 @@ public class SuperiorGyro extends PigeonIMU {
 	 */
 	public double getBoundedYaw() {
 		return SwerveMath.boundToHeading(getYaw());
-
 	}
 
 	/**
@@ -68,12 +68,17 @@ public class SuperiorGyro extends PigeonIMU {
      */
     public void startNewSegment(double angleDelta, double angleDeadzoneSize) {
 
+		angleAtChunkStart = getBoundedYaw();
         angleTarget = getBoundedYaw() + angleDelta;
         angleDeadzone = angleDeadzoneSize;
         targetReached = false;
 
 	}
 	
+	public double getDeltaAngle() {
+		return SwerveMath.getAngleDifference(angleAtChunkStart, getBoundedYaw());
+	}
+
 	/**
      * checks if the target has been reached. Note that this will return true if the current target was reached at ANY point in the past.
      * This is done on purpose for use in auto paths. It provides a safety net in case of overshooting.

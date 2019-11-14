@@ -5,8 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class SwerveModule {
 
-    SwerveMC swerve;
-    TalonSRX drive;
+    public SwerveMC swerve;
+    public TalonSRX drive;
 
     boolean isPointingForwards;
     boolean autoMode;
@@ -14,6 +14,8 @@ public class SwerveModule {
     double encTarget;
     double encDeadzone;
     public boolean targetReached;
+
+    double forwardPosAtChunkStart;
 
     /**
      * An object containing a swerve motor and its attatched drive motor. Has the capability to set these, manage their rotational optimization, and 
@@ -89,7 +91,16 @@ public class SwerveModule {
         encTarget = (isPointingForwards) ? (drive.getSelectedSensorPosition() + encDelta) : (drive.getSelectedSensorPosition() - encDelta);
         encDeadzone = forwardDeadzoneSize;
         targetReached = false;
+        forwardPosAtChunkStart = drive.getSelectedSensorPosition();
 
+    }
+
+    /**
+     * gets the forward distance travelled by the module since the last chunk started
+     * @return
+     */
+    public double getForwardDelta() {
+        return (isPointingForwards) ? drive.getSelectedSensorPosition() - forwardPosAtChunkStart : forwardPosAtChunkStart - drive.getSelectedSensorPosition();
     }
 
     /**

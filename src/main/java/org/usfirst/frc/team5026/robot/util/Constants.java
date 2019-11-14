@@ -40,6 +40,9 @@ public class Constants {
         public static final double AUTO_FORWARD_MAINTENANCE_P = .0001; //TODO tune
         public static final double AUTO_ANGLE_MAINTENANCE_P = .001; //TODO tune
         public static final double MINIMUM_AUTO_MOVEMENT = .135; // TODO tune
+        public static final double AUTO_FORWARD_DEADZONE = 10; // TODO tune
+        public static final double AUTO_ANGLE_DEADZONE = 10; //TODO tune
+
 
     }
 
