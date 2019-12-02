@@ -30,6 +30,7 @@ public class SwerveModule {
         drive = driveMotor;
 
         targetReached = false;
+        autoMode = false;
 
     }
 
