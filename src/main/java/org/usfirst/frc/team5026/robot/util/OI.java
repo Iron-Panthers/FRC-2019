@@ -9,6 +9,8 @@ package org.usfirst.frc.team5026.robot.util;
 
 
 
+import org.usfirst.frc.team5026.robot.subsystems.swerve.input.RotateStick;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.input.StrafeStick;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.input.SwerveGamepad;
 
 /**
@@ -18,9 +20,12 @@ import org.usfirst.frc.team5026.robot.subsystems.swerve.input.SwerveGamepad;
 public class OI {
 	
 	public SwerveGamepad gamepad;
-
+	public StrafeStick sStick;
+	public RotateStick rStick;
 
 	public OI() {
 		gamepad = new SwerveGamepad(Constants.Input.GAMEPAD_PORT, Constants.Input.INVERT_GAMEPAD_SIDES);
+		sStick = new StrafeStick(0);
+		rStick = new RotateStick(1);
 	}
 }
