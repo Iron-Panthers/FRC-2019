@@ -67,9 +67,18 @@ public  class SwerveMath {
      * @return
      */
     public static double getInnerTurnModifier(double angle) {
-        double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
-        double rawModifier = angularDistanceFromClosestCorner * Constants.SwerveDrive.CORNER_DIFF_TO_TURN_MODIFIER;
 
+        double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
+        double refAngle = Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+
+        double rawModifier;
+        if(frontBack(angle)) {
+            rawModifier = angularDistanceFromClosestCorner * Constants.SwerveDrive.CORNER_DIFF_TO_TURN_MODIFIER / (90 - refAngle);
+        }
+        else {
+            rawModifier = angularDistanceFromClosestCorner * Constants.SwerveDrive.CORNER_DIFF_TO_TURN_MODIFIER / refAngle;
+        }
+        
         double modifier = (Math.sin(Math.PI * (rawModifier - 1/2) ) + 1 ) / 2;
         //this function smooths out the effect of the modifier, hopefully providing provide better protection against 
         //wheel slip, and also better utilization of the inner wheel. See a graph of it at https://www.desmos.com/calculator/bihvxiww5a
@@ -89,14 +98,33 @@ public  class SwerveMath {
     //     return boundBelowOne(modifier);
     // }
 
+    /**
+     * true if the inputted swerve angle is pointed forward or backwards, as opposed to left or right relative to motor angles
+     * @return
+     */
+    public static boolean frontBack(double angle) {
+        return !(Math.abs(Math.abs(angle) - 90) < Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO));
+    }
+
     public static double getClosestCornerAngle(double angle) {
 
         //the four corners of the earth (or the robot)
-        int[] corners = new int[] {-135, -45, 45, 135};
+        double refAngle = Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+        double[] corners = new double[] {90 - refAngle, refAngle - 90, 90 + refAngle, -(90 + refAngle)};
 
-        for(int i : corners) {
-            if(Math.abs( getAngleDifference(i, angle) ) <= 45) {
-                return i;
+        if(frontBack(angle)) {
+            for(double i : corners) {
+                if(Math.abs( getAngleDifference(i, angle) ) <= 90 - refAngle) {
+                    return i;
+                }
+            }
+        }
+
+        else {
+            for(double i : corners) {
+                if(Math.abs( getAngleDifference(i, angle) ) <= refAngle) {
+                    return i;
+                }
             }
         }
 
@@ -107,12 +135,15 @@ public  class SwerveMath {
 
     }
 
-    public static DrivebasePosition getDrivebasePosition(double swerveAngle, double motorPositionAngle) {
+    public static DrivebasePosition getDrivebasePosition(double swerveAngle, double motorPositionAngle, boolean frDiagonal) {
+
+        double driveBaseReferenceAngle = (frDiagonal) ? Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO) : 90 - Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
 
         double swerveAngDiffFromPosAng = getAngleDifference(motorPositionAngle, swerveAngle);
+
         if(swerveAngDiffFromPosAng <= 0) {
 
-            if(Math.abs(swerveAngDiffFromPosAng + 90) >= 45) {
+            if(swerveAngDiffFromPosAng + 180 < driveBaseReferenceAngle || swerveAngDiffFromPosAng > driveBaseReferenceAngle - 90) {
 
                 return DrivebasePosition.INNER_RIGHT;
             }
@@ -124,7 +155,7 @@ public  class SwerveMath {
         }
 
         else {
-            if(Math.abs(swerveAngDiffFromPosAng - 90) >= 45) {
+            if(swerveAngDiffFromPosAng < driveBaseReferenceAngle || 180 - swerveAngDiffFromPosAng < 90 - driveBaseReferenceAngle ) {
 
                 return DrivebasePosition.INNER_LEFT;
             }
@@ -134,7 +165,8 @@ public  class SwerveMath {
                 return DrivebasePosition.OUTER_LEFT;
             }
 
-        }
+        }                                                   
+        
     }
 
     /**
@@ -147,7 +179,8 @@ public  class SwerveMath {
     public static SwerveModule[] organizePositions(SwerveModule[] preOrderedModuleList, double swerveAngle) {
         
         //these represent the angles of the frontRight, frontLeft, backRight, and backLeft motors
-        int[] positionAngles = new int[] {45, -45, 135, -135};
+        double refAngle = Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+        double[] positionAngles = new double[] {90 - refAngle, refAngle - 90, 90 + refAngle, -(90 + refAngle)};
 
         //these aren't really being set here, you can just kind of ignore this. The complier gets
         //mad at me if I don't initialize outside of the switch.
@@ -159,7 +192,12 @@ public  class SwerveMath {
         //go through each controller in the input list and assign it to a new reference
         //based on its DriveBasePosition
         for(int i = 0; i < preOrderedModuleList.length; i++) {
-            switch(getDrivebasePosition(swerveAngle, positionAngles[i])) {
+
+            //for reference, the array was passed in like this: {frontRight, frontLeft, backRight, backLeft};
+            //in retrospect this whole thing is really jank and I'd definitely do it differently next time. On the other hand it'll probably work.
+            //the 0 and the 3 below come from the above commented array. They represent the frontRight-backLeft diagonal.
+
+            switch(getDrivebasePosition(swerveAngle, positionAngles[i], i == 0 || i == 3)) {
                 case INNER_RIGHT : 
                     innerRight = preOrderedModuleList[i];
                 case INNER_LEFT :

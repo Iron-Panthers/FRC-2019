@@ -31,7 +31,7 @@ public class Constants {
         public static final double TURN_TO_F_RATIO = 1.0;
 
         /** SwerveMath constants */
-        public static final double CORNER_DIFF_TO_TURN_MODIFIER = 1/45;
+        public static final double CORNER_DIFF_TO_TURN_MODIFIER = 1; //kind of like turn sensitivity
 
         /** Auto constants */
         public static final double TICKS_PER_INCH = 40; //TODO measure
@@ -48,11 +48,15 @@ public class Constants {
 
     public class DrivebaseProperties {
         
-        public static final double DRIVEBASE_WIDTH = 30; //I don't think this is currently needed but i'll leave it in just in case
+        public static final double WIDTH = 30; //I don't think this is currently needed but i'll leave it in just in case
+        public static final double LENGTH = 30; //I don't think this is currently needed but i'll leave it in just in case
+        public static final double ASPECT_RATIO = LENGTH / WIDTH;
+        //public static final double DRIVEBASE_REFERENCE_ANGLE = Math.atan(ASPECT_RATIO);
         public static final double DRIVEBASE_DIAGONAL_LENGTH = 50; //TODO measure
         public static final double DRIVEBASE_TURNING_CIRCUMFERENCE = DRIVEBASE_DIAGONAL_LENGTH * 2 * Math.PI;
         public static final double START_HEADING = 0; //from -180 to 180, field relative. Specify what angle the robot starts the match at.
-        
+
+
     }
 
     public class Input {
