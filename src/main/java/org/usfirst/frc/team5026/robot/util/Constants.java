@@ -10,19 +10,19 @@ public class Constants {
     public class SwerveDrive {
 
         /** PORTS */
-        public static final int SWERVE_FRONT_RIGHT_PORT = 0;
-        public static final int SWERVE_FRONT_LEFT_PORT = 1;
-        public static final int SWERVE_BACK_RIGHT_PORT = 2;
+        public static final int SWERVE_FRONT_RIGHT_PORT = 1;
+        public static final int SWERVE_FRONT_LEFT_PORT = 5;
+        public static final int SWERVE_BACK_RIGHT_PORT = 9;
         public static final int SWERVE_BACK_LEFT_PORT = 3;
 
-        public static final int DRIVE_FRONT_RIGHT_PORT = 5;
+        public static final int DRIVE_FRONT_RIGHT_PORT = 2;
         public static final int DRIVE_FRONT_LEFT_PORT = 6;
         public static final int DRIVE_BACK_RIGHT_PORT = 7;
         public static final int DRIVE_BACK_LEFT_PORT = 8;
 
         /** SwerveMC constants */
-        public static final double SWERVE_MOTOR_TICKS_PER_DEGREE = 5.0;
-        public static final double SWERVE_P = 0;
+        public static final double SWERVE_MOTOR_TICKS_PER_DEGREE = 2250 / 360;
+        public static final double SWERVE_P = 0.001;
         public static final double SWERVE_D = 0;
         
         /** SwerveMotorGroup constants */

@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.swerve;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team5026.robot.Robot;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.commands.SwerveArcadeDrive;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveModule;
@@ -25,7 +27,7 @@ public class SwerveDrive extends Subsystem {
 	SwerveModule frontLeft;
 	SwerveModule backRight;
 	SwerveModule backLeft;
-	SwerveModule[] modules;
+	public SwerveModule[] modules;
 
 	SuperiorGyro gyro;
 
@@ -59,12 +61,12 @@ public class SwerveDrive extends Subsystem {
 
 		//calculate desired swerve angle relative to the robot, from gyro heading and desired absolute
 		//swerve angle (which is relative to the field)
-		double relativeSwerveAngle = SwerveMath.getAngleDifference(gyro.getBoundedYaw(), absoluteSwerveAngle);
+		//double relativeSwerveAngle = SwerveMath.getAngleDifference(gyro.getBoundedYaw(), absoluteSwerveAngle);
 		
 		//Find the weight "inner" wheels should give to turning.
 		//When tuned correctly, should reduce wheel slip due to running motors 
 		//against each other, while still turning at high speed.
-		double innerTurnModifier = SwerveMath.getInnerTurnModifier(relativeSwerveAngle);
+		double innerTurnModifier = SwerveMath.getInnerTurnModifier(absoluteSwerveAngle); //TODO eventually should be relativeSwerveAngle as above
 
 		//calculate powers for each drive motor. 
 		double innerRightPower = SwerveMath.boundBelowOne(forward - innerTurnModifier * turn);
@@ -76,7 +78,7 @@ public class SwerveDrive extends Subsystem {
 
 		//assign each module to a specific spot in the list based on its position
 		//(inner or outer right or left) relative to swerveAngle
-		SwerveModule[] reorderedModuleList = SwerveMath.organizePositions(modules, relativeSwerveAngle);
+		SwerveModule[] reorderedModuleList = SwerveMath.organizePositions(modules, absoluteSwerveAngle);
 
 		//set modules
 		for(int i = 0; i < 4; i++) {
@@ -84,7 +86,9 @@ public class SwerveDrive extends Subsystem {
 			//the swerve motor for each module will PID to the desired swerveAngle, as well as rotating at velocity proportional to
 			// -turn. The latter is intended to anticipate the change in angle of the robot. The drive motor is of course set to the
 			//power determined above
-			reorderedModuleList[i].set(relativeSwerveAngle, -turn * Constants.SwerveDrive.TURN_TO_F_RATIO, powersList[i]);
+
+			// reorderedModuleList[i].drive.set(ControlMode.PercentOutput, powersList[i]);
+			reorderedModuleList[i].set(absoluteSwerveAngle, -turn * Constants.SwerveDrive.TURN_TO_F_RATIO, powersList[i]);
 		}
 
 	}

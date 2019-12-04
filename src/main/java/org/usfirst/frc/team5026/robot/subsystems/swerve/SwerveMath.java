@@ -69,7 +69,7 @@ public  class SwerveMath {
     public static double getInnerTurnModifier(double angle) {
 
         double angularDistanceFromClosestCorner = Math.abs(getAngleDifference(getClosestCornerAngle(angle), angle));
-        double refAngle = Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+        double refAngle = getRefAngle();
 
         double rawModifier;
         if(frontBack(angle)) {
@@ -103,13 +103,17 @@ public  class SwerveMath {
      * @return
      */
     public static boolean frontBack(double angle) {
-        return !(Math.abs(Math.abs(angle) - 90) < Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO));
-    }
+        return !(Math.abs(Math.abs(angle) - 90) < getRefAngle());
+	}
+	
+	public static double getRefAngle() {
+		return 180 * Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO) / Math.PI;
+	}
 
     public static double getClosestCornerAngle(double angle) {
 
         //the four corners of the earth (or the robot)
-        double refAngle = Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+        double refAngle = getRefAngle();
         double[] corners = new double[] {90 - refAngle, refAngle - 90, 90 + refAngle, -(90 + refAngle)};
 
         if(frontBack(angle)) {
@@ -137,7 +141,7 @@ public  class SwerveMath {
 
     public static DrivebasePosition getDrivebasePosition(double swerveAngle, double motorPositionAngle, boolean frDiagonal) {
 
-        double driveBaseReferenceAngle = (frDiagonal) ? Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO) : 90 - Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+        double driveBaseReferenceAngle =  (frDiagonal) ? getRefAngle() : 90 - getRefAngle();
 
         double swerveAngDiffFromPosAng = getAngleDifference(motorPositionAngle, swerveAngle);
 
@@ -179,7 +183,7 @@ public  class SwerveMath {
     public static SwerveModule[] organizePositions(SwerveModule[] preOrderedModuleList, double swerveAngle) {
         
         //these represent the angles of the frontRight, frontLeft, backRight, and backLeft motors
-        double refAngle = Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
+        double refAngle = getRefAngle();
         double[] positionAngles = new double[] {90 - refAngle, refAngle - 90, 90 + refAngle, -(90 + refAngle)};
 
         //these aren't really being set here, you can just kind of ignore this. The complier gets
@@ -199,13 +203,17 @@ public  class SwerveMath {
 
             switch(getDrivebasePosition(swerveAngle, positionAngles[i], i == 0 || i == 3)) {
                 case INNER_RIGHT : 
-                    innerRight = preOrderedModuleList[i];
+					innerRight = preOrderedModuleList[i];
+					break;
                 case INNER_LEFT :
-                    innerLeft = preOrderedModuleList[i];
+					innerLeft = preOrderedModuleList[i];
+					break;
                 case OUTER_RIGHT :
-                    outerRight = preOrderedModuleList[i];
+					outerRight = preOrderedModuleList[i];
+					break;
                 case OUTER_LEFT :
-                    outerLeft = preOrderedModuleList[i];
+					outerLeft = preOrderedModuleList[i];
+					break;
                 default :
                     System.out.println("a problem occured with identifying drive motor positions");
                     SmartDashboard.putString("a problem occured with identifying drive motor positions", "");

@@ -6,6 +6,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
 import org.usfirst.frc.team5026.robot.util.Constants;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class SwerveMC extends TalonSRX {
 
     private double error;
@@ -35,8 +37,14 @@ public class SwerveMC extends TalonSRX {
      */
     public void moveToForwardAngle(double desiredAngle, double f) {
 
-        double currentError = SwerveMath.getAngleDifference(getAngle(), desiredAngle);
-        double power = f + currentError * p + getDeltaError(currentError) * d;
+		double currentError = SwerveMath.getAngleDifference(getAngle(), desiredAngle);
+		double deltaError = getDeltaError(currentError);
+		double power = f + currentError * p + deltaError * d;
+		
+		SmartDashboard.putNumber("current Error", currentError);
+		SmartDashboard.putNumber("delta Error", deltaError);
+		SmartDashboard.putNumber("power", power);
+
         set(ControlMode.PercentOutput, power);
 
     }
@@ -73,10 +81,10 @@ public class SwerveMC extends TalonSRX {
      * @return
      */
     public double getAngle() {
-
         double overflowAngle = getSelectedSensorPosition() / Constants.SwerveDrive.SWERVE_MOTOR_TICKS_PER_DEGREE;
-
-        return SwerveMath.boundToHeading(overflowAngle);
+		System.out.println(SwerveMath.boundToHeading(overflowAngle));
+		SmartDashboard.putNumber("angler", getSelectedSensorPosition());
+		return SwerveMath.boundToHeading(overflowAngle);
     }
 
     /** 

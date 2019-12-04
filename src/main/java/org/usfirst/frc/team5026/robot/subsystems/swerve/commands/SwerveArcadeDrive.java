@@ -7,18 +7,18 @@
 
 package org.usfirst.frc.team5026.robot.subsystems.swerve.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team5026.robot.Robot;
+import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveModule;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.input.SwerveGamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SwerveArcadeDrive extends Command {
 
-	SwerveGamepad pad;
 	public SwerveArcadeDrive() {
 		requires(Robot.drive);
-
-		pad = Robot.oi.gamepad;
 	}
 
 	// Called just before this Command runs the first time
@@ -30,7 +30,12 @@ public class SwerveArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.set(pad.getSwerveAngle(), pad.getForward(), pad.getTurn());
+		Robot.oi.sStick.update();
+		Robot.drive.set(Robot.oi.sStick.getSwerveAngle(), Robot.oi.sStick.getForward(), Robot.oi.rStick.getTurn());
+		// Robot.drive.modules[0].swerve.moveToForwardAngle(90, 0.0);
+		System.out.println(Robot.oi.sStick.getSwerveAngle());
+		System.out.println(Robot.oi.sStick.getForward());
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
