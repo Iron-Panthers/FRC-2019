@@ -14,6 +14,7 @@ import org.usfirst.frc.team5026.robot.subsystems.swerve.hardware.SwerveModule;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.input.SwerveGamepad;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveArcadeDrive extends Command {
 
@@ -31,10 +32,12 @@ public class SwerveArcadeDrive extends Command {
 	@Override
 	protected void execute() {
 		Robot.oi.sStick.update();
+		Robot.oi.rStick.update();
 		Robot.drive.set(Robot.oi.sStick.getSwerveAngle(), Robot.oi.sStick.getForward(), Robot.oi.rStick.getTurn());
 		// Robot.drive.modules[0].swerve.moveToForwardAngle(90, 0.0);
-		System.out.println(Robot.oi.sStick.getSwerveAngle());
-		System.out.println(Robot.oi.sStick.getForward());
+
+		SmartDashboard.putNumber("desired swerve angle", Robot.oi.sStick.getSwerveAngle());
+		SmartDashboard.putNumber("desired forward output", Robot.oi.sStick.getForward());
 
 	}
 

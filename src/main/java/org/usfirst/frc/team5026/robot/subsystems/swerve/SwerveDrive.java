@@ -16,6 +16,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SuperiorGyro;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The swerve drive subsystem. This contains a SwerveMotorGroup and 4 drive motors. To see a big explanation of how all this stuff works, go to 
@@ -27,7 +28,7 @@ public class SwerveDrive extends Subsystem {
 	SwerveModule frontLeft;
 	SwerveModule backRight;
 	SwerveModule backLeft;
-	public SwerveModule[] modules;
+	SwerveModule[] modules;
 
 	SuperiorGyro gyro;
 
@@ -171,6 +172,28 @@ public class SwerveDrive extends Subsystem {
 		for(SwerveModule module : modules) {
 			module.targetReached = false;
 		}
+	}
+
+	public void putData() {
+		SmartDashboard.putNumber("frs error", modules[0].swerve.getError());
+		SmartDashboard.putNumber("fls error", modules[1].swerve.getError());
+		SmartDashboard.putNumber("brs error", modules[2].swerve.getError());
+		SmartDashboard.putNumber("bls error", modules[3].swerve.getError());
+
+		SmartDashboard.putNumber("frs delta error", modules[0].swerve.getDeltaError());
+		SmartDashboard.putNumber("fls delta error", modules[1].swerve.getDeltaError());
+		SmartDashboard.putNumber("brs delta error", modules[2].swerve.getDeltaError());
+		SmartDashboard.putNumber("bls delta error", modules[3].swerve.getDeltaError());
+
+		SmartDashboard.putNumber("frs output power", modules[0].swerve.getMotorOutputPercent());
+		SmartDashboard.putNumber("fls output power", modules[1].swerve.getMotorOutputPercent());
+		SmartDashboard.putNumber("brs output power", modules[2].swerve.getMotorOutputPercent());
+		SmartDashboard.putNumber("bls output power", modules[3].swerve.getMotorOutputPercent());
+		
+		SmartDashboard.putNumber("frs output power", modules[0].drive.getMotorOutputPercent());
+		SmartDashboard.putNumber("fls output power", modules[1].drive.getMotorOutputPercent());
+		SmartDashboard.putNumber("brs output power", modules[2].drive.getMotorOutputPercent());
+		SmartDashboard.putNumber("bls output power", modules[3].drive.getMotorOutputPercent());
 	}
 
 }

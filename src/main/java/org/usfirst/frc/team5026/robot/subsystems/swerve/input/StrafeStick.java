@@ -3,6 +3,7 @@ package org.usfirst.frc.team5026.robot.subsystems.swerve.input;
 import org.usfirst.frc.team5026.robot.subsystems.swerve.SwerveMath;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class StrafeStick extends Joystick {
 
@@ -18,8 +19,11 @@ public class StrafeStick extends Joystick {
     }
 
     public void update() {
+
         x = getX();
         y = getY();
+        SmartDashboard.putNumber("strafe stick x", x);
+        SmartDashboard.putNumber("strafe stick y", y);
     }
 
     public double getForward() {

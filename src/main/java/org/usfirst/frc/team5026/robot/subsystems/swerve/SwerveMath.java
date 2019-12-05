@@ -43,18 +43,18 @@ public  class SwerveMath {
      * @return
      */
     public static double getHeadingFromPoint(double x, double y) {
-        double referenceAngle = 90 - (360/Math.PI) * Math.atan( Math.abs(y/x) );
+        double referenceAngle = (360/Math.PI) * Math.atan( Math.abs(y/x) );
 		if(x >= 0 && y > 0) {
-			return referenceAngle;
+			return 90 - referenceAngle;
 		}
 		else if(x < 0 && y > 0) {
-			return -referenceAngle;
+			return referenceAngle - 90;
 		}
 		else if(x < 0 && y <= 0) {
-			return referenceAngle - 180;
+			return - referenceAngle - 90;
 		}
 		else if(x >= 0 && y <= 0) {
-			return 180 - referenceAngle;
+			return 90 + referenceAngle;
 		}
 		return 0.0;
 	}

@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SwerveMC extends TalonSRX {
 
     private double error;
+    private double deltaError;
+
     double p;
     double d;
 
@@ -18,6 +20,8 @@ public class SwerveMC extends TalonSRX {
         super(port);
         
         error = Double.MAX_VALUE;
+        deltaError = 0.0;
+
         this.p = p;
         this.d = d;
 
@@ -28,6 +32,23 @@ public class SwerveMC extends TalonSRX {
         this.d = d;
     }
 
+    /** 
+     * updates error and deltaError based on new angle to pid to.
+    */
+    private void updateErrors(double desiredAngle) {
+
+        double newError = SwerveMath.getAngleDifference(getAngle(), desiredAngle);
+        if(error == Double.MAX_VALUE) {
+            error = newError;
+        }
+        deltaError = newError - error;
+        error = newError;
+    }
+
+    public double getError() {return error;}
+
+    public double getDeltaError() {return deltaError;}
+
     /**
      * set the motor controller to PDF (no I as of now) towards a desired angle. "forward angle" means that
      * the swerve motor will point the drive motor in the forward direction toward desiredAngle
@@ -37,14 +58,8 @@ public class SwerveMC extends TalonSRX {
      */
     public void moveToForwardAngle(double desiredAngle, double f) {
 
-		double currentError = SwerveMath.getAngleDifference(getAngle(), desiredAngle);
-		double deltaError = getDeltaError(currentError);
-		double power = f + currentError * p + deltaError * d;
-		
-		SmartDashboard.putNumber("current Error", currentError);
-		SmartDashboard.putNumber("delta Error", deltaError);
-		SmartDashboard.putNumber("power", power);
-
+		updateErrors(desiredAngle);
+		double power = f + error * p + deltaError * d;
         set(ControlMode.PercentOutput, power);
 
     }
@@ -58,10 +73,7 @@ public class SwerveMC extends TalonSRX {
      */
     public void moveToBackwardAngle(double desiredAngle, double f) {
 
-        double currentError = SwerveMath.getAngleDifference(getAngle() - 180, desiredAngle);
-        double power = f + currentError * p + getDeltaError(currentError) * d;
-        set(ControlMode.PercentOutput, power);
-
+        moveToForwardAngle(desiredAngle - 180, f);
     }
 
     /**
@@ -82,22 +94,9 @@ public class SwerveMC extends TalonSRX {
      */
     public double getAngle() {
         double overflowAngle = getSelectedSensorPosition() / Constants.SwerveDrive.SWERVE_MOTOR_TICKS_PER_DEGREE;
-		System.out.println(SwerveMath.boundToHeading(overflowAngle));
-		SmartDashboard.putNumber("angler", getSelectedSensorPosition());
 		return SwerveMath.boundToHeading(overflowAngle);
     }
 
-    /** 
-     * get change in error since last measurement. Also updates stored error.
-    */
-    private double getDeltaError(double newError) {
-        if(error == Double.MAX_VALUE) {
-            error = newError;
-            return 0.0;
-        }
-        double deltaError = newError - error;
-        error = newError;
-        return deltaError;
-    }
+   
 
 }
