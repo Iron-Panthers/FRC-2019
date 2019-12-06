@@ -43,7 +43,7 @@ public  class SwerveMath {
      * @return
      */
     public static double getHeadingFromPoint(double x, double y) {
-        double referenceAngle = (360/Math.PI) * Math.atan( Math.abs(y/x) );
+        double referenceAngle = Math.toDegrees( Math.atan( Math.abs(y/x) ) );
 		if(x >= 0 && y > 0) {
 			return 90 - referenceAngle;
 		}
@@ -172,6 +172,23 @@ public  class SwerveMath {
         }                                                   
         
     }
+
+    /**
+     * converts from a heading to an angle measured from the positive x axis (like on the unit circle)
+     * @return
+     */
+    public static double headingToPositiveX(double heading) {
+        return (90 - heading >= 0) ? 90 - heading : 450 - heading;
+    }
+
+    /**
+     * converts from an angle measured from the positive x axis (like on the unit circle) to a heading between -180 and 180
+     * @return
+     */
+    public static double positiveXToHeading(double angle) {
+        return boundToHeading(90 - angle);
+    }
+
 
     /**
      * Reorders a set of modules, figuring out where they are in relation to the direction the swerve

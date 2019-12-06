@@ -65,34 +65,42 @@ public class SwerveDrive extends Subsystem {
 		//swerve angle (which is relative to the field)
 		//double relativeSwerveAngle = SwerveMath.getAngleDifference(gyro.getBoundedYaw(), absoluteSwerveAngle);
 		double relativeSwerveAngle = absoluteSwerveAngle; //TODO eventually should be adjusted to robot angle as above
-		
-		//Find the weight "inner" wheels should give to turning.
-		//When tuned correctly, should reduce wheel slip due to running motors 
-		//against each other, while still turning at high speed.
-		double innerTurnModifier = SwerveMath.getInnerTurnModifier(relativeSwerveAngle); 
 
-		//calculate powers for each drive motor. 
-		double innerRightPower = SwerveMath.boundBelowOne(forward - innerTurnModifier * turn);
-		double innerLeftPower = SwerveMath.boundBelowOne(forward + innerTurnModifier * turn);
-		double outerRightPower = SwerveMath.boundBelowOne(forward - turn);
-		double outerLeftPower = SwerveMath.boundBelowOne(forward + turn);
+		//converts out of heading and to radians in order to find vector components with atan()
+		double relativeSwerveAngleUnitCircleRelative = SwerveMath.headingToPositiveX(relativeSwerveAngle); 
+		double relativeSwerveAngleRadians = Math.toRadians(relativeSwerveAngleUnitCircleRelative);
 
-		double[] powersList = new double[] {innerRightPower, innerLeftPower, outerRightPower, outerLeftPower};
+		double strafeX = Math.cos(relativeSwerveAngleRadians) * forward; 
+		double strafeY = Math.sin(relativeSwerveAngleRadians) * forward;
 
-		//assign each module to a specific spot in the list based on its position
-		//(inner or outer right or left) relative to swerveAngle
-		SwerveModule[] reorderedModuleList = SwerveMath.organizePositions(modules, relativeSwerveAngle);
+		double turnVectorAngleRadians = Math.PI/4 - Math.atan(Constants.DrivebaseProperties.ASPECT_RATIO);
 
-		//set modules
-		for(int i = 0; i < 4; i++) {
-			
-			//the swerve motor for each module will PID to the desired swerveAngle, as well as rotating at velocity proportional to
-			// -turn. The latter is intended to anticipate the change in angle of the robot. The drive motor is of course set to the
-			//power determined above
+		double frontRightX = strafeX + turn * Math.cos(turnVectorAngleRadians);
+		double frontRightY = strafeY - turn * Math.sin(turnVectorAngleRadians);
+		double frontLeftX = strafeX + turn * Math.cos(turnVectorAngleRadians);
+		double frontLeftY = strafeY + turn * Math.sin(turnVectorAngleRadians);
+		double backRightX = strafeX - turn * Math.cos(turnVectorAngleRadians);
+		double backRightY = strafeY - turn * Math.sin(turnVectorAngleRadians);
+		double backLeftX = strafeX - turn * Math.cos(turnVectorAngleRadians);
+		double backLeftY = strafeY + turn * Math.sin(turnVectorAngleRadians);
 
-			// reorderedModuleList[i].drive.set(ControlMode.PercentOutput, powersList[i]);
-			reorderedModuleList[i].set(relativeSwerveAngle, -turn * Constants.SwerveDrive.TURN_TO_F_RATIO, powersList[i]);
-		}
+		double frontRightAngle = SwerveMath.getHeadingFromPoint(frontRightX, frontRightY);
+		double frontRightPower = SwerveMath.boundBelowOne(Math.sqrt(frontRightY * frontRightY + frontRightX * frontRightX));
+
+		double frontLeftAngle = SwerveMath.getHeadingFromPoint(frontLeftX, frontLeftY);
+		double frontLeftPower = SwerveMath.boundBelowOne(Math.sqrt(frontLeftY * frontLeftY + frontLeftX * frontLeftX));
+
+		double backRightAngle = SwerveMath.getHeadingFromPoint(backRightX, backRightY);
+		double backRightPower = SwerveMath.boundBelowOne(Math.sqrt(backRightY * backRightY + backRightX * backRightX));
+
+		double backLeftAngle = SwerveMath.getHeadingFromPoint(backLeftX, backLeftY);
+		double backLeftPower = SwerveMath.boundBelowOne(Math.sqrt(backLeftY * backLeftY + backLeftX * backLeftX));
+
+		//for now, no anticipated turn is being fed to the modules. I don't think its necessary for standard swerve control but its available if we need it
+		frontRight.set(frontRightAngle, 0, frontRightPower);
+		frontLeft.set(frontLeftAngle, 0, frontLeftPower);
+		backRight.set(backRightAngle, 0, backRightPower);
+		backLeft.set(backLeftAngle, 0, backLeftPower);
 
 	}
 

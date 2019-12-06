@@ -48,8 +48,8 @@ public class Constants {
 
     public class DrivebaseProperties {
         
-        public static final double WIDTH = 30; //I don't think this is currently needed but i'll leave it in just in case
-        public static final double LENGTH = 30; //I don't think this is currently needed but i'll leave it in just in case
+        public static final double WIDTH = 30; //from left wheel to right wheel
+        public static final double LENGTH = 30; //from front wheel to back wheel
         public static final double ASPECT_RATIO = LENGTH / WIDTH;
         //public static final double DRIVEBASE_REFERENCE_ANGLE = Math.atan(ASPECT_RATIO);
         public static final double DRIVEBASE_DIAGONAL_LENGTH = 50; //TODO measure
