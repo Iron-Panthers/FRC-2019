@@ -64,11 +64,12 @@ public class SwerveDrive extends Subsystem {
 		//calculate desired swerve angle relative to the robot, from gyro heading and desired absolute
 		//swerve angle (which is relative to the field)
 		//double relativeSwerveAngle = SwerveMath.getAngleDifference(gyro.getBoundedYaw(), absoluteSwerveAngle);
+		double relativeSwerveAngle = absoluteSwerveAngle; //TODO eventually should be adjusted to robot angle as above
 		
 		//Find the weight "inner" wheels should give to turning.
 		//When tuned correctly, should reduce wheel slip due to running motors 
 		//against each other, while still turning at high speed.
-		double innerTurnModifier = SwerveMath.getInnerTurnModifier(absoluteSwerveAngle); //TODO eventually should be relativeSwerveAngle as above
+		double innerTurnModifier = SwerveMath.getInnerTurnModifier(relativeSwerveAngle); 
 
 		//calculate powers for each drive motor. 
 		double innerRightPower = SwerveMath.boundBelowOne(forward - innerTurnModifier * turn);
@@ -80,7 +81,7 @@ public class SwerveDrive extends Subsystem {
 
 		//assign each module to a specific spot in the list based on its position
 		//(inner or outer right or left) relative to swerveAngle
-		SwerveModule[] reorderedModuleList = SwerveMath.organizePositions(modules, absoluteSwerveAngle);
+		SwerveModule[] reorderedModuleList = SwerveMath.organizePositions(modules, relativeSwerveAngle);
 
 		//set modules
 		for(int i = 0; i < 4; i++) {
@@ -90,7 +91,7 @@ public class SwerveDrive extends Subsystem {
 			//power determined above
 
 			// reorderedModuleList[i].drive.set(ControlMode.PercentOutput, powersList[i]);
-			reorderedModuleList[i].set(absoluteSwerveAngle, -turn * Constants.SwerveDrive.TURN_TO_F_RATIO, powersList[i]);
+			reorderedModuleList[i].set(relativeSwerveAngle, -turn * Constants.SwerveDrive.TURN_TO_F_RATIO, powersList[i]);
 		}
 
 	}
