@@ -31,13 +31,15 @@ public class SwerveArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+
 		Robot.oi.sStick.update();
 		Robot.oi.rStick.update();
-		Robot.drive.set(Robot.oi.sStick.getSwerveAngle(), Robot.oi.sStick.getForward(), Robot.oi.rStick.getTurn());
-		// Robot.drive.modules[0].swerve.moveToForwardAngle(90, 0.0);
-
 		SmartDashboard.putNumber("desired swerve angle", Robot.oi.sStick.getSwerveAngle());
 		SmartDashboard.putNumber("desired forward output", Robot.oi.sStick.getForward());
+
+		Robot.drive.set(Robot.oi.sStick.getSwerveAngle(), Robot.oi.sStick.getForward(), Robot.oi.rStick.getTurn());
+		Robot.drive.putData();
+		// Robot.drive.modules[0].swerve.moveToForwardAngle(90, 0.0);
 
 	}
 

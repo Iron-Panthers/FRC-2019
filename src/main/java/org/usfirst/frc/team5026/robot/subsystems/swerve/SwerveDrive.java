@@ -46,6 +46,7 @@ public class SwerveDrive extends Subsystem {
 
 		modules = new SwerveModule[] {frontRight, frontLeft, backRight, backLeft};
 
+		zeroEncoders();
 	}
 
 	/**
@@ -175,6 +176,17 @@ public class SwerveDrive extends Subsystem {
 	}
 
 	public void putData() {
+
+		SmartDashboard.putNumber("frs encoder value", modules[0].swerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("fls encoder value", modules[1].swerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("brs encoder value", modules[2].swerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("bls encoder value", modules[3].swerve.getSelectedSensorPosition());
+
+		SmartDashboard.putNumber("frs angle", modules[0].swerve.getAngle());
+		SmartDashboard.putNumber("fls angle", modules[1].swerve.getAngle());
+		SmartDashboard.putNumber("brs angle", modules[2].swerve.getAngle());
+		SmartDashboard.putNumber("bls angle", modules[3].swerve.getAngle());
+
 		SmartDashboard.putNumber("frs error", modules[0].swerve.getError());
 		SmartDashboard.putNumber("fls error", modules[1].swerve.getError());
 		SmartDashboard.putNumber("brs error", modules[2].swerve.getError());
@@ -194,6 +206,23 @@ public class SwerveDrive extends Subsystem {
 		SmartDashboard.putNumber("fls output power", modules[1].drive.getMotorOutputPercent());
 		SmartDashboard.putNumber("brs output power", modules[2].drive.getMotorOutputPercent());
 		SmartDashboard.putNumber("bls output power", modules[3].drive.getMotorOutputPercent());
+	}
+
+	public void zeroSwerveEncoders() {
+		for(SwerveModule module : modules) {
+			module.swerve.setSelectedSensorPosition(0);
+		}
+	}
+
+	public void zeroDriveEncoders() {
+		for(SwerveModule module : modules) {
+			module.drive.setSelectedSensorPosition(0);
+		}
+	}
+
+	public void zeroEncoders() {
+		zeroSwerveEncoders();
+		zeroDriveEncoders();
 	}
 
 }
