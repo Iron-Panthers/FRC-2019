@@ -28,7 +28,7 @@ public class SwerveDrive extends Subsystem {
 	SwerveModule frontLeft;
 	SwerveModule backRight;
 	SwerveModule backLeft;
-	SwerveModule[] modules;
+	public SwerveModule[] modules;
 
 	SuperiorGyro gyro;
 

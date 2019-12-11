@@ -37,9 +37,17 @@ public class SwerveArcadeDrive extends Command {
 		SmartDashboard.putNumber("desired swerve angle", Robot.oi.sStick.getSwerveAngle());
 		SmartDashboard.putNumber("desired forward output", Robot.oi.sStick.getForward());
 
-		Robot.drive.set(Robot.oi.sStick.getSwerveAngle(), Robot.oi.sStick.getForward(), Robot.oi.rStick.getTurn());
+		//Robot.drive.set(Robot.oi.sStick.getSwerveAngle(), Robot.oi.sStick.getForward(), Robot.oi.rStick.getTurn());
+		Robot.drive.modules[0].drive.set(ControlMode.PercentOutput, Robot.oi.rStick.getY());
+		Robot.drive.modules[1].drive.set(ControlMode.PercentOutput, Robot.oi.rStick.getY());
+		Robot.drive.modules[2].drive.set(ControlMode.PercentOutput, Robot.oi.rStick.getY());
+		Robot.drive.modules[3].drive.set(ControlMode.PercentOutput, Robot.oi.rStick.getY());
+
+		Robot.drive.modules[0].swerve.set(ControlMode.PercentOutput, Robot.oi.rStick.getX());
+		Robot.drive.modules[1].swerve.set(ControlMode.PercentOutput, Robot.oi.rStick.getX());
+		Robot.drive.modules[2].swerve.set(ControlMode.PercentOutput, Robot.oi.rStick.getX());
+		Robot.drive.modules[3].swerve.set(ControlMode.PercentOutput, Robot.oi.rStick.getX());
 		Robot.drive.putData();
-		// Robot.drive.modules[0].swerve.moveToForwardAngle(90, 0.0);
 
 	}
 
