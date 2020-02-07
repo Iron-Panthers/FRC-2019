@@ -27,7 +27,9 @@ public class OI {
 	JoystickButton hubertOuttake;
 	JoystickButton hubertFastOuttake;
 	JoystickButton hubertSlowOuttake;
-	JoystickButton altClimbDown; // Hubert wants ClimbDown to be accessible while driving
+	JoystickButton raiseLeftWinch, lowerLeftWinch;
+	JoystickButton raiseRightWinch, lowerRightWinch;
+	JoystickButton slowTrainingWheelsBackward; // Hubert wants to go backwards slowly
 
 	// All of the following buttons will belong to DRIVER 2
 	JoystickButton lowestHeight;
@@ -58,7 +60,11 @@ public class OI {
 		hubertOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_OUTTAKE_BUTTON);
 		hubertFastOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_FAST_OUTTAKE_BUTTON);
 		hubertSlowOuttake = new JoystickButton(stick1, Constants.Input.HUBERT_SLOW_OUTTAKE_BUTTON);
-		altClimbDown = new JoystickButton(stick1, Constants.Input.ALT_CLIMB_DOWN_BUTTON);
+		slowTrainingWheelsBackward = new JoystickButton(stick1, Constants.Input.TRAINING_WHEELS_BACKWARDS_SLOW);
+		raiseLeftWinch = new JoystickButton(stick1, Constants.Input.RAISE_LEFT_WINCH);
+		lowerLeftWinch = new JoystickButton(stick1, Constants.Input.LOWER_LEFT_WINCH);
+		raiseRightWinch = new JoystickButton(stick1, Constants.Input.RAISE_RIGHT_WINCH);
+		lowerRightWinch = new JoystickButton(stick1, Constants.Input.LOWER_RIGHT_WINCH);
 
 		//Baby mode for drivebase
 		
@@ -69,7 +75,11 @@ public class OI {
 		hubertOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hubertFastOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.FAST_OUTTAKE_POWER));
 		hubertSlowOuttake.whileHeld(new OuttakeCargo(Constants.IntakeArm.SLOW_OUTTAKE_POWER));
-		altClimbDown.whileHeld(new ClimbDown());
+		slowTrainingWheelsBackward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_SLOW_BACKWARD_SPEED));
+		raiseLeftWinch.whileHeld(new RaiseLeftWinch());
+		lowerLeftWinch.whileHeld(new LowerLeftWinch());
+		raiseRightWinch.whileHeld(new RaiseRightWinch());
+		lowerRightWinch.whileHeld(new LowerRightWinch());
 
 		// Create the buttons for driver 2
 		manualArm = new JoystickButton(stick2, Constants.Input.MANUAL_ARM_BUTTON);
@@ -95,7 +105,7 @@ public class OI {
 		intake.whileHeld(new IntakeCargo());
 		outtake.whileHeld(new OuttakeCargo(Constants.IntakeArm.OUTTAKE_POWER));
 		hatchIntake.whenPressed(new IntakeHatch());
-		hatchOuttake.whenPressed(new OuttakeHatch());
+		hatchOuttake.whenPressed(new OuttakeHatch(Constants.IntakeArm.RETRACT_HATCH_PISTON_DELAY));
 		manualArm.whileHeld(new ManualArmMovement());
 		zeroIntakeAngle.whenPressed(new ZeroIntakeArm());
 
@@ -118,9 +128,8 @@ public class OI {
 		climbUp.whileHeld(new ClimbUp());
 		climbDown.whileHeld(new ClimbDown());
 		retractSuperStructurePistons.whenPressed(new RetractSuperStructurePistons());
-		trainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
-		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveForward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
-		trainingWheelsBackward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_BACKWARD_SPEED));
+		trainingWheelsForward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_FORWARD_SPEED));
+		slowTrainingWheelsForward.whileHeld(new TrainingWheelsDriveBackward(Constants.Climb.TRAINING_WHEEL_SLOW_FORWARD_SPEED));
 		cancelClimb.whenPressed(new CancelClimb());
 	}
 }

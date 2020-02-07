@@ -17,7 +17,7 @@ import org.usfirst.frc.team5026.robot.util.Constants;
 import org.usfirst.frc.team5026.robot.util.SparkMaxMotorGroup;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,13 +28,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Climb extends Subsystem {
 	public SparkMaxMotorGroup climbMotors;
-	public TalonSRX trainingWheelMotor;
-	public DoubleSolenoid superStructurePistons, trainingWheelPiston;
+    public TalonSRX trainingWheelMotor, leftWinch, rightWinch;
+	public Solenoid superStructurePistons, trainingWheelPiston;
 	public DigitalInput topLimitSwitch, bottomLimitSwitch;
 
 	public Climb() {
 		this.climbMotors = Robot.hardware.climbMotors;
 		this.trainingWheelMotor = Robot.hardware.trainingWheelMotor;
+		this.leftWinch = Robot.hardware.leftWinchMotor;
+		this.rightWinch = Robot.hardware.rightWinchMotor;
 		this.superStructurePistons = Robot.hardware.superStructurePistons;
 		this.topLimitSwitch = Robot.hardware.forwardLimit;
 		this.bottomLimitSwitch = Robot.hardware.reverseLimit;
@@ -52,7 +54,7 @@ public class Climb extends Subsystem {
 			// Stop climbing, and indicate the climb has stopped
 			SmartDashboard.putString("Climb -- isClimbing", "No, limit switch triggered");
 			this.stopClimb();
-			this.climbMotors.getMasterMotor().setEncPosition(Constants.Climb.TOP_ENCODER_VALUE);
+			this.climbMotors.getMasterMotor().getEncoder().setPosition(Constants.Climb.TOP_ENCODER_VALUE);
 		} else {
 			SmartDashboard.putString("Climb -- isClimbing", "Yes, climbing up");
 			climbMotors.set(Constants.Climb.CLIMB_UP_SPEED);
@@ -114,6 +116,30 @@ public class Climb extends Subsystem {
 		SmartDashboard.putNumber("Climb -- Climb motor output", climbMotors.getAppliedOutput());
 	}
 
+	public void raiseLeftWinch() {
+        leftWinch.set(ControlMode.PercentOutput, Constants.Climb.SAFE_WINCH_OUTPUT);
+    }
+    
+    public void lowerLeftWinch() {
+        leftWinch.set(ControlMode.PercentOutput, -1.0 * Constants.Climb.SAFE_WINCH_OUTPUT);
+	}
+	
+	public void stopLeftWinch() {
+		leftWinch.set(ControlMode.PercentOutput, 0.0);
+	}
+
+    public void raiseRightWinch() {
+        rightWinch.set(ControlMode.PercentOutput, Constants.Climb.SAFE_WINCH_OUTPUT);
+    }
+
+    public void lowerRightWinch() {
+        rightWinch.set(ControlMode.PercentOutput, -1.0 * Constants.Climb.SAFE_WINCH_OUTPUT);
+	}
+	
+	public void stopRightWinch() {
+		rightWinch.set(ControlMode.PercentOutput, 0.0);
+	}
+
 	/**
 	 * Get the lower number of rotations between the left and right side of the
 	 * super structure elevator. It is NOT encoder ticks.
@@ -132,14 +158,14 @@ public class Climb extends Subsystem {
 	 * Extends the superstructure pistons.
 	 */
 	public void extendSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kForward);
+		superStructurePistons.set(true);
 	}
 
 	/**
 	 * Retracts the superstructure pistons.
 	 */
 	public void retractSuperStructurePistons() {
-		superStructurePistons.set(DoubleSolenoid.Value.kReverse);
+		superStructurePistons.set(false);
 	}
 
 	/**
